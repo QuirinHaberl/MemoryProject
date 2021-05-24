@@ -10,7 +10,7 @@
 - Florian Muhrer (FlorianMuhrer)
 
 **Scrum Master für Iteration...:**
-1. Florian Muhrer
+> 1. Florian Muhrer
 2. Quirin Haberl
 3. Isabella Habereder
 4. Jan Pfeifer
