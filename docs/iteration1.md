@@ -19,7 +19,7 @@
 **Organisation**
 - Mehrmals wöchentliche Absprache über Zoom
 - Fortschritte, Probleme und Fragen wurden in der Gruppe besprochen
-- Gemeinsame Priorisierung der Issues nach wichtigkeit für MVP
+- Gemeinsame Priorisierung der Issues nach Wichtigkeit für MVP
 
 ## User Stories
 
