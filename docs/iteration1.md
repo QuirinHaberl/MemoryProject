@@ -27,7 +27,7 @@
 
 **B** = Beigetragen
 
-### Prio 1
+### Prio 1 (Hier die notwendigen User Stories für das MVP)
 | **ID** | Isabella Habereder | Daqian Zhang | Jan Pfeifer | Quirin Haberl | Florian Muhrer|
 |:---:|:------------:|:------------:|:------------:|:------------:|:------------:|
 | #1 |E|||B|B|
