@@ -1,124 +1,38 @@
-Protokoll des Zoommeetings am 27.05.21
-Teilnehmer: vollständig
-Autor: Isabella Habereder
+Protokoll des Zoommeetings am 30.05.21
+Teilnehmer: vollzählig 
+Autor: Jan Pfeifer
 
 
-1. Diskussion des Feedbacks von Iteration 1
-1.1 MVP überarbeiten 
+1. Allgemeine Fragenklärung
+- Entscheidung, in welcher Sprache auf GitHub diskutiert bzw. das Projekt implementiert werden soll. 
+  ->In GitHub wird weiter auf Deutsch kommuniziert, doch die Implementierungen, sowie das Klassendiagramm werden auf Englisch erstellt.
+  
+- Klärung, wie die jeder auf das Repository zugreifen kann, um Code beizusteuern. (via HTTPS bzw. SSH + Klärung der Git-Kommandos)
 
-Kritik im Feedback: MVP ist noch nicht minimal
-Vorgehen:
-Isabella teilte den Bildschirm und gemeinsam wurde in Github jede User-Story bewertet, ob diese im MVP wirklich benötigt wird.
-Wir bitten hierbei zu beachten, dass in Github die gemeinsam erarbeiteten Veränderungen durch den Account von Isabella ausgeführt wurden.
+- Einigung, auf die Verwendung der adopt-openj9-15 JDK, da diese aktuell und bereits besser getestet ist, als die neuere adopt-openj9-16 JDK.
 
+- Erstellung eines neuen Branches prototype durch Florian, speziell für Iteration2.
 
-1.2 Kanban-Board aktualisieren
-
-Auch die Tasks wurden an das minimierte MVP angepasst, indem nicht benötigte 
-Tasks aus dem Product-Backlog entfernt wurden.
-
-Da in Iteration 1 nicht eindeutig aus der Aufgabenstellung herausgelesen werden konnte, wie der Sprint-Backlog konkret auszusehen hat. Haben wir für unser Team beschlossen, nur die User-Stories mit "Priorität 1/MVP" dort zu positionieren. Aus dem Feedback geht jedoch hervor, dass ALLE User-Stories im Sprint-Backlog liegen müssen. Dies wurde dann während des Zoommeetings umgesetzt.
-
-Auch hier bitten wir wieder zu beachten, dass in Github die gemeinsam erarbeiteten Veränderungen durch den Account von Isabella ausgeführt wurden.
+- Bearbeitung des Kanban-Boards, da sich die 'ToDo'-Spalte als redundant verausstellte und einige Tasks noch korrekt eingeordnet werden mussten.
 
 
-2. Klassendiagramm
-2.1 Technische Struktur des Programms 
+2. Weitere Besprechung zum Klassendiagramm
+- Zu den Klassen Card, PlaingField und Shell wurden die jeweiligen Methoden übersetzt und passend für das Klassendiagramm in GitHub aktualisiert.
 
-Spielfeld:
-Zuvorige Disskusion in Whatsapp:
-----------------------------------------------------------
-Daqian:
-Ich habe eine Frage, müssen wir das Spielfeld als Array darstellen? Meiner Meinung nach wäre eine linked List einfacher und besser umsetzbar. 
-Z.b man hat schon zwei gleiche Karte ausgewählt und die zwei müssen entfernt werden. Aber die Länge des Arrays ist konstant, deswegen müssen wir bei jedem Entfernen ein neues Array erstellen. Bei einer linked List gibt es kein solches Problem. 
+- Die Multiplizitäten und Beziehungen im Diagramm wurden geklärt.
 
-Jan:
-Ne, wir können auch ne andere Datenstruktur verwenden.
+- Als Speicherung für den Wert einer Karte wurde der Enum CardValue eingeführt.
 
-Isabella:
-was ich hald zusätzlich sinnvoll fände (unabhänging von der Datenstruktur) wäre, wenn wir zwei arrays/listen verwenden, eine welche das Kartenset repräsentiert, das andere (evtl. mit boolean Werten) welche speichert, welche Karten schon aufgedeckt sind.
-
-Daqian:
-Meinst du: in A Array/List werden alle Karte gespeichert, und in B Array/List werden die aufgedeckte Karte gespeichert?
-
-Isabella:
-in array B wird mit boolean Werten gespeichert, ob eine Karte schon aufgedeckt wurde. 
-z.B. 
-True = karte ist schon aufgedeckt
-False = karte ist noch nicht aufgedeckt
-oder wie würdet ihr das lösen?
-
-Daqian:
-Ja die Idee ist gut. Aber ein Punkt: die Länge des arrays ist konstant, wir können keine neuen Elemente zu Array B einzufügen, während das Spiel läuft 
-
-Isabella:
-da hast du Recht.
-aber ich denke während eines Spiels, muss das Array = Kartenset nicht verändert werden oder? 
-ich denke eine Liste ist zwar dynamisch, aber wesentlich schwerer zu implementieren
-
-Daqian:
-Ja ich finde das originale Kartenset kann als ein nicht verändertes Array dargestellt werden
-
-Quirin:
-Warum nicht 2-dimensional mit einem Wert pro Karte, der Aussagt ob die Karte bereits aufgedeckt wurde oder nicht.
-Wobei zusätzliche Klassen mit array oder liste kombiniert wahrscheilich am besten wäre, um später Aufgaben besser aufteilen zu können.
-Was meint ihr dazu?
-
-Isabella:
-pro Karte müssen zwei Werte gespeichert werden:
-1. das „Bild“ auf der Karte 
-2. ist die Karte umgedreht oder nicht 
-zur Datenstruktur:
-da ja jedes Kartenset während des Spiels eine unveränderte Größe besitzt (es ändert sich ja nur der Wert von 2.) fände ich des bisschen zu kompliziert eine liste zu verwenden (unter anderem braucht man eigene Methoden für getter und setter). 
-soweit ich mich noch erinnern kann wollten wir dann später drei verschiedene Spielfeldgrößen anbieten, das wäre aber mit einem array aber auch weniger Stress, weil das Spielfeld bei Auswahl der Spielfeldgröße jeweils neu erzeugt wird (z.B Größe mit 10 karten wird gewählt -> array mit 10 Feldern wird erzeugt) 
-im Grunde ist eine dynamische Implementierung des Spielfelds unnötig
-oder versteh ich da was falsch?
-
-Quirin:
-Passt doch. Ne, ich finde das hört sich schon ganz gut an
-
-Florian:
-Finde ich auch am sinnvollsten
-
-----------------------------------------------------------
-
-Diese Diskussion wurde im Meeting forgesetzt:
-Fragestellung: 
-1) zwei Arrays (Array A: Speicherung des Objekts "Karte"; Array B: Wert, ob Karte umgedreht ist - Status der Karte)
-
-oder
-
-2) ein Array (Nur Speicherung des Objekts "Karte" und der Kartenstatus als Attribut im Kartenobjekt)
-
-Durch einen Mehrheitsentscheid haben wir uns auf Variante 1) festgelegt, d.h. Speicherung des Kartenstatus im Spielfeld und nicht im Kartenobjekt.
+- Nach der heutigen Besprechung des Klassendiagramms in der Gruppe wurde Quirin die Visualisierung des Diagramms zugeteilt.
 
 
-Konsoleninteraktion:
-Quirin: 
-Nach jedem Spielzug wäre es schön, wenn das Spielfeld als Array sichtbar wäre. Idee: Umgedrehte Karten als "X" darstellen, aufgedeckte Karten mir ihrem (Zahlen-)Wert und bereits entfernte Karten als leeres Feld.
+3. Vorbereitung zum Start der Programmierung
+- Die kleineren Tasks werden von einzelnen Personen bearbeitet. Die Klasse Shell wird noch in kleinere Tasks aufgeteilt.
+  Die genaue Aufteilung wird im nächsten Meeting besprochen.
+  Tasks die sich mit der Implementierung befasssen werden mit Lable 'Implementierung' gekennzeichnet.
+  
+- Die grobe Programmstruktur und Erstellung des .gitignore-File wurde Jan zugeteilt.
 
-Jan:
-Gibt es eine Möglichkeit es so zu realisieren, dass nicht der komplette Spielverlauf angezeigt wird.
+- Isabella beantwortet die Kritikpunkte von Betreuer Georg und informiert sich weiter über sein Feedback.
 
-Aufgabe an alle: Informieren über eine Implementierung der Konsolenausgabe, sodass vor jedem Spielzug die Konsole geleert wird und so nur der aktuelle Stand angezeigt wird.
-
-
-2.2 Tasks für Klassendiagramm
-
-Zusammenfassung: 
-Für das MVP werden folgende Klassen benötigt:
-1) Spielfeld
-2) Karte
-3) Main/Shell
-
-Aufgabe bis Sonntag an alle: Erstellen von drei Tasks
-- Task zu Shell (Soll auch dazu verwendet werden sich mit dem Konzept Shell vertraut zu machen) 
-- Task zu Spielfeld (Attribute, Methoden)
-- Task zu Karte (Attribute Methoden)
-
-Da das Klassendiagramm relativ klein werden wird, haben wir uns entschieden, das Diagramm gemeinsam am Sonntag 30.05.21 zu erstellen, sodass jeder auf dem gleichen Wissenstand über die Implementierung ist und jedes Gruppenmitglied Anteil an der Bearbeitung des Diagramms erhält. Grundlage hierfür werden die bis dahin erarbeiteten Tasks mit dem Lable "Klassendiagramm" sein.
-
-
-
-
-
+- Aktuelle Tasks werden noch passend zur agilen Implementierung umformuliert.
