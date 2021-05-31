@@ -7,6 +7,7 @@ import java.security.PrivateKey;
  */
 public class Control {
     //Constructor
+    //TODO
     public Control(){
 
     }
@@ -32,7 +33,15 @@ public class Control {
     private int rowSecondCard;
     private int colSecondCard;
 
+
     //Methods
+
+    /**
+     *
+     * @param row
+     * @param col
+     * @return
+     */
     public RevealedCard revealCard(int row, int col) {
         RevealedCard revealedCard = new RevealedCard();
         if (playingField.isOpen(row, col) == true) {
@@ -60,6 +69,9 @@ public class Control {
         }
     }
 
+    /**
+     *
+     */
     public void checkForPairOfCards() {
         if (firstCard.getValue().equals(secondCard.getValue())) {
             playingField.removeCards(rowFirstCard, colFirstCard,
@@ -70,14 +82,26 @@ public class Control {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean[][] getControlArray(){
         return playingField.getControlArray();
     }
 
+    /**
+     *
+     * @return
+     */
     public GameStatus getGameStatus() {
         return gameStatus;
     }
 
+    /**
+     *
+     * @param gameStatus
+     */
     public void setGameStatus(GameStatus gameStatus) {
         this.gameStatus = gameStatus;
     }
