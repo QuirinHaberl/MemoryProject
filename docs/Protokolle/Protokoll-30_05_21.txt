@@ -7,13 +7,13 @@ Autor: Jan Pfeifer
 - Entscheidung, in welcher Sprache auf GitHub diskutiert bzw. das Projekt implementiert werden soll. 
   ->In GitHub wird weiter auf Deutsch kommuniziert, doch die Implementierungen, sowie das Klassendiagramm werden auf Englisch erstellt.
   
-- Klärung, wie die jeder auf das Repository zugreifen kann, um Code beizusteuern. (via HTTPS bzw. SSH + Klärung der Git-Kommandos)
+- Klärung, wie jeder auf das Repository zugreifen kann, um Code beizusteuern. (via HTTPS bzw. SSH + Klärung der Git-Kommandos)
 
 - Einigung, auf die Verwendung der adopt-openj9-15 JDK, da diese aktuell und bereits besser getestet ist, als die neuere adopt-openj9-16 JDK.
 
-- Erstellung eines neuen Branches prototype durch Florian, speziell für Iteration2.
+- Erstellung des Branch prototype durch Florian, speziell für Iteration2.
 
-- Bearbeitung des Kanban-Boards, da sich die 'ToDo'-Spalte als redundant verausstellte und einige Tasks noch korrekt eingeordnet werden mussten.
+- Bearbeitung des Kanban-Boards, da sich die 'ToDo'-Spalte als redundant herausgestellt hat und einige Tasks noch korrekt eingeordnet werden mussten.
 
 
 2. Weitere Besprechung zum Klassendiagramm
@@ -29,7 +29,7 @@ Autor: Jan Pfeifer
 3. Vorbereitung zum Start der Programmierung
 - Die kleineren Tasks werden von einzelnen Personen bearbeitet. Die Klasse Shell wird noch in kleinere Tasks aufgeteilt.
   Die genaue Aufteilung wird im nächsten Meeting besprochen.
-  Tasks die sich mit der Implementierung befasssen werden mit Lable 'Implementierung' gekennzeichnet.
+  Tasks, die sich mit der Implementierung befasssen werden mit neuem Lable 'Implementierung' gekennzeichnet.
   
 - Die grobe Programmstruktur und Erstellung des .gitignore-File wurde Jan zugeteilt.
 
