@@ -92,7 +92,7 @@ public final class Visualisation {
      * @param tokens Passed input (coordinates of the card to be revealed)
      * @param control Passed control
      */
-    public static void revealFirstCard(String[] tokens, Control control) {
+    private static void revealFirstCard(String[] tokens, Control control) {
         correctInput(tokens);
         int numberIntRow = Integer.parseInt(tokens[0]);
         int numberIntCol = Integer.parseInt(tokens[1]);
@@ -137,7 +137,7 @@ public final class Visualisation {
      * @param firstCol Column of the current first revealed card
      * @param firstCard Reference to the first revealed card
      */
-    public static void revealSecondCard(String[] tokens, Control control,
+    private static void revealSecondCard(String[] tokens, Control control,
                                         int firstRow, int firstCol,
                                         int firstCard) {
         correctInput(tokens);
@@ -185,7 +185,7 @@ public final class Visualisation {
      * @param tokens Passed input (coordinates of the card to be revealed)
      * @param control Passed control
      */
-    public static void showPlayingField(String[] tokens, Control control) {
+    private static void showPlayingField(String[] tokens, Control control) {
         boolean[][] playingField = control.getControlArray();
         //Column designation
         String line = ("  0 1 2 3");
@@ -210,7 +210,7 @@ public final class Visualisation {
      * @param cardValue Type of card
      * @return Visualization of the card value transferred
      */
-    public static int visualizeCard(CardValue cardValue) {
+        private static int visualizeCard(CardValue cardValue) {
         int visualized;
         switch (cardValue) {
             case ONE:
