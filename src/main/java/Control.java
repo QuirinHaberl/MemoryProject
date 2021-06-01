@@ -46,7 +46,7 @@ public class Control {
      */
     public Control(){
         gameStatus = GameStatus.NOTSTART;
-        playingField = new PlayingField(4, 4);
+        playingField = new PlayingField();
     }
 
 
