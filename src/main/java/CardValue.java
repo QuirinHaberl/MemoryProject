@@ -1,3 +1,4 @@
 public enum CardValue {
-    ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN;
+    //16 Karte, 8 Paare, insgesamt 8 Werte
+    ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT;
 }
