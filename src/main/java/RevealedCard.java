@@ -5,7 +5,6 @@
  */
 public class RevealedCard {
 
-
     //Attributes
 
     /**
@@ -28,6 +27,7 @@ public class RevealedCard {
 
     /**
      * Getter of the indicator
+     *
      * @return The indicator
      */
     public boolean isCanBeRevealed() {
@@ -36,6 +36,7 @@ public class RevealedCard {
 
     /**
      * Getter of the playing field status
+     *
      * @return The current playing field status
      */
     public boolean[][] getOutput() {
@@ -44,6 +45,7 @@ public class RevealedCard {
 
     /**
      * Getter of the revealed card
+     *
      * @return The card itself
      */
     public Card getRevealedCard() {
@@ -52,6 +54,7 @@ public class RevealedCard {
 
     /**
      * Setter of the indicator
+     *
      * @param canBeRevealed The indicator
      */
     public void setCanBeRevealed(boolean canBeRevealed) {
@@ -60,6 +63,7 @@ public class RevealedCard {
 
     /**
      * Setter of the playing field status
+     *
      * @param output The current playing field status
      */
     public void setOutput(boolean[][] output) {
@@ -68,6 +72,7 @@ public class RevealedCard {
 
     /**
      * Setter of the revealed card
+     *
      * @param revealedCard The card itself
      */
     public void setRevealedCard(Card revealedCard) {

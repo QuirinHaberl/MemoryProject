@@ -42,6 +42,7 @@ public final class Visualisation {
 
         boolean quit = false;
 
+        //Attributes to temporary save the first revealed card
         int firstRow = 0;
         int firstCol = 0;
         int firstCard = 0;
@@ -56,9 +57,12 @@ public final class Visualisation {
             //The input is split up using spaces.
             String[] tokens = input.trim().split("\\s+");
 
+            //Implementation of game phases
             switch (control.getGameStatus()) {
                 case NOTSTART:
+                    //Reveals first card
                     revealFirstCard(tokens, control);
+                    //Saving first revealed card and its position
                     firstRow = Integer.parseInt(tokens[0]);
                     firstCol = Integer.parseInt(tokens[1]);
                     RevealedCard revealedCard = control.revealCard(firstRow,
@@ -73,6 +77,7 @@ public final class Visualisation {
                     showPlayingField(tokens, control);
                     break;
                 case END:
+                    //Stops game because it is over
                     System.out.println("You won!");
                     quit = true;
                     break;
@@ -81,9 +86,11 @@ public final class Visualisation {
     }
 
     /**
+     * First card is revealed and the the current playing field is displayed,
+     * marking left cards with X and already open cards with spaces.
      *
-     * @param tokens
-     * @param control
+     * @param tokens Passed input (coordinates of the card to be revealed)
+     * @param control Passed control
      */
     public static void revealFirstCard(String[] tokens, Control control) {
         correctInput(tokens);
@@ -94,12 +101,17 @@ public final class Visualisation {
             error("Card is already revealed");
         } else {
             boolean[][] playingField = revealedCard.getOutput();
+            //Column designation
             String line = ("  0 1 2 3");
             int card =
                     visualizeCard(revealedCard.getRevealedCard().getValue());
             for (int i = 0; i < playingField.length; i++) {
+                //Row designation
                 line = line + "\r" + i + " ";
+                //Output of the current playing field
                 for (int j = 0; j < playingField[i].length; j++) {
+                    //Display the first card and display the current playing
+                    // field
                     if (numberIntRow == i && numberIntCol == j) {
                         line = line + card + " ";
                     } else {
@@ -116,12 +128,14 @@ public final class Visualisation {
     }
 
     /**
+     * Second card is revealed and the the current playing field is displayed,
+     * marking left cards with X and already open cards with spaces.
      *
-     * @param tokens
-     * @param control
-     * @param firstRow
-     * @param firstCol
-     * @param firstCard
+     * @param tokens Passed input (coordinates of the card to be revealed)
+     * @param control Passed control
+     * @param firstRow Row of the current first revealed card
+     * @param firstCol Column of the current first revealed card
+     * @param firstCard Reference to the first revealed card
      */
     public static void revealSecondCard(String[] tokens, Control control,
                                         int firstRow, int firstCol,
@@ -134,15 +148,21 @@ public final class Visualisation {
             error("Card is already revealed");
         } else {
             boolean[][] playingField = revealedCard.getOutput();
+            //Column designation
             String line = ("  0 1 2 3");
             int card =
                     visualizeCard(revealedCard.getRevealedCard().getValue());
             for (int i = 0; i < playingField.length; i++) {
+                //Row designation
                 line = line + "\r" + i + " ";
+                //Output of the current playing field
                 for (int j = 0; j < playingField[i].length; j++) {
+                    //Display the first card
                     if (firstRow == i && firstCol == j) {
                         line = line + firstCard + " ";
                     }
+                    //Display the second card and display the current playing
+                    // field
                     if (numberIntRow == i && numberIntCol == j) {
                         line = line + card + " ";
                     } else {
@@ -159,15 +179,20 @@ public final class Visualisation {
     }
 
     /**
+     * Visualizes the current playing field, marking left cards with X and
+     * already open cards with spaces.
      *
-     * @param tokens
-     * @param control
+     * @param tokens Passed input (coordinates of the card to be revealed)
+     * @param control Passed control
      */
     public static void showPlayingField(String[] tokens, Control control) {
         boolean[][] playingField = control.getControlArray();
+        //Column designation
         String line = ("  0 1 2 3");
         for (int i = 0; i < playingField.length; i++) {
+            //Row designation
             line = line + "\r" + i + " ";
+            //Output of the current playing field
             for (int j = 0; j < playingField[i].length; j++) {
                 if (!playingField[i][j]) {
                     line = line + "X ";
@@ -180,9 +205,10 @@ public final class Visualisation {
     }
 
     /**
+     * Visualizes card, defined by cardValue
      *
-     * @param cardValue
-     * @return
+     * @param cardValue Type of card
+     * @return Visualization of the card value transferred
      */
     public static int visualizeCard(CardValue cardValue) {
         int visualized;
@@ -210,12 +236,6 @@ public final class Visualisation {
                 break;
             case EIGHT:
                 visualized = 8;
-                break;
-            case NINE:
-                visualized = 9;
-                break;
-            case TEN:
-                visualized = 10;
                 break;
             default:
                 visualized = 0;
@@ -247,8 +267,8 @@ public final class Visualisation {
             return false;
         } else {
             //Checks whether the input contains two numbers between 0 and 3
-            if (tokens[0] == "0" || tokens[0] == "1"|| tokens[0] == "2" || tokens[0] == "3") {
-                if (tokens[1] == "0" || tokens[1] == "1"|| tokens[1] == "2" || tokens[1] == "3") {
+            if (tokens[0].equals("0") || tokens[0].equals("1") || tokens[0].equals("2") || tokens[0].equals("3")) {
+                if (tokens[1].equals("0") || tokens[1].equals("1")|| tokens[1].equals("2") || tokens[1].equals("3")) {
                     return true;
                 } else {
                     error("Second entry was out of range");
