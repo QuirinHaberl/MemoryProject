@@ -2,7 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-/**
+/**n
  * <heading>Visualisation</heading>
  * This class is the visualisation interface between the user (console) and
  * the control interface (Control).
@@ -93,37 +93,38 @@ public final class Visualisation {
      * @param control Passed control
      */
     private static void revealFirstCard(String[] tokens, Control control) {
-        correctInput(tokens);
-        int numberIntRow = Integer.parseInt(tokens[0]);
-        int numberIntCol = Integer.parseInt(tokens[1]);
-        RevealedCard revealedCard = control.revealCard(numberIntRow, numberIntCol);
-        if (!revealedCard.isCanBeRevealed()) {
-            error("Card is already revealed");
-        } else {
-            boolean[][] playingField = revealedCard.getOutput();
-            //Column designation
-            String line = ("  0 1 2 3");
-            int card =
-                    visualizeCard(revealedCard.getRevealedCard().getValue());
-            for (int i = 0; i < playingField.length; i++) {
-                //Row designation
-                line = line + "\r" + i + " ";
-                //Output of the current playing field
-                for (int j = 0; j < playingField[i].length; j++) {
-                    //Display the first card and display the current playing
-                    // field
-                    if (numberIntRow == i && numberIntCol == j) {
-                        line = line + card + " ";
-                    } else {
-                        if (!playingField[i][j]) {
-                            line = line + "X ";
+        if (correctInput(tokens)) {
+            int numberIntRow = Integer.parseInt(tokens[0]);
+            int numberIntCol = Integer.parseInt(tokens[1]);
+            RevealedCard revealedCard = control.revealCard(numberIntRow, numberIntCol);
+            if (!revealedCard.isCanBeRevealed()) {
+                error("Card is already revealed");
+            } else {
+                boolean[][] playingField = revealedCard.getOutput();
+                //Column designation
+                String line = ("  0 1 2 3");
+                int card =
+                        visualizeCard(revealedCard.getRevealedCard().getValue());
+                for (int i = 0; i < playingField.length; i++) {
+                    //Row designation
+                    line = line + "\r" + i + " ";
+                    //Output of the current playing field
+                    for (int j = 0; j < playingField[i].length; j++) {
+                        //Display the first card and display the current playing
+                        // field
+                        if (numberIntRow == i && numberIntCol == j) {
+                            line = line + card + " ";
                         } else {
-                            line = line + "  ";
+                            if (!playingField[i][j]) {
+                                line = line + "X ";
+                            } else {
+                                line = line + "  ";
+                            }
                         }
                     }
                 }
+                System.out.println(line);
             }
-            System.out.println(line);
         }
     }
 
@@ -140,41 +141,42 @@ public final class Visualisation {
     private static void revealSecondCard(String[] tokens, Control control,
                                         int firstRow, int firstCol,
                                         int firstCard) {
-        correctInput(tokens);
-        int numberIntRow = Integer.parseInt(tokens[0]);
-        int numberIntCol = Integer.parseInt(tokens[1]);
-        RevealedCard revealedCard = control.revealCard(numberIntRow, numberIntCol);
-        if (!revealedCard.isCanBeRevealed()) {
-            error("Card is already revealed");
-        } else {
-            boolean[][] playingField = revealedCard.getOutput();
-            //Column designation
-            String line = ("  0 1 2 3");
-            int card =
-                    visualizeCard(revealedCard.getRevealedCard().getValue());
-            for (int i = 0; i < playingField.length; i++) {
-                //Row designation
-                line = line + "\r" + i + " ";
-                //Output of the current playing field
-                for (int j = 0; j < playingField[i].length; j++) {
-                    //Display the first card
-                    if (firstRow == i && firstCol == j) {
-                        line = line + firstCard + " ";
-                    }
-                    //Display the second card and display the current playing
-                    // field
-                    if (numberIntRow == i && numberIntCol == j) {
-                        line = line + card + " ";
-                    } else {
-                        if (!playingField[i][j]) {
-                            line = line + "X ";
+        if (correctInput(tokens)) {
+            int numberIntRow = Integer.parseInt(tokens[0]);
+            int numberIntCol = Integer.parseInt(tokens[1]);
+            RevealedCard revealedCard = control.revealCard(numberIntRow, numberIntCol);
+            if (!revealedCard.isCanBeRevealed()) {
+                error("Card is already revealed");
+            } else {
+                boolean[][] playingField = revealedCard.getOutput();
+                //Column designation
+                String line = ("  0 1 2 3");
+                int card =
+                        visualizeCard(revealedCard.getRevealedCard().getValue());
+                for (int i = 0; i < playingField.length; i++) {
+                    //Row designation
+                    line = line + "\r" + i + " ";
+                    //Output of the current playing field
+                    for (int j = 0; j < playingField[i].length; j++) {
+                        //Display the first card
+                        if (firstRow == i && firstCol == j) {
+                            line = line + firstCard + " ";
+                        }
+                        //Display the second card and display the current playing
+                        // field
+                        if (numberIntRow == i && numberIntCol == j) {
+                            line = line + card + " ";
                         } else {
-                            line = line + "  ";
+                            if (!playingField[i][j]) {
+                                line = line + "X ";
+                            } else {
+                                line = line + "  ";
+                            }
                         }
                     }
                 }
+                System.out.println(line);
             }
-            System.out.println(line);
         }
     }
 

@@ -63,7 +63,7 @@ public class Control {
     public RevealedCard revealCard(int row, int col) {
         RevealedCard revealedCard = new RevealedCard();
         //Check whether the card has already been revealed
-        if (playingField.isOpen(row, col) == true) {
+        if (playingField.isOpen(row, col)) {
             if(gameStatus == GameStatus.RUNNING) {
                 setGameStatus(GameStatus.NOTSTART);
             }
@@ -98,9 +98,9 @@ public class Control {
             playingField.removeCards(rowFirstCard, colFirstCard,
                     rowSecondCard, colSecondCard);
             //Check whether end of the game is reached
-            if(playingField.areAllCardsOpen() == true) {
+            if(playingField.areAllCardsOpen()) {
                 setGameStatus(GameStatus.END);
-            }§  §§
+            }
         }
     }
 
