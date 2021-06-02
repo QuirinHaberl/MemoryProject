@@ -6,11 +6,12 @@
  */
 public class PlayingField {
 
+    //Attributes
     /**
      * Hight and Width of the playingfield
      */
-    private final int HEIGHT = 4;
-    private final int WIDTH = 4;
+    private final int height = 4;
+    private final int width = 4;
 
     /**
      * Array of the playiingfield
@@ -22,14 +23,16 @@ public class PlayingField {
      */
     private boolean[][] controlArray;
 
+    //Constructor
     /**
      * Default constructor that creates a new playingfield and the controlArray
      */
     public PlayingField() {
-        controlArray = new boolean[HEIGHT][WIDTH];
-        board = new Card[WIDTH][WIDTH];
+        controlArray = new boolean[height][width];
+        board = new Card[height][width];
     }
 
+    //Methods
     /**
      * @return the playingfield
      */
@@ -64,7 +67,6 @@ public class PlayingField {
      * @return whether all cards are open or not.
      */
     public boolean areAllCardsOpen() {
-        boolean allCardsOpen = false;
         for (int row = 0; row < controlArray.length; ++row) {
             for (int col = 0; col < controlArray[row].length; ++col) {
                 if (!(isOpen(row, col))) {
