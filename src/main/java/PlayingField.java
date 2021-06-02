@@ -79,8 +79,8 @@ public class PlayingField {
     /**
      * * Returns a specified card.
      * Checks if the row and the col are within the effective range.
-     * 0 < row < hight.
-     * 0 < col < width.
+     * 0 < row <= hight - 1.
+     * 0 < col <= width - 1.
      * if not, throw out a IllegalArgumentException.
      * check if the card has been already oppened.
      * if yes, throw out a IllegalArgumentException.
