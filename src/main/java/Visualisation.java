@@ -2,7 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-/**n
+/**
  * <heading>Visualisation</heading>
  * This class is the visualisation interface between the user (console) and
  * the control interface (Control).
