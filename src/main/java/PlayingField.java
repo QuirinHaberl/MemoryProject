@@ -96,5 +96,41 @@ public class PlayingField {
 
     */
 
+    /**
+     * Checks if the row and the col are within the effective range.
+     * 0 < row < hight.
+     * 0 < col < width.
+     * if not, throw out a IllegalArgumentException.
+     * check if the card has been already oppened.
+     * if yes, throw out a IllegalArgumentException.
+     * @param row
+     * @param col
+     * @return
+     */
+
+    public Card getCard(int row, int col){
+        if(row > hight || col > width || hight < 0 || width < 0){
+            throw new IllegalArgumentException(" the row or col can not be bigger than hight(width) or samller than 0!")
+        }
+        if(controlArray[row][col] == true){
+            throw new IllegalArgumentException("this card has been already oppened!");
+        }
+        return board[row][col];
+    }
+
+    /**
+     * removeCards happens after getCard.
+     * so it needn't to check if row and col within a effective range.
+     * change the element1 of controlArray to True.
+     * change the element2 of controlArray to True.
+     * @param row1
+     * @param col1
+     * @param row2
+     * @param col2
+     */
+    public void removeCards(int row1, int col1, int row2, int col2){
+        controlArray[row1][col1] = true;
+        controlArray[row2][col2] = true;
+    }
 
 }
