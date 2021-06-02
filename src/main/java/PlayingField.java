@@ -76,33 +76,22 @@ public class PlayingField {
         }
         return true;
     }
-
     /**
-     * Returns a specified card.
-     *
-     * @param row Row position of the selected card
-     * @param col Column position of the selected card
-     * @return the selected card
-     */
-    public Card getCard(int row, int col) {
-        return board[row][col];
-    }
-
-    /**
+     * * Returns a specified card.
      * Checks if the row and the col are within the effective range.
      * 0 < row < hight.
      * 0 < col < width.
      * if not, throw out a IllegalArgumentException.
      * check if the card has been already oppened.
      * if yes, throw out a IllegalArgumentException.
-     * @param row
-     * @param col
-     * @return
+     * @param row Row position of the selected card
+     * @param col Column position of the selected card
+     * @return the selected card
      */
 
     public Card getCard(int row, int col){
-        if(row > hight || col > width || hight < 0 || width < 0){
-            throw new IllegalArgumentException(" the row or col can not be bigger than hight(width) or samller than 0!")
+        if(row > height - 1 || col > width - 1 || height < 0 || width < 0){
+            throw new IllegalArgumentException(" the row or col can not be bigger than hight(width) or samller than 0!");
         }
         if(controlArray[row][col] == true){
             throw new IllegalArgumentException("this card has been already oppened!");
@@ -111,29 +100,19 @@ public class PlayingField {
     }
 
     /**
+     * Removes a pair from the board-array.
      * removeCards happens after getCard.
      * so it needn't to check if row and col within a effective range.
      * change the element1 of controlArray to True.
      * change the element2 of controlArray to True.
-     * @param row1
-     * @param col1
-     * @param row2
-     * @param col2
-     */
-    public void removeCards(int row1, int col1, int row2, int col2){
-        controlArray[row1][col1] = true;
-        controlArray[row2][col2] = true;
-    }
-
-    /**
-     * Removes a pair from the board-array.
-     *
      * @param row1 Row position of the first selected card
      * @param col1 Column position of the first selected car
      * @param row2 Row position of the second selected card
      * @param col2 Column position of the second selected car
      */
-    public void removeCards(int row1, int col1, int row2, int col2) {
+    public void removeCards(int row1, int col1, int row2, int col2){
+        controlArray[row1][col1] = true;
+        controlArray[row2][col2] = true;
         board[row1][col1] = null;
         board[row2][col2] = null;
     }
