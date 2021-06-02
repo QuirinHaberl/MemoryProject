@@ -100,7 +100,7 @@ public class Control {
             //Check whether end of the game is reached
             if(playingField.areAllCardsOpen() == true) {
                 setGameStatus(GameStatus.END);
-            }
+            }§  §§
         }
     }
 
