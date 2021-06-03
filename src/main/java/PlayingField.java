@@ -113,6 +113,8 @@ public class PlayingField {
     public void removeCards(int row1, int col1, int row2, int col2){
         controlArray[row1][col1] = true;
         controlArray[row2][col2] = true;
+        //TODO
+        //Karten müssen weiterhin existieren
         board[row1][col1] = null;
         board[row2][col2] = null;
     }
