@@ -1,3 +1,5 @@
+import java.util.Random;
+
 /**
  * The class PlayingField implements the playing field of the memory game
  * as a two-dimensional array.
@@ -30,6 +32,13 @@ public class PlayingField {
     public PlayingField() {
         controlArray = new boolean[height][width];
         board = new Card[height][width];
+        //All cards are set to starting Position
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                controlArray[i][j] = false;
+            }
+        }
+        fillWithCards();
     }
 
     //Methods
@@ -117,5 +126,57 @@ public class PlayingField {
         //Karten müssen weiterhin existieren
         board[row1][col1] = null;
         board[row2][col2] = null;
+    }
+
+    /**
+     * Board is filled with new pairs of cards
+     */
+    private void fillWithCards() {
+        //New pairs of cards are created
+        Card card1 = new Card(CardValue.ONE);
+        Card card2 = new Card(CardValue.TWO);
+        Card card3 = new Card(CardValue.THREE);
+        Card card4 = new Card(CardValue.FOUR);
+        Card card5 = new Card(CardValue.FIVE);
+        Card card6 = new Card(CardValue.SIX);
+        Card card7 = new Card(CardValue.SEVEN);
+        Card card8 = new Card(CardValue.EIGHT);
+        //All cards are saved in board
+        board[0][0] = card1;
+        board[0][1] = card1;
+        board[0][2] = card2;
+        board[0][3] = card2;
+        board[1][0] = card3;
+        board[1][1] = card3;
+        board[1][2] = card4;
+        board[1][3] = card4;
+        board[2][0] = card5;
+        board[2][1] = card5;
+        board[2][2] = card6;
+        board[2][3] = card6;
+        board[3][0] = card7;
+        board[3][1] = card7;
+        board[3][2] = card8;
+        board[3][3] = card8;
+        //Board is shuffled
+        shuffleBoard();
+    }
+
+    /**
+     * Cards are shuffled.
+     */
+    private void shuffleBoard(){
+        Card tmp;
+        int randRow, randCol;
+        Random r = new Random();
+        for(int i = 0; i < board.length; i++){
+            for (int j = 0; j < board[i].length; j++) {
+                randRow = r.nextInt(board.length-1);
+                randCol = r.nextInt(board.length-1);
+                tmp = board[i][j];
+                board[i][j] = board[randRow][randCol];
+                board[randRow][randCol] = tmp;
+            }
+        }
     }
 }
