@@ -54,6 +54,10 @@ public final class Visualisation {
             if (input == null) {
                 break;
             }
+            if (input.equals("help")) {
+              printDescription();
+              continue;
+            }
             //The input is split up using spaces.
             String[] tokens = input.trim().split("\\s+");
 
@@ -280,5 +284,15 @@ public final class Visualisation {
                 return false;
             }
         }
+    }
+
+    public static void printDescription() {
+        System.out.println("Wer an der Reihe ist, darf nacheinander zwei Karten aufdecken. \n" +
+                "Dazu gib die Position der gewünschten Karte als Tupel ein, z.B. 2 1 \n" +
+                "Nun wird dir dann das Spielfeld mit dem Bild deiner ausgewählten Karte angezeigt. \n" +
+                "Analog das Vorgehen bei der zweiten Karte. \n" +
+                "Ziel des Spiels ist es ein Kartenpaar, d.h. zwei Karten mit dem gleichen Bild zu finden. \n" +
+                "Das zusammenpassende Bilderpaar wird vom Spielfeld entfernt. \n" +
+                "Passen die beiden Kartenbilder nicht zusammen, werden die Karten wieder umgedreht.");
     }
 }
