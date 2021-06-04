@@ -1,12 +1,19 @@
 /**
+<<<<<<< HEAD
  * <heading>RevealedCard</heading>
  * This class is a helper class to transfer information about a revealed card
+=======
+ * This class is a helper class to transfer information about a {@link RevealedCard}
+>>>>>>> cfe11c1 (Merge pull request #73 from se2p-se/pull_request_Isabella)
  * form Control to Visualisation.
  */
 public class RevealedCard {
 
+<<<<<<< HEAD
     //Attributes
 
+=======
+>>>>>>> cfe11c1 (Merge pull request #73 from se2p-se/pull_request_Isabella)
     /**
      * Indicator whether the card can be revealed
      */
@@ -22,9 +29,12 @@ public class RevealedCard {
      */
     private Card revealedCard;
 
+<<<<<<< HEAD
 
     //Methods
 
+=======
+>>>>>>> cfe11c1 (Merge pull request #73 from se2p-se/pull_request_Isabella)
     /**
      * Getter of the indicator
      *
@@ -78,4 +88,8 @@ public class RevealedCard {
     public void setRevealedCard(Card revealedCard) {
         this.revealedCard = revealedCard;
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> cfe11c1 (Merge pull request #73 from se2p-se/pull_request_Isabella)
