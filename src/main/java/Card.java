@@ -1,31 +1,31 @@
 /**
- * The class Card implements the card of the memory game.
+ * The class {@link Card} implements a card of the game.
  */
 public class Card {
 
-    //Attributes
     /**
-     * This {@link CardValue} is the image of the card
+     * The attribute {@link CardValue} is the image of the card.
      */
     CardValue value;
 
-
-    //Constructor
     /**
-     * Constructs a new {@link Card}. Initially, the value of a given cart is null.
+     * The attribute {@code revealed} is the image of the card.
+     */
+    boolean revealed;
+
+    /**
+     * Constructs a new {@link Card}.
      *
-     * @param value enum value of {@link CardValue}
+     * @param value uses the enumerations of {@link CardValue}
      */
     public Card(CardValue value) {
         this.value = value;
     }
 
-    //Methods
     /**
-     * @return the card value of {@link CardValue}.
+     * @return the value of a {@link Card}.
      */
     public CardValue getValue() {
-
         return value;
     }
 }

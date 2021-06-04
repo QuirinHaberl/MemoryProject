@@ -1,7 +1,6 @@
 /**
- * Values that can be used.
+ * Enumeration of values that can be used.
  */
-
 public enum CardValue {
     /**
      * Numbers from ONE to EIGHT

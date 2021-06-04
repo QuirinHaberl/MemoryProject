@@ -3,23 +3,20 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- * <heading>Visualisation</heading>
- * This class is the visualisation interface between the user (console) and
- * the control interface (Control).
+ * This class represents the view of the MVC-architecture.
  */
-public final class Visualisation {
-
+public final class View {
     /**
-     * Utility class implies private constructor
+     * Utility class needs private constructor
      */
-    private Visualisation() {
+    private View() {
     }
 
     /**
-     * This is the main method which makes use of the execute method.
+     * This is the main-method which starts a game by executing the execute-method.
      *
-     * @param args Unused.
-     * @throws IOException On input error.
+     * @param args unused.
+     * @throws IOException on input error.
      */
     public static void main(String[] args) throws IOException {
         BufferedReader bufferedReader =
@@ -27,16 +24,13 @@ public final class Visualisation {
         execute(bufferedReader);
     }
 
-
-    //Methods
     /**
-     * This method reads in input from the console and reacts to it by
-     * delegating to Control.
+     * This method reads the input from the console and delegates it to {@link Control}.
      *
-     * @param bufferedReader Provides a connection to the console.
-     * @throws IOException On input error.
+     * @param bufferedReader provides a connection to the console.
+     * @throws IOException on input error.
      */
-    public static void execute(BufferedReader bufferedReader) throws IOException{
+    public static void execute(BufferedReader bufferedReader) throws IOException {
         //At the beginning a new control is created.
         Control control = new Control();
 
@@ -55,8 +49,8 @@ public final class Visualisation {
                 break;
             }
             if (input.equals("help")) {
-              printDescription();
-              continue;
+                printDescription();
+                continue;
             }
             //The input is split up using spaces.
             String[] tokens = input.trim().split("\\s+");
@@ -94,11 +88,11 @@ public final class Visualisation {
     }
 
     /**
-     * First card is revealed and the the current playing field is displayed,
-     * marking left cards with X and already open cards with spaces.
+     * First {@link Card} is revealed and the the current {@code board} is displayed,
+     * marking closed cards with X and already open cards with spaces.
      *
-     * @param tokens Passed input (coordinates of the card to be revealed)
-     * @param control Passed control
+     * @param tokens  passed input (coordinates of the card to be revealed)
+     * @param control passed control
      */
     private static void revealFirstCard(String[] tokens, Control control) {
         int numberIntRow = Integer.parseInt(tokens[0]);
@@ -138,15 +132,15 @@ public final class Visualisation {
      * Second card is revealed and the the current playing field is displayed,
      * marking left cards with X and already open cards with spaces.
      *
-     * @param tokens Passed input (coordinates of the card to be revealed)
-     * @param control Passed control
-     * @param firstRow Row of the current first revealed card
-     * @param firstCol Column of the current first revealed card
+     * @param tokens    Passed input (coordinates of the card to be revealed)
+     * @param control   Passed control
+     * @param firstRow  Row of the current first revealed card
+     * @param firstCol  Column of the current first revealed card
      * @param firstCard Reference to the first revealed card
      */
     private static void revealSecondCard(String[] tokens, Control control,
-                                        int firstRow, int firstCol,
-                                        int firstCard) {
+                                         int firstRow, int firstCol,
+                                         int firstCard) {
         int numberIntRow = Integer.parseInt(tokens[0]);
         int numberIntCol = Integer.parseInt(tokens[1]);
         RevealedCard revealedCard = control.revealCard(numberIntRow, numberIntCol);
@@ -184,10 +178,10 @@ public final class Visualisation {
     }
 
     /**
-     * Visualizes the current playing field, marking left cards with X and
+     * Visualizes the current {@link PlayingField}, marking left cards with X and
      * already open cards with spaces.
      *
-     * @param tokens Passed input (coordinates of the card to be revealed)
+     * @param tokens  Passed input (coordinates of the card to be revealed)
      * @param control Passed control
      */
     private static void showPlayingField(String[] tokens, Control control) {
@@ -210,12 +204,13 @@ public final class Visualisation {
     }
 
     /**
-     * Visualizes card, defined by cardValue
+     * Visualizes {@link Card}, defined by {@link CardValue}
      *
      * @param cardValue Type of card
      * @return Visualization of the card value transferred
+     * TODO Überprüfe, ob hier auch Buchstaben verwendet werden können
      */
-        private static int visualizeCard(CardValue cardValue) {
+    private static int visualizeCard(CardValue cardValue) {
         int visualized;
         switch (cardValue) {
             case ONE:
@@ -250,6 +245,7 @@ public final class Visualisation {
 
 
     //Helper Methods
+
     /**
      * Outputs a specified error message.
      *
@@ -265,7 +261,7 @@ public final class Visualisation {
      * @param tokens Passed input
      * @return Returns true if the passed input(two coordinates) was correct.
      */
-    private static boolean correctInput(String[] tokens){
+    private static boolean correctInput(String[] tokens) {
         //Checks whether the input contained two parameters
         if (tokens.length != 2) {
             error("Have not received correct number of parameters");
@@ -273,7 +269,7 @@ public final class Visualisation {
         } else {
             //Checks whether the input contains two numbers between 0 and 3
             if (tokens[0].equals("0") || tokens[0].equals("1") || tokens[0].equals("2") || tokens[0].equals("3")) {
-                if (tokens[1].equals("0") || tokens[1].equals("1")|| tokens[1].equals("2") || tokens[1].equals("3")) {
+                if (tokens[1].equals("0") || tokens[1].equals("1") || tokens[1].equals("2") || tokens[1].equals("3")) {
                     return true;
                 } else {
                     error("Second entry was out of range");
@@ -288,8 +284,8 @@ public final class Visualisation {
 
     public static void printDescription() {
         System.out.println("Wer an der Reihe ist, darf nacheinander zwei Karten aufdecken. \n" +
-                "Dazu gib die Position der gewünschten Karte als Tupel ein, z.B. 2 1 \n" +
-                "Nun wird dir dann das Spielfeld mit dem Bild deiner ausgewählten Karte angezeigt. \n" +
+                "Dazu gib die Position der gewuenschten Karte als Tupel ein, z.B. 2 1 \n" +
+                "Nun wird dir dann das Spielfeld mit dem Bild deiner ausgewaehlten Karte angezeigt. \n" +
                 "Analog das Vorgehen bei der zweiten Karte. \n" +
                 "Ziel des Spiels ist es ein Kartenpaar, d.h. zwei Karten mit dem gleichen Bild zu finden. \n" +
                 "Das zusammenpassende Bilderpaar wird vom Spielfeld entfernt. \n" +
