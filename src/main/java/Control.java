@@ -1,70 +1,52 @@
 /**
- * <heading>Control</heading>
- * This class is the control interface between the Visualisation and
- * the Model (connection point = PlayingField).
+ * This class is the control part of the MVC-architecture.
  */
 public class Control {
 
-    //Attributes
-
     /**
-     * Current game status
+     * Current {@link GameStatus}
      */
     private GameStatus gameStatus;
 
     /**
-     * Active playing field
+     * Active {@link PlayingField}
      */
     private final PlayingField playingField;
 
-    //All following attributes need for methode checkForPairOfCards
-    /**
-     * Row of the current first revealed card
-     */
-    private int rowFirstCard;
 
     /**
-     * Column of the current first revealed card
+     * Row and Column of the first revealed {@link Card}
      */
+    private int rowFirstCard;
     private int colFirstCard;
 
     /**
-     * Row of the current second revealed card
+     * Row and Column of the second revealed {@link Card}
      */
     private int rowSecondCard;
-
-    /**
-     * Column of the current second revealed card
-     */
     private int colSecondCard;
 
-
-    //Constructor
-
     /**
-     * Default constructor that creates a new playing field
+     * The Constructor initiates the game and creates a new {@link PlayingField}
      */
-    public Control(){
+    public Control() {
         gameStatus = GameStatus.NOTSTART;
         playingField = new PlayingField();
     }
 
-
-    //Methods
-
     /**
-     * Reveals a card identified by row and col by distinguishing between the
-     * first and the second card to be revealed.
+     * Reveals a card identified by row and column by comparing the
+     * first and the second card.
      *
-     * @param row Row position of the card to be revealed
-     * @param col Column position of the card to be revealed
-     * @return The revealed card itself
+     * @param row position of the card to be revealed
+     * @param col position of the card to be revealed
+     * @return the revealed card
      */
     public RevealedCard revealCard(int row, int col) {
         RevealedCard revealedCard = new RevealedCard();
-        //Check whether the card has already been revealed
+        //Checks whether the card has already been revealed
         if (playingField.isOpen(row, col)) {
-            if(gameStatus == GameStatus.RUNNING) {
+            if (gameStatus == GameStatus.RUNNING) {
                 setGameStatus(GameStatus.NOTSTART);
             }
             revealedCard.setCanBeRevealed(false);
@@ -75,6 +57,7 @@ public class Control {
             revealedCard.setOutput(getControlArray());
             revealedCard.setRevealedCard(playingField.getCard(row, col));
             //Distinction between first and second card to be revealed
+            //TODO An dieser Stelle kommt es zu einem Fehler - muss noch überarbetet werden
             if (gameStatus == GameStatus.NOTSTART) {
                 rowFirstCard = row;
                 colFirstCard = col;
@@ -97,35 +80,35 @@ public class Control {
         if (firstCard.getValue().equals(secondCard.getValue())) {
             playingField.removeCards(rowFirstCard, colFirstCard,
                     rowSecondCard, colSecondCard);
-            //Check whether end of the game is reached
-            if(playingField.areAllCardsOpen()) {
+            //Checks whether end of the game is reached
+            if (playingField.areAllCardsOpen()) {
                 setGameStatus(GameStatus.END);
             }
         }
     }
 
     /**
-     * Getter of playing field status
+     * Getter for {@code controlArray}
      *
-     * @return Status of playing field
+     * @return the {@code controlArray}
      */
-    public boolean[][] getControlArray(){
+    public boolean[][] getControlArray() {
         return playingField.getControlArray();
     }
 
     /**
-     * Getter of the game status
+     * Getter of {@link GameStatus}
      *
-     * @return Current game status
+     * @return the {@link GameStatus}
      */
     public GameStatus getGameStatus() {
         return gameStatus;
     }
 
     /**
-     * Setter of the game status
+     * Setter of the {@link GameStatus}
      *
-     * @param gameStatus The current game status
+     * @param gameStatus sets the {@link GameStatus}
      */
     public void setGameStatus(GameStatus gameStatus) {
         this.gameStatus = gameStatus;
