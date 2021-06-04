@@ -2,7 +2,7 @@ public class Card {
     CardValue value;
 
     public Card(CardValue value){
-        value = null;
+        this.value = value;
     }
 
     public CardValue getValue(){
