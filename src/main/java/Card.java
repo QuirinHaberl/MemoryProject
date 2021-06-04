@@ -1,3 +1,6 @@
+/**
+ * The class {@link Card} implements a card of the game.
+ */
 public class Card {
     CardValue value;
 
