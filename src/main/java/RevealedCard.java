@@ -1,11 +1,8 @@
 /**
- * <heading>RevealedCard</heading>
- * This class is a helper class to transfer information about a revealed card
+ * This class is a helper class to transfer information about a {@link RevealedCard}
  * form Control to Visualisation.
  */
 public class RevealedCard {
-
-    //Attributes
 
     /**
      * Indicator whether the card can be revealed
@@ -21,9 +18,6 @@ public class RevealedCard {
      * Reference to the revealed Card
      */
     private Card revealedCard;
-
-
-    //Methods
 
     /**
      * Getter of the indicator

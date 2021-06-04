@@ -1,8 +1,19 @@
+/**
+ * Enum of the states that a game can be in.
+ */
 public enum GameStatus {
     /**
-     * enum
-     * this calss created three GameStatus NOTSTART,RUNNING,END.
-     * these are used for controlling if the game can continue.
+     * The game hasn't started yet.
      */
-    NOTSTART, RUNNING, END;
+    NOTSTART,
+
+    /**
+     * The game is running.
+     */
+    RUNNING,
+
+    /**
+     * The game has ended.
+     */
+    END
 }
