@@ -1,7 +1,7 @@
 /**
  * Enum of the states that a game can be in.
  */
-public enum GameStatus{
+public enum GameStatus {
     /**
      * The game hasn't started yet.
      */
