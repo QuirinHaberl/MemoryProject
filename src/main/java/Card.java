@@ -9,9 +9,9 @@ public class Card {
     private CardValue value;
 
     /**
-     * The attribute {@code revealed} is the value whether the card is revealed.
+     * The attribute {@code cardStatus} saves whether a card is closed, open or found.
      */
-    private boolean revealed;
+    private CardStatus cardStatus;
 
     /**
      * Constructs a new {@link Card}.
@@ -20,6 +20,7 @@ public class Card {
      */
     public Card(CardValue value) {
         this.value = value;
+        this.cardStatus = CardStatus.CLOSED;
     }
 
     /**
@@ -37,7 +38,7 @@ public class Card {
      * @return the revealed boolean of a {@link Card}.
      */
     public boolean isRevealed() {
-        return revealed;
+        return cardStatus == CardStatus.OPEN;
     }
 
     /**
@@ -48,20 +49,12 @@ public class Card {
     }
 
     /**
-     * Sets the revealed boolean of a {@link Card}.
-     */
-    public void setRevealed(boolean revealed) {
-        this.revealed = revealed;
-    }
-
-    /**
      * Visualizes {@link Card}, defined by {@link CardValue}
      *
      * @param cardValue Type of card
      * @return Visualization of the card value transferred
-     * TODO Überprüfe, ob hier auch Buchstaben verwendet werden können
      * TODO für die nächste Iteration muss diese Methode auch umgeschrieben werden,
-     *  da sie vom Kartenset abhängt
+     * da sie vom Kartenset abhängt
      */
     public static int visualizeCard(CardValue cardValue) {
         int visualized;
@@ -94,5 +87,19 @@ public class Card {
                 visualized = 0;
         }
         return visualized;
+    }
+
+    /**
+     * @return the {@link CardStatus} of a {@link Card}.
+     */
+    public CardStatus getCardStatus() {
+        return cardStatus;
+    }
+
+    /**
+     * Sets the {@link CardStatus} of a {@link Card}.
+     */
+    public void setCardStatus(CardStatus cardStatus) {
+        this.cardStatus = cardStatus;
     }
 }

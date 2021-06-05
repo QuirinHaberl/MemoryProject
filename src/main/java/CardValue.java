@@ -3,7 +3,7 @@
  */
 public enum CardValue {
     /**
-     * Numbers from ONE to EIGHT
+     * a {@link Card} can have values from ONE to EIGHT
      */
     ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT
 }

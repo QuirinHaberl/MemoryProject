@@ -3,12 +3,12 @@
  */
 public enum GameStatus {
     /**
-     * during the Game runs, the {@link GameStatus} is RUNNING
+     * while the game is running, the {@link GameStatus} is set to RUNNING.
      */
     RUNNING,
 
     /**
-     * when the {@link GameStatus} is END no more turns are available
+     * If the {@link GameStatus} is END the game is over.
      */
     END
 }

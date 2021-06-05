@@ -62,7 +62,7 @@ public final class View {
                         firstCol = Integer.parseInt(tokens[1]);
                         firstCardImage = controller.getPlayingField().revealFirstCard(firstRow, firstCol,
                                 controller);
-                        showFirstChoice(controller.getPlayingField(), firstRow, firstCol, firstCardImage);
+                        showBoard(controller.getPlayingField());
                     }
                     break;
                 case ACTIVTURN:
@@ -71,10 +71,15 @@ public final class View {
                         int secondCol = Integer.parseInt(tokens[1]);
                         int secondCardImage = controller.getPlayingField().revealSecondCard(secondRow, secondCol,
                                 controller);
-                        controller.getPlayingField().pairCheck(firstRow, firstCol, secondRow, secondCol,
-                                controller);
-                        showSecondChoice(controller.getPlayingField(), firstRow, firstCol, firstCardImage,
-                                secondRow, secondCol, secondCardImage);
+                        if (controller.getPlayingField().pairCheck(firstRow, firstCol, secondRow, secondCol)) {
+                            showBoard(controller.getPlayingField());
+                        }
+                        controller.getPlayingField().closeAgain(firstRow, firstCol, secondRow, secondCol);
+                        if (controller.getPlayingField().areAllCardsOpen()) {
+                            //TODO Is this the right spot? - Jan
+                            gameStatus = GameStatus.END;
+                            System.out.println("You won!");
+                        }
                     }
                     break;
             }
@@ -82,62 +87,21 @@ public final class View {
     }
 
     /**
-     * Visualizes the current {@link PlayingField} after the first {@Link Card}
-     * is chosen, marking left {@link Card} with X and already open {@link Card} with spaces.
+     * Visualizes the current {@link PlayingField}
      *
      * @param board is the currently {@link PlayingField}
-     * @param firstRow is the row of the first selected {@link Card}
-     * @param firstCol is the column of the first selected {@link Card}
-     * @param firstCardImage is the value of the first selected {@link Card} as an Integer
      */
-    private static void showFirstChoice(PlayingField board, int firstRow, int firstCol, int firstCardImage) {
-        String line = (" 0 1 2 3");
-        for (int row = 0; row < board.getHeight(); row++) {
+    private static void showBoard(PlayingField board) {
+        String line = ("  0 1 2 3");
+        for (int row = 0; row < board.getBoard().length; row++) {
             line = line + "\n" + row + " ";
-            for (int col = 0; col < board.getWidth(); col++) {
-                if (firstRow == row && firstCol == col) {
-                    line = line + firstCardImage + " ";
-                } else {
-                    if (!board.getCard(row, col).isRevealed()) {
-                        line = line + "X ";
-                    } else {
-                        line = line + "  ";
-                    }
-                }
-            }
-        }
-        System.out.println(line);
-    }
-
-    /**
-     * Visualizes the current {@link PlayingField} after the second {@Link Card}
-     * is chosen, marking left {@link Card} with X and already open {@link Card} with spaces.
-     * This method is needed, because the first chosen {@link Card} should be also printed.
-     *
-     * @param board is the currently {@link PlayingField}
-     * @param firstRow is the row of the first selected {@link Card}
-     * @param firstCol is the column of the first selected {@link Card}
-     * @param firstCardImage is the value of the first selected {@link Card} as an Integer
-     * @param secondRow is the row of the second selected {@link Card}
-     * @param secondCol is the column of the second selected {@link Card}
-     * @param secondCardImage is the value of the second selected {@link Card} as an Integer
-     */
-    private static void showSecondChoice(PlayingField board, int firstRow, int firstCol, int firstCardImage,
-                                         int secondRow, int secondCol, int secondCardImage) {
-        String line = (" 0 1 2 3");
-        for (int row = 0; row < board.getHeight(); row++) {
-            line = line + "\n" + row + " ";
-            for (int col = 0; col < board.getWidth(); col++) {
-                if (firstRow == row && firstCol == col) {
-                    line = line + firstCardImage + " ";
-                } else if(secondRow == row && secondCol == col) {
-                    line = line + secondCardImage + " ";
-                } else {
-                    if (!board.getCard(row, col).isRevealed()) {
-                        line = line + "X ";
-                    } else {
-                        line = line + "  ";
-                    }
+            for (int col = 0; col < board.getBoard()[0].length; col++) {
+                if (board.getCard(row, col).getCardStatus().equals(CardStatus.OPEN)) {
+                    line = line + Card.visualizeCard(board.getBoard()[row][col].getValue()) + " ";
+                } else if (board.getCard(row, col).getCardStatus().equals(CardStatus.CLOSED)) {
+                    line = line + "X ";
+                } else if (board.getCard(row, col).getCardStatus().equals(CardStatus.FOUND)) {
+                    line = line + "  ";
                 }
             }
         }
