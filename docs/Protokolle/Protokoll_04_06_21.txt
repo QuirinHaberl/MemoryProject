@@ -1,0 +1,31 @@
+Protokoll des Zoommeetings am 04.06.21
+Teilnehmer: Jan, Daqian, Isabella, Quirin
+Autor: Isabella Habereder
+
+
+1. Kommentare verbessern
+
+Kommentare im Code wurden alle durchgeganen und im Screensharing von Jan verbessert. 
+
+
+2. Nächste Iteration planen
+
+- Kanbanboard für Iteration 3 wurde erstellt
+- User Stories, welche in Iteration 3 umgesetzt werden sollen, wurden mit Priorität 2 gekennzeichnet und in den Product Backlog abgelegt. (Alle wurden gemeinsam durchgegangen und per Mehrheitsentscheid entschieden was umgesetzt werden soll.)
+- Aufgabe an alle: Zu den ausgewählten User-Stories im Product Backlog die dazugehörigen Tasks bis Sonntag erstellen.(Jeder sollte ungefähr die gleiche Anzahl erstellen)
+
+
+3. Prototype zum Laufen bringen
+
+- Visualisierung zu View umbenennen
+- MVC nochmal besser aufgeteilen
+	-> Projekt Umstrukturierung: Isabella 
+	-> Methode fillBoard: Jan
+	-> Enum von GameStatus zu TurnStatus ändern  
+	
+	
+Nächstes Treffe: Sonntag 06.06.21 
+- Klassendiagram besprechen (bis dahin von Quirin visualisiert)
+- Prototype manuel testen
+- Kanbanboard mit Tasks überprüfen
+
