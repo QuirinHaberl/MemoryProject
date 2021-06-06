@@ -17,9 +17,9 @@
 5. Daqian Zhang
 
 **Organisation**
-- Mehrmals wöchentliche Absprache über Zoom
+- Mehrmalige wöchentliche Absprache über Zoom
 - Fortschritte, Probleme und Fragen wurden in der Gruppe besprochen
-- Gemeinsame Planung der Einbindung des Konzepts der Model-View-Controller Architektur in unser Projekt
+- Gemeinsame Planung der Einbindung des Konzepts der Model-View-Controller-Architektur in unser Projekt
 - Gemeinsame Planung der Struktur (Klassendiagramm) des Projekts
 
 
@@ -51,7 +51,7 @@ Das Klasendiagramm wurde von Quirin Haberl in VisualParadigm erstellt (#65).
 | #74 |I|||||
 | #89 |||I|||
 
-Da wir ja agil programmiert haben waren oft mehr Personen als ursprünglich vorgesehen an Tasks beteiligt als hier aufgeführt werden. (siehe Commits)
+Da wir ja agil programmiert haben, waren oft mehr Personen als ursprünglich vorgesehen an Tasks beteiligt als hier aufgeführt wird. (siehe Commits)
 
 ## Planung Iteration 3
 
