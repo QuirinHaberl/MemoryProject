@@ -1,19 +1,14 @@
 /**
- * Enum of the states that a game can be in.
+ * Enum of the game status.
  */
 public enum GameStatus {
     /**
-     * The game hasn't started yet.
-     */
-    NOTSTART,
-
-    /**
-     * The game is running.
+     * while the game is running, the {@link GameStatus} is set to RUNNING.
      */
     RUNNING,
 
     /**
-     * The game has ended.
+     * If the {@link GameStatus} is END the game is over.
      */
     END
 }

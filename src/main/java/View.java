@@ -25,24 +25,23 @@ public final class View {
     }
 
     /**
-     * This method reads the input from the console and delegates it to {@link Control}.
+     * This method reads the input from the console and delegates it to {@link Controller}.
      *
      * @param bufferedReader provides a connection to the console.
      * @throws IOException on input error.
      */
     public static void execute(BufferedReader bufferedReader) throws IOException {
         //At the beginning a new control is created.
-        Control control = new Control();
+        Controller controller = new Controller();
 
-        boolean quit = false;
+        GameStatus gameStatus = GameStatus.RUNNING;
 
-        //Attributes to temporary save the first revealed card
         int firstRow = 0;
         int firstCol = 0;
-        int firstCard = 0;
+        int firstCardImage = 0;
 
         //It is read in from the console until the program is ended.
-        while (!quit) {
+        while (gameStatus.equals(GameStatus.RUNNING)) {
             System.out.print("memory> ");
             String input = bufferedReader.readLine();
             if (input == null) {
@@ -56,193 +55,58 @@ public final class View {
             String[] tokens = input.trim().split("\\s+");
 
             //Implementation of game phases
-            switch (control.getGameStatus()) {
-                case NOTSTART:
+            switch (controller.getTurnStatus()) {
+                case NOTSTARTED:
                     if (correctInput(tokens)) {
-                        //Reveals first card
-                        revealFirstCard(tokens, control);
-                        //Saving first revealed card and its position
                         firstRow = Integer.parseInt(tokens[0]);
                         firstCol = Integer.parseInt(tokens[1]);
-                        RevealedCard revealedCard = control.revealCard(firstRow,
-                                firstCol);
-                        firstCard =
-                                visualizeCard(revealedCard.getRevealedCard().getValue());
+                        firstCardImage = controller.getPlayingField().revealFirstCard(firstRow, firstCol,
+                                controller);
+                        showBoard(controller.getPlayingField());
                     }
                     break;
-                case RUNNING:
+                case ACTIVTURN:
                     if (correctInput(tokens)) {
-                        //Reveals second card
-                        revealSecondCard(tokens, control, firstRow, firstCol, firstCard);
-                        control.checkForPairOfCards();
-                        showPlayingField(tokens, control);
-                    }
-                    break;
-                case END:
-                    //Stops game because it is over
-                    System.out.println("You won!");
-                    quit = true;
-                    break;
-            }
-        }
-    }
-
-    /**
-     * First {@link Card} is revealed and the the current {@code board} is displayed,
-     * marking closed cards with X and already open cards with spaces.
-     *
-     * @param tokens  passed input (coordinates of the card to be revealed)
-     * @param control passed control
-     */
-    private static void revealFirstCard(String[] tokens, Control control) {
-        int numberIntRow = Integer.parseInt(tokens[0]);
-        int numberIntCol = Integer.parseInt(tokens[1]);
-        RevealedCard revealedCard = control.revealCard(numberIntRow, numberIntCol);
-        if (!revealedCard.isCanBeRevealed()) {
-            error("Card is already revealed");
-        } else {
-            boolean[][] playingField = revealedCard.getOutput();
-            //Column designation
-            String line = ("  0 1 2 3");
-            int card =
-                    visualizeCard(revealedCard.getRevealedCard().getValue());
-            for (int i = 0; i < playingField.length; i++) {
-                //Row designation
-                line = line + "\n" + i + " ";
-                //Output of the current playing field
-                for (int j = 0; j < playingField[i].length; j++) {
-                    //Display the first card and display the current playing
-                    // field
-                    if (numberIntRow == i && numberIntCol == j) {
-                        line = line + card + " ";
-                    } else {
-                        if (!playingField[i][j]) {
-                            line = line + "X ";
-                        } else {
-                            line = line + "  ";
+                        int secondRow = Integer.parseInt(tokens[0]);
+                        int secondCol = Integer.parseInt(tokens[1]);
+                        int secondCardImage = controller.getPlayingField().revealSecondCard(secondRow, secondCol,
+                                controller);
+                        if (controller.getPlayingField().pairCheck(firstRow, firstCol, secondRow, secondCol)) {
+                            showBoard(controller.getPlayingField());
+                        }
+                        controller.getPlayingField().closeAgain(firstRow, firstCol, secondRow, secondCol);
+                        if (controller.getPlayingField().areAllCardsOpen()) {
+                            //TODO Is this the right spot? - Jan
+                            gameStatus = GameStatus.END;
+                            System.out.println("You won!");
                         }
                     }
-                }
+                    break;
             }
-            System.out.println(line);
         }
     }
 
     /**
-     * Second card is revealed and the the current playing field is displayed,
-     * marking left cards with X and already open cards with spaces.
+     * Visualizes the current {@link PlayingField}
      *
-     * @param tokens    Passed input (coordinates of the card to be revealed)
-     * @param control   Passed control
-     * @param firstRow  Row of the current first revealed card
-     * @param firstCol  Column of the current first revealed card
-     * @param firstCard Reference to the first revealed card
+     * @param board is the currently {@link PlayingField}
      */
-    private static void revealSecondCard(String[] tokens, Control control,
-                                         int firstRow, int firstCol,
-                                         int firstCard) {
-        int numberIntRow = Integer.parseInt(tokens[0]);
-        int numberIntCol = Integer.parseInt(tokens[1]);
-        RevealedCard revealedCard = control.revealCard(numberIntRow, numberIntCol);
-        if (!revealedCard.isCanBeRevealed()) {
-            error("Card is already revealed");
-        } else {
-            boolean[][] playingField = revealedCard.getOutput();
-            //Column designation
-            String line = ("  0 1 2 3");
-            int card = visualizeCard(revealedCard.getRevealedCard().getValue());
-            for (int i = 0; i < playingField.length; i++) {
-                //Row designation
-                line = line + "\n" + i + " ";
-                //Output of the current playing field
-                for (int j = 0; j < playingField[i].length; j++) {
-                    //Display the first card
-                    if (firstRow == i && firstCol == j) {
-                        line = line + firstCard + " ";
-                    }
-                    //Display the second card and display the current playing
-                    // field
-                    if (numberIntRow == i && numberIntCol == j) {
-                        line = line + card + " ";
-                    } else {
-                        if (!playingField[i][j]) {
-                            line = line + "X ";
-                        } else {
-                            line = line + "  ";
-                        }
-                    }
-                }
-            }
-            System.out.println(line);
-        }
-    }
-
-    /**
-     * Visualizes the current {@link PlayingField}, marking left cards with X and
-     * already open cards with spaces.
-     *
-     * @param tokens  Passed input (coordinates of the card to be revealed)
-     * @param control Passed control
-     */
-    private static void showPlayingField(String[] tokens, Control control) {
-        boolean[][] playingField = control.getControlArray();
-        //Column designation
+    private static void showBoard(PlayingField board) {
         String line = ("  0 1 2 3");
-        for (int i = 0; i < playingField.length; i++) {
-            //Row designation
-            line = line + "\n" + i + " ";
-            //Output of the current playing field
-            for (int j = 0; j < playingField[i].length; j++) {
-                if (!playingField[i][j]) {
+        for (int row = 0; row < board.getBoard().length; row++) {
+            line = line + "\n" + row + " ";
+            for (int col = 0; col < board.getBoard()[0].length; col++) {
+                if (board.getCard(row, col).getCardStatus().equals(CardStatus.OPEN)) {
+                    line = line + Card.visualizeCard(board.getBoard()[row][col].getValue()) + " ";
+                } else if (board.getCard(row, col).getCardStatus().equals(CardStatus.CLOSED)) {
                     line = line + "X ";
-                } else {
+                } else if (board.getCard(row, col).getCardStatus().equals(CardStatus.FOUND)) {
                     line = line + "  ";
                 }
             }
         }
         System.out.println(line);
     }
-
-    /**
-     * Visualizes {@link Card}, defined by {@link CardValue}
-     *
-     * @param cardValue Type of card
-     * @return Visualization of the card value transferred
-     * TODO Überprüfe, ob hier auch Buchstaben verwendet werden können
-     */
-    private static int visualizeCard(CardValue cardValue) {
-        int visualized;
-        switch (cardValue) {
-            case ONE:
-                visualized = 1;
-                break;
-            case TWO:
-                visualized = 2;
-                break;
-            case THREE:
-                visualized = 3;
-                break;
-            case FOUR:
-                visualized = 4;
-                break;
-            case FIVE:
-                visualized = 5;
-                break;
-            case SIX:
-                visualized = 6;
-                break;
-            case SEVEN:
-                visualized = 7;
-                break;
-            case EIGHT:
-                visualized = 8;
-                break;
-            default:
-                visualized = 0;
-        }
-        return visualized;
-    }
-
 
     //Helper Methods
 
@@ -282,6 +146,9 @@ public final class View {
         }
     }
 
+    /**
+     * Prints a description of the memory-game when you enter the help command
+     */
     public static void printDescription() {
         System.out.println("Wer an der Reihe ist, darf nacheinander zwei Karten aufdecken. \n" +
                 "Dazu gib die Position der gewuenschten Karte als Tupel ein, z.B. 2 1 \n" +
