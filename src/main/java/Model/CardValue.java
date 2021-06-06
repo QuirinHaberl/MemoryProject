@@ -1,3 +1,5 @@
+package Model;
+
 /**
  * Enumeration of values that can be used.
  */

@@ -1,3 +1,5 @@
+package Model;
+
 /**
  * The class {@link Card} implements a card of the game.
  */
@@ -31,7 +33,7 @@ public class Card {
     }
 
     /**
-     * Checks weather the Card is revealable.
+     * Checks weather the Model.Card is revealable.
      * If true, then the card ist already open.
      * If false, then the card is still closed.
      *

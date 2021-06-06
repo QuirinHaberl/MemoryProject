@@ -1,3 +1,5 @@
+package Model;
+
 /**
  * Enum of the card status.
  */
