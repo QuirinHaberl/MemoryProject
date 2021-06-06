@@ -39,14 +39,14 @@ public final class View {
         //At the beginning a new control is created.
         Controller controller = new Controller();
 
-        controller.setGameStatus(GameStatus.RUNNING);
+        GameStatus gameStatus = GameStatus.RUNNING;
 
         int firstRow = 0;
         int firstCol = 0;
         int firstCardImage = 0;
 
         //It is read in from the console until the program is ended.
-        while (controller.getGameStatus().equals(GameStatus.RUNNING)) {
+        while (gameStatus.equals(GameStatus.RUNNING)) {
             System.out.print("memory> ");
             String input = bufferedReader.readLine();
             if (input == null) {
@@ -81,7 +81,8 @@ public final class View {
                         }
                         controller.getPlayingField().closeAgain(firstRow, firstCol, secondRow, secondCol);
                         if (controller.getPlayingField().areAllCardsOpen()) {
-                            controller.setGameStatus(GameStatus.END);
+                            //TODO Move into a new Method
+                            gameStatus = GameStatus.END;
                             System.out.println("You won!");
                         }
                     }
