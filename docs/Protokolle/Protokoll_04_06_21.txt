@@ -21,7 +21,7 @@ Kommentare im Code wurden alle durchgeganen und im Screensharing von Jan verbess
 - MVC nochmal besser aufgeteilen
 	-> Projekt Umstrukturierung: Isabella 
 	-> Methode fillBoard: Jan
-	-> Enum von GameStatus zu TurnStatus ändern  
+	-> Enum von TurnStatus zu TurnStatus ändern
 	
 	
 Nächstes Treffe: Sonntag 06.06.21 
