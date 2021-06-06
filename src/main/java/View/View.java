@@ -1,3 +1,8 @@
+package View;
+
+import Model.*;
+import Control.*;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -76,7 +81,7 @@ public final class View {
                         }
                         controller.getPlayingField().closeAgain(firstRow, firstCol, secondRow, secondCol);
                         if (controller.getPlayingField().areAllCardsOpen()) {
-                            //TODO Is this the right spot? - Jan
+                            //TODO Move into a new Method
                             gameStatus = GameStatus.END;
                             System.out.println("You won!");
                         }
@@ -109,7 +114,6 @@ public final class View {
     }
 
     //Helper Methods
-
     /**
      * Outputs a specified error message.
      *

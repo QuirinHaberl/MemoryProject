@@ -1,3 +1,7 @@
+package Control;
+
+import Model.*;
+
 /**
  * This class is the control part of the MVC-architecture.
  */
@@ -18,7 +22,6 @@ public class Controller {
      */
     private final PlayingField playingField;
 
-
     /**
      * The Constructor initiates the game, the turn and creates a new {@link PlayingField}
      */
@@ -27,7 +30,6 @@ public class Controller {
         gameStatus = GameStatus.RUNNING;
         playingField = new PlayingField();
     }
-
 
     /**
      * Getter for {@code playingField}

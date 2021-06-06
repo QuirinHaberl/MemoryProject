@@ -1,3 +1,5 @@
+package Control;
+
 /**
  * Enum of the game status.
  */
