@@ -80,3 +80,5 @@ Auswahl der User Stories für Iteration 3 aus bereits existierenden User Stories
 | #88 ||||E||
 | #90 |||E|||
 | #91 |||E|||
+| #95 |||||E|
+| #96 |||||E|
