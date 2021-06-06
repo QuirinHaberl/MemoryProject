@@ -1,0 +1,38 @@
+Protokoll des Zoommeetings am 30.05.21
+Teilnehmer: vollzählig 
+Autor: Jan Pfeifer
+
+
+1. Allgemeine Fragenklärung
+- Entscheidung, in welcher Sprache auf GitHub diskutiert bzw. das Projekt implementiert werden soll. 
+  ->In GitHub wird weiter auf Deutsch kommuniziert, doch die Implementierungen, sowie das Klassendiagramm werden auf Englisch erstellt.
+  
+- Klärung, wie jeder auf das Repository zugreifen kann, um Code beizusteuern. (via HTTPS bzw. SSH + Klärung der Git-Kommandos)
+
+- Einigung, auf die Verwendung der adopt-openj9-15 JDK, da diese aktuell und bereits besser getestet ist, als die neuere adopt-openj9-16 JDK.
+
+- Erstellung des Branch prototype durch Florian, speziell für Iteration2.
+
+- Bearbeitung des Kanban-Boards, da sich die 'ToDo'-Spalte als redundant herausgestellt hat und einige Tasks noch korrekt eingeordnet werden mussten.
+
+
+2. Weitere Besprechung zum Klassendiagramm
+- Zu den Klassen Card, PlaingField und Shell wurden die jeweiligen Methoden übersetzt und passend für das Klassendiagramm in GitHub aktualisiert.
+
+- Die Multiplizitäten und Beziehungen im Diagramm wurden geklärt.
+
+- Als Speicherung für den Wert einer Karte wurde der Enum CardValue eingeführt.
+
+- Nach der heutigen Besprechung des Klassendiagramms in der Gruppe wurde Quirin die Visualisierung des Diagramms zugeteilt.
+
+
+3. Vorbereitung zum Start der Programmierung
+- Die kleineren Tasks werden von einzelnen Personen bearbeitet. Die Klasse Shell wird noch in kleinere Tasks aufgeteilt.
+  Die genaue Aufteilung wird im nächsten Meeting besprochen.
+  Tasks, die sich mit der Implementierung befasssen werden mit neuem Lable 'Implementierung' gekennzeichnet.
+  
+- Die grobe Programmstruktur und Erstellung des .gitignore-File wurde Jan zugeteilt.
+
+- Isabella beantwortet die Kritikpunkte von Betreuer Georg und informiert sich weiter über sein Feedback.
+
+- Aktuelle Tasks werden noch passend zur agilen Implementierung umformuliert.
