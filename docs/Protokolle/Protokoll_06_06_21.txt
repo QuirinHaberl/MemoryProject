@@ -1,0 +1,38 @@
+Protokoll zum Zoommeeting am 06.06.2021
+Teilnehmende: Alle
+Autor: Florian Muhrer 
+
+TOP 1 Besprechung des Codes
+-Bug entdeckt von Isabella
+-Neue Methode von Jan (pairCheck)
+-Programm soll Fehlermeldung ausgeben wenn Karte, die ausgewählt wurde bereits gefunden worden ist
+-Gemeinsames Testen und Ergebnisführung (ausgeführt durch Jan)
+-Neue fillWithCards Methode von Jan erstellt
+-Alle Printausgaben sollen in der Vie Klasse ausgegeben werden
+-Neues CardEnum erstellt durch Jan
+-->Übertragung in showBoard 
+
+TOP 2 Package Erstellung
+-Package Model erstellt mit
+       -Card
+       -CardStatus
+       -PlayingField
+-Package Control erstellt
+       -GameStatus
+       -TurnnStatus
+       -Controller
+-Package View erstellt
+       -View 
+
+TOP 3 Resultierende Aufgaben durchführen
+-Anpassung des Klassendiagramms durch Quirin
+   -->Zustimmung von allen nach Absprache (Packages Struktur)
+-Besprechung der Markdown für Iteration 2
+-Vorgehen über Merge in Master abgesprochen
+-Für nächste Iteration wird neuer Branch erstellen
+-Absprache des Kanban Boards für Iteration 3
+-Zuteilung der Erstellung von noch offenen Tasks an Florian
+-Pushen von letzten Änderingen durch Jan und Quirin in Branch Prototype
+-Hochladen des Klassendiagramms durch Quirin
+-Hochladen der Markdown durch Quirin (Scrum Master)
+-Manuelles testen durch Florian
