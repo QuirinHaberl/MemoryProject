@@ -1,0 +1,38 @@
+Protokoll des Zoommeetings am Di. 31.05.2021
+Teilnehmende: Alle
+Autor: Florian Muhrer
+
+
+Top 1:
+Besprechung über Implementierung des Model View Controller
+ 
+-Vorschlag View und Controller in die Shell zu integrieren
+-Vorschlag von Daqian und Isabella "Spiel Controller Status" zu implementieren
+-Diskussion wie Eingaben und Ausgaben über die Konsole gehandhabt werden sollen
+-Eingabeprüfung soll über die Shell geschehen
+-Aufteilung der Shell in visualization und Controller
+-Anpassung des besprochenen im Klassendiagramm durch Quirin
+-Bei der Umsetzung der GUI soll das MVC überarbeitet werden
+ 
+Top 2:
+Besprechung und Aufteilung der Methoden aus dem Klassendiagramm
+ 
+-Methode hinzugefügt die das kontroll-Array abfragt
+-Anpassung im Klassendiagramm
+-"hight" und "width" Attribute aus SpielfeldKlasse as final gesetzt
+-Enum GameStatus hinzugefügt und in Klassendiagramm angepasst
+ 
+-Quirin übernimmt Shell
+-Isabella, Jan und Daqian übernehmen die Klasse PlayingField
+-Daqian übernimmt zusätzlich enum GameStatus, enum CardValue
+-Florian übernimmt Klasse Card
+ 
+Top 3:
+Absprache der Nutzung von Branches
+ 
+-Auf Branch Prototype erstellt jeder seine eigenen Branches und ist für das mergen verantwortlich
+-Branch "Prototype" als Feauture. Alle anderen Erweiterungen auch als Feauture
+ 
+Zusätzliches:
+-Isabella erstellt neue Label im Kanban-Board für die Implementierung/Klassen
+-Dokumentationsconvention (Javadoc) soll beachtet werden
