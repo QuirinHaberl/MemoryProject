@@ -18,7 +18,22 @@ public class playerList {
         this.count = count;
     }
 
+    public boolean ifNameEffective(String name){
+        boolean effective = true;
+        player current = front;
+        for(int i = 0; i < count; i ++){
+            if(current.name == name){
+                effective = false;
+            }
+            current = current.next;
+        }
+        return effective;
+    }
+
     public void addPlayer(String name){
+        if(ifNameEffective(name) == false){
+            throw new IllegalArgumentException("This name exists already! You should use another name!");
+        }
         player player = new player(name,0,null);
         if(front == null){
             front = player;
