@@ -136,7 +136,7 @@ public class playerList {
         return position;
     }
 
-    public playerList copy(){          //辅助方法
+    public playerList copy(){
         playerList list = new playerList(null,null);
         for(int i = 0; i < count; i++){
             list.addPlayer(this.getPlayer(i).getName());
