@@ -107,7 +107,7 @@ public class playerList {
         }
     }
 
-    public int getThePositionOfPlayer(player player){  //helping methode，用来帮助按照成绩高低输出player。
+    public int getThePositionOfPlayer(player player){  //helping methode，uses for sort
         player current = front;
         int position = 0;
         for(int i = 0; i < count; i++){
