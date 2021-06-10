@@ -66,7 +66,11 @@ public final class View {
                         firstRow = Integer.parseInt(tokens[0]);
                         firstCol = Integer.parseInt(tokens[1]);
                         firstCardImage = game.revealFirstCard(firstRow, firstCol);
-                        showBoard();
+                        if (firstCardImage == 0) {
+                            System.out.println("The selected card was already found!");
+                        } else {
+                            showBoard();
+                        }
                     }
                     break;
                 case ACTIVTURN:
@@ -74,13 +78,25 @@ public final class View {
                         int secondRow = Integer.parseInt(tokens[0]);
                         int secondCol = Integer.parseInt(tokens[1]);
                         int secondCardImage = game.revealSecondCard(secondRow, secondCol);
-                        if (game.pairCheck(firstRow, firstCol, secondRow, secondCol)) {
-                            showBoard();
+                        if (secondCardImage == 0) {
+                            System.out.println("The selected card was already found!");
+                            break;
+                        } else {
+                            if (secondCardImage == 9) {
+                                System.out.println("You've selected the same card twice!");
+                                break;
+                            }
                         }
-                        game.closeAgain(firstRow, firstCol, secondRow, secondCol);
-                        if (game.areAllCardsOpen()) {
-                            game.setGameStatus(GameStatus.END);
-                            System.out.println("You won!");
+                        showBoard();
+                        if (game.pairCheck(firstRow, firstCol, secondRow, secondCol)) {
+                            System.out.println("You've found a pair!");
+                            showBoard();
+                            if (game.areAllCardsOpen()) {
+                                game.setGameStatus(GameStatus.END);
+                                System.out.println("You won!");
+                            }
+                        } else {
+                            System.out.println("Cards are not equal!");
                         }
                     }
                     break;
