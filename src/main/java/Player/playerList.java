@@ -107,7 +107,7 @@ public class playerList {
         }
     }
 
-    public int getThePositionOfPlayer(player player){  //helping methode，uses for sort of players
+    public int getThePositionOfPlayer(player player){  //helping methode，uses for sort of players.
         player current = front;
         int position = 0;
         for(int i = 0; i < count; i++){
