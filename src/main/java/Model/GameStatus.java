@@ -1,4 +1,4 @@
-package Control;
+package Model;
 
 /**
  * Enum of the game status.

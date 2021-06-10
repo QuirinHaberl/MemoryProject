@@ -1,7 +1,6 @@
 package View;
 
 import Model.*;
-import Control.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -30,23 +29,24 @@ public final class View {
     }
 
     /**
-     * This method reads the input from the console and delegates it to {@link Controller}.
+     * This method reads the input from the console and delegates it to {@link Game}.
      *
      * @param bufferedReader provides a connection to the console.
      * @throws IOException on input error.
      */
     public static void execute(BufferedReader bufferedReader) throws IOException {
         //At the beginning a new control is created.
-        Controller controller = new Controller();
+        new PlayingField();
+        Game game = new Game();
 
-        controller.setGameStatus(GameStatus.RUNNING);
+        game.setGameStatus(GameStatus.RUNNING);
 
         int firstRow = 0;
         int firstCol = 0;
         int firstCardImage = 0;
 
         //It is read in from the console until the program is ended.
-        while (controller.getGameStatus().equals(GameStatus.RUNNING)) {
+        while (game.getGameStatus().equals(GameStatus.RUNNING)) {
             System.out.print("memory> ");
             String input = bufferedReader.readLine();
             if (input == null) {
@@ -60,28 +60,26 @@ public final class View {
             String[] tokens = input.trim().split("\\s+");
 
             //Implementation of game phases
-            switch (controller.getTurnStatus()) {
+            switch (game.getTurnStatus()) {
                 case NOTSTARTED:
                     if (correctInput(tokens)) {
                         firstRow = Integer.parseInt(tokens[0]);
                         firstCol = Integer.parseInt(tokens[1]);
-                        firstCardImage = controller.getPlayingField().revealFirstCard(firstRow, firstCol,
-                                controller);
-                        showBoard(controller.getPlayingField());
+                        firstCardImage = game.revealFirstCard(firstRow, firstCol);
+                        showBoard();
                     }
                     break;
                 case ACTIVTURN:
                     if (correctInput(tokens)) {
                         int secondRow = Integer.parseInt(tokens[0]);
                         int secondCol = Integer.parseInt(tokens[1]);
-                        int secondCardImage = controller.getPlayingField().revealSecondCard(secondRow, secondCol,
-                                controller);
-                        if (controller.getPlayingField().pairCheck(firstRow, firstCol, secondRow, secondCol)) {
-                            showBoard(controller.getPlayingField());
+                        int secondCardImage = game.revealSecondCard(secondRow, secondCol);
+                        if (game.pairCheck(firstRow, firstCol, secondRow, secondCol)) {
+                            showBoard();
                         }
-                        controller.getPlayingField().closeAgain(firstRow, firstCol, secondRow, secondCol);
-                        if (controller.getPlayingField().areAllCardsOpen()) {
-                            controller.setGameStatus(GameStatus.END);
+                        game.closeAgain(firstRow, firstCol, secondRow, secondCol);
+                        if (game.areAllCardsOpen()) {
+                            game.setGameStatus(GameStatus.END);
                             System.out.println("You won!");
                         }
                     }
@@ -91,20 +89,19 @@ public final class View {
     }
 
     /**
-     * Visualizes the current {@link PlayingField}
+     * Visualizes the current {@link Game}
      *
-     * @param board is the currently {@link PlayingField}
      */
-    private static void showBoard(PlayingField board) {
+    private static void showBoard() {
         String line = ("  0 1 2 3");
-        for (int row = 0; row < board.getBoard().length; row++) {
+        for (int row = 0; row < Game.getPlayingField().length; row++) {
             line = line + "\n" + row + " ";
-            for (int col = 0; col < board.getBoard()[0].length; col++) {
-                if (board.getCard(row, col).getCardStatus().equals(CardStatus.OPEN)) {
-                    line = line + Card.visualizeCard(board.getBoard()[row][col].getValue()) + " ";
-                } else if (board.getCard(row, col).getCardStatus().equals(CardStatus.CLOSED)) {
+            for (int col = 0; col < Game.getPlayingField()[row].length; col++) {
+                if (Game.getCard(row, col).getCardStatus().equals(CardStatus.OPEN)) {
+                    line = line + Card.visualizeCard(Game.getPlayingField()[row][col].getValue()) + " ";
+                } else if (Game.getCard(row, col).getCardStatus().equals(CardStatus.CLOSED)) {
                     line = line + "X ";
-                } else if (board.getCard(row, col).getCardStatus().equals(CardStatus.FOUND)) {
+                } else if (Game.getCard(row, col).getCardStatus().equals(CardStatus.FOUND)) {
                     line = line + "  ";
                 }
             }
