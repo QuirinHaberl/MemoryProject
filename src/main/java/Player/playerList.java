@@ -136,7 +136,7 @@ public class playerList {
         getThePlayerWithHighestScore().getStatusOfPlayer();
     }
 
-    public playerList sortTheListAccordingToScore(){//分数高的在前面。
+    public playerList sortTheListAccordingToScore(){  //player with higher score is ranked first
         playerList list = this.copy();
         if(count == 0){
             throw new IllegalArgumentException("The playList is empty, can't be sorted!");
