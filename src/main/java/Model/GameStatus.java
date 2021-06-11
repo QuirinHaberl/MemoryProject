@@ -12,5 +12,10 @@ public enum GameStatus {
     /**
      * If the {@link GameStatus} is END the game is over.
      */
-    END
+    END,
+
+    /**
+     * If the {@link GameStatus} is MENU the player can interact with the menu.
+     */
+    MENU
 }
