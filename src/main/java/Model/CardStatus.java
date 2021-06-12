@@ -15,6 +15,11 @@ public enum CardStatus {
     OPEN,
 
     /**
+     * a {@link Card} is open.
+     */
+    AlREADYOPEN,
+
+    /**
      * a {@link Card} is already found.
      */
     FOUND;

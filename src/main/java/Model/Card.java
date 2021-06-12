@@ -6,9 +6,9 @@ package Model;
 public class Card {
 
     /**
-     * The attribute {@link CardValue} is the image of the card.
+     * The attribute {@link CardDigits} is the image of the card.
      */
-    private CardValue value;
+    private Object value;
 
     /**
      * The attribute {@code cardStatus} saves whether a card is closed, open or found.
@@ -18,9 +18,19 @@ public class Card {
     /**
      * Constructs a new {@link Card}.
      *
-     * @param value uses the enumerations of {@link CardValue}
+     * @param value uses the enumerations of {@link CardDigits}
      */
-    public Card(CardValue value) {
+    public Card(CardDigits value) {
+        this.value = value;
+        this.cardStatus = CardStatus.CLOSED;
+    }
+
+    /**
+     * Constructs a new {@link Card}.
+     *
+     * @param value uses the enumerations of {@link CardDigits}
+     */
+    public Card(CardLetters value) {
         this.value = value;
         this.cardStatus = CardStatus.CLOSED;
     }
@@ -28,7 +38,7 @@ public class Card {
     /**
      * @return the value of a {@link Card}.
      */
-    public CardValue getValue() {
+    public Object getValue() {
         return value;
     }
 
@@ -46,49 +56,26 @@ public class Card {
     /**
      * Sets the value of a {@link Card}.
      */
-    public void setValue(CardValue value) {
+    public void setValue(CardDigits value) {
         this.value = value;
     }
 
     /**
-     * Visualizes {@link Card}, defined by {@link CardValue}
+     * Visualizes {@link Card}, defined by {@link CardDigits}
      *
-     * @param cardValue Type of card
+     * @param value Type of card
      * @return Visualization of the card value transferred
-     * TODO für die nächste Iteration muss diese Methode auch umgeschrieben werden,
      * da sie vom Kartenset abhängt
      */
-    public static int visualizeCard(CardValue cardValue) {
-        int visualized;
-        switch (cardValue) {
-            case ONE:
-                visualized = 1;
-                break;
-            case TWO:
-                visualized = 2;
-                break;
-            case THREE:
-                visualized = 3;
-                break;
-            case FOUR:
-                visualized = 4;
-                break;
-            case FIVE:
-                visualized = 5;
-                break;
-            case SIX:
-                visualized = 6;
-                break;
-            case SEVEN:
-                visualized = 7;
-                break;
-            case EIGHT:
-                visualized = 8;
-                break;
-            default:
-                visualized = 0;
+    public static String visualizeCard(Object value) {
+        if (value instanceof CardDigits) {
+            return ((CardDigits) value).getDigit();
+        } else if (value instanceof CardLetters) {
+            return ((CardLetters) value).getLetter();
         }
-        return visualized;
+        else{
+            return null; //TODO Das müss ich noch schöner schreiben -Jan
+        }
     }
 
     /**

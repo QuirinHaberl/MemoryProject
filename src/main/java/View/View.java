@@ -36,14 +36,20 @@ public final class View {
      */
     public static void execute(BufferedReader bufferedReader) throws IOException {
         //At the beginning a new control is created.
-        new PlayingField();
+        PlayingField field = new PlayingField();
         Game game = new Game();
 
         game.setGameStatus(GameStatus.RUNNING);
 
         int firstRow = 0;
         int firstCol = 0;
-        int firstCardImage = 0;
+        String firstCardImage = null;
+
+        //Printing the description of a memory game
+        printDescription();
+
+        //Setting the cardSet and fills the board with cards
+        selectCardSet(bufferedReader, field);
 
         //It is read in from the console until the program is ended.
         while (game.getGameStatus().equals(GameStatus.RUNNING)) {
@@ -56,6 +62,10 @@ public final class View {
                 printDescription();
                 continue;
             }
+            if (input.equals("found")) {
+                printGraveyard();
+                continue;
+            }
             //The input is split up using spaces.
             String[] tokens = input.trim().split("\\s+");
 
@@ -65,9 +75,10 @@ public final class View {
                     if (correctInput(tokens)) {
                         firstRow = Integer.parseInt(tokens[0]);
                         firstCol = Integer.parseInt(tokens[1]);
-                        firstCardImage = game.revealFirstCard(firstRow, firstCol);
-                        if (firstCardImage == 0) {
+                        CardStatus firstCardStatus = game.revealFirstCard(firstRow, firstCol);
+                        if (firstCardStatus.equals(CardStatus.FOUND)) {
                             System.out.println("The selected card was already found!");
+                            break;
                         } else {
                             showBoard();
                         }
@@ -77,15 +88,14 @@ public final class View {
                     if (correctInput(tokens)) {
                         int secondRow = Integer.parseInt(tokens[0]);
                         int secondCol = Integer.parseInt(tokens[1]);
-                        int secondCardImage = game.revealSecondCard(secondRow, secondCol);
-                        if (secondCardImage == 0) {
+                        CardStatus secondCardStatus = game.revealSecondCard(secondRow, secondCol);
+                        if (secondCardStatus.equals(CardStatus.FOUND)) {
                             System.out.println("The selected card was already found!");
                             break;
-                        } else {
-                            if (secondCardImage == 9) {
-                                System.out.println("You've selected the same card twice!");
-                                break;
-                            }
+                        } else if (secondCardStatus.equals(CardStatus.AlREADYOPEN)) {
+                            System.out.println("You've selected the same card twice!");
+                            break;
+
                         }
                         showBoard();
                         if (game.pairCheck(firstRow, firstCol, secondRow, secondCol)) {
@@ -106,7 +116,6 @@ public final class View {
 
     /**
      * Visualizes the current {@link Game}
-     *
      */
     private static void showBoard() {
         String line = ("  0 1 2 3");
@@ -126,6 +135,7 @@ public final class View {
     }
 
     //Helper Methods
+
     /**
      * Outputs a specified error message.
      *
@@ -166,12 +176,48 @@ public final class View {
      * Prints a description of the memory-game when you enter the help command
      */
     public static void printDescription() {
-        System.out.println("Wer an der Reihe ist, darf nacheinander zwei Karten aufdecken. \n" +
+        System.out.println("\nWer an der Reihe ist, darf nacheinander zwei Karten aufdecken. \n" +
                 "Dazu gib die Position der gewuenschten Karte als Tupel ein, z.B. 2 1 \n" +
                 "Nun wird dir dann das Spielfeld mit dem Bild deiner ausgewaehlten Karte angezeigt. \n" +
                 "Analog das Vorgehen bei der zweiten Karte. \n" +
                 "Ziel des Spiels ist es ein Kartenpaar, d.h. zwei Karten mit dem gleichen Bild zu finden. \n" +
                 "Das zusammenpassende Bilderpaar wird vom Spielfeld entfernt. \n" +
-                "Passen die beiden Kartenbilder nicht zusammen, werden die Karten wieder umgedreht.");
+                "Passen die beiden Kartenbilder nicht zusammen, werden die Karten wieder umgedreht.\n");
+    }
+
+    /**
+     * Sets the {@link CardSet} to be used
+     */
+    public static void selectCardSet(BufferedReader bufferedReader, PlayingField field) throws IOException {
+        //TODO Der Input muss noch auf Fehler überprüft werden
+        System.out.println("Type 'L' for letters or 'D' for digits.");
+        System.out.print("memory> ");
+        String input = bufferedReader.readLine();
+        if (input.equalsIgnoreCase("L")) {
+            field.setCardSet(CardSet.LETTERS);
+        } else if (input.equalsIgnoreCase("D")) {
+            field.setCardSet(CardSet.DIGITS);
+        } else {
+            throw new IllegalAccessError("This set does not exist!");
+        }
+        field.fillWithCards();
+        showBoard();
+    }
+
+    public static void printGraveyard() {
+        String line = ("  0 1 2 3");
+        for (int row = 0; row < Game.getPlayingField().length; row++) {
+            line = line + "\n" + row + " ";
+            for (int col = 0; col < Game.getPlayingField()[row].length; col++) {
+                if (Game.getCard(row, col).getCardStatus().equals(CardStatus.OPEN)) {
+                    line = line + "  ";
+                } else if (Game.getCard(row, col).getCardStatus().equals(CardStatus.CLOSED)) {
+                    line = line + "  ";
+                } else if (Game.getCard(row, col).getCardStatus().equals(CardStatus.FOUND)) {
+                    line = line + Card.visualizeCard(Game.getPlayingField()[row][col].getValue()) + " ";
+                }
+            }
+        }
+        System.out.println(line);
     }
 }

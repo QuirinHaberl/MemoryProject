@@ -3,7 +3,8 @@ package Model;
 /**
  * Enumeration of values that can be used.
  */
-public enum CardValue {
+public enum CardDigits
+{
     /**
      * a {@link Card} can have values from ONE to EIGHT
      * the value of a {@link Card} is saved as well.
@@ -19,14 +20,14 @@ public enum CardValue {
     /**
      * Constructs a new label
      *
-     * @param digit is saved as a attribute for a {@link CardValue}
+     * @param digit is saved as a attribute for a {@link CardDigits}
      */
-    CardValue(String digit) {
+    CardDigits(String digit) {
         this.digit = digit;
     }
 
     /**
-     * @return the {@code label} of a {@link CardValue}
+     * @return the {@code label} of a {@link CardDigits}
      */
     public String getDigit() {
         return digit;

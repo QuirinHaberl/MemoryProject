@@ -1,5 +1,8 @@
 package Model;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+
 /**
  * This class is the control part of the MVC-architecture.
  */
@@ -18,7 +21,7 @@ public class Game {
     /**
      * Active {@link PlayingField}
      */
-    private static Card[][] playingField = PlayingField.getBoard();
+    private static final Card[][] playingField = PlayingField.getBoard();
 
     /**
      * The Constructor initiates the game, the turn and creates a new {@link PlayingField}
@@ -36,7 +39,7 @@ public class Game {
     public static Card[][] getPlayingField() {
         return playingField;
     }
-    
+
 
     /**
      * Getter of {@link TurnStatus}
@@ -84,61 +87,40 @@ public class Game {
     public static Card getCard(int row, int col) {
         return playingField[row][col];
     }
-    
-    
-
-    /**
-     * Reveals a {@link Card} identified by row and column.
-     *
-     * @param row of the desired card
-     * @param col of the desired card
-     * @return the {@code value} of a card
-     */
-    public CardValue revealCard(int row, int col) {
-        return getCard(row, col).getValue();
-    }
 
     /**
      * Reveals the first selected {@link Card} of a turn
      *
-     * @param firstRow   of the {@link Card}
-     * @param firstCol   of the {@link Card}
-     * @return the image of the first {@link Card} as Integer.
+     * @param firstRow of the {@link Card}
+     * @param firstCol of the {@link Card}
+     * @return the current {@link CardStatus} of a {@link Card}
      */
-    public int revealFirstCard(int firstRow, int firstCol) {
+    public CardStatus revealFirstCard(int firstRow, int firstCol) {
         Card firstCard = getCard(firstRow, firstCol);
-        if (firstCard.getCardStatus().equals(CardStatus.FOUND)) {
-            return 0;
-        } else {
-            setTurnStatus(TurnStatus.ACTIVTURN);
+        if (firstCard.getCardStatus().equals(CardStatus.CLOSED)) {
             firstCard.setCardStatus(CardStatus.OPEN);
+            setTurnStatus(TurnStatus.ACTIVTURN);
         }
-        int firstCardImage = firstCard.visualizeCard(revealCard(firstRow, firstCol));
-        return firstCardImage;
+        return firstCard.getCardStatus();
     }
 
     /**
      * Reveals the second selected {@link Card} of a turn.
-     * This method is needed, because additionally information has to be proofed
+     * This method used to proof additional information about the {@link CardStatus}
      *
-     * @param secondRow  of the {@link Card}
-     * @param secondCol  of the {@link Card}
-     * @return the image of the second {@link Card} as Integer
+     * @param secondRow of the {@link Card}
+     * @param secondCol of the {@link Card}
+     * @return the current {@link CardStatus} of a {@link Card}
      */
-    public int revealSecondCard(int secondRow, int secondCol) {
+    public CardStatus revealSecondCard(int secondRow, int secondCol) {
         Card secondCard = getCard(secondRow, secondCol);
-        if (secondCard.getCardStatus() == CardStatus.FOUND) {
-            return 0;
-        } else {
-            if (secondCard.getCardStatus() == CardStatus.OPEN) {
-                return 9;
-            } else {
-                secondCard.setCardStatus(CardStatus.OPEN);
-                setTurnStatus(TurnStatus.NOTSTARTED);
-            }
+        if (secondCard.getCardStatus().equals(CardStatus.OPEN)) {
+            secondCard.setCardStatus(CardStatus.AlREADYOPEN);
+        } else if (secondCard.getCardStatus().equals(CardStatus.CLOSED)) {
+            secondCard.setCardStatus(CardStatus.OPEN);
+            setTurnStatus(TurnStatus.NOTSTARTED);
         }
-        int secondCardImage = secondCard.visualizeCard(revealCard(secondRow, secondCol));
-        return secondCardImage;
+        return getCard(secondRow, secondCol).getCardStatus();
     }
 
     /**
@@ -153,16 +135,14 @@ public class Game {
         Card firstCard = getCard(rowFirstCard, colFirstCard);
         Card secondCard = getCard(rowSecondCard, colSecondCard);
         if (firstCard.getValue().equals(secondCard.getValue())) {
-            playingField[rowFirstCard][colFirstCard].setCardStatus(CardStatus.FOUND);
-            playingField[rowSecondCard][colSecondCard].setCardStatus(CardStatus.FOUND);
+            removeCards(rowFirstCard, colFirstCard, rowSecondCard, colSecondCard);
             return true;
         } else {
-            playingField[rowFirstCard][colFirstCard].setCardStatus(CardStatus.CLOSED);
-            playingField[rowSecondCard][colSecondCard].setCardStatus(CardStatus.CLOSED);
+            closeCards(rowFirstCard, colFirstCard, rowSecondCard, colSecondCard);
             return false;
         }
     }
-    
+
     /**
      * Checks whether all cards have already been turned over.
      * If true, then the images of all cards are open.
@@ -192,5 +172,18 @@ public class Game {
     public void removeCards(int row1, int col1, int row2, int col2) {
         playingField[row1][col1].setCardStatus(CardStatus.FOUND);
         playingField[row2][col2].setCardStatus(CardStatus.FOUND);
+    }
+
+    /**
+     * Closes a {@link Card} pair from the {@code board}.
+     *
+     * @param row1 Row position of the first selected card
+     * @param col1 Column position of the first selected card
+     * @param row2 Row position of the second selected card
+     * @param col2 Column position of the second selected card
+     */
+    public void closeCards(int row1, int col1, int row2, int col2) {
+        playingField[row1][col1].setCardStatus(CardStatus.CLOSED);
+        playingField[row2][col2].setCardStatus(CardStatus.CLOSED);
     }
 }

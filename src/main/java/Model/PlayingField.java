@@ -24,11 +24,15 @@ public class PlayingField {
     private static Card[][] board;
 
     /**
+     * Current {@link CardSet} used
+     */
+    private CardSet cardSet;
+
+    /**
      * The Constructor creates a new {@link PlayingField} and fills the board with {@link Card}
      */
     public PlayingField() {
         board = new Card[height][width];
-        fillWithCards();
     }
 
     /**
@@ -59,20 +63,74 @@ public class PlayingField {
         return width;
     }
 
+    /**
+     * @return the current {@code cardSet}
+     */
+    public CardSet getCardSet() {
+        return cardSet;
+    }
+
+    /**
+     * Sets the current {@link CardSet}
+     * @param cardSet to be used
+     */
+    public void setCardSet(CardSet cardSet) {
+        this.cardSet = cardSet;
+    }
 
     /**
      * Fills the {@code board} with {@link Card} elements.
      */
-    private void fillWithCards() {
-        CardValue[] allCardValues = CardValue.values();
+    public void fillWithCards() {
+        switch (this.cardSet) {
+            //TODO Beide fill-Methoden sind noch sehr ineffizient, aber funktionieren erstmal -Jan
+            case DIGITS -> fillDigits();
+            case LETTERS -> fillLetters();
+            default -> System.err.println("Dieses Set wurde noch nicht implementiert");
+        }
+        shuffleBoard();
+    }
+
+    /**
+     * Fills the board with digits
+     */
+    public void fillDigits() {
+        CardDigits[] allCardDigits = CardDigits.values();
         int counter = 0;
-        for (int i = 0; i < board.length; i++) {
+        for (int i = 0; i < board.length / 2; i++) {
             for (int j = 0; j < board[0].length; j++) {
-                board[i][j] = new Card(allCardValues[counter % allCardValues.length]);
+                board[i][j] = new Card(allCardDigits[counter % allCardDigits.length]);
                 counter++;
             }
         }
-        shuffleBoard();
+        counter = 0;
+        for (int i = getBoard().length / 2; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                board[i][j] = new Card(allCardDigits[counter % allCardDigits.length]);
+                counter++;
+            }
+        }
+    }
+
+    /**
+     * Fills the board with Letters
+     */
+    public void fillLetters() {
+        CardLetters[] allCardLetters = CardLetters.values();
+        int counter = 0;
+        for (int i = 0; i < board.length / 2; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                board[i][j] = new Card(allCardLetters[counter % allCardLetters.length]);
+                counter++;
+            }
+        }
+        counter = 0;
+        for (int i = getBoard().length / 2; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                board[i][j] = new Card(allCardLetters[counter % allCardLetters.length]);
+                counter++;
+            }
+        }
     }
 
     /**
