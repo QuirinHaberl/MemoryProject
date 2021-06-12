@@ -80,7 +80,7 @@ public class playerList {
     /**
      * deletes a player from the playerList by its position
      *
-     * @param position of the {@link player} that will be deleted
+     * @param position of the {@link Player} that will be deleted
      */
     public void deletePlayer(int position) {
 
@@ -113,7 +113,7 @@ public class playerList {
     /**
      * return a player by its position
      *
-     * @param position of the {@link player}
+     * @param position of the {@link Player}
      * @return the player
      */
     public player getPlayer(int position) {
@@ -152,7 +152,7 @@ public class playerList {
      * adds 1 score to the score of a player
      * if the player found two same cards, then its score will be added 1
      *
-     * @param position of the {@link player}
+     * @param position of the {@link Player}
      */
     public void addScoreForPlayer(int position) {
         this.getPlayer(position).addScore();
@@ -162,7 +162,7 @@ public class playerList {
      * return the name of a player whom we find  by position
      *
      * @param position of a player
-     * @return the name of a {@link player}
+     * @return the name of a {@link Player}
      */
     public String getNameOfPlayer(int position) {
         return getPlayer(position).getName();
@@ -172,7 +172,7 @@ public class playerList {
      * return the score of a player whom we find by position
      *
      * @param position of a player
-     * @return the score of a {@link player}
+     * @return the score of a {@link Player}
      */
     public int getScoreOfPlayer(int position) {
         return getPlayer(position).getScore();
@@ -308,7 +308,7 @@ public class playerList {
      * output the name and score of all players according to the score
      */
     public void outputPlayersAccordingToScore() {
-        playerList sort = this.sort();          //firsttly sorts the playerList
-        outputTheStatusofAllPlayers();          //output the informations of all players
+        this.sort();          //firstly sorts the playerList
+        outputTheStatusofAllPlayers();          //output the information of all players
     }
 }
