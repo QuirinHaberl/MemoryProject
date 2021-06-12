@@ -201,6 +201,10 @@ public final class View {
 
     /**
      * Sets the {@link CardSet} to be used
+     *
+     * @param bufferedReader provides a connection to the console.
+     * @param field is used to set a {@link CardSet}
+     * @throws IOException on input error.
      */
     public static void selectCardSet(BufferedReader bufferedReader, PlayingField field) throws IOException {
         //TODO Der Input muss noch auf Fehler überprüft werden
@@ -216,6 +220,13 @@ public final class View {
         }
     }
 
+    /**
+     * Sets the field-size to be used
+     *
+     * @param bufferedReader provides a connection to the console.
+     * @return the selected size of the {@code field}
+     * @throws IOException on input error.
+     */
     public static int selectBoardSize(BufferedReader bufferedReader) throws IOException {
         //TODO Der Input muss noch auf Fehler überprüft werden
         System.out.println("Type '2', '4', '6', '8' to select the board-size:");
@@ -228,6 +239,9 @@ public final class View {
         }
     }
 
+    /**
+     * Prints every {@link Card} that is {@code GameStatus.Found}
+     */
     public static void printGraveyard() {
         StringBuilder line = new StringBuilder(("  0 1 2 3"));
         for (int row = 0; row < Game.getPlayingField().length; row++) {

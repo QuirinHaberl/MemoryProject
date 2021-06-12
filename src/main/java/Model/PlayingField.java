@@ -28,6 +28,8 @@ public class PlayingField {
 
     /**
      * The Constructor creates a new {@link PlayingField} and fills the board with {@link Card}
+     *
+     * @param size specifies the size of an array squared
      */
     public PlayingField(int size) {
         this.height = size;

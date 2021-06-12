@@ -22,5 +22,5 @@ public enum CardStatus {
     /**
      * a {@link Card} is already found.
      */
-    FOUND;
+    FOUND
 }

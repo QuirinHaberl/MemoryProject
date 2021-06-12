@@ -12,5 +12,5 @@ public enum TurnStatus {
     /**
      * The turn is running.
      */
-    ACTIVTURN,
+    ACTIVTURN
 }
