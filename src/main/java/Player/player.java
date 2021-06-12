@@ -13,7 +13,7 @@ public class player {
      */
     int score;
     /**
-     * the attribute player next is used for connectting to the next player
+     * the attribute player next is used for connecting to the next player
      */
     player next;
 
