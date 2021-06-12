@@ -102,7 +102,7 @@ public class Game {
      *
      * @param firstRow of the {@link Card}
      * @param firstCol of the {@link Card}
-     * @return the image of the first {@link Card} as Integer.
+     * @return the current {@link CardStatus} of a {@link Card}
      */
     public CardStatus revealFirstCard(int firstRow, int firstCol) {
         Card firstCard = getCard(firstRow, firstCol);
@@ -115,11 +115,11 @@ public class Game {
 
     /**
      * Reveals the second selected {@link Card} of a turn.
-     * This method is needed, because additionally information has to be proofed
+     * This method used to proof additional information about the {@link CardStatus}
      *
      * @param secondRow of the {@link Card}
      * @param secondCol of the {@link Card}
-     * @return the image of the second {@link Card} as Integer
+     * @return the current {@link CardStatus} of a {@link Card}
      */
     public CardStatus revealSecondCard(int secondRow, int secondCol) {
         Card secondCard = getCard(secondRow, secondCol);
@@ -144,12 +144,10 @@ public class Game {
         Card firstCard = getCard(rowFirstCard, colFirstCard);
         Card secondCard = getCard(rowSecondCard, colSecondCard);
         if (firstCard.getValue().equals(secondCard.getValue())) {
-            playingField[rowFirstCard][colFirstCard].setCardStatus(CardStatus.FOUND);
-            playingField[rowSecondCard][colSecondCard].setCardStatus(CardStatus.FOUND);
+            removeCards(rowFirstCard, colFirstCard, rowSecondCard, colSecondCard);
             return true;
         } else {
-            playingField[rowFirstCard][colFirstCard].setCardStatus(CardStatus.CLOSED);
-            playingField[rowSecondCard][colSecondCard].setCardStatus(CardStatus.CLOSED);
+            closeCards(rowFirstCard, colFirstCard, rowSecondCard, colSecondCard);
             return false;
         }
     }
@@ -183,5 +181,18 @@ public class Game {
     public void removeCards(int row1, int col1, int row2, int col2) {
         playingField[row1][col1].setCardStatus(CardStatus.FOUND);
         playingField[row2][col2].setCardStatus(CardStatus.FOUND);
+    }
+
+    /**
+     * Closes a {@link Card} pair from the {@code board}.
+     *
+     * @param row1 Row position of the first selected card
+     * @param col1 Column position of the first selected card
+     * @param row2 Row position of the second selected card
+     * @param col2 Column position of the second selected card
+     */
+    public void closeCards(int row1, int col1, int row2, int col2) {
+        playingField[row1][col1].setCardStatus(CardStatus.CLOSED);
+        playingField[row2][col2].setCardStatus(CardStatus.CLOSED);
     }
 }
