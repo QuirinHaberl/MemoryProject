@@ -18,7 +18,7 @@ public class Game {
     /**
      * Active {@link PlayingField}
      */
-    private static Card[][] playingField = PlayingField.getBoard();
+    private static final Card[][] playingField = PlayingField.getBoard();
 
     /**
      * The Constructor initiates the game, the turn and creates a new {@link PlayingField}
@@ -83,18 +83,6 @@ public class Game {
      */
     public static Card getCard(int row, int col) {
         return playingField[row][col];
-    }
-
-
-    /**
-     * Reveals a {@link Card} identified by row and column.
-     * //TODO kann (glaub ich) gelöscht werden -Jan
-     * @param row of the desired card
-     * @param col of the desired card
-     * @return the {@code value} of a card
-     */
-    public Object revealCard(int row, int col) {
-        return getCard(row, col).getValue();
     }
 
     /**
