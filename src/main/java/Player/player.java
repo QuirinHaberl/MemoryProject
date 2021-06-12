@@ -56,7 +56,7 @@ public class player {
     public player getNext(){
         return next;
     }
-    public void getStatusOfPlayer(){
+    public void outputStatusOfPlayer(){
         System.out.println("name:" + this.name + ", and the score: " + this.score + "." );
     }
 }

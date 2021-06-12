@@ -31,9 +31,7 @@ public class playerList {
     }
 
     public void addPlayer(String name){
-        if(ifNameEffective(name) == false){
-            throw new IllegalArgumentException("This name exists already! You should use another name!");
-        }
+
         player player = new player(name,0,null);
         if(front == null){
             front = player;
@@ -49,8 +47,14 @@ public class playerList {
     public void deletePlayer(int position){
 
         if(position == 0){
-            front = front.next;
-            count--;
+            if(count == 1){
+                front = null;
+                rear = null;
+                count--;
+            }else{
+                front = front.next;
+                count--;
+            }
         }else if(position == count-1){
             player current = getPlayer(count-2);
             current.next = null;
@@ -82,6 +86,18 @@ public class playerList {
         return current;
     }
 
+    public player getFront(){
+        return front;
+    }
+
+    public player getRear(){
+        return rear;
+    }
+
+    public void addScoreForPlayer(int position){
+        this.getPlayer(position).addScore();
+    }
+
     public String getNameOfPlayer(int position){
         return getPlayer(position).getName();
     }
@@ -95,7 +111,7 @@ public class playerList {
     }
 
     public void outputTheStatusOfPlayer(int position){
-        getPlayer(position).getStatusOfPlayer();
+        getPlayer(position).outputStatusOfPlayer();
     }
 
     public void outputTheStatusofAllPlayers(){
@@ -111,7 +127,7 @@ public class playerList {
         player current = front;
         int position = 0;
         for(int i = 0; i < count; i++){
-            if(current == player){
+            if(current.name == player.name && current.score == player.score){
                 break;
             }
             current = current.next;
@@ -120,7 +136,7 @@ public class playerList {
         return position;
     }
 
-    public playerList copy(){          //辅助方法
+    public playerList copy(){
         playerList list = new playerList(null,null);
         for(int i = 0; i < count; i++){
             list.addPlayer(this.getPlayer(i).getName());
@@ -148,27 +164,38 @@ public class playerList {
     }
 
     public void outputStatusOfPlayerWithHighestScore(){
-        getThePlayerWithHighestScore().getStatusOfPlayer();
+        getThePlayerWithHighestScore().outputStatusOfPlayer();
     }
 
-    public playerList sortTheListAccordingToScore(){  //player with higher score is ranked first
-        playerList list = this.copy();
+
+    public void outputPlayersAccordingToScore(){
+        playerList sort = this.sort();
+        sort.outputTheStatusofAllPlayers();
+    }
+
+    public playerList sort(){
         if(count == 0){
             throw new IllegalArgumentException("The playList is empty, can't be sorted!");
         }
-        playerList sort = new playerList(null,null);
-        int length = count;
-        for(int i = 0; i < length; i++){
-            player temp = list.getThePlayerWithHighestScore();
-            sort.addPlayer(temp.getName());
-            sort.getPlayer(i).setScore(temp.getScore());
-            list.deletePlayer(getThePositionOfPlayer(getThePlayerWithHighestScore()));
+        for(int i = 0; i < count; i ++){
+            int min = i;
+            for(int j = i+1; j < count; j++){
+                if(this.getPlayer(j).score < this.getPlayer(min).score){
+                    min = j;
+                }
+            }
+
+            String name = this.getPlayer(i).name;
+            int score = this.getPlayer(i).score;
+            this.getPlayer(i).name = this.getPlayer(min).name;
+            this.getPlayer(i).score = this.getPlayer(min).score;
+
+            this.getPlayer(min).name = name;
+            this.getPlayer(min).score = score;
+
+
         }
-        return sort;
+        return this;
     }
 
-    public void outputPlayersAccordingToScore(){
-        playerList sort = sortTheListAccordingToScore();
-        outputTheStatusofAllPlayers();
-    }
 }
