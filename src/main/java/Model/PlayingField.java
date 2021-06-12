@@ -64,7 +64,7 @@ public class PlayingField {
      * Fills the {@code board} with {@link Card} elements.
      */
     private void fillWithCards() {
-        CardValue[] allCardValues = CardValue.values();
+        CardDigits[] allCardValues = CardDigits.values();
         int counter = 0;
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {

@@ -6,9 +6,9 @@ package Model;
 public class Card {
 
     /**
-     * The attribute {@link CardValue} is the image of the card.
+     * The attribute {@link CardDigits} is the image of the card.
      */
-    private CardValue value;
+    private CardDigits value;
 
     /**
      * The attribute {@code cardStatus} saves whether a card is closed, open or found.
@@ -18,9 +18,9 @@ public class Card {
     /**
      * Constructs a new {@link Card}.
      *
-     * @param value uses the enumerations of {@link CardValue}
+     * @param value uses the enumerations of {@link CardDigits}
      */
-    public Card(CardValue value) {
+    public Card(CardDigits value) {
         this.value = value;
         this.cardStatus = CardStatus.CLOSED;
     }
@@ -28,7 +28,7 @@ public class Card {
     /**
      * @return the value of a {@link Card}.
      */
-    public CardValue getValue() {
+    public CardDigits getValue() {
         return value;
     }
 
@@ -46,19 +46,19 @@ public class Card {
     /**
      * Sets the value of a {@link Card}.
      */
-    public void setValue(CardValue value) {
+    public void setValue(CardDigits value) {
         this.value = value;
     }
 
     /**
-     * Visualizes {@link Card}, defined by {@link CardValue}
+     * Visualizes {@link Card}, defined by {@link CardDigits}
      *
      * @param cardValue Type of card
      * @return Visualization of the card value transferred
      * TODO für die nächste Iteration muss diese Methode auch umgeschrieben werden,
      * da sie vom Kartenset abhängt
      */
-    public static String visualizeCard(CardValue cardValue) {
+    public static String visualizeCard(CardDigits cardValue) {
         return cardValue.getDigit();
     }
 

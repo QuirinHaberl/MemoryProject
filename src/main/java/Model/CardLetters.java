@@ -4,7 +4,7 @@ package Model;
  * Enumeration of values that can be used.
  * This is the Cardset with Letters
  */
-public enum CardLetter {
+public enum CardLetters {
     /**
      * a {@link Card} can have values from A to P
      */
@@ -20,14 +20,14 @@ public enum CardLetter {
     /**
      * Constructs a new label
      *
-     * @param letter is saved as a attribute for a {@link CardLetter}
+     * @param letter is saved as a attribute for a {@link CardLetters}
      */
-    CardLetter(String letter) {
+    CardLetters(String letter) {
         this.letter = letter;
     }
 
     /**
-     * @return the {@code label} of a {@link CardLetter}
+     * @return the {@code label} of a {@link CardLetters}
      */
     public String getLetter() {
         return letter;

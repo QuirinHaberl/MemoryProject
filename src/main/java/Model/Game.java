@@ -93,7 +93,7 @@ public class Game {
      * @param col of the desired card
      * @return the {@code value} of a card
      */
-    public CardValue revealCard(int row, int col) {
+    public CardDigits revealCard(int row, int col) {
         return getCard(row, col).getValue();
     }
 
