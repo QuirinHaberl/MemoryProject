@@ -1,33 +1,31 @@
-package Player;
+package Model;
 
 /**
- * this class implements a playerList
+ * this class implements a PlayerList
  */
-public class playerList {
+public class PlayerList {
     /**
-     * the attribute is the front of the playerList
+     * the attribute is the front of the PlayerList
      */
-    player front;
+    private Player front;
 
     /**
-     * the attribute is the rear of the playerList
+     * the attribute is the rear of the PlayerList
      */
-    player rear;
+    private Player rear;
 
     /**
-     * the attribute records how many players in this playerList
+     * the attribute records how many players in this PlayerList
      */
-    int count;
+    private int count;
 
     /**
-     * constructs a new playerList
-     *
-     * @param front
-     * @param rear
+     * constructs a new PlayerList
      */
-    public playerList(player front, player rear) {
+    public PlayerList() {
         this.front = null;
         this.rear = null;
+        count = 0;
     }
 
     /**
@@ -37,15 +35,16 @@ public class playerList {
         return count;
     }
 
+
     /**
-     * checks if the name has existed already in the playerList
+     * checks if the name has existed already in the PlayerList
      *
-     * @param name that the player gonna use
+     * @param name that the Player gonna use
      * @return if the name is effective
      */
     public boolean ifNameEffective(String name) {
         boolean effective = true;
-        player current = front;
+        Player current = front;
         for (int i = 0; i < count; i++) {
             if (current.name == name) {
                 effective = false;
@@ -56,31 +55,40 @@ public class playerList {
     }
 
     /**
-     * adds a player to the playerList
+     * adds a Player to the PlayerList
      * firstly checks if the name is effective
+     * Structure of the list is a circle, that means the next node from the
+     * last one is the front node
      *
-     * @param name that the player gonna use
+     * @param name that the Player gonna use
      */
     public void addPlayer(String name) {
-        if (ifNameEffective(name) == false) {
+        if (!(ifNameEffective(name))) {
             throw new IllegalArgumentException("This name exists already! You should use another name!");
         }
-        player player = new player(name, 0, null);
+        Player player = new Player(name, 0, null, null);
         if (front == null) {
             front = player;
-            rear = player;
-            count++;
+            player.next = player;
+            player.rear = player;
         } else {
-            rear.sstNext(player);
-            rear = player;
-            count++;
+            Player p = front;
+            while (p.next != front) {
+                p = p.next;
+            }
+            p.next = player;
+            player.next = front;
+            front.rear = player;
+            player.rear = p;
+
         }
+        count++;
     }
 
     /**
-     * deletes a player from the playerList by its position
+     * deletes a Player from the PlayerList by its position
      *
-     * @param position of the {@link player} that will be deleted
+     * @param position of the {@link Player} that will be deleted
      */
     public void deletePlayer(int position) {
 
@@ -94,16 +102,16 @@ public class playerList {
                 count--;
             }
         } else if (position == count - 1) {
-            player current = getPlayer(count - 2);
+            Player current = getPlayer(count - 2);
             current.next = null;
             rear = current;
             count--;
         } else {
-            player current = front;
+            Player current = front;
             for (int i = 0; i < position - 1; i++) {
                 current = current.next;
             }
-            player temp = current.next;
+            Player temp = current.next;
             current.next = temp.next;
             temp.next = null;
             count--;
@@ -111,77 +119,78 @@ public class playerList {
     }
 
     /**
-     * return a player by its position
+     * return a Player by its position
      *
-     * @param position of the {@link player}
-     * @return the player
+     * @param position of the {@link Player}
+     * @return the Player
      */
-    public player getPlayer(int position) {
+    public Player getPlayer(int position) {
 
         if (front == null) {
             throw new IllegalArgumentException("There is no Player now!");
         } else if (position >= count || position < 0) {
             throw new IllegalArgumentException("Position is bigger than count or smaller than 0!");
         }
-        player current = front;
+        Player current = front;
         for (int i = 0; i < position; i++) {
             current = current.getNext();
         }
         return current;
     }
 
+
     /**
-     * return the front of the playerList
+     * return the front of the PlayerList
      *
      * @return the fornt
      */
-    public player getFront() {
+    public Player getFront() {
         return front;
     }
 
     /**
-     * return the rear of the playerList
+     * return the rear of the PlayerList
      *
      * @return the rear
      */
-    public player getRear() {
+    public Player getRear() {
         return rear;
     }
 
     /**
-     * adds 1 score to the score of a player
-     * if the player found two same cards, then its score will be added 1
+     * adds 1 score to the score of a Player
+     * if the Player found two same cards, then its score will be added 1
      *
-     * @param position of the {@link player}
+     * @param position of the {@link Player}
      */
     public void addScoreForPlayer(int position) {
         this.getPlayer(position).addScore();
     }
 
     /**
-     * return the name of a player whom we find  by position
+     * return the name of a Player whom we find  by position
      *
-     * @param position of a player
-     * @return the name of a {@link player}
+     * @param position of a Player
+     * @return the name of a {@link Player}
      */
     public String getNameOfPlayer(int position) {
         return getPlayer(position).getName();
     }
 
     /**
-     * return the score of a player whom we find by position
+     * return the score of a Player whom we find by position
      *
-     * @param position of a player
-     * @return the score of a {@link player}
+     * @param position of a Player
+     * @return the score of a {@link Player}
      */
     public int getScoreOfPlayer(int position) {
         return getPlayer(position).getScore();
     }
 
     /**
-     * outputs the name and the score of a player on the console whom we find by position
+     * outputs the name and the score of a Player on the console whom we find by position
      *
-     * @param position of a player
+     * @param position of a Player
      */
     public void outputTheStatusOfPlayer(int position) {
         getPlayer(position).outputStatusOfPlayer();
@@ -192,7 +201,7 @@ public class playerList {
      */
     public void outputTheStatusofAllPlayers() {
         if (front == null) {
-            throw new IllegalArgumentException("There is no player now!");
+            throw new IllegalArgumentException("There is no Player now!");
         }
         for (int i = 0; i < count; i++) {
             outputTheStatusOfPlayer(i);
@@ -200,13 +209,13 @@ public class playerList {
     }
 
     /**
-     * return the position of a player
+     * return the position of a Player
      *
      * @param player
-     * @return the position if the player
+     * @return the position if the Player
      */
-    public int getThePositionOfPlayer(player player) {
-        player current = front;
+    public int getThePositionOfPlayer(Player player) {
+        Player current = front;
         int position = 0;
         for (int i = 0; i < count; i++) {
             if (current == player) {
@@ -219,28 +228,27 @@ public class playerList {
     }
 
     /**
-     * return a copied playerList
+     * return a copied PlayerList
      *
-     * @return a copy of the playerList
+     * @return a copy of the PlayerList
      */
-    public playerList copy() {
-        playerList list = new playerList(null, null);
+    public void copy() {
+
         for (int i = 0; i < count; i++) {
-            list.addPlayer(this.getPlayer(i).getName());
-            list.getPlayer(i).setScore(this.getPlayer(i).getScore());
+            addPlayer(this.getPlayer(i).getName());
+            getPlayer(i).setScore(this.getPlayer(i).getScore());
         }
-        return list;
     }
 
     /**
-     * @return the player who has the highest score
+     * @return the Player who has the highest score
      */
-    public player getThePlayerWithHighestScore() {
+    public Player getThePlayerWithHighestScore() {
         if (front == null) {
-            throw new IllegalArgumentException("There is no player now!");
+            throw new IllegalArgumentException("There is no Player now!");
         }
-        player current = front;
-        player playerWithHighestScore = front;
+        Player current = front;
+        Player playerWithHighestScore = front;
         for (int i = 0; i < count; i++) {
             if (current == rear) {
                 break;
@@ -254,18 +262,18 @@ public class playerList {
     }
 
     /**
-     * output the name and score of the player who has the highest score
+     * output the name and score of the Player who has the highest score
      */
     public void outputStatusOfPlayerWithHighestScore() {
         getThePlayerWithHighestScore().outputStatusOfPlayer();
     }
 
     /**
-     * sort the playerList according to score
+     * sort the PlayerList according to score
      *
-     * @return the sorted {@link playerList}
+     * @return the sorted {@link PlayerList}
      */
-    public playerList sort() {
+    public PlayerList sort() {
         if (count == 0) {
             throw new IllegalArgumentException("The playList is empty, can't be sorted!");
         }
@@ -276,7 +284,7 @@ public class playerList {
                     min = j;
                 }
             }
-            String name = this.getPlayer(i).name;  // that just change the name and score, every player including "next" won't be changed.
+            String name = this.getPlayer(i).name;  // that just change the name and score, every Player including "next" won't be changed.
             int score = this.getPlayer(i).score;
             this.getPlayer(i).name = this.getPlayer(min).name;
             this.getPlayer(i).score = this.getPlayer(min).score;
@@ -288,10 +296,10 @@ public class playerList {
     }
 
     /**
-     * return the ranking of the player who has the name
+     * return the ranking of the Player who has the name
      *
-     * @param name of the player
-     * @return the ranking of the player
+     * @param name of the Player
+     * @return the ranking of the Player
      */
     public int theRankingOfPlayer(String name) {
         this.sort();
@@ -308,7 +316,13 @@ public class playerList {
      * output the name and score of all players according to the score
      */
     public void outputPlayersAccordingToScore() {
-        playerList sort = this.sort();          //firsttly sorts the playerList
+        PlayerList sort = this.sort();          //firsttly sorts the PlayerList
         outputTheStatusofAllPlayers();          //output the informations of all players
+    }
+
+    public void print() {
+        for (Player p = front; p.next != front; p = p.next) {
+            System.out.println("[" + p.getName() + "]");
+        }
     }
 }
