@@ -36,7 +36,7 @@ public final class View {
      */
     public static void execute(BufferedReader bufferedReader) throws IOException {
         //At the beginning a new control is created.
-        new PlayingField();
+        PlayingField field = new PlayingField();
         Game game = new Game();
 
         game.setGameStatus(GameStatus.RUNNING);
@@ -44,6 +44,12 @@ public final class View {
         int firstRow = 0;
         int firstCol = 0;
         String firstCardImage = null;
+
+        //Printing the description of a memory game
+        printDescription();
+
+        //Setting the cardSet and fills the board with cards
+        selectCardSet(bufferedReader, field);
 
         //It is read in from the console until the program is ended.
         while (game.getGameStatus().equals(GameStatus.RUNNING)) {
@@ -166,12 +172,30 @@ public final class View {
      * Prints a description of the memory-game when you enter the help command
      */
     public static void printDescription() {
-        System.out.println("Wer an der Reihe ist, darf nacheinander zwei Karten aufdecken. \n" +
+        System.out.println("\nWer an der Reihe ist, darf nacheinander zwei Karten aufdecken. \n" +
                 "Dazu gib die Position der gewuenschten Karte als Tupel ein, z.B. 2 1 \n" +
                 "Nun wird dir dann das Spielfeld mit dem Bild deiner ausgewaehlten Karte angezeigt. \n" +
                 "Analog das Vorgehen bei der zweiten Karte. \n" +
                 "Ziel des Spiels ist es ein Kartenpaar, d.h. zwei Karten mit dem gleichen Bild zu finden. \n" +
                 "Das zusammenpassende Bilderpaar wird vom Spielfeld entfernt. \n" +
-                "Passen die beiden Kartenbilder nicht zusammen, werden die Karten wieder umgedreht.");
+                "Passen die beiden Kartenbilder nicht zusammen, werden die Karten wieder umgedreht.\n");
+    }
+
+    /**
+     * Sets the {@link CardSet} to be used
+     */
+    public static void selectCardSet(BufferedReader bufferedReader, PlayingField field) throws IOException {
+        System.out.println("Type 'L' for letters or 'D' for digits.");
+        System.out.print("memory> ");
+        String input = bufferedReader.readLine();
+        if (input.equalsIgnoreCase("L")) {
+            field.setCardSet(CardSet.LETTERS);
+        } else if (input.equalsIgnoreCase("D")) {
+            field.setCardSet(CardSet.DIGITS);
+        } else {
+            throw new IllegalAccessError("This set does not exist!");
+        }
+        field.fillWithCards();
+        showBoard();
     }
 }

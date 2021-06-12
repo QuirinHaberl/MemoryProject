@@ -32,9 +32,7 @@ public class PlayingField {
      * The Constructor creates a new {@link PlayingField} and fills the board with {@link Card}
      */
     public PlayingField() {
-        this.cardSet = CardSet.LETTERS;
         board = new Card[height][width];
-        fillWithCards();
     }
 
     /**
@@ -73,11 +71,20 @@ public class PlayingField {
     }
 
     /**
+     * Sets the current {@link CardSet}
+     * @param cardSet to be used
+     */
+    public void setCardSet(CardSet cardSet) {
+        this.cardSet = cardSet;
+    }
+
+    /**
      * Fills the {@code board} with {@link Card} elements.
      */
-    private void fillWithCards() {
-        switch (cardSet) {
-            case DIGITS -> fillDigits();//TODO Beide fillMethoden sind noch sehr ineffizient, aber funktionieren erstmal -Jan
+    public void fillWithCards() {
+        switch (this.cardSet) {
+            //TODO Beide fill-Methoden sind noch sehr ineffizient, aber funktionieren erstmal -Jan
+            case DIGITS -> fillDigits();
             case LETTERS -> fillLetters();
             default -> System.err.println("Dieses Set wurde noch nicht implementiert");
         }

@@ -1,5 +1,8 @@
 package Model;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+
 /**
  * This class is the control part of the MVC-architecture.
  */
