@@ -1,5 +1,17 @@
 package Model;
 
+/**
+ * The enum represents the uses {@link CardSet}
+ */
 public enum CardSet {
-    DIGITS, LETTERS;
+
+    /**
+     * This {@link CardSet} uses digits
+     */
+    DIGITS,
+
+    /**
+     * This {@link CardSet} uses letters
+     */
+    LETTERS;
 }
