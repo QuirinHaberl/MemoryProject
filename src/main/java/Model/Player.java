@@ -24,7 +24,7 @@ package Model;
 
         /**
          * constructs a new Player
-         * @param name
+         * @param name is the name of the Player
          * @param score
          * @param next
          */

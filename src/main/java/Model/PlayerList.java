@@ -57,14 +57,15 @@ public class PlayerList {
     /**
      * adds a Player to the PlayerList
      * firstly checks if the name is effective
-     * Structure of the list is a circle
+     * Structure of the list is a circle, that means the next node from the
+     * last one is the front node
      *
      * @param name that the Player gonna use
      */
     public void addPlayer(String name) {
-        //if (!(ifNameEffective(name))) {
-            //throw new IllegalArgumentException("This name exists already! You should use another name!");
-        //}
+        if (!(ifNameEffective(name))) {
+            throw new IllegalArgumentException("This name exists already! You should use another name!");
+        }
         Player player = new Player(name, 0, null, null);
         if (front == null) {
             front = player;

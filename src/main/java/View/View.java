@@ -114,12 +114,12 @@ public final class View {
                             }
                             showBoard();
                             if (game.pairCheck(firstRow, firstCol, secondRow, secondCol)) {
-                                System.out.println("You've found a pair!");
+                                System.out.println("You've found a pair! It is your turn again.");
                                 showBoard();
 
                                 if (game.areAllCardsOpen()) {
                                     game.setGameStatus(GameStatus.END);
-                                    System.out.println("You won!");
+                                    System.out.println("All Pairs are found.");
                                 }
                             } else {
                                 System.out.println("Cards are not equal!");
@@ -231,13 +231,14 @@ public final class View {
      * @return a list with all players who take part of the game
      * @throws IOException
      *
-     * TODO Bis jetzt kann eine beliebige Anzahl an Spielern teilnehmen,
-     *  lediglich die Printaufforderung schränkt die Wahl auf 1 - 4 ein.
      */
     public static PlayerList selectPlayerMode(BufferedReader bufferedReader, PlayerList players) throws IOException {
         System.out.println("How many players do you want? Choose between 1 and 4. ");
         System.out.print("memory> ");
         int input = Integer.parseInt(bufferedReader.readLine());
+        if(input > 4 || input < 1) {
+            throw new IOException("Es müssen mindestens 1 und maximal 4 Spieler teilnehmen!");
+        }
         for (int num = 1; num <= input; ++num){
             players.addPlayer("Spieler " + num);
         }
