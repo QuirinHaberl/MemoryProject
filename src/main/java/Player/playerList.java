@@ -62,18 +62,18 @@ public class playerList {
      * @param name that the player gonna use
      */
     public void addPlayer(String name) {
-        if (ifNameEffective(name) == false) {
+        if(ifNameEffective(name) == false){
             throw new IllegalArgumentException("This name exists already! You should use another name!");
         }
-        player player = new player(name, 0, null);
-        if (front == null) {
+        player player = new player(name,0,null);
+        if(front == null){
             front = player;
             rear = player;
-            count++;
-        } else {
-            rear.sstNext(player);
+            count ++;
+        }else{
+            rear.setNext(player);
             rear = player;
-            count++;
+            count ++;
         }
     }
 
@@ -190,7 +190,7 @@ public class playerList {
     /**
      * outputs the name and score of all players on the console
      */
-    public void outputTheStatusofAllPlayers() {
+    public void outputTheStatusOfAllPlayers() {
         if (front == null) {
             throw new IllegalArgumentException("There is no player now!");
         }
@@ -309,6 +309,6 @@ public class playerList {
      */
     public void outputPlayersAccordingToScore() {
         this.sort();          //firstly sorts the playerList
-        outputTheStatusofAllPlayers();          //output the information of all players
+        outputTheStatusOfAllPlayers();          //output the information of all players
     }
 }
