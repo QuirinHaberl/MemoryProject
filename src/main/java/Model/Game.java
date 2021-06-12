@@ -104,16 +104,13 @@ public class Game {
      * @param firstCol of the {@link Card}
      * @return the image of the first {@link Card} as Integer.
      */
-    public String revealFirstCard(int firstRow, int firstCol) {
+    public CardStatus revealFirstCard(int firstRow, int firstCol) {
         Card firstCard = getCard(firstRow, firstCol);
-        if (firstCard.getCardStatus().equals(CardStatus.FOUND)) {
-            return null;
-        } else {
-            setTurnStatus(TurnStatus.ACTIVTURN);
+        if (firstCard.getCardStatus().equals(CardStatus.CLOSED)) {
             firstCard.setCardStatus(CardStatus.OPEN);
+            setTurnStatus(TurnStatus.ACTIVTURN);
         }
-        String firstCardImage = firstCard.visualizeCard(revealCard(firstRow, firstCol));
-        return firstCardImage;
+        return firstCard.getCardStatus();
     }
 
     /**
@@ -126,10 +123,9 @@ public class Game {
      */
     public CardStatus revealSecondCard(int secondRow, int secondCol) {
         Card secondCard = getCard(secondRow, secondCol);
-        if(secondCard.getCardStatus().equals(CardStatus.OPEN)) {
+        if (secondCard.getCardStatus().equals(CardStatus.OPEN)) {
             secondCard.setCardStatus(CardStatus.AlREADYOPEN);
-        }
-        else if(secondCard.getCardStatus().equals(CardStatus.CLOSED)) {
+        } else if (secondCard.getCardStatus().equals(CardStatus.CLOSED)) {
             secondCard.setCardStatus(CardStatus.OPEN);
             setTurnStatus(TurnStatus.NOTSTARTED);
         }

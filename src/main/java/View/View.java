@@ -65,9 +65,10 @@ public final class View {
                     if (correctInput(tokens)) {
                         firstRow = Integer.parseInt(tokens[0]);
                         firstCol = Integer.parseInt(tokens[1]);
-                        firstCardImage = game.revealFirstCard(firstRow, firstCol);
-                        if (firstCardImage == null) {
+                        CardStatus firstCardStatus = game.revealFirstCard(firstRow, firstCol);
+                        if (firstCardStatus.equals(CardStatus.FOUND)) {
                             System.out.println("The selected card was already found!");
+                            break;
                         } else {
                             showBoard();
                         }
