@@ -8,7 +8,7 @@ public class Card {
     /**
      * The attribute {@link CardDigits} is the image of the card.
      */
-    private CardDigits value;
+    private Object value;
 
     /**
      * The attribute {@code cardStatus} saves whether a card is closed, open or found.
@@ -26,9 +26,19 @@ public class Card {
     }
 
     /**
+     * Constructs a new {@link Card}.
+     *
+     * @param value uses the enumerations of {@link CardDigits}
+     */
+    public Card(CardLetters value) {
+        this.value = value;
+        this.cardStatus = CardStatus.CLOSED;
+    }
+
+    /**
      * @return the value of a {@link Card}.
      */
-    public CardDigits getValue() {
+    public Object getValue() {
         return value;
     }
 
@@ -53,13 +63,19 @@ public class Card {
     /**
      * Visualizes {@link Card}, defined by {@link CardDigits}
      *
-     * @param cardValue Type of card
+     * @param value Type of card
      * @return Visualization of the card value transferred
-     * TODO für die nächste Iteration muss diese Methode auch umgeschrieben werden,
      * da sie vom Kartenset abhängt
      */
-    public static String visualizeCard(CardDigits cardValue) {
-        return cardValue.getDigit();
+    public static String visualizeCard(Object value) {
+        if (value instanceof CardDigits) {
+            return ((CardDigits) value).getDigit();
+        } else if (value instanceof CardLetters) {
+            return ((CardLetters) value).getLetter();
+        }
+        else{
+            return null; //TODO Das müss ich noch schöner schreiben -Jan
+        }
     }
 
     /**

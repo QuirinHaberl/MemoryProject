@@ -88,12 +88,12 @@ public class Game {
 
     /**
      * Reveals a {@link Card} identified by row and column.
-     *
+     * //TODO kann (glaub ich) gelöscht werden -Jan
      * @param row of the desired card
      * @param col of the desired card
      * @return the {@code value} of a card
      */
-    public CardDigits revealCard(int row, int col) {
+    public Object revealCard(int row, int col) {
         return getCard(row, col).getValue();
     }
 
