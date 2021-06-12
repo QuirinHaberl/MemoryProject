@@ -58,37 +58,8 @@ public class Card {
      * TODO für die nächste Iteration muss diese Methode auch umgeschrieben werden,
      * da sie vom Kartenset abhängt
      */
-    public static int visualizeCard(CardValue cardValue) {
-        int visualized;
-        switch (cardValue) {
-            case ONE:
-                visualized = 1;
-                break;
-            case TWO:
-                visualized = 2;
-                break;
-            case THREE:
-                visualized = 3;
-                break;
-            case FOUR:
-                visualized = 4;
-                break;
-            case FIVE:
-                visualized = 5;
-                break;
-            case SIX:
-                visualized = 6;
-                break;
-            case SEVEN:
-                visualized = 7;
-                break;
-            case EIGHT:
-                visualized = 8;
-                break;
-            default:
-                visualized = 0;
-        }
-        return visualized;
+    public static String visualizeCard(CardValue cardValue) {
+        return cardValue.getDigit();
     }
 
     /**

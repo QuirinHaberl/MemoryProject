@@ -36,7 +36,7 @@ public class Game {
     public static Card[][] getPlayingField() {
         return playingField;
     }
-    
+
 
     /**
      * Getter of {@link TurnStatus}
@@ -84,8 +84,7 @@ public class Game {
     public static Card getCard(int row, int col) {
         return playingField[row][col];
     }
-    
-    
+
 
     /**
      * Reveals a {@link Card} identified by row and column.
@@ -101,19 +100,19 @@ public class Game {
     /**
      * Reveals the first selected {@link Card} of a turn
      *
-     * @param firstRow   of the {@link Card}
-     * @param firstCol   of the {@link Card}
+     * @param firstRow of the {@link Card}
+     * @param firstCol of the {@link Card}
      * @return the image of the first {@link Card} as Integer.
      */
-    public int revealFirstCard(int firstRow, int firstCol) {
+    public String revealFirstCard(int firstRow, int firstCol) {
         Card firstCard = getCard(firstRow, firstCol);
         if (firstCard.getCardStatus().equals(CardStatus.FOUND)) {
-            return 0;
+            return null;
         } else {
             setTurnStatus(TurnStatus.ACTIVTURN);
             firstCard.setCardStatus(CardStatus.OPEN);
         }
-        int firstCardImage = firstCard.visualizeCard(revealCard(firstRow, firstCol));
+        String firstCardImage = firstCard.visualizeCard(revealCard(firstRow, firstCol));
         return firstCardImage;
     }
 
@@ -121,24 +120,20 @@ public class Game {
      * Reveals the second selected {@link Card} of a turn.
      * This method is needed, because additionally information has to be proofed
      *
-     * @param secondRow  of the {@link Card}
-     * @param secondCol  of the {@link Card}
+     * @param secondRow of the {@link Card}
+     * @param secondCol of the {@link Card}
      * @return the image of the second {@link Card} as Integer
      */
-    public int revealSecondCard(int secondRow, int secondCol) {
+    public CardStatus revealSecondCard(int secondRow, int secondCol) {
         Card secondCard = getCard(secondRow, secondCol);
-        if (secondCard.getCardStatus() == CardStatus.FOUND) {
-            return 0;
-        } else {
-            if (secondCard.getCardStatus() == CardStatus.OPEN) {
-                return 9;
-            } else {
-                secondCard.setCardStatus(CardStatus.OPEN);
-                setTurnStatus(TurnStatus.NOTSTARTED);
-            }
+        if(secondCard.getCardStatus().equals(CardStatus.OPEN)) {
+            secondCard.setCardStatus(CardStatus.AlREADYOPEN);
         }
-        int secondCardImage = secondCard.visualizeCard(revealCard(secondRow, secondCol));
-        return secondCardImage;
+        else if(secondCard.getCardStatus().equals(CardStatus.CLOSED)) {
+            secondCard.setCardStatus(CardStatus.OPEN);
+            setTurnStatus(TurnStatus.NOTSTARTED);
+        }
+        return getCard(secondRow, secondCol).getCardStatus();
     }
 
     /**
@@ -162,7 +157,7 @@ public class Game {
             return false;
         }
     }
-    
+
     /**
      * Checks whether all cards have already been turned over.
      * If true, then the images of all cards are open.

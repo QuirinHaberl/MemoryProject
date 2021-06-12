@@ -43,7 +43,7 @@ public final class View {
 
         int firstRow = 0;
         int firstCol = 0;
-        int firstCardImage = 0;
+        String firstCardImage = null;
 
         //It is read in from the console until the program is ended.
         while (game.getGameStatus().equals(GameStatus.RUNNING)) {
@@ -66,7 +66,7 @@ public final class View {
                         firstRow = Integer.parseInt(tokens[0]);
                         firstCol = Integer.parseInt(tokens[1]);
                         firstCardImage = game.revealFirstCard(firstRow, firstCol);
-                        if (firstCardImage == 0) {
+                        if (firstCardImage == null) {
                             System.out.println("The selected card was already found!");
                         } else {
                             showBoard();
@@ -77,15 +77,14 @@ public final class View {
                     if (correctInput(tokens)) {
                         int secondRow = Integer.parseInt(tokens[0]);
                         int secondCol = Integer.parseInt(tokens[1]);
-                        int secondCardImage = game.revealSecondCard(secondRow, secondCol);
-                        if (secondCardImage == 0) {
+                        CardStatus secondCardStatus = game.revealSecondCard(secondRow, secondCol);
+                        if (secondCardStatus.equals(CardStatus.FOUND)) {
                             System.out.println("The selected card was already found!");
                             break;
-                        } else {
-                            if (secondCardImage == 9) {
-                                System.out.println("You've selected the same card twice!");
-                                break;
-                            }
+                        } else if (secondCardStatus.equals(CardStatus.AlREADYOPEN)) {
+                            System.out.println("You've selected the same card twice!");
+                            break;
+
                         }
                         showBoard();
                         if (game.pairCheck(firstRow, firstCol, secondRow, secondCol)) {
@@ -106,7 +105,6 @@ public final class View {
 
     /**
      * Visualizes the current {@link Game}
-     *
      */
     private static void showBoard() {
         String line = ("  0 1 2 3");
@@ -126,6 +124,7 @@ public final class View {
     }
 
     //Helper Methods
+
     /**
      * Outputs a specified error message.
      *
