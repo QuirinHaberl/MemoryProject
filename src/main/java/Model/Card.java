@@ -8,7 +8,7 @@ public class Card {
     /**
      * The attribute {@link CardDigits} is the image of the card.
      */
-    private Object value;
+    private final Object value;
 
     /**
      * The attribute {@code cardStatus} saves whether a card is closed, open or found.
@@ -43,24 +43,6 @@ public class Card {
     }
 
     /**
-     * Checks weather the Model.Card is revealable.
-     * If true, then the card ist already open.
-     * If false, then the card is still closed.
-     *
-     * @return the revealed boolean of a {@link Card}.
-     */
-    public boolean isRevealed() {
-        return cardStatus == CardStatus.OPEN;
-    }
-
-    /**
-     * Sets the value of a {@link Card}.
-     */
-    public void setValue(CardDigits value) {
-        this.value = value;
-    }
-
-    /**
      * Visualizes {@link Card}, defined by {@link CardDigits}
      *
      * @param value Type of card
@@ -72,8 +54,7 @@ public class Card {
             return ((CardDigits) value).getDigit();
         } else if (value instanceof CardLetters) {
             return ((CardLetters) value).getLetter();
-        }
-        else{
+        } else {
             return null; //TODO Das müss ich noch schöner schreiben -Jan
         }
     }
@@ -87,6 +68,8 @@ public class Card {
 
     /**
      * Sets the {@link CardStatus} of a {@link Card}.
+     *
+     * @param cardStatus is the {@link CardStatus} to be set
      */
     public void setCardStatus(CardStatus cardStatus) {
         this.cardStatus = cardStatus;

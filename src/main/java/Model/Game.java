@@ -1,8 +1,5 @@
 package Model;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-
 /**
  * This class is the control part of the MVC-architecture.
  */
@@ -130,6 +127,7 @@ public class Game {
      * @param colFirstCard  : Column of the first {@link Card}
      * @param rowSecondCard : Row of the second {@link Card}
      * @param colSecondCard : Column of the second {@link Card}
+     * @return if a pair was found (true) or not (false)
      */
     public boolean pairCheck(int rowFirstCard, int colFirstCard, int rowSecondCard, int colSecondCard) {
         Card firstCard = getCard(rowFirstCard, colFirstCard);

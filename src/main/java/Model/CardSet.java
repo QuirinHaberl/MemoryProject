@@ -13,5 +13,5 @@ public enum CardSet {
     /**
      * This {@link CardSet} uses letters
      */
-    LETTERS;
+    LETTERS
 }

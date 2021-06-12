@@ -35,27 +35,32 @@ public final class View {
      * @throws IOException on input error.
      */
     public static void execute(BufferedReader bufferedReader) throws IOException {
-        //At the beginning a new control is created.
-        PlayingField field = new PlayingField();
-        Game game = new Game();
+        //Printing the description of a memory game
+        printDescription();
+
+        //Setting of single player oder multi player mode
         PlayerList players = new PlayerList();
+        selectPlayerMode(bufferedReader, players);
+
+        //At the beginning a new control is created.
+        PlayingField field = new PlayingField(selectBoardSize(bufferedReader));
+        Game game = new Game();
 
         game.setGameStatus(GameStatus.MENU);
 
         int firstRow = 0;
         int firstCol = 0;
-        String firstCardImage = null;
 
-        //Printing the description of a memory game
-        printDescription();
-
-        //Setting the cardSet and fills the board with cards
+        //Selecting the cardSet and fills the board with cards
         selectCardSet(bufferedReader, field);
 
-        //Setting of single player oder multi player mode
-        selectPlayerMode(bufferedReader, players);
+        //Fill the board with cards
+        field.fillWithCards();
 
         game.setGameStatus(GameStatus.RUNNING);
+
+        //Print the board before the game starts
+        showBoard();
 
         //It is read in from the console until the program is ended.
         while (game.getGameStatus().equals(GameStatus.RUNNING)) {
@@ -128,7 +133,7 @@ public final class View {
                         }
                         break;
                 }
-                if(counter == 1) {
+                if (counter == 1) {
                     player = player.getRear();
                 }
             }
@@ -139,16 +144,19 @@ public final class View {
      * Visualizes the current {@link Game}
      */
     private static void showBoard() {
-        String line = ("  0 1 2 3");
+        StringBuilder line = new StringBuilder("  ");
+        for (int i = 0; i < Game.getPlayingField().length; i++) {
+            line.append(i).append(" ");
+        }
         for (int row = 0; row < Game.getPlayingField().length; row++) {
-            line = line + "\n" + row + " ";
+            line = new StringBuilder(line + "\n" + row + " ");
             for (int col = 0; col < Game.getPlayingField()[row].length; col++) {
                 if (Game.getCard(row, col).getCardStatus().equals(CardStatus.OPEN)) {
-                    line = line + Card.visualizeCard(Game.getPlayingField()[row][col].getValue()) + " ";
+                    line.append(Card.visualizeCard(Game.getPlayingField()[row][col].getValue())).append(" ");
                 } else if (Game.getCard(row, col).getCardStatus().equals(CardStatus.CLOSED)) {
-                    line = line + "X ";
+                    line.append("X ");
                 } else if (Game.getCard(row, col).getCardStatus().equals(CardStatus.FOUND)) {
-                    line = line + "  ";
+                    line.append("  ");
                 }
             }
         }
@@ -177,9 +185,12 @@ public final class View {
             error("Have not received correct number of parameters");
             return false;
         } else {
-            //Checks whether the input contains two numbers between 0 and 3
-            if (tokens[0].equals("0") || tokens[0].equals("1") || tokens[0].equals("2") || tokens[0].equals("3")) {
-                if (tokens[1].equals("0") || tokens[1].equals("1") || tokens[1].equals("2") || tokens[1].equals("3")) {
+            //Checks whether the input contains two numbers between 0 and board.length-1
+            //TODO vielleicht fällt jemanden etwas effizienteres ein + alte if-Bedingung löschen
+            if (Integer.parseInt(tokens[0]) < Game.getPlayingField().length) {
+                if (Integer.parseInt(tokens[1]) < Game.getPlayingField().length) {
+                    //if (tokens[1].equals("0") || tokens[0].equals("1") || tokens[0].equals("2") || tokens[0].equals("3")) {
+                    //if (tokens[1].equals("0") || tokens[1].equals("1") || tokens[1].equals("2") || tokens[1].equals("3")) {
                     return true;
                 } else {
                     error("Second entry was out of range");
@@ -190,27 +201,35 @@ public final class View {
                 return false;
             }
         }
+
     }
 
     /**
      * Prints a description of the memory-game when you enter the help command
      */
     public static void printDescription() {
-        System.out.println("\nWer an der Reihe ist, darf nacheinander zwei Karten aufdecken. \n" +
-                "Dazu gib die Position der gewuenschten Karte als Tupel ein, z.B. 2 1 \n" +
-                "Nun wird dir dann das Spielfeld mit dem Bild deiner ausgewaehlten Karte angezeigt. \n" +
-                "Analog das Vorgehen bei der zweiten Karte. \n" +
-                "Ziel des Spiels ist es ein Kartenpaar, d.h. zwei Karten mit dem gleichen Bild zu finden. \n" +
-                "Das zusammenpassende Bilderpaar wird vom Spielfeld entfernt. \n" +
-                "Passen die beiden Kartenbilder nicht zusammen, werden die Karten wieder umgedreht.\n");
+        System.out.println("""
+
+                Wer an der Reihe ist, darf nacheinander zwei Karten aufdecken.\s
+                Dazu gib die Position der gewuenschten Karte als Tupel ein, z.B. 2 1\s
+                Nun wird dir dann das Spielfeld mit dem Bild deiner ausgewaehlten Karte angezeigt.\s
+                Analog das Vorgehen bei der zweiten Karte.\s
+                Ziel des Spiels ist es ein Kartenpaar, d.h. zwei Karten mit dem gleichen Bild zu finden.\s
+                Das zusammenpassende Bilderpaar wird vom Spielfeld entfernt.\s
+                Passen die beiden Kartenbilder nicht zusammen, werden die Karten wieder umgedreht.
+                """);
     }
 
     /**
      * Sets the {@link CardSet} to be used
+     *
+     * @param bufferedReader provides a connection to the console.
+     * @param field          is used to set a {@link CardSet}
+     * @throws IOException on input error.
      */
     public static void selectCardSet(BufferedReader bufferedReader, PlayingField field) throws IOException {
         //TODO Der Input muss noch auf Fehler überprüft werden
-        System.out.println("Type 'L' for letters or 'D' for digits.");
+        System.out.println("Type 'L' for letters or 'D' for digits:");
         System.out.print("memory> ");
         String input = bufferedReader.readLine();
         if (input.equalsIgnoreCase("L")) {
@@ -218,45 +237,64 @@ public final class View {
         } else if (input.equalsIgnoreCase("D")) {
             field.setCardSet(CardSet.DIGITS);
         } else {
-            throw new IllegalAccessError("This set does not exist!");
+            throw new IllegalArgumentException("This set does not exist!");
         }
-        field.fillWithCards();
+    }
+
+    /**
+     * Sets the field-size to be used
+     *
+     * @param bufferedReader provides a connection to the console.
+     * @return the selected size of the {@code field}
+     * @throws IOException on input error.
+     */
+    public static int selectBoardSize(BufferedReader bufferedReader) throws IOException {
+        //TODO Der Input muss noch auf Fehler überprüft werden
+        System.out.println("Type '2', '4', '6', '8' to select the board-size:");
+        System.out.print("memory> ");
+        int size = Integer.parseInt(bufferedReader.readLine());
+        if (size <= 8 || size % 2 == 0) {
+            return size;
+        } else {
+            throw new IllegalArgumentException("You can't select this size.");
+        }
     }
 
     /**
      * This method implements a list of Players for the Game.
      *
      * @param bufferedReader
-     * @param players, a list of the players
+     * @param players,       a list of the players
      * @return a list with all players who take part of the game
      * @throws IOException
-     *
      */
     public static PlayerList selectPlayerMode(BufferedReader bufferedReader, PlayerList players) throws IOException {
         System.out.println("How many players do you want? Choose between 1 and 4. ");
         System.out.print("memory> ");
         int input = Integer.parseInt(bufferedReader.readLine());
-        if(input > 4 || input < 1) {
+        if (input > 4 || input < 1) {
             throw new IOException("Es müssen mindestens 1 und maximal 4 Spieler teilnehmen!");
         }
-        for (int num = 1; num <= input; ++num){
+        for (int num = 1; num <= input; ++num) {
             players.addPlayer("Spieler " + num);
         }
-        showBoard();
         return players;
     }
 
+    /**
+     * Prints every {@link Card} that is {@code GameStatus.Found}
+     */
     public static void printGraveyard() {
-        String line = ("  0 1 2 3");
+        StringBuilder line = new StringBuilder(("  0 1 2 3"));
         for (int row = 0; row < Game.getPlayingField().length; row++) {
-            line = line + "\n" + row + " ";
+            line.append("\n").append(row).append(" ");
             for (int col = 0; col < Game.getPlayingField()[row].length; col++) {
                 if (Game.getCard(row, col).getCardStatus().equals(CardStatus.OPEN)) {
-                    line = line + "  ";
+                    line.append("  ");
                 } else if (Game.getCard(row, col).getCardStatus().equals(CardStatus.CLOSED)) {
-                    line = line + "  ";
+                    line.append("  ");
                 } else if (Game.getCard(row, col).getCardStatus().equals(CardStatus.FOUND)) {
-                    line = line + Card.visualizeCard(Game.getPlayingField()[row][col].getValue()) + " ";
+                    line.append(Card.visualizeCard(Game.getPlayingField()[row][col].getValue())).append(" ");
                 }
             }
         }
