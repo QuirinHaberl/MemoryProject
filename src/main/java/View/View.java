@@ -62,6 +62,10 @@ public final class View {
                 printDescription();
                 continue;
             }
+            if (input.equals("found")) {
+                printGraveyard();
+                continue;
+            }
             //The input is split up using spaces.
             String[] tokens = input.trim().split("\\s+");
 
@@ -185,6 +189,7 @@ public final class View {
      * Sets the {@link CardSet} to be used
      */
     public static void selectCardSet(BufferedReader bufferedReader, PlayingField field) throws IOException {
+        //TODO Der Input muss noch auf Fehler überprüft werden
         System.out.println("Type 'L' for letters or 'D' for digits.");
         System.out.print("memory> ");
         String input = bufferedReader.readLine();
@@ -197,5 +202,22 @@ public final class View {
         }
         field.fillWithCards();
         showBoard();
+    }
+
+    public static void printGraveyard() {
+        String line = ("  0 1 2 3");
+        for (int row = 0; row < Game.getPlayingField().length; row++) {
+            line = line + "\n" + row + " ";
+            for (int col = 0; col < Game.getPlayingField()[row].length; col++) {
+                if (Game.getCard(row, col).getCardStatus().equals(CardStatus.OPEN)) {
+                    line = line + "  ";
+                } else if (Game.getCard(row, col).getCardStatus().equals(CardStatus.CLOSED)) {
+                    line = line + "  ";
+                } else if (Game.getCard(row, col).getCardStatus().equals(CardStatus.FOUND)) {
+                    line = line + Card.visualizeCard(Game.getPlayingField()[row][col].getValue()) + " ";
+                }
+            }
+        }
+        System.out.println(line);
     }
 }
