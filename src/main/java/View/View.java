@@ -38,10 +38,15 @@ public final class View {
         //Printing the description of a memory game
         printDescription();
 
+        //Setting of single player oder multi player mode
+        PlayerList players = new PlayerList();
+        selectPlayerMode(bufferedReader, players);
+
         //At the beginning a new control is created.
         PlayingField field = new PlayingField(selectBoardSize(bufferedReader));
         Game game = new Game();
-        game.setGameStatus(GameStatus.RUNNING);
+
+        game.setGameStatus(GameStatus.MENU);
 
         int firstRow = 0;
         int firstCol = 0;
@@ -52,68 +57,85 @@ public final class View {
         //Fill the board with cards
         field.fillWithCards();
 
+        game.setGameStatus(GameStatus.RUNNING);
+
         //Print the board before the game starts
         showBoard();
 
         //It is read in from the console until the program is ended.
         while (game.getGameStatus().equals(GameStatus.RUNNING)) {
-            System.out.print("memory> ");
-            String input = bufferedReader.readLine();
-            if (input == null) {
-                break;
-            }
-            if (input.equals("help")) {
-                printDescription();
-                continue;
-            }
-            if (input.equals("found")) {
-                printGraveyard();
-                continue;
-            }
-            //The input is split up using spaces.
-            String[] tokens = input.trim().split("\\s+");
 
-            //Implementation of game phases
-            switch (game.getTurnStatus()) {
-                case NOTSTARTED:
-                    if (correctInput(tokens)) {
-                        firstRow = Integer.parseInt(tokens[0]);
-                        firstCol = Integer.parseInt(tokens[1]);
-                        CardStatus firstCardStatus = game.revealFirstCard(firstRow, firstCol);
-                        if (firstCardStatus.equals(CardStatus.FOUND)) {
-                            System.out.println("The selected card was already found!");
-                            break;
-                        } else {
-                            showBoard();
-                        }
-                    }
+            for (Player player = players.getFront(); player != null; player = player.getNext()) {
+                int counter = 1; //Number of chooses
+                System.out.println(player.getName() + ":");
+                System.out.print("memory> ");
+                String input = bufferedReader.readLine();
+
+                if (input == null) {
                     break;
-                case ACTIVTURN:
-                    if (correctInput(tokens)) {
-                        int secondRow = Integer.parseInt(tokens[0]);
-                        int secondCol = Integer.parseInt(tokens[1]);
-                        CardStatus secondCardStatus = game.revealSecondCard(secondRow, secondCol);
-                        if (secondCardStatus.equals(CardStatus.FOUND)) {
-                            System.out.println("The selected card was already found!");
-                            break;
-                        } else if (secondCardStatus.equals(CardStatus.AlREADYOPEN)) {
-                            System.out.println("You've selected the same card twice!");
-                            break;
+                }
+                if (input.equals("help")) {
+                    printDescription();
+                    continue;
+                }
+                if (input.equals("found")) {
+                    printGraveyard();
+                    continue;
+                }
+                if (input.equals("players")) {
+                    players.print();
+                    continue;
+                }
+                //The input is split up using spaces.
+                String[] tokens = input.trim().split("\\s+");
 
-                        }
-                        showBoard();
-                        if (game.pairCheck(firstRow, firstCol, secondRow, secondCol)) {
-                            System.out.println("You've found a pair!");
-                            showBoard();
-                            if (game.areAllCardsOpen()) {
-                                game.setGameStatus(GameStatus.END);
-                                System.out.println("You won!");
+                //Implementation of game phases
+                switch (game.getTurnStatus()) {
+                    case NOTSTARTED:
+                        if (correctInput(tokens)) {
+                            firstRow = Integer.parseInt(tokens[0]);
+                            firstCol = Integer.parseInt(tokens[1]);
+                            CardStatus firstCardStatus = game.revealFirstCard(firstRow, firstCol);
+                            if (firstCardStatus.equals(CardStatus.FOUND)) {
+                                System.out.println("The selected card was already found!");
+                                break;
+                            } else {
+                                showBoard();
                             }
-                        } else {
-                            System.out.println("Cards are not equal!");
                         }
-                    }
-                    break;
+                        break;
+                    case ACTIVTURN:
+                        if (correctInput(tokens)) {
+                            int secondRow = Integer.parseInt(tokens[0]);
+                            int secondCol = Integer.parseInt(tokens[1]);
+                            CardStatus secondCardStatus = game.revealSecondCard(secondRow, secondCol);
+                            if (secondCardStatus.equals(CardStatus.FOUND)) {
+                                System.out.println("The selected card was already found!");
+                                break;
+                            } else if (secondCardStatus.equals(CardStatus.AlREADYOPEN)) {
+                                System.out.println("You've selected the same card twice!");
+                                break;
+
+                            }
+                            showBoard();
+                            if (game.pairCheck(firstRow, firstCol, secondRow, secondCol)) {
+                                System.out.println("You've found a pair! It is your turn again.");
+                                showBoard();
+
+                                if (game.areAllCardsOpen()) {
+                                    game.setGameStatus(GameStatus.END);
+                                    System.out.println("All Pairs are found.");
+                                }
+                            } else {
+                                System.out.println("Cards are not equal!");
+                                counter = counter + 1;
+                            }
+                        }
+                        break;
+                }
+                if (counter == 1) {
+                    player = player.getRear();
+                }
             }
         }
     }
@@ -141,7 +163,6 @@ public final class View {
         System.out.println(line);
     }
 
-    //Helper Methods
 
     /**
      * Outputs a specified error message.
@@ -203,7 +224,7 @@ public final class View {
      * Sets the {@link CardSet} to be used
      *
      * @param bufferedReader provides a connection to the console.
-     * @param field is used to set a {@link CardSet}
+     * @param field          is used to set a {@link CardSet}
      * @throws IOException on input error.
      */
     public static void selectCardSet(BufferedReader bufferedReader, PlayingField field) throws IOException {
@@ -237,6 +258,27 @@ public final class View {
         } else {
             throw new IllegalArgumentException("You can't select this size.");
         }
+    }
+
+    /**
+     * This method implements a list of Players for the Game.
+     *
+     * @param bufferedReader
+     * @param players,       a list of the players
+     * @return a list with all players who take part of the game
+     * @throws IOException
+     */
+    public static PlayerList selectPlayerMode(BufferedReader bufferedReader, PlayerList players) throws IOException {
+        System.out.println("How many players do you want? Choose between 1 and 4. ");
+        System.out.print("memory> ");
+        int input = Integer.parseInt(bufferedReader.readLine());
+        if (input > 4 || input < 1) {
+            throw new IOException("Es müssen mindestens 1 und maximal 4 Spieler teilnehmen!");
+        }
+        for (int num = 1; num <= input; ++num) {
+            players.addPlayer("Spieler " + num);
+        }
+        return players;
     }
 
     /**
