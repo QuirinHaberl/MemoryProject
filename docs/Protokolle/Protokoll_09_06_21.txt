@@ -1,0 +1,47 @@
+Protokoll vom Zoommeeting am 09.06.2021
+Teilnehmende: Alle 
+Autor: Florian Muhrer
+
+Top 1 User Stories Auswahl
+-Gemeinsame Einigung diese User Stories umzusetzen
+   -Mehrspielermodus
+   -Punktestand
+   -Spielmenü
+   -Spielfeldgröße
+   -Spielanleitung
+   -Gewinnmitteilung nach Spielende
+-Andere US als Option bei übriger Zeit 
+
+TOP 2 Klassendiagramm
+-Beachtung der MVC
+-Vorstellung eines überarbeiteten Klassendiagramms von Isabella
+-Controller wird zu "Game"
+-View wird durch "Spielmenü" umgesetzt
+-Spielmenü in "Game Status" integrieren um Zugang zu Spielmenü zu ermöglichen
+->Nach Ende des Spiels wird Game Status erneut zu "Spielmenü"
+-Neue Enums für Kartensets
+-Nach Vorschlag durch Jan soll Execute Methode soll eigenständig ausgelagert werden 
+-In Execute soll Abfrage erfolgen welches Kartenset gewählt wird
+-Weitere fillWithCards Methode für unterschiedliche Kartensets
+-In Playingfield wird das Feld mit den gewählten Kartenset geladen
+-Neu Liste Spieler soll erstellt werden 
+
+TOP 3 Nächste Schritte und Umsetzung
+-Bevor große Änderungen vorgenommen werden, wird auf des Feedback von Betreuer Georg abgewartet
+-Änderungen/ Umsetzungen die vorgenommen werden:
+   -Entscheidung für Tasks durch Team
+   -Bugfix Task durchführen durch Quirin
+   -Spieler <Liste> umgesetzt durch Daqian
+   -fillWithCard Methode durch Jan
+   -Methoden aus Controller werden umgesiedelt in Game durch Isabella (hier auch neue Methoden wie nextTurn die notwendig sind für die Erweiterung)
+   -Kartenset Enum implementiert durch Florian
+   -GameStatus Anpassung durch Florian
+   -Printmethoden werden durch Quirin in View gezogen
+   -Checkliste für Manuelles testen soll erstellt werden
+   -Sonstige Anpassungen des Codes soll im laufe der Programmierung erfolgen
+   -Im Kanban Board werden US mit "optional" markiert die vorerst nicht umgesetzt werden 
+
+TOP 4 Organisatorisches
+-Sonntag oder Montag wird nächstes Meeting gehalten um Feedback zu besprechen
+-Falls ein Hotfix nötig ist, wird dies Donnerstag umgestzt
+-Manuelles testen soll nach jeder Iteration erfolgen 
