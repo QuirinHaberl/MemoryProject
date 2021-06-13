@@ -71,7 +71,7 @@ public class player {
      * set the next player
      * @param next of the {@link player}
      */
-    public void setNext(player next){
+    public void sstNext(player next){
         this.next = next;
     }
 
