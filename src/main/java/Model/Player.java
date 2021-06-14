@@ -13,20 +13,20 @@ package Model;
          */
         int score;
         /**
-         * the attribute Player next is used for connectting to the next Player
+         * the attribute Player next is used for connecting to the next Player
          */
         Player next;
 
         /**
-         * the attribute Player rear is used for connectting to the rear Player
+         * the attribute Player rear is used for connecting to the rear Player
          */
         Player rear;
 
         /**
-         * constructs a new Player
-         * @param name is the name of the Player
-         * @param score
-         * @param next
+         * constructs a new {@link Player}
+         * @param name is the name of the {@link Player}
+         * @param score the score of a {@link Player}
+         * @param next the next {@link Player}
          */
         public Player(String name, int score, Player next, Player rear){
             this.name = name;
@@ -108,7 +108,7 @@ package Model;
         /**
          * outputs the name and the score of a Player on the console
          */
-        public void outputStatusOfPlayer(){
+        public void printPlayerStatus(){
             System.out.println("name:" + this.name + ", and the score: " + this.score + "." );
         }
 

@@ -66,7 +66,7 @@ public final class View {
         while (game.getGameStatus().equals(GameStatus.RUNNING)) {
 
             for (Player player = players.getFront(); player != null; player = player.getNext()) {
-                int counter = 1; //Number of chooses
+                int counter = 1; //Number of choices
                 System.out.println(player.getName() + ":");
                 System.out.print("memory> ");
                 String input = bufferedReader.readLine();
@@ -91,7 +91,7 @@ public final class View {
 
                 //Implementation of game phases
                 switch (game.getTurnStatus()) {
-                    case NOTSTARTED:
+                    case IDLE:
                         if (correctInput(tokens)) {
                             firstRow = Integer.parseInt(tokens[0]);
                             firstCol = Integer.parseInt(tokens[1]);
@@ -104,7 +104,7 @@ public final class View {
                             }
                         }
                         break;
-                    case ACTIVTURN:
+                    case ACTIVE:
                         if (correctInput(tokens)) {
                             int secondRow = Integer.parseInt(tokens[0]);
                             int secondCol = Integer.parseInt(tokens[1]);
@@ -263,12 +263,11 @@ public final class View {
     /**
      * This method implements a list of Players for the Game.
      *
-     * @param bufferedReader
-     * @param players,       a list of the players
-     * @return a list with all players who take part of the game
-     * @throws IOException
+     * @param bufferedReader provides a connection to the console.
+     * @param players        a list of the players
+     * @throws IOException on input error.
      */
-    public static PlayerList selectPlayerMode(BufferedReader bufferedReader, PlayerList players) throws IOException {
+    public static void selectPlayerMode(BufferedReader bufferedReader, PlayerList players) throws IOException {
         System.out.println("How many players do you want? Choose between 1 and 4. ");
         System.out.print("memory> ");
         int input = Integer.parseInt(bufferedReader.readLine());
@@ -278,14 +277,16 @@ public final class View {
         for (int num = 1; num <= input; ++num) {
             players.addPlayer("Spieler " + num);
         }
-        return players;
     }
 
     /**
      * Prints every {@link Card} that is {@code GameStatus.Found}
      */
     public static void printGraveyard() {
-        StringBuilder line = new StringBuilder(("  0 1 2 3"));
+        StringBuilder line = new StringBuilder("  ");
+        for (int i = 0; i < Game.getPlayingField().length; i++) {
+            line.append(i).append(" ");
+        }
         for (int row = 0; row < Game.getPlayingField().length; row++) {
             line.append("\n").append(row).append(" ");
             for (int col = 0; col < Game.getPlayingField()[row].length; col++) {
