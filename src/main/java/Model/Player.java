@@ -105,11 +105,4 @@ package Model;
             this.rear = rear;
         }
 
-        /**
-         * outputs the name and the score of a Player on the console
-         */
-        public void printPlayerStatus(){
-            System.out.println("name:" + this.name + ", and the score: " + this.score + "." );
-        }
-
     }

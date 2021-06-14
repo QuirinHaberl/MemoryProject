@@ -71,21 +71,22 @@ public final class View {
                 System.out.print("memory> ");
                 String input = bufferedReader.readLine();
 
+                //TODO Soll wir hier noch eine Fehlermeldung ausgeben?
                 if (input == null) {
                     break;
                 }
-                if (input.equals("help")) {
-                    printDescription();
-                    continue;
+
+                switch (input) {
+                    case "help", "Help", "HELP", "h", "H":
+                        printHelp();
+                        break;
+                    case "found", "Found", "FOUND", "f", "F":
+                        printGraveyard();
+                        break;
+                    case "score", "Score", "SCORE", "s", "S":
+                        printScore(players);
                 }
-                if (input.equals("found")) {
-                    printGraveyard();
-                    continue;
-                }
-                if (input.equals("players")) {
-                    players.print();
-                    continue;
-                }
+
                 //The input is split up using spaces.
                 String[] tokens = input.trim().split("\\s+");
 
@@ -119,12 +120,28 @@ public final class View {
                             }
                             showBoard();
                             if (game.pairCheck(firstRow, firstCol, secondRow, secondCol)) {
-                                System.out.println("You've found a pair! It is your turn again.");
-                                showBoard();
-
+                                player.addScore();
                                 if (game.areAllCardsOpen()) {
                                     game.setGameStatus(GameStatus.END);
                                     System.out.println("All Pairs are found.");
+                                    showBoard();
+                                    Player[] highestScore =
+                                            players.getWinningPlayers();
+                                    String result = "";
+                                    for (int i = 0; i < highestScore.length; i++) {
+                                        if (i == 0) {
+                                            result = result + highestScore[i].getName();
+                                        } else {
+                                            result =
+                                                    result + " and " + highestScore[i].getName();
+                                        }
+                                    }
+                                    result = result + " won the Game with a "
+                                            + "score of " + players.getHighestScore() + "!";
+                                    System.out.println(result);
+                                } else {
+                                    System.out.println("You've found a pair! It is your turn again.");
+                                    showBoard();
                                 }
                             } else {
                                 System.out.println("Cards are not equal!");
@@ -135,6 +152,9 @@ public final class View {
                 }
                 if (counter == 1) {
                     player = player.getRear();
+                }
+                if (game.getGameStatus().equals(GameStatus.END)) {
+                    break;
                 }
             }
         }
@@ -173,39 +193,60 @@ public final class View {
         System.out.println("Error! " + specification);
     }
 
+
+
     /**
      * Tests whether the transferred input was correct.
      *
      * @param tokens Passed input
      * @return Returns true if the passed input(two coordinates) was correct.
      */
+    //TODO vielleicht fällt jemanden etwas einfacheres ein
     private static boolean correctInput(String[] tokens) {
         //Checks whether the input contained two parameters
-        if (tokens.length != 2) {
-            error("Have not received correct number of parameters");
+        if (tokens.length < 2) {
+            error("Have not received enough parameters");
             return false;
         } else {
-            //Checks whether the input contains two numbers between 0 and board.length-1
-            //TODO vielleicht fällt jemanden etwas effizienteres ein + alte if-Bedingung löschen
-            if (Integer.parseInt(tokens[0]) < Game.getPlayingField().length) {
-                if (Integer.parseInt(tokens[1]) < Game.getPlayingField().length) {
-                    //if (tokens[1].equals("0") || tokens[0].equals("1") || tokens[0].equals("2") || tokens[0].equals("3")) {
-                    //if (tokens[1].equals("0") || tokens[1].equals("1") || tokens[1].equals("2") || tokens[1].equals("3")) {
-                    return true;
-                } else {
-                    error("Second entry was out of range");
-                    return false;
-                }
-            } else {
-                error("First entry was out of range");
+            if (tokens.length > 2) {
+                error("Received too many parameters");
                 return false;
+            } else {
+                boolean[] cache = new boolean[2];
+                for (int i = 0; i < 2; i++) {
+                    if (tokens[i].length() == 1) {
+                        if (tokens[i].matches("\\d")) {
+                            if (Integer.parseInt(tokens[i]) < Game.getPlayingField().length) {
+                                cache[i] = true;
+                            } else {
+                                if (i == 0) {
+                                    error("First entry was out of range");
+                                } else {
+                                    error("Second entry was out of range");
+                                }
+                            }
+                        } else {
+                            if (i == 0) {
+                                error("First entry was not a valid number");
+                            } else {
+                                error("Second entry was not a valid number");
+                            }
+                        }
+                    } else {
+                        if (i == 0) {
+                            error("First entry was not a valid number");
+                        } else {
+                            error("Second entry was not a valid number");
+                        }
+                    }
+                }
+                return cache[0] && cache[1];
             }
         }
-
     }
 
     /**
-     * Prints a description of the memory-game when you enter the help command
+     * Prints a description of the memory-game when you enter the game
      */
     public static void printDescription() {
         System.out.println("""
@@ -280,6 +321,26 @@ public final class View {
     }
 
     /**
+     * Prints out a list of possible commands when you enter the help command.
+     */
+    public static void printHelp(){
+        System.out.println("""
+                
+                All possible commands are:\s
+                    help:   Shows a list of possible commands\s
+                    found:  Shows the discard pile of the running game\s
+                    score:  Shows the score of all players of the running game\s
+                    
+                    menu:   Sends you back to main menu\s
+                    reset:  Resets the running game to start state\s
+                    quit:   Quits the game\s
+                    
+                All sorts of commands can be written in lowercase and uppercase letters.\s
+                Or can also be called by using abbreviations consisting of their first letter.\s
+                """);
+    }
+
+    /**
      * Prints every {@link Card} that is {@code GameStatus.Found}
      */
     public static void printGraveyard() {
@@ -300,5 +361,17 @@ public final class View {
             }
         }
         System.out.println(line);
+    }
+
+    /**
+     * Prints every {@link Player} and its {@code Player.score}
+     *
+     * @param players list of all players
+     */
+    public static void printScore(PlayerList players){
+        for (int i = 0; i < players.getCount(); i++) {
+            System.out.println("[" + players.getPlayer(i).getName() + ": "
+                    + players.getPlayer(i).getScore() + "]");
+        }
     }
 }

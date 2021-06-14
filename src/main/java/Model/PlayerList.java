@@ -187,27 +187,6 @@ public class PlayerList {
     }
 
     /**
-     * outputs the name and the score of a Player on the console whom we find by position
-     *
-     * @param position of a Player
-     */
-    public void printPlayerStatus(int position) {
-        getPlayer(position).printPlayerStatus();
-    }
-
-    /**
-     * outputs the name and score of all players on the console
-     */
-    public void printEveryPlayerStatus() {
-        if (front == null) {
-            throw new IllegalArgumentException("There is no Player now!");
-        }
-        for (int i = 0; i < count; i++) {
-            printPlayerStatus(i);
-        }
-    }
-
-    /**
      * return the position of a {@link Player}
      *
      * @param player the current {@link Player}
@@ -238,31 +217,51 @@ public class PlayerList {
     }
 
     /**
-     * @return the Player who has the highest score
+     * Getter for current highest {@code Player.score} of all {@link Model.Player}
+     * in this {@link PlayerList}
+     *
+     * @return highest {@code Player.score}
      */
-    public Player getWinningPlayer() {
+    public int getHighestScore() {
         if (front == null) {
             throw new IllegalArgumentException("There is no Player now!");
         }
-        Player current = front;
-        Player playerWithHighestScore = front;
-        for (int i = 0; i < count; i++) {
-            if (current == rear) {
-                break;
+        int highestScore = front.getScore();
+        for (int i = 0; i < count-1; i++) {
+            if (getPlayer(i).getNext().getScore() > highestScore) {
+                highestScore = getPlayer(i).getNext().getScore();
             }
-            if (current.next.getScore() >= playerWithHighestScore.getScore()) {
-                playerWithHighestScore = current.next;
-            }
-            current = current.next;
         }
-        return playerWithHighestScore;
+        return highestScore;
     }
 
     /**
-     * output the name and score of the Player who has the highest score
+     * Getter for all {@link Model.Player} with the highest {@code Player.score}
+     *
+     * @return array of all {@link Model.Player} who have the highest {@code Player
+     * .score}
      */
-    public void printWinningPlayer() {
-        getWinningPlayer().printPlayerStatus();
+    //TODO falls jemandem etwas Unkomplizierteres einfällt, gerne ;)
+    public Model.Player[] getWinningPlayers() {
+        if (front == null) {
+            throw new IllegalArgumentException("There is no Player now!");
+        }
+        int highestScore = getHighestScore();
+        int numberOfPlayersWithHighestScore = 0;
+        for (int i = 0; i < count; i++) {
+            if (getPlayer(i).getScore() == highestScore) {
+                numberOfPlayersWithHighestScore++;
+            }
+        }
+        Model.Player[] playerWithHighestScore = new Model.Player[numberOfPlayersWithHighestScore];
+        for (int i = 0; i < count; i++) {
+            int counter = 0;
+            if (getPlayer(i).getScore() == highestScore) {
+                playerWithHighestScore[counter] = getPlayer(i);
+                counter++;
+            }
+        }
+        return playerWithHighestScore;
     }
 
     /**
@@ -307,19 +306,5 @@ public class PlayerList {
             }
         }
         return ranking;
-    }
-
-    /**
-     * output the name and score of all players according to the score
-     */
-    public void printPlayerScores() {
-        PlayerList sort = this.sort();          //firstly sorts the PlayerList
-        printEveryPlayerStatus();          //output the information of all players
-    }
-
-    public void print() {
-        for (Player p = front; p.next != front; p = p.next) {
-            System.out.println("[" + p.getName() + "]");
-        }
     }
 }
