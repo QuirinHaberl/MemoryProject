@@ -24,7 +24,7 @@ public class Game {
      * The Constructor initiates the game, the turn and creates a new {@link PlayingField}
      */
     public Game() {
-        turnStatus = TurnStatus.NOTSTARTED;
+        turnStatus = TurnStatus.IDLE;
         gameStatus = GameStatus.RUNNING;
     }
 
@@ -96,7 +96,7 @@ public class Game {
         Card firstCard = getCard(firstRow, firstCol);
         if (firstCard.getCardStatus().equals(CardStatus.CLOSED)) {
             firstCard.setCardStatus(CardStatus.OPEN);
-            setTurnStatus(TurnStatus.ACTIVTURN);
+            setTurnStatus(TurnStatus.ACTIVE);
         }
         return firstCard.getCardStatus();
     }
@@ -115,7 +115,7 @@ public class Game {
             secondCard.setCardStatus(CardStatus.AlREADYOPEN);
         } else if (secondCard.getCardStatus().equals(CardStatus.CLOSED)) {
             secondCard.setCardStatus(CardStatus.OPEN);
-            setTurnStatus(TurnStatus.NOTSTARTED);
+            setTurnStatus(TurnStatus.IDLE);
         }
         return getCard(secondRow, secondCol).getCardStatus();
     }

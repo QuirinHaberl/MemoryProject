@@ -2,7 +2,7 @@ package Model;
 
 /**
  * Enumeration of values that can be used.
- * This is the Cardset with Letters
+ * This is the {@link CardSet} with Letters
  */
 public enum CardLetters {
     /**

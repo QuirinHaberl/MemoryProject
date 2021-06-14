@@ -42,16 +42,15 @@ public class PlayerList {
      * @param name that the Player gonna use
      * @return if the name is effective
      */
-    public boolean ifNameEffective(String name) {
-        boolean effective = true;
+    public boolean validateName(String name) {
         Player current = front;
         for (int i = 0; i < count; i++) {
-            if (current.name == name) {
-                effective = false;
+            if (current.name.equals(name)) {
+                return false;
             }
             current = current.next;
         }
-        return effective;
+        return true;
     }
 
     /**
@@ -63,7 +62,7 @@ public class PlayerList {
      * @param name that the Player gonna use
      */
     public void addPlayer(String name) {
-        if (!(ifNameEffective(name))) {
+        if (!(validateName(name))) {
             throw new IllegalArgumentException("This name exists already! You should use another name!");
         }
         Player player = new Player(name, 0, null, null);
@@ -96,11 +95,10 @@ public class PlayerList {
             if (count == 1) {
                 front = null;
                 rear = null;
-                count--;
             } else {
                 front = front.next;
-                count--;
             }
+            count--;
         } else if (position == count - 1) {
             Player current = getPlayer(count - 2);
             current.next = null;
@@ -163,7 +161,7 @@ public class PlayerList {
      *
      * @param position of the {@link Player}
      */
-    public void addScoreForPlayer(int position) {
+    public void updatePlayerScore(int position) {
         this.getPlayer(position).addScore();
     }
 
@@ -173,7 +171,7 @@ public class PlayerList {
      * @param position of a Player
      * @return the name of a {@link Player}
      */
-    public String getNameOfPlayer(int position) {
+    public String getPlayerName(int position) {
         return getPlayer(position).getName();
     }
 
@@ -182,8 +180,9 @@ public class PlayerList {
      *
      * @param position of a Player
      * @return the score of a {@link Player}
+     *
      */
-    public int getScoreOfPlayer(int position) {
+    public int getPlayerScore(int position) {
         return getPlayer(position).getScore();
     }
 
@@ -192,29 +191,29 @@ public class PlayerList {
      *
      * @param position of a Player
      */
-    public void outputTheStatusOfPlayer(int position) {
-        getPlayer(position).outputStatusOfPlayer();
+    public void printPlayerStatus(int position) {
+        getPlayer(position).printPlayerStatus();
     }
 
     /**
      * outputs the name and score of all players on the console
      */
-    public void outputTheStatusofAllPlayers() {
+    public void printEveryPlayerStatus() {
         if (front == null) {
             throw new IllegalArgumentException("There is no Player now!");
         }
         for (int i = 0; i < count; i++) {
-            outputTheStatusOfPlayer(i);
+            printPlayerStatus(i);
         }
     }
 
     /**
-     * return the position of a Player
+     * return the position of a {@link Player}
      *
-     * @param player
-     * @return the position if the Player
+     * @param player the current {@link Player}
+     * @return the position if the {@link Player}
      */
-    public int getThePositionOfPlayer(Player player) {
+    public int getPlayerPosition(Player player) {
         Player current = front;
         int position = 0;
         for (int i = 0; i < count; i++) {
@@ -229,11 +228,9 @@ public class PlayerList {
 
     /**
      * return a copied PlayerList
-     *
-     * @return a copy of the PlayerList
+     * //TODO Diese Methode gibt aber nichts zurück? -Jan
      */
     public void copy() {
-
         for (int i = 0; i < count; i++) {
             addPlayer(this.getPlayer(i).getName());
             getPlayer(i).setScore(this.getPlayer(i).getScore());
@@ -243,7 +240,7 @@ public class PlayerList {
     /**
      * @return the Player who has the highest score
      */
-    public Player getThePlayerWithHighestScore() {
+    public Player getWinningPlayer() {
         if (front == null) {
             throw new IllegalArgumentException("There is no Player now!");
         }
@@ -264,8 +261,8 @@ public class PlayerList {
     /**
      * output the name and score of the Player who has the highest score
      */
-    public void outputStatusOfPlayerWithHighestScore() {
-        getThePlayerWithHighestScore().outputStatusOfPlayer();
+    public void printWinningPlayer() {
+        getWinningPlayer().printPlayerStatus();
     }
 
     /**
@@ -301,11 +298,11 @@ public class PlayerList {
      * @param name of the Player
      * @return the ranking of the Player
      */
-    public int theRankingOfPlayer(String name) {
+    public int getRanking(String name) {
         this.sort();
         int ranking = 0;
         for (int i = 0; i < count; i++) {
-            if (name == this.getPlayer(i).name) {
+            if (name.equals(this.getPlayer(i).name)) {
                 ranking = count - i;
             }
         }
@@ -315,9 +312,9 @@ public class PlayerList {
     /**
      * output the name and score of all players according to the score
      */
-    public void outputPlayersAccordingToScore() {
-        PlayerList sort = this.sort();          //firsttly sorts the PlayerList
-        outputTheStatusofAllPlayers();          //output the informations of all players
+    public void printPlayerScores() {
+        PlayerList sort = this.sort();          //firstly sorts the PlayerList
+        printEveryPlayerStatus();          //output the information of all players
     }
 
     public void print() {

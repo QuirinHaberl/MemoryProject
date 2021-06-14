@@ -74,7 +74,7 @@ public class PlayingField {
         int counter = 0;
         for (int i = 0; i < board.length / 2; i++) {
             for (int j = 0; j < board[0].length; j++) {
-                board[i][j] = new Card(allCardDigits[counter % allCardDigits.length]);
+                board[i][j] = new Card(allCardDigits[i % allCardDigits.length]);
                 counter++;
             }
         }
