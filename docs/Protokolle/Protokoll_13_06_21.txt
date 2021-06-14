@@ -1,0 +1,52 @@
+Protokoll vom Zoommeeting am 13.06.2021
+Teilnehmende: Alle 
+Autor: Florian Muhrer
+
+TOP 1 Besprechung des erledigten
+
+-Bugs aus Iteration 2 wurden gefixt
+-Aktuelles Spiel funktioniert bei testen
+-Klassen sollen aufgeteilt werden um Übersichtlichkeit zu verbessern
+
+
+
+TOP 2 Feedback Besprechung
+
+-Das Feedback von Georg wurde durchgegangen und die einzelnen Punkte wurden besprochen und diskutiert
+-vizualizeCard wurde umgesetzt
+-Player/PlayerList wurde formatiert und Dokumentation hinzugefügt durch Isabella
+-Methoden aus der View werden in Iteration 4 in den Controller verschoben
+-Für den Moment ist View & Controller noch in View
+-Für die GUI wird das MVC umstrukturiert
+-View vorerst in Shell umbenennen um Verwechslung auszuschließen 
+-fillWithCards Methode wurde durch Jan umgesetzt
+-Spielfeld soll vorerst quadratisch bleiben
+-Spielbeschreibung wurde umgesetzt und wird noch erweitert durch Florian
+
+
+
+TOP 3 Klärung des aktuellen Aufbaus und der Funktionen
+
+-Playingfield beschreibt nur das Board
+-in Game soll alles behandelt sein was das Spielen angeht
+-Aktuell ist die execute Methode = Controller -->wird von View aufgerufen
+-Player Class wurde durch Isabella angepasst, damit ein Spieler erneut an der Reihe ist wenn ein Paar gefunden wurde
+
+
+
+TOP 4 Weiteres Vorgehen
+
+-Klärung über was geschehen soll nachdem ein Spiel vorbei ist
+-Eingabemöglichkeit soll vorhanden sein um dem Spielenden Optionen zu geben 
+(Menü-->Setzt alles zurück und Spieler kehrt zum Spielmenü zurück; Restart-->setzt Punkte zurück und startet ein neues Spiel; Quit-->schließt Spiel)
+-Spielanleitung soll jederzeit aufrufbar sein
+-Punktestand wird implementiert um Gewinnmitteilung zu ermöglichen
+-Vor der Abgabe soll gesamtes Projekt überarbeitet werden um redundante Methoden etc. zu entfernen
+-Erstellung des Klassendiagramms wird erstellt, wenn Methoden überarbeitet worden sind
+
+
+
+TOP 5 Organisatorisches
+
+-Umsetzung des oben genannten bis Donnerstag
+-Nächstes Meeting Donnerstag 17.06.2021
