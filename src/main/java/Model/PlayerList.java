@@ -68,6 +68,7 @@ public class PlayerList {
         Player player = new Player(name, 0, null, null);
         if (front == null) {
             front = player;
+            rear = player;
             player.next = player;
             player.rear = player;
         } else {
@@ -79,7 +80,7 @@ public class PlayerList {
             player.next = front;
             front.rear = player;
             player.rear = p;
-
+            rear = player;
         }
         count++;
     }
@@ -114,6 +115,15 @@ public class PlayerList {
             temp.next = null;
             count--;
         }
+    }
+
+    /**
+     * Deletes all {@link Player} from the {@link PlayerList}
+     */
+    public void deleteAllPlayers() {
+        this.front = null;
+        this.rear = null;
+        count = 0;
     }
 
     /**
@@ -163,6 +173,15 @@ public class PlayerList {
      */
     public void updatePlayerScore(int position) {
         this.getPlayer(position).addScore();
+    }
+
+    /**
+     * resets scores of all {@link Player} to 0
+     */
+    public void resetAllScores() {
+        for (int i = 0; i < count; i++) {
+            getPlayer(i).setScore(0);
+        }
     }
 
     /**

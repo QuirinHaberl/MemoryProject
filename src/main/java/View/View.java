@@ -39,9 +39,29 @@ public final class View {
         printDescription();
 
         Game game = new Game();
-        MenuStatus menuStatus = MenuStatus.PLAYERMODE;
-
         PlayerList players = new PlayerList();
+
+        while (game.getGameStatus() != GameStatus.END) {
+            switch (game.getGameStatus()) {
+                case MENU -> executeMenu(bufferedReader, game, players);
+                case RUNNING -> executeRunning(bufferedReader, game, players);
+            }
+        }
+    }
+
+    /**
+     * This method reads the input from the console and delegates it to
+     * {@link Game} when main {@code GameStatus.MENU} is active.
+     *
+     * @param bufferedReader provides a connection to the console.
+     * @param game          current game
+     * @param players       list of all players
+     * @throws IOException  on input error.
+     */
+    public static void executeMenu(BufferedReader bufferedReader,
+                                        Game game,
+                                   PlayerList players) throws IOException {
+        MenuStatus menuStatus = MenuStatus.PLAYERMODE;
         PlayingField field = null;
 
         boolean firstIssue = true;
@@ -49,7 +69,7 @@ public final class View {
         while (game.getGameStatus() == GameStatus.MENU) {
 
             switch (menuStatus) {
-                case PLAYERMODE:
+                case PLAYERMODE -> {
                     if (firstIssue) {
                         System.out.println("How many players do you want? Choose between 1 and 4. ");
                         System.out.print("memory> ");
@@ -60,8 +80,8 @@ public final class View {
                     } else {
                         firstIssue = false;
                     }
-                    break;
-                case BOARDSIZE:
+                }
+                case BOARDSIZE -> {
                     if (firstIssue) {
                         System.out.println("Type '2', '4', '6', '8' to select the board-size:");
                         System.out.print("memory> ");
@@ -74,8 +94,8 @@ public final class View {
                     } else {
                         firstIssue = false;
                     }
-                    break;
-                case CARDSET:
+                }
+                case CARDSET -> {
                     if (firstIssue) {
                         System.out.println("Type 'L' for letters or 'D' for digits:");
                         System.out.print("memory> ");
@@ -87,13 +107,26 @@ public final class View {
                         firstIssue = true;
                         game.setGameStatus(GameStatus.RUNNING);
                         showBoard();
-                    } else{
+                    } else {
                         firstIssue = false;
                     }
-                    break;
+                }
             }
         }
+    }
 
+    /**
+     * This method reads the input from the console and delegates it to
+     * {@link Game} when the game is {@code GameStatus.RUNNING}.
+     *
+     * @param bufferedReader provides a connection to the console.
+     * @param game          current game
+     * @param players       list of all players
+     * @throws IOException  on input error.
+     */
+    public static void executeRunning(BufferedReader bufferedReader,
+                                      Game game,
+                                      PlayerList players) throws IOException {
         int firstRow = 0;
         int firstCol = 0;
 
@@ -101,6 +134,10 @@ public final class View {
         while (game.getGameStatus().equals(GameStatus.RUNNING)) {
 
             for (Player player = players.getFront(); player != null; player = player.getNext()) {
+                if (!game.getGameStatus().equals(GameStatus.RUNNING)) {
+                    break;
+                }
+
                 int counter = 1; //Number of choices
                 System.out.println(player.getName() + ":");
                 System.out.print("memory> ");
@@ -111,85 +148,141 @@ public final class View {
                     break;
                 }
 
+                boolean saveBreak = false;
+
                 switch (input) {
                     case "help", "Help", "HELP", "h", "H":
                         printHelp();
+                        saveBreak = true;
                         break;
                     case "found", "Found", "FOUND", "f", "F":
                         printGraveyard();
+                        saveBreak = true;
                         break;
                     case "score", "Score", "SCORE", "s", "S":
                         printScore(players);
+                        saveBreak = true;
+                        break;
+                    case "menu", "Menu", "MENU", "m", "M":
+                        returnToMenu(players, game);
+                        saveBreak = true;
+                        break;
+                    case "reset", "Reset", "RESET", "r", "R":
+                        player = resetGame(players, game);
+                        saveBreak = true;
+                        break;
+                    case "restart", "Restart", "RESTART", "rs", "RS":
+                        player = restartGame(players, game);
+                        saveBreak = true;
+                        break;
+                    case "quit", "Quit", "QUIT", "q", "Q":
+                        quitGame(game);
+                        saveBreak = true;
+                        break;
                 }
 
-                //The input is split up using spaces.
-                String[] tokens = input.trim().split("\\s+");
+                if (!saveBreak) {
+                    //The input is split up using spaces.
+                    String[] tokens = input.trim().split("\\s+");
 
-                //Implementation of game phases
-                switch (game.getTurnStatus()) {
-                    case IDLE:
-                        if (correctInput(tokens)) {
-                            firstRow = Integer.parseInt(tokens[0]);
-                            firstCol = Integer.parseInt(tokens[1]);
-                            CardStatus firstCardStatus = game.revealFirstCard(firstRow, firstCol);
-                            if (firstCardStatus.equals(CardStatus.FOUND)) {
-                                System.out.println("The selected card was already found!");
-                                break;
-                            } else {
-                                showBoard();
-                            }
-                        }
-                        break;
-                    case ACTIVE:
-                        if (correctInput(tokens)) {
-                            int secondRow = Integer.parseInt(tokens[0]);
-                            int secondCol = Integer.parseInt(tokens[1]);
-                            CardStatus secondCardStatus = game.revealSecondCard(secondRow, secondCol);
-                            if (secondCardStatus.equals(CardStatus.FOUND)) {
-                                System.out.println("The selected card was already found!");
-                                break;
-                            } else if (secondCardStatus.equals(CardStatus.AlREADYOPEN)) {
-                                System.out.println("You've selected the same card twice!");
-                                break;
-
-                            }
-                            showBoard();
-                            if (game.pairCheck(firstRow, firstCol, secondRow, secondCol)) {
-                                player.addScore();
-                                if (game.areAllCardsOpen()) {
-                                    game.setGameStatus(GameStatus.END);
-                                    System.out.println("All Pairs are found.");
-                                    showBoard();
-                                    Player[] highestScore =
-                                            players.getWinningPlayers();
-                                    String result = "";
-                                    for (int i = 0; i < highestScore.length; i++) {
-                                        if (i == 0) {
-                                            result = result + highestScore[i].getName();
-                                        } else {
-                                            result =
-                                                    result + " and " + highestScore[i].getName();
-                                        }
-                                    }
-                                    result = result + " won the Game with a "
-                                            + "score of " + players.getHighestScore() + "!";
-                                    System.out.println(result);
+                    //Implementation of game phases
+                    switch (game.getTurnStatus()) {
+                        case IDLE:
+                            if (correctInput(tokens)) {
+                                firstRow = Integer.parseInt(tokens[0]);
+                                firstCol = Integer.parseInt(tokens[1]);
+                                CardStatus firstCardStatus = game.revealFirstCard(firstRow, firstCol);
+                                if (firstCardStatus.equals(CardStatus.FOUND)) {
+                                    System.out.println("The selected card was already found!");
+                                    break;
                                 } else {
-                                    System.out.println("You've found a pair! It is your turn again.");
                                     showBoard();
                                 }
-                            } else {
-                                System.out.println("Cards are not equal!");
-                                counter = counter + 1;
                             }
-                        }
-                        break;
-                }
-                if (counter == 1) {
-                    player = player.getRear();
-                }
-                if (game.getGameStatus().equals(GameStatus.END)) {
-                    break;
+                            break;
+                        case ACTIVE:
+                            if (correctInput(tokens)) {
+                                int secondRow = Integer.parseInt(tokens[0]);
+                                int secondCol = Integer.parseInt(tokens[1]);
+                                CardStatus secondCardStatus = game.revealSecondCard(secondRow, secondCol);
+                                if (secondCardStatus.equals(CardStatus.FOUND)) {
+                                    System.out.println("The selected card was already found!");
+                                    break;
+                                } else if (secondCardStatus.equals(CardStatus.AlREADYOPEN)) {
+                                    System.out.println("You've selected the same card twice!");
+                                    break;
+
+                                }
+                                showBoard();
+                                if (game.pairCheck(firstRow, firstCol, secondRow, secondCol)) {
+                                    player.addScore();
+                                    if (game.areAllCardsOpen()) {
+                                        //game.setGameStatus(GameStatus.END);
+                                        System.out.println("All Pairs are found.");
+                                        showBoard();
+                                        Player[] highestScore =
+                                                players.getWinningPlayers();
+                                        String result = "";
+                                        for (int i = 0; i < highestScore.length; i++) {
+                                            if (i == 0) {
+                                                result = result + highestScore[i].getName();
+                                            } else {
+                                                result =
+                                                        result + " and " + highestScore[i].getName();
+                                            }
+                                        }
+                                        result = result + " won the Game with a "
+                                                + "score of " + players.getHighestScore() + "!";
+                                        System.out.println(result);
+                                        System.out.println("""
+                                                                                            
+                                                Please select by entering a command whether you want to\s
+                                                 return to the main menu ('menu'),\s
+                                                 reset the current game ('reset'),\s
+                                                 restart the current game ('restart') or\s
+                                                 quit the game ('quit')\s
+                                                """);
+                                        boolean exit = true;
+                                        while (exit) {
+                                            System.out.print("memory> ");
+                                            String choice = bufferedReader.readLine();
+                                            switch (choice) {
+                                                case "menu", "Menu", "MENU", "m", "M":
+                                                    returnToMenu(players, game);
+                                                    exit = false;
+                                                    break;
+                                                case "reset", "Reset", "RESET", "r", "R":
+                                                    player = resetGame(players, game);
+                                                    exit = false;
+                                                    break;
+                                                case "restart", "Restart", "RESTART", "rs", "RS":
+                                                    player = restartGame(players, game);
+                                                    exit = false;
+                                                    break;
+                                                case "quit", "Quit", "QUIT", "q", "Q":
+                                                    quitGame(game);
+                                                    exit = false;
+                                                    break;
+                                                default:
+                                                    error("No valid command "
+                                                            + "recognized");
+                                            }
+                                        }
+
+                                    } else {
+                                        System.out.println("You've found a pair! It is your turn again.");
+                                        showBoard();
+                                    }
+                                } else {
+                                    System.out.println("Cards are not equal!");
+                                    counter = counter + 1;
+                                }
+                            }
+                            break;
+                    }
+                    if (counter == 1) {
+                        player = player.getRear();
+                    }
                 }
             }
         }
@@ -374,13 +467,14 @@ public final class View {
         System.out.println("""
                 
                 All possible commands are:\s
-                    help:   Shows a list of possible commands\s
-                    found:  Shows the discard pile of the running game\s
-                    score:  Shows the score of all players of the running game\s
+                    help:       Shows a list of possible commands\s
+                    found:      Shows the discard pile of the running game\s
+                    score:      Shows the score of all players of the running game\s
                     
-                    menu:   Sends you back to main menu\s
-                    reset:  Resets the running game to start state\s
-                    quit:   Quits the game\s
+                    menu:       Sends you back to main menu\s
+                    reset:      Resets the running game to start state\s
+                    restart:    Restarts the running game with repositioned cards\s
+                    quit:       Quits the game\s
                     
                 All sorts of commands can be written in lowercase and uppercase letters.\s
                 Or can also be called by using abbreviations consisting of their first letter.\s
@@ -420,5 +514,63 @@ public final class View {
             System.out.println("[" + players.getPlayer(i).getName() + ": "
                     + players.getPlayer(i).getScore() + "]");
         }
+    }
+
+    /**
+     * Brings you back to main menu
+     *
+     * @param players   list of all players
+     * @param game      current game
+     */
+    public static void returnToMenu(PlayerList players, Game game) {
+        players.deleteAllPlayers();
+        game.setGameStatus(GameStatus.MENU);
+        game.setTurnStatus(TurnStatus.IDLE);
+    }
+
+    /**
+     * Resets the Game and restarts it
+     *
+     * @param players   list of all players
+     * @param game      current game
+     * @return  the rear {@link Player} of the {@link PlayerList}, so that
+     * the next turn is started with the first {@link Player}
+     */
+    public static Player resetGame(PlayerList players, Game game) {
+        game.setTurnStatus(TurnStatus.IDLE);
+        game.closeAllCards();
+        players.resetAllScores();
+        showBoard();
+        return players.getRear();
+    }
+
+    /**
+     * Restarts the Game with repositioned cards
+     *
+     * @param players   list of all players
+     * @param game      current game
+     * @return  the rear {@link Player} of the {@link PlayerList}, so that
+     * the next turn is started with the first {@link Player}
+     */
+    public static Player restartGame(PlayerList players, Game game) {
+        game.setTurnStatus(TurnStatus.IDLE);
+        game.closeAllCards();
+        PlayingField playingField =
+                new PlayingField(Game.getPlayingField().length);
+        PlayingField.setBoard(Game.getPlayingField());
+        playingField.shuffleBoard();
+        Game.setPlayingField();
+        players.resetAllScores();
+        showBoard();
+        return players.getRear();
+    }
+
+    /**
+     * Command to quit a running game
+     *
+     * @param game  current game
+     */
+    public static void quitGame(Game game) {
+        game.setGameStatus(GameStatus.END);
     }
 }

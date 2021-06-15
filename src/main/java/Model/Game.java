@@ -190,4 +190,15 @@ public class Game {
         playingField[row1][col1].setCardStatus(CardStatus.CLOSED);
         playingField[row2][col2].setCardStatus(CardStatus.CLOSED);
     }
+
+    /**
+     * Closes all {@link Card} from the {@code board}.
+     */
+    public void closeAllCards() {
+        for (Card[] cards : playingField) {
+            for (Card card : cards) {
+                card.setCardStatus((CardStatus.CLOSED));
+            }
+        }
+    }
 }
