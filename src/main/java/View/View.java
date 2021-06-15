@@ -72,8 +72,8 @@ public final class View {
                 case PLAYERMODE -> {
                     if (firstIssue) {
                         System.out.println("How many players do you want? Choose between 1 and 4. ");
-                        System.out.print("memory> ");
                     }
+                    System.out.print("memory> ");
                     if (selectPlayerMode(bufferedReader.readLine(), players)) {
                         menuStatus = MenuStatus.BOARDSIZE;
                         firstIssue = true;
@@ -84,8 +84,8 @@ public final class View {
                 case BOARDSIZE -> {
                     if (firstIssue) {
                         System.out.println("Type '2', '4', '6', '8' to select the board-size:");
-                        System.out.print("memory> ");
                     }
+                    System.out.print("memory> ");
                     int size = selectBoardSize(bufferedReader.readLine());
                     if (size != 0) {
                         field = new PlayingField(size);
@@ -98,8 +98,8 @@ public final class View {
                 case CARDSET -> {
                     if (firstIssue) {
                         System.out.println("Type 'L' for letters or 'D' for digits:");
-                        System.out.print("memory> ");
                     }
+                    System.out.print("memory> ");
                     if (selectCardSet(bufferedReader.readLine(), field)) {
                         field.fillWithCards();
                         Game.setPlayingField();
@@ -227,6 +227,9 @@ public final class View {
                                             if (i == 0) {
                                                 result = result + highestScore[i].getName();
                                             } else {
+                                                //TODO Bug: zwei (mehrere)
+                                                // Sieger -> Nullpointer bei
+                                                // highestScore[i].getName()
                                                 result =
                                                         result + " and " + highestScore[i].getName();
                                             }
@@ -283,6 +286,8 @@ public final class View {
                     if (counter == 1) {
                         player = player.getRear();
                     }
+                } else {
+                    player = player.getRear();
                 }
             }
         }
