@@ -18,14 +18,14 @@ public class Game {
     /**
      * Active {@link PlayingField}
      */
-    private static final Card[][] playingField = PlayingField.getBoard();
+    private static Card[][] playingField;
 
     /**
      * The Constructor initiates the game, the turn and creates a new {@link PlayingField}
      */
     public Game() {
         turnStatus = TurnStatus.IDLE;
-        gameStatus = GameStatus.RUNNING;
+        gameStatus = GameStatus.MENU;
     }
 
     /**
@@ -37,6 +37,12 @@ public class Game {
         return playingField;
     }
 
+    /**
+     * Setter for {@code playingField}
+     */
+    public static void setPlayingField() {
+        playingField = PlayingField.getBoard();
+    }
 
     /**
      * Getter of {@link TurnStatus}

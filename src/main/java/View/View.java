@@ -38,29 +38,64 @@ public final class View {
         //Printing the description of a memory game
         printDescription();
 
-        //Setting of single player oder multi player mode
-        PlayerList players = new PlayerList();
-        selectPlayerMode(bufferedReader, players);
-
-        //At the beginning a new control is created.
-        PlayingField field = new PlayingField(selectBoardSize(bufferedReader));
         Game game = new Game();
+        MenuStatus menuStatus = MenuStatus.PLAYERMODE;
 
-        game.setGameStatus(GameStatus.MENU);
+        PlayerList players = new PlayerList();
+        PlayingField field = null;
+
+        boolean firstIssue = true;
+
+        while (game.getGameStatus() == GameStatus.MENU) {
+
+            switch (menuStatus) {
+                case PLAYERMODE:
+                    if (firstIssue) {
+                        System.out.println("How many players do you want? Choose between 1 and 4. ");
+                        System.out.print("memory> ");
+                    }
+                    if (selectPlayerMode(bufferedReader.readLine(), players)) {
+                        menuStatus = MenuStatus.BOARDSIZE;
+                        firstIssue = true;
+                    } else {
+                        firstIssue = false;
+                    }
+                    break;
+                case BOARDSIZE:
+                    if (firstIssue) {
+                        System.out.println("Type '2', '4', '6', '8' to select the board-size:");
+                        System.out.print("memory> ");
+                    }
+                    int size = selectBoardSize(bufferedReader.readLine());
+                    if (size != 0) {
+                        field = new PlayingField(size);
+                        menuStatus = MenuStatus.CARDSET;
+                        firstIssue = true;
+                    } else {
+                        firstIssue = false;
+                    }
+                    break;
+                case CARDSET:
+                    if (firstIssue) {
+                        System.out.println("Type 'L' for letters or 'D' for digits:");
+                        System.out.print("memory> ");
+                    }
+                    if (selectCardSet(bufferedReader.readLine(), field)) {
+                        field.fillWithCards();
+                        Game.setPlayingField();
+                        menuStatus = MenuStatus.PLAYERMODE;
+                        firstIssue = true;
+                        game.setGameStatus(GameStatus.RUNNING);
+                        showBoard();
+                    } else{
+                        firstIssue = false;
+                    }
+                    break;
+            }
+        }
 
         int firstRow = 0;
         int firstCol = 0;
-
-        //Selecting the cardSet and fills the board with cards
-        selectCardSet(bufferedReader, field);
-
-        //Fill the board with cards
-        field.fillWithCards();
-
-        game.setGameStatus(GameStatus.RUNNING);
-
-        //Print the board before the game starts
-        showBoard();
 
         //It is read in from the console until the program is ended.
         while (game.getGameStatus().equals(GameStatus.RUNNING)) {
@@ -264,60 +299,72 @@ public final class View {
     /**
      * Sets the {@link CardSet} to be used
      *
-     * @param bufferedReader provides a connection to the console.
-     * @param field          is used to set a {@link CardSet}
-     * @throws IOException on input error.
+     * @param input     passed {@link CardSet}
+     * @param field     is used to set a {@link CardSet}
+     * @return true if no error appeared
      */
-    public static void selectCardSet(BufferedReader bufferedReader, PlayingField field) throws IOException {
-        //TODO Der Input muss noch auf Fehler überprüft werden
-        System.out.println("Type 'L' for letters or 'D' for digits:");
-        System.out.print("memory> ");
-        String input = bufferedReader.readLine();
-        if (input.equalsIgnoreCase("L")) {
-            field.setCardSet(CardSet.LETTERS);
-        } else if (input.equalsIgnoreCase("D")) {
-            field.setCardSet(CardSet.DIGITS);
-        } else {
-            throw new IllegalArgumentException("This set does not exist!");
+    public static boolean selectCardSet(String input, PlayingField field) {
+        if (input.length() == 1) {
+            if (input.equalsIgnoreCase("L")) {
+                field.setCardSet(CardSet.LETTERS);
+                return true;
+            } else if (input.equalsIgnoreCase("D")) {
+                field.setCardSet(CardSet.DIGITS);
+                return true;
+            }
         }
+        error("This set does not exist!");
+        return false;
     }
 
     /**
      * Sets the field-size to be used
      *
-     * @param bufferedReader provides a connection to the console.
+     * @param input passed size for the {@code field}
      * @return the selected size of the {@code field}
-     * @throws IOException on input error.
      */
-    public static int selectBoardSize(BufferedReader bufferedReader) throws IOException {
-        //TODO Der Input muss noch auf Fehler überprüft werden
-        System.out.println("Type '2', '4', '6', '8' to select the board-size:");
-        System.out.print("memory> ");
-        int size = Integer.parseInt(bufferedReader.readLine());
-        if (size <= 8 || size % 2 == 0) {
-            return size;
-        } else {
-            throw new IllegalArgumentException("You can't select this size.");
+    public static int selectBoardSize(String input) {
+        if (input.length() == 1) {
+            if (input.matches("\\d")) {
+                int size = Integer.parseInt(input);
+                if (size <= 8 && size % 2 == 0 && size != 0) {
+                    return size;
+                }
+            }
         }
+        error("You can't select this size.");
+        return 0;
     }
 
     /**
      * This method implements a list of Players for the Game.
      *
-     * @param bufferedReader provides a connection to the console.
-     * @param players        a list of the players
-     * @throws IOException on input error.
+     * @param input     number of players selected
+     * @param players   a list of the players
+     * @return true if no error appeared
      */
-    public static void selectPlayerMode(BufferedReader bufferedReader, PlayerList players) throws IOException {
-        System.out.println("How many players do you want? Choose between 1 and 4. ");
-        System.out.print("memory> ");
-        int input = Integer.parseInt(bufferedReader.readLine());
-        if (input > 4 || input < 1) {
-            throw new IOException("Es müssen mindestens 1 und maximal 4 Spieler teilnehmen!");
+    public static boolean selectPlayerMode(String input, PlayerList players) {
+        if (input.length() == 1) {
+            if (input.matches("\\d")) {
+                int num = Integer.parseInt(input);
+                if (num > 4) {
+                    error("Only a maximum of 4 players can take part");
+                    return false;
+                } else {
+                    if (num < 1) {
+                        error("At least 1 player must take part");
+                        return false;
+                    } else {
+                        for (int i = 1; i <= num; ++i) {
+                            players.addPlayer("Spieler " + i);
+                        }
+                        return true;
+                    }
+                }
+            }
         }
-        for (int num = 1; num <= input; ++num) {
-            players.addPlayer("Spieler " + num);
-        }
+        error("Entry was not a valid number");
+        return false;
     }
 
     /**
