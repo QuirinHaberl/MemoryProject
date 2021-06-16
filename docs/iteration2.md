@@ -19,7 +19,7 @@
 **Organisation**
 - Mehrmalige wöchentliche Absprache über Zoom
 - Fortschritte, Probleme und Fragen wurden in der Gruppe besprochen
-- Gemeinsame Planung der Einbindung des Konzepts der Game-View-Controller-Architektur in unser Projekt
+- Gemeinsame Planung der Einbindung des Konzepts der Model-View-Controller-Architektur in unser Projekt
 - Gemeinsame Planung der Struktur (Klassendiagramm) des Projekts
 
 

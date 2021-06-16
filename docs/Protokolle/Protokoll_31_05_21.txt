@@ -4,7 +4,7 @@ Autor: Florian Muhrer
 
 
 Top 1:
-Besprechung über Implementierung des Game View Controller
+Besprechung über Implementierung des Model View Controller
  
 -Vorschlag View und Controller in die Shell zu integrieren
 -Vorschlag von Daqian und Isabella "Spiel Controller Status" zu implementieren
