@@ -1,5 +1,7 @@
 package Model;
 
+import Model.Card;
+
 /**
  * Enum of the card status.
  */

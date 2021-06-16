@@ -1,20 +1,19 @@
 package Model;
 
+import Model.Enums.CardDigits;
+import Model.Enums.CardLetters;
+import Model.Enums.CardSet;
+import View.View;
+
 import java.util.Random;
 
 /**
- * The class Model.PlayingField implements the {@link PlayingField} of the memory game
+ * The class Model.Enums.PlayingField implements the {@link PlayingField} of the memory game
  * as a two-dimensional array.
  * In addition, a controlArray of the boolean type is created to store
  * whether a card is revealed or not.
  */
 public class PlayingField {
-
-    /**
-     * Height and Width of the {@link PlayingField}
-     */
-    private final int height;
-    private final int width;
 
     /**
      * Array of the {@link PlayingField}
@@ -26,21 +25,52 @@ public class PlayingField {
      */
     private CardSet cardSet;
 
+    private int heigth;
+
+    private int width;
+
     /**
      * The Constructor creates a new {@link PlayingField} and fills the board with {@link Card}
      *
      * @param size specifies the size of an array squared
      */
     public PlayingField(int size) {
-        this.height = size;
+        this.heigth = size;
         this.width = size;
-        board = new Card[height][width];
+        board = new Card[heigth][heigth];
+    }
+
+    public PlayingField() {
+    }
+
+    public CardSet getCardSet() {
+        return cardSet;
+    }
+
+    public int getHeigth() {
+        return heigth;
+    }
+
+    public void setHeigth(int heigth) {
+        this.heigth = heigth;
+    }
+
+    public void setBoard(int size) {
+        board = new Card[size][size];
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
     }
 
     /**
      * @return the {@code board}
      */
-    public static Card[][] getBoard() {
+    public Card[][] getBoard() {
         return board;
     }
 
@@ -134,5 +164,44 @@ public class PlayingField {
                 board[randRow][randCol] = tmp;
             }
         }
+    }
+
+    /**
+     * Sets the {@link CardSet} to be used
+     *
+     * @param input passed {@link CardSet}
+     * @return true if no error appeared
+     */
+    public boolean selectCardSet(String input) {
+        if (input.length() == 1) {
+            if (input.equalsIgnoreCase("L")) {
+                setCardSet(CardSet.LETTERS);
+                return true;
+            } else if (input.equalsIgnoreCase("D")) {
+                setCardSet(CardSet.DIGITS);
+                return true;
+            }
+        }
+        View.error("This set does not exist!");
+        return false;
+    }
+
+    /**
+     * Sets the field-size to be used
+     *
+     * @param input passed size for the {@code field}
+     * @return the selected size of the {@code field}
+     */
+    public int selectBoardSize(String input) {
+        if (input.length() == 1) {
+            if (input.matches("\\d")) {
+                int size = Integer.parseInt(input);
+                if (size <= 8 && size % 2 == 0 && size != 0) {
+                    return size;
+                }
+            }
+        }
+        View.error("You can't select this size.");
+        return 0;
     }
 }

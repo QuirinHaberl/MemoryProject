@@ -1,4 +1,6 @@
-package Model;
+package Model.Enums;
+
+import Model.Card;
 
 /**
  * Enumeration of values that can be used.

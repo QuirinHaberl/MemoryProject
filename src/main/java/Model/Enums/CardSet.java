@@ -1,4 +1,4 @@
-package Model;
+package Model.Enums;
 
 /**
  * The enum represents the uses {@link CardSet}
