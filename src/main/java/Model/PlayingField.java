@@ -45,6 +45,15 @@ public class PlayingField {
     }
 
     /**
+     * Setter of the{@code board}
+     *
+     * @param cards New {@code board}.
+     */
+    public static void setBoard(Card[][] cards) {
+        board = cards;
+    }
+
+    /**
      * Sets the current {@link CardSet}
      *
      * @param cardSet to be used
@@ -74,7 +83,8 @@ public class PlayingField {
         int counter = 0;
         for (int i = 0; i < board.length / 2; i++) {
             for (int j = 0; j < board[0].length; j++) {
-                board[i][j] = new Card(allCardDigits[i % allCardDigits.length]);
+                board[i][j] =
+                        new Card(allCardDigits[counter % allCardDigits.length]);
                 counter++;
             }
         }
@@ -111,7 +121,7 @@ public class PlayingField {
     /**
      * Shuffles {@link Card} elements of {@code board}.
      */
-    private void shuffleBoard() {
+    public void shuffleBoard() {
         Card tmp;
         int randRow, randCol;
         Random r = new Random();

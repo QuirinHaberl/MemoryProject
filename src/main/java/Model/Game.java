@@ -18,14 +18,14 @@ public class Game {
     /**
      * Active {@link PlayingField}
      */
-    private static final Card[][] playingField = PlayingField.getBoard();
+    private static Card[][] playingField;
 
     /**
      * The Constructor initiates the game, the turn and creates a new {@link PlayingField}
      */
     public Game() {
         turnStatus = TurnStatus.IDLE;
-        gameStatus = GameStatus.RUNNING;
+        gameStatus = GameStatus.MENU;
     }
 
     /**
@@ -37,6 +37,12 @@ public class Game {
         return playingField;
     }
 
+    /**
+     * Setter for {@code playingField}
+     */
+    public static void setPlayingField() {
+        playingField = PlayingField.getBoard();
+    }
 
     /**
      * Getter of {@link TurnStatus}
@@ -183,5 +189,16 @@ public class Game {
     public void closeCards(int row1, int col1, int row2, int col2) {
         playingField[row1][col1].setCardStatus(CardStatus.CLOSED);
         playingField[row2][col2].setCardStatus(CardStatus.CLOSED);
+    }
+
+    /**
+     * Closes all {@link Card} from the {@code board}.
+     */
+    public void closeAllCards() {
+        for (Card[] cards : playingField) {
+            for (Card card : cards) {
+                card.setCardStatus((CardStatus.CLOSED));
+            }
+        }
     }
 }
