@@ -32,14 +32,14 @@
 				  können diese optional ergänzt werden.  
 				  Dies war in dieser Iteration der Fall, sodass alle vorgenommenen Tasks erledigt werden konnten.
 - Abnahme des Projekts am Sonntag 20.06.21: Gemeinsam Java-Docs korrigieren, Manuelles Testen besprechen, überflüssige Methoden 						     entfernen 
-- Iteration 4 planen:
-	-> UserStories auswählen
-	-> Tasks erstellen
-	-> Kanbanboard aktualisieren 
+- Iteration 4 planen:  
+	-> UserStories auswählen  
+	-> Tasks erstellen  
+	-> Kanbanboard aktualisieren   
 
 
 **Anhang: **
-Protokolle der Zoom-Meetings:
+Protokolle der Zoom-Meetings:  
 - Protokoll_09_06_21
 - Protokoll_13_06_21
 - Protokoll_17_06_21
