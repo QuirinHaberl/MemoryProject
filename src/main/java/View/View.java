@@ -41,13 +41,16 @@ public final class View {
     public static void printDescription() {
         System.out.println("""
 
-                Wer an der Reihe ist, darf nacheinander zwei Karten aufdecken.\s
-                Dazu gib die Position der gewuenschten Karte als Tupel ein, z.B. 2 1\s
-                Nun wird dir dann das Spielfeld mit dem Bild deiner ausgewaehlten Karte angezeigt.\s
-                Analog das Vorgehen bei der zweiten Karte.\s
-                Ziel des Spiels ist es ein Kartenpaar, d.h. zwei Karten mit dem gleichen Bild zu finden.\s
-                Das zusammenpassende Bilderpaar wird vom Spielfeld entfernt.\s
-                Passen die beiden Kartenbilder nicht zusammen, werden die Karten wieder umgedreht.
+                1. On each turn, a player turns over any two cards (one at a time).\s
+                2. To open a card, simply input its position, i.e. 2 1\s
+                3. The board will show you the selected card.\s
+                4. Select a second card, same as before.\s
+                5. If they successfully match a pair they receive a point, and that player gets another turn.\s
+                6. The found pair is removed from the board.\s
+                7. When a player turns over two cards that do not match, those cards are turned face down again \s
+                   (in the same position) and it becomes the next player’s turn.\s
+                8. The trick is to remember which cards are where.\s
+                9. The person with the most pairs at the end of the game wins.
                 """);
     }
 
