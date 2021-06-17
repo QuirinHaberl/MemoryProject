@@ -225,6 +225,7 @@ public final class View {
         System.out.println("All Pairs are found.");
     }
 
+
     /**
      * Prints that pair of {@link Card}'s was found.
      */
@@ -232,6 +233,11 @@ public final class View {
         System.out.println("You've found a pair! It is your turn again.");
     }
 
+    /**
+     * //TODO add javadoc
+     * @param highestScore
+     * @param game
+     */
     public static void printGameSummary(PlayerList highestScore, Game game) {
         highestScore.printList();
         System.out.print(" won the Game with a score of " );

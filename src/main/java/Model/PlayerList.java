@@ -1,5 +1,7 @@
 package Model;
 
+import Control.Controller;
+
 /**
  * This class implements a {@link PlayerList}.
  */
