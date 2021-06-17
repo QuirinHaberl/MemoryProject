@@ -218,7 +218,7 @@ public class Controller {
                                         View.printBoard(game.getPlayingField());
                                         PlayerList highestScore = game.getPlayerList().
                                                 getWinningPlayers(game.getPlayerList());
-                                        //Todo Fehler nach Merge
+                                        //Todo Fehler nach Merge mit Daqians Branch
                                         //View.printGameSummary(highestScore, game);
                                         boolean exit = true;
                                         while (exit) {
