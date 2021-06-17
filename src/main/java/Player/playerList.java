@@ -219,48 +219,6 @@ public class playerList {
     }
 
     /**
-     * return a copied playerList
-     *
-     * @return a copy of the playerList
-     */
-    public playerList copy() {
-        playerList list = new playerList(null, null);
-        for (int i = 0; i < count; i++) {
-            list.addPlayer(this.getPlayer(i).getName());
-            list.getPlayer(i).setScore(this.getPlayer(i).getScore());
-        }
-        return list;
-    }
-
-    /**
-     * @return the player who has the highest score
-     */
-    public player getThePlayerWithHighestScore() {
-        if (front == null) {
-            throw new IllegalArgumentException("There is no player now!");
-        }
-        player current = front;
-        player playerWithHighestScore = front;
-        for (int i = 0; i < count; i++) {
-            if (current == rear) {
-                break;
-            }
-            if (current.next.getScore() >= playerWithHighestScore.getScore()) {
-                playerWithHighestScore = current.next;
-            }
-            current = current.next;
-        }
-        return playerWithHighestScore;
-    }
-
-    /**
-     * output the name and score of the player who has the highest score
-     */
-    public void outputStatusOfPlayerWithHighestScore() {
-        getThePlayerWithHighestScore().outputStatusOfPlayer();
-    }
-
-    /**
      * sort the playerList according to score
      *
      * @return the sorted {@link playerList}
