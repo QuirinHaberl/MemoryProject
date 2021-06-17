@@ -38,13 +38,13 @@
 	-> Kanbanboard aktualisieren   
 
 
-**Anhang: **
+**Anhang:**  
 Protokolle der Zoom-Meetings:  
 - Protokoll_09_06_21
 - Protokoll_13_06_21
 - Protokoll_17_06_21
 
-**Klassendiagramm: **
+**Klassendiagramm:**  
 Das Klassendiagramm wurde gemeinsam überarbeitet, damit alle Gruppenmitglieder auf dem selben Stand sind.
 Das Klasendiagramm wurde von Florian Muhrer in VisualParadigm aktualisiert.
 
