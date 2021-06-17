@@ -6,17 +6,17 @@ package Model;
 public class Game {
 
     /**
-     * Current {@link TurnStatus}
+     * Stores the current {@link TurnStatus}.
      */
     private TurnStatus turnStatus;
 
     /**
-     * Current {@link GameStatus}
+     * Stores the current {@link GameStatus}.
      */
     private GameStatus gameStatus;
 
     /**
-     * Active {@link PlayingField}
+     * Stores the {@link PlayingField}.
      */
     private static Card[][] playingField = PlayingField.getBoard();
 
@@ -29,9 +29,9 @@ public class Game {
     }
 
     /**
-     * Getter for {@code playingField}
+     * Gets the the board of a {@code playingField}.
      *
-     * @return the {@code playingField}
+     * @return the board of a {@code playingField}
      */
     public static Card[][] getPlayingField() {
         return playingField;
@@ -48,7 +48,7 @@ public class Game {
     }
 
     /**
-     * Setter of the {@link TurnStatus}
+     * Sets the {@link TurnStatus}.
      *
      * @param turnStatus sets the {@link TurnStatus}
      */
@@ -57,7 +57,7 @@ public class Game {
     }
 
     /**
-     * Getter of {@link GameStatus}
+     * Gets the {@link GameStatus}.
      *
      * @return the {@link GameStatus}
      */
@@ -66,7 +66,7 @@ public class Game {
     }
 
     /**
-     * Setter of the {@link GameStatus}
+     * Sets the {@link GameStatus}.
      *
      * @param gameStatus sets the {@link GameStatus}
      */
@@ -75,7 +75,7 @@ public class Game {
     }
 
     /**
-     * Returns a specified card.
+     * Gets a specified {@link Card}.
      *
      * @param row Row position of the selected card
      * @param col Column position of the selected card
@@ -99,7 +99,7 @@ public class Game {
     }
 
     /**
-     * Reveals the first selected {@link Card} of a turn
+     * Reveals the first selected {@link Card} of a turn.
      *
      * @param firstRow   of the {@link Card}
      * @param firstCol   of the {@link Card}
@@ -142,7 +142,7 @@ public class Game {
     }
 
     /**
-     * Checks weather two selected {@link Card} have the same image and therefore form a pair
+     * Checks whether two selected {@link Card}'s have the same value and form a pair.
      *
      * @param rowFirstCard  : Row of the first {@link Card}
      * @param colFirstCard  : Column of the first {@link Card}

@@ -11,7 +11,7 @@ public class Card {
     private CardValue value;
 
     /**
-     * The attribute {@code cardStatus} saves whether a card is closed, open or found.
+     * Stores whether a {@link Card} is closed, open or found.
      */
     private CardStatus cardStatus;
 
@@ -92,7 +92,9 @@ public class Card {
     }
 
     /**
-     * @return the {@link CardStatus} of a {@link Card}.
+     * Gets the {@link CardStatus} of a {@link Card}.
+     *
+     * @return the {@link CardStatus} of a {@link Card}
      */
     public CardStatus getCardStatus() {
         return cardStatus;

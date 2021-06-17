@@ -11,7 +11,7 @@ import java.io.InputStreamReader;
  */
 public final class View {
     /**
-     * Utility class needs private constructor
+     * Utility class needs private constructor.
      */
     private View() {
     }
@@ -127,7 +127,7 @@ public final class View {
 
     //Helper Methods
     /**
-     * Outputs a specified error message.
+     * prints a specified errormessage.
      *
      * @param specification Specification of the error message.
      */

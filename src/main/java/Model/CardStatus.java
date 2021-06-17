@@ -1,16 +1,17 @@
 package Model;
 
 /**
- * Enum of the card status.
+ * The enumeration of the card status.
  */
 public enum CardStatus {
+
     /**
-     * a {@link Card} is closed.
+     * A {@link Card} is closed.
      */
     CLOSED,
 
     /**
-     * a {@link Card} is open.
+     * A {@link Card} is open.
      */
     OPEN,
 
