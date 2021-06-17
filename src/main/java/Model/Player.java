@@ -1,108 +1,112 @@
 package Model;
 
+/**
+ * this class implements the Model.Enums.Player of the game.
+ */
+public class Player {
+
     /**
-     * this class implements the Player of the game.
+     * the attribute name is the name of a Model.Enums.Player
      */
-    public class Player {
-        /**
-         * the attribute name is the name of a Player
-         */
-        String name;
-        /**
-         * the attribute score is the score that a Player got in the game
-         */
-        int score;
-        /**
-         * the attribute Player next is used for connecting to the next Player
-         */
-        Player next;
+    String name;
 
-        /**
-         * the attribute Player rear is used for connecting to the rear Player
-         */
-        Player rear;
+    /**
+     * the attribute score is the score that a Model.Enums.Player got in the game
+     */
+    int score;
 
-        /**
-         * constructs a new {@link Player}
-         * @param name is the name of the {@link Player}
-         * @param score the score of a {@link Player}
-         * @param next the next {@link Player}
-         */
-        public Player(String name, int score, Player next, Player rear){
-            this.name = name;
-            this.score = score;
-            this.next = next;
-            this.rear = rear;
-        }
+    /**
+     * the attribute Model.Enums.Player next is used for connecting to the next Model.Enums.Player
+     */
+    Player next;
 
-        /**
-         * set a name for Player
-         * @param name of a Player
-         */
-        public void setName(String name){
-            this.name = name;
-        }
+    /**
+     * the attribute Model.Enums.Player rear is used for connecting to the rear Model.Enums.Player
+     */
+    Player rear;
 
-        /**
-         * @return the name of a {@link Player}
-         */
-        public String getName(){
-            return name;
-        }
-
-        /**
-         * set the score for a Player
-         * @param score of a Player
-         */
-        public void setScore(int score){
-            this.score = score;
-        }
-
-        /**
-         * if a Player found two same card, then the score of the Player will added 1.
-         */
-        public void addScore(){ // +1
-            this.score ++;
-        }
-
-        /**
-         *
-         * @return the score of a {@link Player}
-         */
-        public int getScore(){
-            return score;
-        }
-
-        /**
-         * sets the next Player
-         * @param next of the {@link Player}
-         */
-        public void setNext(Player next){
-            this.next = next;
-        }
-
-        /**
-         *
-         * @return the next {@link Player}
-         */
-        public Player getNext(){
-            return next;
-        }
-
-        /**
-         *
-         * @return the rear {@link Player}
-         */
-        public Player getRear() {
-            return rear;
-        }
-
-        /**
-         * sets the rear Player
-         * @param rear of the {@link Player}
-         */
-        public void setRear(Player rear) {
-            this.rear = rear;
-        }
-
+    /**
+     * constructs a new {@link Player}
+     *
+     * @param name  is the name of the {@link Player}
+     * @param score the score of a {@link Player}
+     * @param next  the next {@link Player}
+     */
+    public Player(String name, int score, Player next, Player rear) {
+        this.name = name;
+        this.score = score;
+        this.next = next;
+        this.rear = rear;
     }
+
+    /**
+     * set a name for Model.Enums.Player
+     *
+     * @param name of a Model.Enums.Player
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * @return the name of a {@link Player}
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * set the score for a Model.Enums.Player
+     *
+     * @param score of a Model.Enums.Player
+     */
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    /**
+     * if a Model.Enums.Player found two same card, then the score of the Model.Enums.Player will added 1.
+     */
+    public void addScore() { // +1
+        this.score++;
+    }
+
+    /**
+     * @return the score of a {@link Player}
+     */
+    public int getScore() {
+        return score;
+    }
+
+    /**
+     * sets the next Model.Enums.Player
+     *
+     * @param next of the {@link Player}
+     */
+    public void setNext(Player next) {
+        this.next = next;
+    }
+
+    /**
+     * @return the next {@link Player}
+     */
+    public Player getNext() {
+        return next;
+    }
+
+    /**
+     * @return the rear {@link Player}
+     */
+    public Player getRear() {
+        return rear;
+    }
+
+    /**
+     * sets the rear Model.Enums.Player
+     *
+     * @param rear of the {@link Player}
+     */
+    public void setRear(Player rear) {
+        this.rear = rear;
+    }
+}

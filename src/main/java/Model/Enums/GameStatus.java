@@ -1,4 +1,4 @@
-package Model;
+package Model.Enums;
 
 /**
  * Enum of the game status.
@@ -15,7 +15,7 @@ public enum GameStatus {
     END,
 
     /**
-     * If the {@link GameStatus} is MENU the Player can interact with the menu.
+     * If the {@link GameStatus} is MENU the Model.Enums.Player can interact with the menu.
      */
     MENU
 }

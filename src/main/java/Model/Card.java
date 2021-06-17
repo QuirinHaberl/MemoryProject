@@ -1,5 +1,8 @@
 package Model;
 
+import Model.Enums.CardDigits;
+import Model.Enums.CardLetters;
+
 /**
  * The class {@link Card} implements a card of the game.
  */
@@ -45,11 +48,10 @@ public class Card {
     /**
      * Visualizes {@link Card}, defined by {@link CardDigits}
      *
-     * @param value Type of card
      * @return Visualization of the card value transferred
      * da sie vom Kartenset abhängt
      */
-    public static String visualizeCard(Object value) {
+    public String visualizeCard() {
         if (value instanceof CardDigits) {
             return ((CardDigits) value).getDigit();
         } else if (value instanceof CardLetters) {
