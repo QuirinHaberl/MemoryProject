@@ -1,5 +1,7 @@
 package Model;
 
+import Control.Controller;
+
 /**
  * this class implements a Model.Enums.PlayerList
  */
@@ -255,30 +257,25 @@ public class PlayerList {
     /**
      * Getter for all {@link Player} with the highest {@code Model.Enums.Player.score}
      *
-     * @return array of all {@link Player} who have the highest {@code Model.Enums.Player
+     * @return list of all {@link Player} who have the highest {@code Model.Enums.Player
      * .score}
      */
-    //TODO falls jemandem etwas Unkomplizierteres einfällt, gerne ;)
-    public Player[] getWinningPlayers() {
+    public PlayerList getWinningPlayers(PlayerList playerList) {
         if (front == null) {
             throw new IllegalArgumentException("There is no Model.Enums.Player now!");
         }
         int highestScore = getHighestScore();
-        int numberOfPlayersWithHighestScore = 0;
-        for (int i = 0; i < count; i++) {
-            if (getPlayer(i).getScore() == highestScore) {
-                numberOfPlayersWithHighestScore++;
+
+        for (Player player = playerList.front;
+             player.next != front; player = player.next) {
+
+            if (player.getScore() != highestScore) {
+                int pos = getPlayerPosition(player);
+                deletePlayer(pos);
             }
         }
-        Player[] playerWithHighestScore = new Player[numberOfPlayersWithHighestScore];
-        for (int i = 0; i < count; i++) {
-            int counter = 0;
-            if (getPlayer(i).getScore() == highestScore) {
-                playerWithHighestScore[counter] = getPlayer(i);
-                counter++;
-            }
-        }
-        return playerWithHighestScore;
+
+        return playerList;
     }
 
     /**
@@ -323,5 +320,15 @@ public class PlayerList {
             }
         }
         return ranking;
+    }
+
+    public void printList() {
+        for (int i = 0; i < count; i++) {
+            if (i != count-1) {
+                System.out.print(getPlayer(i).getName() + " and ");
+            } else {
+                System.out.print(getPlayer(i).getName());
+            }
+        }
     }
 }

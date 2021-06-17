@@ -198,7 +198,8 @@ public class Controller {
                                         //game.setGameStatus(Model.Enums.GameStatus.END);
                                         View.printAllPairsFound();
                                         View.printBoard(game.getPlayingField());
-                                        Player[] highestScore = game.getPlayerList().getWinningPlayers();
+                                        PlayerList highestScore = game.getPlayerList().
+                                                getWinningPlayers(game.getPlayerList());
                                         View.printGameSummary(highestScore, game);
                                         boolean exit = true;
                                         while (exit) {

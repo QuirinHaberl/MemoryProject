@@ -131,23 +131,12 @@ public final class View {
         System.out.println("All Pairs are found.");
     }
 
-    public static void printGameSummary(Player[] highestScore, Game game) {
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < highestScore.length; i++) {
-            if (i == 0) {
-                result.append(highestScore[i].getName());
-            } else {
-                //TODO Bug: zwei (mehrere)
-                // Sieger -> Nullpointer bei
-                // highestScore[i].getName()
-                result.append(" and ").append(highestScore[i].getName());
-            }
-        }
-        result.append(" won the Model.Enums.Game with a ").append("score of ").append(game.getPlayerList().getHighestScore()).append("!");
-        System.out.println(result);
+    public static void printGameSummary(PlayerList highestScore, Game game) {
+        highestScore.printList();
+        System.out.print(" won the Game with a score of " );
+        System.out.println(game.getPlayerList().getHighestScore());
         System.out.println("""
-                                                            
-                Please select by entering a command whether you want to\s
+                 Please select by entering a command whether you want to\s
                  return to the main menu ('menu'),\s
                  reset the current game ('reset'),\s
                  restart the current game ('restart') or\s
