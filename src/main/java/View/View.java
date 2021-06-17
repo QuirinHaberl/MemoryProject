@@ -2,10 +2,6 @@ package View;
 
 import Model.*;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 /**
  * This class represents the view of the MVC-architecture.
  */
@@ -17,161 +13,147 @@ public final class View {
     }
 
     /**
-     * This is the main-method which starts a game by executing the execute-method.
-     *
-     * @param args unused.
-     * @throws IOException on input error.
-     */
-    public static void main(String[] args) throws IOException {
-        BufferedReader bufferedReader =
-                new BufferedReader(new InputStreamReader(System.in));
-        execute(bufferedReader);
-    }
-
-    /**
-     * This method reads the input from the console and delegates it to {@link Game}.
-     *
-     * @param bufferedReader provides a connection to the console.
-     * @throws IOException on input error.
-     */
-    public static void execute(BufferedReader bufferedReader) throws IOException {
-        //At the beginning a new control is created.
-        new PlayingField();
-        Game game = new Game();
-
-        game.setGameStatus(GameStatus.RUNNING);
-
-        int firstRow = 0;
-        int firstCol = 0;
-        int firstCardImage = 0;
-
-        //It is read in from the console until the program is ended.
-        while (game.getGameStatus().equals(GameStatus.RUNNING)) {
-            System.out.print("memory> ");
-            String input = bufferedReader.readLine();
-            if (input == null) {
-                break;
-            }
-            if (input.equals("help")) {
-                printDescription();
-                continue;
-            }
-            //The input is split up using spaces.
-            String[] tokens = input.trim().split("\\s+");
-
-            //Implementation of game phases
-            switch (game.getTurnStatus()) {
-                case NOTSTARTED:
-                    if (correctInput(tokens)) {
-                        firstRow = Integer.parseInt(tokens[0]);
-                        firstCol = Integer.parseInt(tokens[1]);
-                        firstCardImage = game.revealFirstCard(firstRow, firstCol);
-                        if (firstCardImage == 0) {
-                            System.out.println("The selected card was already found!");
-                        } else {
-                            showBoard();
-                        }
-                    }
-                    break;
-                case ACTIVTURN:
-                    if (correctInput(tokens)) {
-                        int secondRow = Integer.parseInt(tokens[0]);
-                        int secondCol = Integer.parseInt(tokens[1]);
-                        int secondCardImage = game.revealSecondCard(secondRow, secondCol);
-                        if (secondCardImage == 0) {
-                            System.out.println("The selected card was already found!");
-                            break;
-                        } else {
-                            if (secondCardImage == 9) {
-                                System.out.println("You've selected the same card twice!");
-                                break;
-                            }
-                        }
-                        showBoard();
-                        if (game.pairCheck(firstRow, firstCol, secondRow, secondCol)) {
-                            System.out.println("You've found a pair!");
-                            showBoard();
-                            if (game.areAllCardsOpen()) {
-                                game.setGameStatus(GameStatus.END);
-                                System.out.println("You won!");
-                            }
-                        } else {
-                            System.out.println("Cards are not equal!");
-                        }
-                    }
-                    break;
-            }
-        }
-    }
-
-    /**
      * Visualizes the current {@link Game}
-     *
      */
-    private static void showBoard() {
-        String line = ("  0 1 2 3");
-        for (int row = 0; row < Game.getPlayingField().length; row++) {
-            line = line + "\n" + row + " ";
-            for (int col = 0; col < Game.getPlayingField()[row].length; col++) {
-                if (Game.getCard(row, col).getCardStatus().equals(CardStatus.OPEN)) {
-                    line = line + Card.visualizeCard(Game.getPlayingField()[row][col].getValue()) + " ";
-                } else if (Game.getCard(row, col).getCardStatus().equals(CardStatus.CLOSED)) {
-                    line = line + "X ";
-                } else if (Game.getCard(row, col).getCardStatus().equals(CardStatus.FOUND)) {
-                    line = line + "  ";
+    public static void printBoard(PlayingField playingField) {
+        StringBuilder line = new StringBuilder("  ");
+        for (int i = 0; i < playingField.getBoard().length; i++) {
+            line.append(i).append(" ");
+        }
+        for (int row = 0; row < playingField.getBoard().length; row++) {
+            line = new StringBuilder(line + "\n" + row + " ");
+            for (int col = 0; col < playingField.getBoard()[row].length; col++) {
+                if (playingField.getBoard()[row][col].getCardStatus().equals(CardStatus.OPEN)) {
+                    line.append(playingField.getBoard()[row][col].visualizeCard()).append(" ");
+                } else if (playingField.getBoard()[row][col].getCardStatus().equals(CardStatus.CLOSED)) {
+                    line.append("X ");
+                } else if (playingField.getBoard()[row][col].getCardStatus().equals(CardStatus.FOUND)) {
+                    line.append("  ");
                 }
             }
         }
         System.out.println(line);
     }
 
-    //Helper Methods
+    /**
+     * Prints a description of the memory-game when you enter the game
+     */
+    public static void printDescription() {
+        System.out.println("""
+
+                1. On each turn, a player turns over any two cards (one at a time).\s
+                2. To open a card, simply input its position, i.e. 2 1\s
+                3. The board will show you the selected card.\s
+                4. Select a second card, same as before.\s
+                5. If they successfully match a pair they receive a point, and that player gets another turn.\s
+                6. The found pair is removed from the board.\s
+                7. When a player turns over two cards that do not match, those cards are turned face down again \s
+                   (in the same position) and it becomes the next player’s turn.\s
+                8. The trick is to remember which cards are where.\s
+                9. The person with the most pairs at the end of the game wins.
+                """);
+    }
+
+    /**
+     * Prints out a list of possible commands when you enter the help command.
+     */
+    public static void printHelp() {
+        System.out.println("""
+                                
+                All possible commands are:\s
+                    help:       Shows a list of possible commands\s
+                    found:      Shows the discard pile of the running game\s
+                    score:      Shows the score of all players of the running game\s
+                    
+                    menu:       Sends you back to main menu\s
+                    reset:      Resets the running game to start state\s
+                    restart:    Restarts the running game with repositioned cards\s
+                    quit:       Quits the game\s
+                    
+                All sorts of commands can be written in lowercase and uppercase letters.\s
+                Or can also be called by using abbreviations consisting of their first letter.\s
+                """);
+    }
+
+    public static void printMemory() {
+        System.out.print("memory> ");
+    }
+
+    public static void printPlayer(String name) {
+        System.out.println(name + ":");
+    }
+
     /**
      * prints a specified errormessage.
      *
      * @param specification Specification of the error message.
      */
-    private static void error(String specification) {
-        System.out.println("Error! " + specification);
+    public static void printGraveyard() {
     }
 
     /**
-     * Tests whether the transferred input was correct.
+     * Prints every {@link Player} and its {@code Model.Enums.Player.score}
      *
-     * @param tokens Passed input
-     * @return Returns true if the passed input(two coordinates) was correct.
+     * @param players list of all players
      */
-    private static boolean correctInput(String[] tokens) {
-        //Checks whether the input contained two parameters
-        if (tokens.length != 2) {
-            error("Have not received correct number of parameters");
-            return false;
-        } else {
-            //Checks whether the input contains two numbers between 0 and 3
-            if (tokens[0].equals("0") || tokens[0].equals("1") || tokens[0].equals("2") || tokens[0].equals("3")) {
-                if (tokens[1].equals("0") || tokens[1].equals("1") || tokens[1].equals("2") || tokens[1].equals("3")) {
-                    return true;
-                } else {
-                    error("Second entry was out of range");
-                    return false;
-                }
-            } else {
-                error("First entry was out of range");
-                return false;
-            }
+    public static void printScore(PlayerList players) {
+        for (int i = 0; i < players.getCount(); i++) {
+            System.out.println("[" + players.getPlayer(i).getName() + ": "
+                    + players.getPlayer(i).getScore() + "]");
         }
     }
 
     /**
-     * Prints a description of the memory-game when you enter the help command
+     * Outputs a specified error message.
+     *
+     * @param specification Specification of the error message.
      */
-    public static void printDescription() {
-        System.out.println("Wer an der Reihe ist, darf nacheinander zwei Karten aufdecken. \n" +
-                "Dazu gib die Position der gewuenschten Karte als Tupel ein, z.B. 2 1 \n" +
-                "Nun wird dir dann das Spielfeld mit dem Bild deiner ausgewaehlten Karte angezeigt. \n" +
-                "Analog das Vorgehen bei der zweiten Karte. \n" +
-                "Ziel des Spiels ist es ein Kartenpaar, d.h. zwei Karten mit dem gleichen Bild zu finden. \n" +
-                "Das zusammenpassende Bilderpaar wird vom Spielfeld entfernt. \n" +
-                "Passen die beiden Kartenbilder nicht zusammen, werden die Karten wieder umgedreht.");
+    public static void error(String specification) {
+        System.out.println("Error! " + specification);
+    }
+
+    public static void printSelectPlayerAmount() {
+        System.out.println("How many players do you want? Choose between 1 and 4. ");
+    }
+
+    public static void printSelectBoardSize() {
+        System.out.println("Type '2', '4', '6', '8' to select the board-size:");
+    }
+
+    public static void printSelectCardSet() {
+        System.out.println("Type 'L' for letters or 'D' for digits:");
+    }
+
+    public static void printAlreadyFound() {
+        System.out.println("The selected card was already found!");
+    }
+
+    public static void printSelectedTwice() {
+        System.out.println("You've selected the same card twice!");
+    }
+
+    public static void printAllPairsFound() {
+        System.out.println("All Pairs are found.");
+    }
+
+    public static void printGameSummary(PlayerList highestScore, Game game) {
+        highestScore.printList();
+        System.out.print(" won the Game with a score of " );
+        System.out.println(game.getPlayerList().getHighestScore());
+        System.out.println("""
+                 Please select by entering a command whether you want to\s
+                 return to the main menu ('menu'),\s
+                 reset the current game ('reset'),\s
+                 restart the current game ('restart') or\s
+                 quit the game ('quit')\s
+                """);
+    }
+
+    public static void printFoundPair() {
+        System.out.println("You've found a pair! It is your turn again.");
+    }
+
+    public static void printUnequalCards(){
+        System.out.println("Cards are not equal!");
     }
 }

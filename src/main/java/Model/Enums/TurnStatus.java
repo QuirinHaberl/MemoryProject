@@ -1,4 +1,4 @@
-package Model;
+package Model.Enums;
 
 /**
  * The enumeration of the turn status.
@@ -8,10 +8,10 @@ public enum TurnStatus {
     /**
      * The turn hasn't started yet or is already over.
      */
-    NOTSTARTED,
+    IDLE,
 
     /**
      * The turn is running.
      */
-    ACTIVTURN,
+    ACTIVE
 }
