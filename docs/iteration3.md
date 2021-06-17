@@ -51,7 +51,7 @@ Das Klasendiagramm wurde von Florian Muhrer in VisualParadigm aktualisiert.
 
 **Iteration 3**
 
-**I = Implementierung**
+**I = Implementierung** ,
 **C = Closed**
 
 | ID | Isabella Habereder | Daqian Zhang | Jan Pfeifer | Quirin Haberl | Florian Muhrer|
@@ -87,7 +87,7 @@ Auswahl der User Stories für Iteration 4 aus bereits existierenden User Stories
 
 ## Tasks
 
-**E = Erstellt**
+**E = Erstellt** , 
 **B = Bearbeitet**
 
 | ID | Isabella Habereder | Daqian Zhang | Jan Pfeifer | Quirin Haberl | Florian Muhrer|
