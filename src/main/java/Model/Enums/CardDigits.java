@@ -3,11 +3,12 @@ package Model.Enums;
 import Model.Card;
 
 /**
- * Enumeration of values that can be used.
+ * This is the {@link CardSet} with digits.
  */
 public enum CardDigits {
+
     /**
-     * a {@link Card} can have values from ONE to EIGHT
+     * A {@link Card} can have values from ONE to THIRTYTWO.
      * the value of a {@link Card} is saved as well.
      */
     ONE("1"), TWO("2"), THREE("3"),
@@ -23,12 +24,12 @@ public enum CardDigits {
     THIRTYONE("31"), THIRTYTWO("32");
 
     /**
-     * The value of a card is saved {@code label}, which can't be changed
+     * The value of a card is stored in {@code label}, which can't be changed.
      */
     private final String digit;
 
     /**
-     * Constructs a new label
+     * Constructs a new label.
      *
      * @param digit is saved as a attribute for a {@link CardDigits}
      */
@@ -37,6 +38,8 @@ public enum CardDigits {
     }
 
     /**
+     * Gets the {@code label} of a {@link CardDigits}
+     *
      * @return the {@code label} of a {@link CardDigits}
      */
     public String getDigit() {

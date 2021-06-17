@@ -3,12 +3,12 @@ package Model.Enums;
 import Model.Card;
 
 /**
- * Enumeration of values that can be used.
- * This is the {@link CardSet} with Letters
+ * This is the {@link CardSet} with letters.
  */
 public enum CardLetters {
+
     /**
-     * a {@link Card} can have values from A to P
+     * A {@link Card} can have values from [A, Z] and [a, z].
      */
     A("A"), B("B"), C("C"), D("D"), E("E"),
     F("F"), G("G"), H("H"), I("I"), J("J"),
@@ -24,12 +24,12 @@ public enum CardLetters {
 
 
     /**
-     * The value of a card is saved {@code label}, which can't be changed
+     * The value of a card is stored in {@code label}, which can't be changed.
      */
     private final String letter;
 
     /**
-     * Constructs a new label
+     * Constructs a new label.
      *
      * @param letter is saved as a attribute for a {@link CardLetters}
      */
@@ -38,6 +38,8 @@ public enum CardLetters {
     }
 
     /**
+     * Gets the {@code label} of a {@link CardLetters}
+     *
      * @return the {@code label} of a {@link CardLetters}
      */
     public String getLetter() {

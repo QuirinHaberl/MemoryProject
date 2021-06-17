@@ -10,21 +10,24 @@ import View.View;
 public class Game {
 
     /**
-     * Current {@link TurnStatus}
+     * Stores the current {@link TurnStatus}.
      */
     private TurnStatus turnStatus;
 
     /**
-     * Current {@link GameStatus}
+     * Stores the current {@link GameStatus}.
      */
     private GameStatus gameStatus;
 
     /**
-     * Active {@link PlayingField}
+     * Stores the {@link PlayingField}.
      */
-    private PlayingField playingField;
+    private final PlayingField playingField;
 
-    private PlayerList playerList;
+    /**
+     * Stores {@link Player} in a {@link PlayerList}.
+     */
+    private final PlayerList playerList;
 
     /**
      * The Constructor initiates the game, the turn and creates a new {@link PlayingField}
@@ -37,30 +40,25 @@ public class Game {
     }
 
     /**
-     * Getter for {@code playingField}
+     * Gets the the board of a {@code playingField}.
      *
-     * @return the {@code playingField}
+     * @return the board of a {@code playingField}
      */
     public Card[][] getBoard() {
         return playingField.getBoard();
     }
 
     /**
-     * @return
+     * Gets the {@code playingField}.
+     *
+     * @return the current {@code playingField}
      */
     public PlayingField getPlayingField() {
         return playingField;
     }
 
     /**
-     * Setter for {@code playingField}
-     */
-    public void setPlayingField(PlayingField playingField) {
-        this.playingField = playingField;
-    }
-
-    /**
-     * Getter of {@link TurnStatus}
+     * Gets the {@link TurnStatus}.
      *
      * @return the {@link TurnStatus}
      */
@@ -69,7 +67,7 @@ public class Game {
     }
 
     /**
-     * Setter of the {@link TurnStatus}
+     * Sets the {@link TurnStatus}.
      *
      * @param turnStatus sets the {@link TurnStatus}
      */
@@ -78,7 +76,7 @@ public class Game {
     }
 
     /**
-     * Getter of {@link GameStatus}
+     * Gets the {@link GameStatus}.
      *
      * @return the {@link GameStatus}
      */
@@ -86,16 +84,17 @@ public class Game {
         return gameStatus;
     }
 
+    /**
+     * Gets the {@code playerList}.
+     *
+     * @return the current {@code playerList}
+     */
     public PlayerList getPlayerList() {
         return playerList;
     }
 
-    public void setPlayerList(PlayerList playerList) {
-        this.playerList = playerList;
-    }
-
     /**
-     * Setter of the {@link GameStatus}
+     * Sets the {@link GameStatus}.
      *
      * @param gameStatus sets the {@link GameStatus}
      */
@@ -104,7 +103,7 @@ public class Game {
     }
 
     /**
-     * Returns a specified card.
+     * Gets a specified {@link Card}.
      *
      * @param row Row position of the selected card
      * @param col Column position of the selected card
@@ -115,7 +114,7 @@ public class Game {
     }
 
     /**
-     * Reveals the first selected {@link Card} of a turn
+     * Reveals the first selected {@link Card} of a turn.
      *
      * @param firstRow of the {@link Card}
      * @param firstCol of the {@link Card}
@@ -132,7 +131,7 @@ public class Game {
 
     /**
      * Reveals the second selected {@link Card} of a turn.
-     * This method used to proof additional information about the {@link CardStatus}
+     * This method used to check check information about the {@link CardStatus}
      *
      * @param secondRow of the {@link Card}
      * @param secondCol of the {@link Card}
@@ -150,13 +149,13 @@ public class Game {
     }
 
     /**
-     * Checks weather two selected {@link Card} have the same image and therefore form a pair
+     * Checks whether two selected {@link Card}'s have the same value and form a pair.
      *
      * @param rowFirstCard  : Row of the first {@link Card}
      * @param colFirstCard  : Column of the first {@link Card}
      * @param rowSecondCard : Row of the second {@link Card}
      * @param colSecondCard : Column of the second {@link Card}
-     * @return if a pair was found (true) or not (false)
+     * @return whether a pair was found (true) or not (false)
      */
     public boolean pairCheck(int rowFirstCard, int colFirstCard, int rowSecondCard, int colSecondCard) {
         Card firstCard = getCard(rowFirstCard, colFirstCard);
@@ -215,7 +214,7 @@ public class Game {
     }
 
     /**
-     * Closes all {@link Card} from the {@code board}.
+     * Closes all {@link Card}.
      */
     public void closeAllCards() {
         for (Card[] cards : playingField.getBoard()) {
@@ -226,57 +225,7 @@ public class Game {
     }
 
     /**
-     * Tests whether the transferred input was correct.
-     *
-     * @param tokens Passed input
-     * @return Returns true if the passed input(two coordinates) was correct.
-     */
-    //TODO vielleicht fällt jemanden etwas einfacheres ein
-    public boolean correctInput(String[] tokens) {
-        //Checks whether the input contained two parameters
-        if (tokens.length < 2) {
-            View.error("Have not received enough parameters");
-            return false;
-        } else {
-            if (tokens.length > 2) {
-                View.error("Received too many parameters");
-                return false;
-            } else {
-                boolean[] cache = new boolean[2];
-                for (int i = 0; i < 2; i++) {
-                    if (tokens[i].length() == 1) {
-                        if (tokens[i].matches("\\d")) {
-                            if (Integer.parseInt(tokens[i]) < getBoard().length) {
-                                cache[i] = true;
-                            } else {
-                                if (i == 0) {
-                                    View.error("First entry was out of range");
-                                } else {
-                                    View.error("Second entry was out of range");
-                                }
-                            }
-                        } else {
-                            if (i == 0) {
-                                View.error("First entry was not a valid number");
-                            } else {
-                                View.error("Second entry was not a valid number");
-                            }
-                        }
-                    } else {
-                        if (i == 0) {
-                            View.error("First entry was not a valid number");
-                        } else {
-                            View.error("Second entry was not a valid number");
-                        }
-                    }
-                }
-                return cache[0] && cache[1];
-            }
-        }
-    }
-
-    /**
-     * Brings you back to main menu
+     * Brings a {@link Player} back to main menu.
      *
      * @param players list of all players
      */
@@ -287,7 +236,7 @@ public class Game {
     }
 
     /**
-     * Command to quit a running game
+     * Quits a running {@link Game}.
      */
     public void quitGame() {
         setGameStatus(GameStatus.END);
@@ -295,7 +244,7 @@ public class Game {
 
 
     /**
-     * Resets the Model.Enums.Game and restarts it
+     * Resets the {@link Game} and restarts it.
      *
      * @param players list of all players
      * @return the rear {@link Player} of the {@link PlayerList}, so that
@@ -310,7 +259,7 @@ public class Game {
     }
 
     /**
-     * Restarts the Model.Enums.Game with repositioned cards
+     * Restarts the {@link Game} with repositioned cards.
      *
      * @param players list of all players
      * @return the rear {@link Player} of the {@link PlayerList}, so that
@@ -326,7 +275,7 @@ public class Game {
     }
 
     /**
-     * This method implements a list of Players for the Model.Enums.Game.
+     * Selects the player-mode.
      *
      * @param input number of players selected
      * @return true if no error appeared

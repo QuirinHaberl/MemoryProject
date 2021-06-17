@@ -1,26 +1,26 @@
 package Model;
 
 /**
- * this class implements a Model.Enums.PlayerList
+ * This class implements a {@link PlayerList}.
  */
 public class PlayerList {
     /**
-     * the attribute is the front of the Model.Enums.PlayerList
+     * Stores the first element of the {@link PlayerList}.
      */
     private Player front;
 
     /**
-     * the attribute is the rear of the Model.Enums.PlayerList
+     * Stores the last element of the {@link PlayerList}.
      */
     private Player rear;
 
     /**
-     * the attribute records how many players in this Model.Enums.PlayerList
+     * Stores the amount of players.
      */
     private int count;
 
     /**
-     * constructs a new Model.Enums.PlayerList
+     * Constructs a new {@link PlayerList}.
      */
     public PlayerList() {
         this.front = null;
@@ -29,6 +29,8 @@ public class PlayerList {
     }
 
     /**
+     * Gets the amount of players.
+     *
      * @return count
      */
     public int getCount() {
@@ -36,10 +38,10 @@ public class PlayerList {
     }
 
     /**
-     * checks if the name has existed already in the Model.Enums.PlayerList
+     * Checks, whether a name already exists.
      *
-     * @param name that the Model.Enums.Player gonna use
-     * @return if the name is effective
+     * @param name of a player
+     * @return if a name is already in use
      */
     public boolean validateName(String name) {
         Player current = front;
@@ -53,12 +55,9 @@ public class PlayerList {
     }
 
     /**
-     * adds a Model.Enums.Player to the Model.Enums.PlayerList
-     * firstly checks if the name is effective
-     * Structure of the list is a circle, that means the next node from the
-     * last one is the front node
+     * Adds a {@link Player} to the {@link PlayerList}.
      *
-     * @param name that the Model.Enums.Player gonna use
+     * @param name of a player
      */
     public void addPlayer(String name) {
         if (!(validateName(name))) {
@@ -85,9 +84,9 @@ public class PlayerList {
     }
 
     /**
-     * deletes a Model.Enums.Player from the Model.Enums.PlayerList by its position
+     * Deletes a {@link Player}.
      *
-     * @param position of the {@link Player} that will be deleted
+     * @param position of the {@link Player} that is being deleted
      */
     public void deletePlayer(int position) {
 
@@ -117,7 +116,7 @@ public class PlayerList {
     }
 
     /**
-     * Deletes all {@link Player} from the {@link PlayerList}
+     * Deletes all {@link Player}'s from the {@link PlayerList}.
      */
     public void deleteAllPlayers() {
         this.front = null;
@@ -126,13 +125,12 @@ public class PlayerList {
     }
 
     /**
-     * return a Model.Enums.Player by its position
+     * Gets the {@link Player} at {@code position}.
      *
      * @param position of the {@link Player}
      * @return the Model.Enums.Player
      */
     public Player getPlayer(int position) {
-
         if (front == null) {
             throw new IllegalArgumentException("There is no Model.Enums.Player now!");
         } else if (position >= count || position < 0) {
@@ -146,16 +144,16 @@ public class PlayerList {
     }
 
     /**
-     * return the front of the Model.Enums.PlayerList
+     * Gets the front.
      *
-     * @return the fornt
+     * @return the front
      */
     public Player getFront() {
         return front;
     }
 
     /**
-     * return the rear of the Model.Enums.PlayerList
+     * Gets the last element.
      *
      * @return the rear
      */
@@ -164,8 +162,7 @@ public class PlayerList {
     }
 
     /**
-     * adds 1 score to the score of a Model.Enums.Player
-     * if the Model.Enums.Player found two same cards, then its score will be added 1
+     * Increments the {@code score} a a selected {@link Player}.
      *
      * @param position of the {@link Player}
      */
@@ -174,7 +171,7 @@ public class PlayerList {
     }
 
     /**
-     * resets scores of all {@link Player} to 0
+     * Resets all {@code score}'s of {@link Player}'s.
      */
     public void resetAllScores() {
         for (int i = 0; i < count; i++) {
@@ -183,7 +180,7 @@ public class PlayerList {
     }
 
     /**
-     * return the name of a Model.Enums.Player whom we find  by position
+     * Get the name of a {@link Player}.
      *
      * @param position of a Model.Enums.Player
      * @return the name of a {@link Player}
@@ -193,10 +190,10 @@ public class PlayerList {
     }
 
     /**
-     * return the score of a Model.Enums.Player whom we find by position
+     * Gets the {@code score} of a selected {@link Player}.
      *
-     * @param position of a Model.Enums.Player
-     * @return the score of a {@link Player}
+     * @param position of a {@link Player}
+     * @return the {@code score} of a {@link Player}
      *
      */
     public int getPlayerScore(int position) {
@@ -204,10 +201,10 @@ public class PlayerList {
     }
 
     /**
-     * return the position of a {@link Player}
+     * Gets the position of a {@link Player}.
      *
      * @param player the current {@link Player}
-     * @return the position if the {@link Player}
+     * @return the position
      */
     public int getPlayerPosition(Player player) {
         Player current = front;
@@ -223,21 +220,9 @@ public class PlayerList {
     }
 
     /**
-     * return a copied Model.Enums.PlayerList
-     * //TODO Diese Methode gibt aber nichts zurück? -Jan
-     */
-    public void copy() {
-        for (int i = 0; i < count; i++) {
-            addPlayer(this.getPlayer(i).getName());
-            getPlayer(i).setScore(this.getPlayer(i).getScore());
-        }
-    }
-
-    /**
-     * Getter for current highest {@code Model.Enums.Player.score} of all {@link Player}
-     * in this {@link PlayerList}
+     * Gets the current highest {@code score} of all {@link Player}'s.
      *
-     * @return highest {@code Model.Enums.Player.score}
+     * @return highest {@code score}
      */
     public int getHighestScore() {
         if (front == null) {
@@ -253,10 +238,9 @@ public class PlayerList {
     }
 
     /**
-     * Getter for all {@link Player} with the highest {@code Model.Enums.Player.score}
+     * Gets all {@link Player}'s with the highest {@code score}.
      *
-     * @return array of all {@link Player} who have the highest {@code Model.Enums.Player
-     * .score}
+     * @return array of all {@link Player} who have the highest {@code score}
      */
     //TODO falls jemandem etwas Unkomplizierteres einfällt, gerne ;)
     public Player[] getWinningPlayers() {
@@ -282,7 +266,7 @@ public class PlayerList {
     }
 
     /**
-     * sort the Model.Enums.PlayerList according to score
+     * Sorts {@link PlayerList} according the {@code score}.
      *
      * @return the sorted {@link PlayerList}
      */
@@ -309,7 +293,7 @@ public class PlayerList {
     }
 
     /**
-     * return the ranking of the Model.Enums.Player who has the name
+     * Gets the ranking of all {@link Player}'s.
      *
      * @param name of the Model.Enums.Player
      * @return the ranking of the Model.Enums.Player
