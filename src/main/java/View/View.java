@@ -7,7 +7,7 @@ import Model.*;
  */
 public final class View {
     /**
-     * Utility class needs private constructor
+     * Utility class needs private constructor.
      */
     private View() {
     }
@@ -84,7 +84,9 @@ public final class View {
     }
 
     /**
-     * Prints every {@link Card} that is {@code Model.Enums.GameStatus.Found}
+     * prints a specified errormessage.
+     *
+     * @param specification Specification of the error message.
      */
     public static void printGraveyard() {
     }

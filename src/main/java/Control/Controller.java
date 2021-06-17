@@ -8,18 +8,31 @@ import View.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 
+/**
+ * The controller of the MVC-architecture.
+ */
 public class Controller {
 
+    /**
+     * Stores the current {@link Game}.
+     */
     private final Game game;
+
+    /**
+     * Stores the current {@link MenuStatus}.
+     */
     private MenuStatus menuStatus;
 
+    /**
+     * Constructs a new {@link Controller}.
+     */
     public Controller() {
         this.game = new Game();
         this.menuStatus = MenuStatus.PLAYERMODE;
     }
 
     /**
-     * This method reads the input from the console and delegates it to {@link Game}.
+     * Reads the input from the console and delegates it to {@link Game}.
      *
      * @param bufferedReader provides a connection to the console.
      * @throws IOException on input error.
@@ -134,7 +147,7 @@ public class Controller {
                         saveBreak = true;
                     }
                     case "found", "Found", "FOUND", "f", "F" -> {
-                        View.printGraveyard();
+                        View.printDiscardPile(game.getPlayerList());
                         saveBreak = true;
                     }
                     case "score", "Score", "SCORE", "s", "S" -> {
@@ -143,6 +156,10 @@ public class Controller {
                     }
                     case "menu", "Menu", "MENU", "m", "M" -> {
                         game.returnToMenu(game.getPlayerList());
+                        saveBreak = true;
+                    }
+                    case "cheat" -> {
+                        View.printAllCards(game.getPlayingField());
                         saveBreak = true;
                     }
                     case "reset", "Reset", "RESET", "r", "R" -> {
@@ -166,7 +183,7 @@ public class Controller {
                     //Implementation of game phases
                     switch (game.getTurnStatus()) {
                         case IDLE:
-                            if (game.correctInput(tokens)) {
+                            if (correctInput(tokens)) {
                                 firstRow = Integer.parseInt(tokens[0]);
                                 firstCol = Integer.parseInt(tokens[1]);
                                 CardStatus firstCardStatus = game.revealFirstCard(firstRow, firstCol);
@@ -179,7 +196,7 @@ public class Controller {
                             }
                             break;
                         case ACTIVE:
-                            if (game.correctInput(tokens)) {
+                            if (correctInput(tokens)) {
                                 int secondRow = Integer.parseInt(tokens[0]);
                                 int secondCol = Integer.parseInt(tokens[1]);
                                 CardStatus secondCardStatus = game.revealSecondCard(secondRow, secondCol);
@@ -194,12 +211,12 @@ public class Controller {
                                 View.printBoard(game.getPlayingField());
                                 if (game.pairCheck(firstRow, firstCol, secondRow, secondCol)) {
                                     player.addScore();
+                                    player.getFoundCards().add(game.getPlayingField().getBoard()[secondRow][secondCol]);
                                     if (game.areAllCardsOpen()) {
                                         //game.setGameStatus(Model.Enums.GameStatus.END);
                                         View.printAllPairsFound();
                                         View.printBoard(game.getPlayingField());
-                                        PlayerList highestScore = game.getPlayerList().
-                                                getWinningPlayers(game.getPlayerList());
+                                        Player[] highestScore = game.getPlayerList().getWinningPlayers();
                                         View.printGameSummary(highestScore, game);
                                         boolean exit = true;
                                         while (exit) {
@@ -244,6 +261,56 @@ public class Controller {
                 } else {
                     player = player.getRear();
                 }
+            }
+        }
+    }
+
+    /**
+     * Tests whether the transferred input was correct.
+     *
+     * @param tokens Passed input
+     * @return Returns true if the passed input(two coordinates) was correct.
+     */
+    //TODO vielleicht fällt jemanden etwas einfacheres ein
+    public boolean correctInput(String[] tokens) {
+        //Checks whether the input contained two parameters
+        if (tokens.length < 2) {
+            View.error("Have not received enough parameters");
+            return false;
+        } else {
+            if (tokens.length > 2) {
+                View.error("Received too many parameters");
+                return false;
+            } else {
+                boolean[] cache = new boolean[2];
+                for (int i = 0; i < 2; i++) {
+                    if (tokens[i].length() == 1) {
+                        if (tokens[i].matches("\\d")) {
+                            if (Integer.parseInt(tokens[i]) < game.getPlayingField().getBoard().length) {
+                                cache[i] = true;
+                            } else {
+                                if (i == 0) {
+                                    View.error("First entry was out of range");
+                                } else {
+                                    View.error("Second entry was out of range");
+                                }
+                            }
+                        } else {
+                            if (i == 0) {
+                                View.error("First entry was not a valid number");
+                            } else {
+                                View.error("Second entry was not a valid number");
+                            }
+                        }
+                    } else {
+                        if (i == 0) {
+                            View.error("First entry was not a valid number");
+                        } else {
+                            View.error("Second entry was not a valid number");
+                        }
+                    }
+                }
+                return cache[0] && cache[1];
             }
         }
     }

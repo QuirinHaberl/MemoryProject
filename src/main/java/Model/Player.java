@@ -1,46 +1,64 @@
 package Model;
 
+import java.util.*;
+
 /**
- * this class implements the Model.Enums.Player of the game.
+ * This class implements {@link Player} of the {@link Game}.
  */
 public class Player {
 
     /**
-     * the attribute name is the name of a Model.Enums.Player
+     * Stores the name of a {@link Player}.
      */
     String name;
 
     /**
-     * the attribute score is the score that a Model.Enums.Player got in the game
+     * Stores the score of a {@link Player}.
      */
     int score;
 
     /**
-     * the attribute Model.Enums.Player next is used for connecting to the next Model.Enums.Player
+     * Stores the next {@link Player}.
      */
     Player next;
 
     /**
-     * the attribute Model.Enums.Player rear is used for connecting to the rear Model.Enums.Player
+     * Stores the last {@link Player}.
      */
     Player rear;
 
     /**
-     * constructs a new {@link Player}
+     * Stores all {@link Card}'s a {@link Player} has found.
+     */
+    List<Card> foundCards;
+
+    /**
+     * Constructs a new {@link Player}.
      *
      * @param name  is the name of the {@link Player}
      * @param score the score of a {@link Player}
      * @param next  the next {@link Player}
+     * @param rear  the last @link Player}
      */
     public Player(String name, int score, Player next, Player rear) {
         this.name = name;
         this.score = score;
         this.next = next;
         this.rear = rear;
+        this.foundCards = new ArrayList<>();
     }
 
     /**
-     * set a name for Model.Enums.Player
+     * Gets the name of a {@link Player}.
+     *
+     * @return {@code name}
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Sets the name for a {@link Player}.
      *
      * @param name of a Model.Enums.Player
      */
@@ -49,14 +67,16 @@ public class Player {
     }
 
     /**
-     * @return the name of a {@link Player}
+     * Gets the the score of a {@link Player}.
+     *
+     * @return the score of a {@link Player}
      */
-    public String getName() {
-        return name;
+    public int getScore() {
+        return score;
     }
 
     /**
-     * set the score for a Model.Enums.Player
+     * Set the score for a {@link Player}.
      *
      * @param score of a Model.Enums.Player
      */
@@ -65,29 +85,8 @@ public class Player {
     }
 
     /**
-     * if a Model.Enums.Player found two same card, then the score of the Model.Enums.Player will added 1.
-     */
-    public void addScore() { // +1
-        this.score++;
-    }
-
-    /**
-     * @return the score of a {@link Player}
-     */
-    public int getScore() {
-        return score;
-    }
-
-    /**
-     * sets the next Model.Enums.Player
+     * Gets the next {@link Player}.
      *
-     * @param next of the {@link Player}
-     */
-    public void setNext(Player next) {
-        this.next = next;
-    }
-
-    /**
      * @return the next {@link Player}
      */
     public Player getNext() {
@@ -95,6 +94,17 @@ public class Player {
     }
 
     /**
+     * Sets the next {@link Player}.
+     *
+     * @param next {@link Player}
+     */
+    public void setNext(Player next) {
+        this.next = next;
+    }
+
+    /**
+     * Gets the last {@link Player}.
+     *
      * @return the rear {@link Player}
      */
     public Player getRear() {
@@ -102,11 +112,27 @@ public class Player {
     }
 
     /**
-     * sets the rear Model.Enums.Player
+     * Sets the last {@link Player}.
      *
      * @param rear of the {@link Player}
      */
     public void setRear(Player rear) {
         this.rear = rear;
+    }
+
+    /**
+     * Returns all {@link Card}'s a {@link Player} has found.
+     *
+     * @return all found {@link Card}'s
+     */
+    public List<Card> getFoundCards() {
+        return foundCards;
+    }
+
+    /**
+     * Increments the {@code score} by 1.
+     */
+    public void addScore() { // +1
+        this.score++;
     }
 }

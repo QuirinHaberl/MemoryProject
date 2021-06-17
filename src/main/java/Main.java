@@ -4,7 +4,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+/**
+ * The Main-class of the memory-game.
+ */
 public class Main {
+
     /**
      * This is the main-method which starts a game by executing the execute-method.
      *
