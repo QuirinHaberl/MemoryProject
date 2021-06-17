@@ -232,6 +232,19 @@ public final class View {
         System.out.println("You've found a pair! It is your turn again.");
     }
 
+    public static void printGameSummary(PlayerList highestScore, Game game) {
+        highestScore.printList();
+        System.out.print(" won the Game with a score of " );
+        System.out.println(game.getPlayerList().getHighestScore());
+        System.out.println("""
+                 Please select by entering a command whether you want to\s
+                 return to the main menu ('menu'),\s
+                 reset the current game ('reset'),\s
+                 restart the current game ('restart') or\s
+                 quit the game ('quit')\s
+                """);
+    }
+
     /**
      * Prints that the selected pair was not equal.
      */
