@@ -138,34 +138,6 @@ public final class View {
         System.out.println("Error! " + specification);
     }
 
-    /**
-     * Prints the summary of a {@link Game}.
-     *
-     * @param highestScore the highscore
-     * @param game         the current game
-     */
-    public static void printGameSummary(Player[] highestScore, Game game) {
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < highestScore.length; i++) {
-            if (i == 0) {
-                result.append(highestScore[i].getName());
-            } else {
-                //TODO Bug: zwei (mehrere)
-                // Sieger -> Nullpointer bei
-                // highestScore[i].getName()
-                result.append(" and ").append(highestScore[i].getName());
-            }
-        }
-        result.append(" won the Model.Enums.Game with a ").append("score of ").append(game.getPlayerList().getHighestScore()).append("!");
-        System.out.println(result);
-        System.out.println("""
-                 Please select by entering a command whether you want to\s
-                 return to the main menu ('menu'),\s
-                 reset the current game ('reset'),\s
-                 restart the current game ('restart') or\s
-                 quit the game ('quit')\s
-                """);
-    }
 
     /**
      * Prints "memory>" to indicate that user-input is expected.
@@ -234,9 +206,11 @@ public final class View {
     }
 
     /**
-     * //TODO add javadoc
-     * @param highestScore
-     * @param game
+     * This method prints the winner notification and
+     * the description of the next input options
+     *
+     * @param highestScore the highest score a player reached
+     * @param game which has been played
      */
     public static void printGameSummary(PlayerList highestScore, Game game) {
         highestScore.printList();

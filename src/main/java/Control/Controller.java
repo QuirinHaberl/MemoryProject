@@ -7,6 +7,7 @@ import View.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.Locale;
 
 /**
  * The controller of the MVC-architecture.
@@ -136,25 +137,26 @@ public class Controller {
 
                 //TODO Soll wir hier noch eine Fehlermeldung ausgeben?
                 if (input == null) {
+                    View.error("You didn't enter a input!");
                     break;
                 }
 
                 boolean saveBreak = false;
 
-                switch (input) {
-                    case "help", "Help", "HELP", "h", "H" -> {
+                switch (input.toLowerCase()) {
+                    case "help", "h" -> {
                         View.printHelp();
                         saveBreak = true;
                     }
-                    case "found", "Found", "FOUND", "f", "F" -> {
+                    case "found", "f" -> {
                         View.printDiscardPile(game.getPlayerList());
                         saveBreak = true;
                     }
-                    case "score", "Score", "SCORE", "s", "S" -> {
+                    case "score", "s" -> {
                         View.printScore(game.getPlayerList());
                         saveBreak = true;
                     }
-                    case "menu", "Menu", "MENU", "m", "M" -> {
+                    case "menu", "m" -> {
                         game.returnToMenu(game.getPlayerList());
                         saveBreak = true;
                     }
@@ -162,15 +164,15 @@ public class Controller {
                         View.printAllCards(game.getPlayingField());
                         saveBreak = true;
                     }
-                    case "reset", "Reset", "RESET", "r", "R" -> {
+                    case "reset", "r" -> {
                         player = game.resetGame(game.getPlayerList());
                         saveBreak = true;
                     }
-                    case "restart", "Restart", "RESTART", "rs", "RS" -> {
+                    case "restart", "rs" -> {
                         player = game.restartGame(game.getPlayerList());
                         saveBreak = true;
                     }
-                    case "quit", "Quit", "QUIT", "q", "Q" -> {
+                    case "quit", "q" -> {
                         game.quitGame();
                         saveBreak = true;
                     }
@@ -223,20 +225,20 @@ public class Controller {
                                         while (exit) {
                                             View.printMemory();
                                             String choice = bufferedReader.readLine();
-                                            switch (choice) {
-                                                case "menu", "Menu", "MENU", "m", "M" -> {
+                                            switch (choice.toLowerCase()) {
+                                                case "menu", "m" -> {
                                                     game.returnToMenu(game.getPlayerList());
                                                     exit = false;
                                                 }
-                                                case "reset", "Reset", "RESET", "r", "R" -> {
+                                                case "reset", "r" -> {
                                                     player = game.resetGame(game.getPlayerList());
                                                     exit = false;
                                                 }
-                                                case "restart", "Restart", "RESTART", "rs", "RS" -> {
+                                                case "restart", "rs" -> {
                                                     player = game.restartGame(game.getPlayerList());
                                                     exit = false;
                                                 }
-                                                case "quit", "Quit", "QUIT", "q", "Q" -> {
+                                                case "quit", "q" -> {
                                                     game.quitGame();
                                                     exit = false;
                                                 }
