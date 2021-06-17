@@ -206,6 +206,20 @@ public final class View {
     }
 
     /**
+     * Prints that the selected pair was not equal.
+     */
+    public static void printUnequalCards() {
+        System.out.println("Cards are not equal!");
+    }
+
+
+    public static void printPlayernameRequest(int index){
+        System.out.println("Spieler "+ index + " gib einen Namen deiner Wahl oder den Befehl noName " +
+                "(wenn du keinen Namen wählen willst) ein:");
+        printMemory();
+    }
+
+    /**
      * This method prints the winner notification and
      * the description of the next input options
      *
@@ -225,10 +239,5 @@ public final class View {
                 """);
     }
 
-    /**
-     * Prints that the selected pair was not equal.
-     */
-    public static void printUnequalCards() {
-        System.out.println("Cards are not equal!");
-    }
+
 }

@@ -280,7 +280,7 @@ public class Game {
      * @param input number of players selected
      * @return true if no error appeared
      */
-    public boolean selectPlayerMode(String input) {
+    public boolean selectPlayerMode(String input, String[] playerNames) {
         if (input.length() == 1) {
             if (input.matches("\\d")) {
                 int num = Integer.parseInt(input);
@@ -293,7 +293,7 @@ public class Game {
                         return false;
                     } else {
                         for (int i = 1; i <= num; ++i) {
-                            playerList.addPlayer("Spieler " + i);
+                            playerList.addPlayer(playerNames[i-1]);
                         }
                         return true;
                     }

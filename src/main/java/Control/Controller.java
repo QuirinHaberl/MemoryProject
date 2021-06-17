@@ -69,7 +69,18 @@ public class Controller {
                         View.printSelectPlayerAmount();
                     }
                     View.printMemory();
-                    if (game.selectPlayerMode(bufferedReader.readLine())) {
+
+                    String playerAmount = bufferedReader.readLine();
+                    String[] playerNames = new String[Integer.parseInt(playerAmount)];
+                    for (int i = 0; i < Integer.parseInt(playerAmount); i++){
+                        View.printPlayernameRequest(i+1);
+                        String name = bufferedReader.readLine();
+                        if(name.equals("noName")){
+                            playerNames[i] = "Spieler " + (i+1);
+                        } else playerNames[i] = name;
+                    }
+
+                    if (game.selectPlayerMode(playerAmount, playerNames)) {
                         menuStatus = MenuStatus.BOARDSIZE;
                         firstIssue = true;
                     } else {
@@ -135,7 +146,7 @@ public class Controller {
                 View.printMemory();
                 String input = bufferedReader.readLine();
 
-                //TODO Soll wir hier noch eine Fehlermeldung ausgeben?
+
                 if (input == null) {
                     View.error("You didn't enter a input!");
                     break;
@@ -317,4 +328,5 @@ public class Controller {
             }
         }
     }
+
 }
