@@ -1,19 +1,22 @@
 package Model.Enums;
 
 /**
- * Enum of the menu status.
+ * The enumeration of the menu status.
  */
 public enum MenuStatus {
+
     /**
-     * the board size is selected
+     * The board size is being selected.
      */
     BOARDSIZE,
+
     /**
-     * the player mode is selected
+     * The player mode is being selected.
      */
     PLAYERMODE,
+
     /**
-     * the card set is selected
+     * The card set is being selected.
      */
     CARDSET
 }

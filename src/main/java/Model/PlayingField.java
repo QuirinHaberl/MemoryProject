@@ -16,53 +16,92 @@ import java.util.Random;
 public class PlayingField {
 
     /**
-     * Array of the {@link PlayingField}
+     * Stores the array of the {@link PlayingField}.
      */
     private static Card[][] board;
 
     /**
-     * Current {@link CardSet} used
+     * Stores the used {@link CardSet}.
      */
     private CardSet cardSet;
 
-    private int heigth;
+    /**
+     * Stores the height of a {@code board}.
+     */
+    private int height;
 
+    /**
+     * Stores the width of a {@code board}.
+     */
     private int width;
 
     /**
-     * The Constructor creates a new {@link PlayingField} and fills the board with {@link Card}
+     * The Constructor creates a new {@link PlayingField} and fills the board with {@link Card}'s.
      *
      * @param size specifies the size of an array squared
      */
     public PlayingField(int size) {
-        this.heigth = size;
+        this.height = size;
         this.width = size;
-        board = new Card[heigth][heigth];
+        board = new Card[height][height];
     }
 
+    /**
+     * Default-constructor of {@link PlayingField}.
+     */
     public PlayingField() {
     }
 
+    /**
+     * Gets the cardset
+     *
+     * @return cardset
+     */
     public CardSet getCardSet() {
         return cardSet;
     }
 
+    /**
+     * Gets the height
+     *
+     * @return height
+     */
     public int getHeigth() {
-        return heigth;
+        return height;
     }
 
-    public void setHeigth(int heigth) {
-        this.heigth = heigth;
+    /**
+     * Sets the height.
+     *
+     * @param height to be used.
+     */
+    public void setHeigth(int height) {
+        this.height = height;
     }
 
+    /**
+     * Sets the size of a {@code board}.
+     *
+     * @param size to be used.
+     */
     public void setBoard(int size) {
         board = new Card[size][size];
     }
 
+    /**
+     * Gets the width
+     *
+     * @return width
+     */
     public int getWidth() {
         return width;
     }
 
+    /**
+     * Sets the width.
+     *
+     * @param width to be used.
+     */
     public void setWidth(int width) {
         this.width = width;
     }

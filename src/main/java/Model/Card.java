@@ -9,12 +9,12 @@ import Model.Enums.CardLetters;
 public class Card {
 
     /**
-     * The attribute {@link CardDigits} is the image of the card.
+     * Stores the {@code value} of the {@link Card}.
      */
     private final Object value;
 
     /**
-     * The attribute {@code cardStatus} saves whether a card is closed, open or found.
+     * Stores whether a {@link Card} is closed, open or found.
      */
     private CardStatus cardStatus;
 
@@ -39,6 +39,8 @@ public class Card {
     }
 
     /**
+     * Gets the value of a {@link Card}.
+     *
      * @return the value of a {@link Card}.
      */
     public Object getValue() {
@@ -46,7 +48,7 @@ public class Card {
     }
 
     /**
-     * Visualizes {@link Card}, defined by {@link CardDigits}
+     * Visualizes {@link Card}, defined by {@link CardDigits}.
      *
      * @return Visualization of the card value transferred
      * da sie vom Kartenset abhängt
@@ -62,7 +64,9 @@ public class Card {
     }
 
     /**
-     * @return the {@link CardStatus} of a {@link Card}.
+     * Gets the {@link CardStatus} of a {@link Card}.
+     *
+     * @return the {@link CardStatus} of a {@link Card}
      */
     public CardStatus getCardStatus() {
         return cardStatus;
