@@ -72,7 +72,7 @@ Das Klasendiagramm wurde von Florian Muhrer in VisualParadigm aktualisiert.
 | #90 |I|||||
 | #91 |||I|||
 | #96 |C|C|C|C|C|
-| #99 |||||I|
+| #99 ||||I||
 | #102 ||||I||
 | #108 |||I|||
 | #109 |||I|||
