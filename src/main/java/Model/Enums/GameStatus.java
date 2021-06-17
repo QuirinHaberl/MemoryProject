@@ -16,7 +16,7 @@ public enum GameStatus {
     END,
 
     /**
-     * If the {@link GameStatus} is MENU the Model.Enums.Player can interact with the menu.
+     * If the {@link GameStatus} is set to MENU the {@link Model.Player} can interact with the menu.
      */
     MENU
 }

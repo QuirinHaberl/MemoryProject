@@ -13,7 +13,9 @@ public final class View {
     }
 
     /**
-     * Visualizes the current {@link Game}
+     * Prints the current {@code playingField}.
+     *
+     * @param playingField current {@link PlayingField}
      */
     public static void printBoard(PlayingField playingField) {
         StringBuilder line = new StringBuilder("  ");
@@ -36,7 +38,48 @@ public final class View {
     }
 
     /**
-     * Prints a description of the memory-game when you enter the game
+     * Prints all {@link Card}'s depending on their {@link CardStatus}.
+     *
+     * @param playingField current {@link PlayingField}
+     */
+    public static void printAllCards(PlayingField playingField) {
+        StringBuilder line = new StringBuilder("  ");
+        for (int i = 0; i < playingField.getBoard().length; i++) {
+            line.append(i).append(" ");
+        }
+        for (int row = 0; row < playingField.getBoard().length; row++) {
+            line = new StringBuilder(line + "\n" + row + " ");
+            for (int col = 0; col < playingField.getBoard()[row].length; col++) {
+                if (playingField.getBoard()[row][col].getCardStatus().equals(CardStatus.FOUND)) {
+                    line.append("  ");
+                } else {
+                    line.append(playingField.getBoard()[row][col].visualizeCard()).append(" ");
+                }
+            }
+        }
+        System.out.println(line);
+    }
+
+    /**
+     * Print all {@link Card}'s a {@link Player} has found.
+     *
+     * @param players current {@link PlayerList}
+     */
+    public static void printDiscardPile(PlayerList players) {
+        StringBuilder str = new StringBuilder();
+        str.append("[");
+        for (int i = 0; i < players.getCount(); i++) {
+            str.append(players.getPlayer(i).getName()).append(": ");
+            for (int j = 0; j < players.getPlayer(i).getFoundCards().size(); j++) {
+                str.append(players.getPlayer(i).getFoundCards().get(j).visualizeCard()).append(" ");
+            }
+            str.append("\n");
+        }
+        System.out.println(str.append("]"));
+    }
+
+    /**
+     * Prints a description of the memory-game.
      */
     public static void printDescription() {
         System.out.println("""
@@ -55,11 +98,10 @@ public final class View {
     }
 
     /**
-     * Prints out a list of possible commands when you enter the help command.
+     * Prints a list of accepted commands.
      */
     public static void printHelp() {
-        System.out.println("""
-                                
+        System.out.println("""                                
                 All possible commands are:\s
                     help:       Shows a list of possible commands\s
                     found:      Shows the discard pile of the running game\s
@@ -75,24 +117,8 @@ public final class View {
                 """);
     }
 
-    public static void printMemory() {
-        System.out.print("memory> ");
-    }
-
-    public static void printPlayer(String name) {
-        System.out.println(name + ":");
-    }
-
     /**
-     * prints a specified errormessage.
-     *
-     * @param specification Specification of the error message.
-     */
-    public static void printGraveyard() {
-    }
-
-    /**
-     * Prints every {@link Player} and its {@code Model.Enums.Player.score}
+     * Prints every {@link Player} and its {@code Model.Enums.Player.score}.
      *
      * @param players list of all players
      */
@@ -104,7 +130,7 @@ public final class View {
     }
 
     /**
-     * Outputs a specified error message.
+     * prints a specified errormessage.
      *
      * @param specification Specification of the error message.
      */
@@ -112,34 +138,26 @@ public final class View {
         System.out.println("Error! " + specification);
     }
 
-    public static void printSelectPlayerAmount() {
-        System.out.println("How many players do you want? Choose between 1 and 4. ");
-    }
-
-    public static void printSelectBoardSize() {
-        System.out.println("Type '2', '4', '6', '8' to select the board-size:");
-    }
-
-    public static void printSelectCardSet() {
-        System.out.println("Type 'L' for letters or 'D' for digits:");
-    }
-
-    public static void printAlreadyFound() {
-        System.out.println("The selected card was already found!");
-    }
-
-    public static void printSelectedTwice() {
-        System.out.println("You've selected the same card twice!");
-    }
-
-    public static void printAllPairsFound() {
-        System.out.println("All Pairs are found.");
-    }
-
-    public static void printGameSummary(PlayerList highestScore, Game game) {
-        highestScore.printList();
-        System.out.print(" won the Game with a score of " );
-        System.out.println(game.getPlayerList().getHighestScore());
+    /**
+     * Prints the summary of a {@link Game}.
+     *
+     * @param highestScore the highscore
+     * @param game         the current game
+     */
+    public static void printGameSummary(Player[] highestScore, Game game) {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < highestScore.length; i++) {
+            if (i == 0) {
+                result.append(highestScore[i].getName());
+            } else {
+                //TODO Bug: zwei (mehrere)
+                // Sieger -> Nullpointer bei
+                // highestScore[i].getName()
+                result.append(" and ").append(highestScore[i].getName());
+            }
+        }
+        result.append(" won the Model.Enums.Game with a ").append("score of ").append(game.getPlayerList().getHighestScore()).append("!");
+        System.out.println(result);
         System.out.println("""
                  Please select by entering a command whether you want to\s
                  return to the main menu ('menu'),\s
@@ -149,11 +167,75 @@ public final class View {
                 """);
     }
 
+    /**
+     * Prints "memory>" to indicate that user-input is expected.
+     */
+    public static void printMemory() {
+        System.out.print("memory> ");
+    }
+
+    /**
+     * Prints a {@link Player}'s name.
+     *
+     * @param name of the printed {@link Player}
+     */
+    public static void printPlayer(String name) {
+        System.out.println(name + ":");
+    }
+
+    /**
+     * Informs the user to input the amount of player.
+     */
+    public static void printSelectPlayerAmount() {
+        System.out.println("How many players do you want? Choose between 1 and 4. ");
+    }
+
+    /**
+     * Informs the user to input the board-size.
+     */
+    public static void printSelectBoardSize() {
+        System.out.println("Type '2', '4', '6', '8' to select the board-size:");
+    }
+
+    /**
+     * Informs the user to input the {@link Model.Enums.CardSet}.
+     */
+    public static void printSelectCardSet() {
+        System.out.println("Type 'L' for letters or 'D' for digits:");
+    }
+
+    /**
+     * Prints that a {@link Card} was already found.
+     */
+    public static void printAlreadyFound() {
+        System.out.println("The selected card was already found!");
+    }
+
+    /**
+     * Prints that a {@link Card} was selected twice.
+     */
+    public static void printSelectedTwice() {
+        System.out.println("You've selected the same card twice!");
+    }
+
+    /**
+     * Prints that all {@link Card} are found.
+     */
+    public static void printAllPairsFound() {
+        System.out.println("All Pairs are found.");
+    }
+
+    /**
+     * Prints that pair of {@link Card}'s was found.
+     */
     public static void printFoundPair() {
         System.out.println("You've found a pair! It is your turn again.");
     }
 
-    public static void printUnequalCards(){
+    /**
+     * Prints that the selected pair was not equal.
+     */
+    public static void printUnequalCards() {
         System.out.println("Cards are not equal!");
     }
 }

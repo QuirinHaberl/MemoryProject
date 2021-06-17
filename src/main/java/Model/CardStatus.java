@@ -1,7 +1,5 @@
 package Model;
 
-import Model.Card;
-
 /**
  * The enumeration of the card status.
  */
@@ -18,12 +16,12 @@ public enum CardStatus {
     OPEN,
 
     /**
-     * a {@link Card} is open.
+     * A {@link Card} has already been opened.
      */
     AlREADYOPEN,
 
     /**
-     * a {@link Card} is already found.
+     * A {@link Card} is already found.
      */
     FOUND
 }

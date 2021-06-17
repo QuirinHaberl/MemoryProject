@@ -9,7 +9,7 @@ import Model.Enums.CardLetters;
 public class Card {
 
     /**
-     * The attribute {@link CardDigits} is the image of the card.
+     * Stores the {@code value} of the {@link Card}.
      */
     private final Object value;
 
@@ -39,6 +39,8 @@ public class Card {
     }
 
     /**
+     * Gets the value of a {@link Card}.
+     *
      * @return the value of a {@link Card}.
      */
     public Object getValue() {
@@ -46,7 +48,7 @@ public class Card {
     }
 
     /**
-     * Visualizes {@link Card}, defined by {@link CardDigits}
+     * Visualizes {@link Card}, defined by {@link CardDigits}.
      *
      * @return Visualization of the card value transferred
      * da sie vom Kartenset abhängt
