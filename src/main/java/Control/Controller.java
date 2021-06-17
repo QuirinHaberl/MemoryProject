@@ -216,8 +216,10 @@ public class Controller {
                                         //game.setGameStatus(Model.Enums.GameStatus.END);
                                         View.printAllPairsFound();
                                         View.printBoard(game.getPlayingField());
-                                        Player[] highestScore = game.getPlayerList().getWinningPlayers();
-                                        View.printGameSummary(highestScore, game);
+                                        PlayerList highestScore = game.getPlayerList().
+                                                getWinningPlayers(game.getPlayerList());
+                                        //Todo Fehler nach Merge
+                                        //View.printGameSummary(highestScore, game);
                                         boolean exit = true;
                                         while (exit) {
                                             View.printMemory();
