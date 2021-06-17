@@ -24,12 +24,12 @@
 **Agenda für Iteration 3**
 - Noch vorhandene Fehler des Prototyps aus Iteration 2 beheben
 - Feedback einarbeiten
-- Anpassung der Projektstruktur an neue Features (siehe Klassendiagramm)
+- Anpassung der Projektstruktur an neue Features (siehe Klassendiagramm)  
 	-> Eigene Zoomsitzung am Anfang der Iteration (Protokoll_09_06_21), um die Struktur gründlich zu planen, um eine weitere 		   Umstrukturierung während der Iteration zu vermeiden. 
-- Implementierung der ausgewählten Tasks
-	-> notwendige Neuerungen: (Stichtag 13.06.21)
+- Implementierung der ausgewählten Tasks  
+	-> notwendige Neuerungen: (Stichtag 13.06.21)  
 	-> optionale Neuerungen: Wenn bis 16.06.21 alle notwendigen Neuerungen bereits ausreichend implementiert wurden,
-				  können diese optional ergänzt werden.
+				  können diese optional ergänzt werden.  
 				  Dies war in dieser Iteration der Fall, sodass alle vorgenommenen Tasks erledigt werden konnten.
 - Abnahme des Projekts am Sonntag 20.06.21: Gemeinsam Java-Docs korrigieren, Manuelles Testen besprechen, überflüssige Methoden 						     entfernen 
 - Iteration 4 planen:
