@@ -216,9 +216,8 @@ public class Controller {
                                         //game.setGameStatus(Model.Enums.GameStatus.END);
                                         View.printAllPairsFound();
                                         View.printBoard(game.getPlayingField());
-                                        PlayerList highestScore = game.getPlayerList().
-                                                getWinningPlayers(game.getPlayerList());
-                                        //Todo Fehler nach Merge mit Daqians Branch
+                                        //TODO Fehler nach Merge mit feature-Daqian
+                                        //PlayerList highestScore = game.getPlayerList().getWinningPlayers(game.getPlayerList());
                                         //View.printGameSummary(highestScore, game);
                                         boolean exit = true;
                                         while (exit) {
