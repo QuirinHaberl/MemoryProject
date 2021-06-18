@@ -214,9 +214,8 @@ public final class View {
 
 
     public static void printPlayernameRequest(int index){
-        System.out.println("Spieler "+ index + " gib einen Namen deiner Wahl oder den Befehl noName " +
-                "(wenn du keinen Namen wählen willst) ein:");
-        printMemory();
+        System.out.println("Player"+ index +" enter a name of your choice or"
+                + " the command noName (if you don't want to choose a name):");
     }
 
     /**

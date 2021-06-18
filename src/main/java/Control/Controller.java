@@ -60,6 +60,7 @@ public class Controller {
     public void executeMenu(BufferedReader bufferedReader) throws IOException {
 
         boolean firstIssue = true;
+        int playerAmount = 0;
 
         while (game.getGameStatus().equals(GameStatus.MENU)) {
 
@@ -69,23 +70,32 @@ public class Controller {
                         View.printSelectPlayerAmount();
                     }
                     View.printMemory();
-
-                    String playerAmount = bufferedReader.readLine();
-                    String[] playerNames = new String[Integer.parseInt(playerAmount)];
-                    for (int i = 0; i < Integer.parseInt(playerAmount); i++){
-                        View.printPlayernameRequest(i+1);
-                        String name = bufferedReader.readLine();
-                        if(name.equals("noName")){
-                            playerNames[i] = "Spieler " + (i+1);
-                        } else playerNames[i] = name;
-                    }
-
-                    if (game.selectPlayerMode(playerAmount, playerNames)) {
-                        menuStatus = MenuStatus.BOARDSIZE;
+                    String input = bufferedReader.readLine();
+                    if (selectPlayerMode(input)) {
+                        playerAmount = Integer.parseInt(input);
+                        menuStatus = MenuStatus.PLAYERNAMES;
                         firstIssue = true;
                     } else {
                         firstIssue = false;
                     }
+                }
+                case PLAYERNAMES -> {
+                    String[] playerNames = new String[playerAmount];
+                    for (int i = 0; i < playerAmount; i++){
+                        if (firstIssue) {
+                            View.printPlayernameRequest(i+1);
+                        }
+                        View.printMemory();
+                        String name = bufferedReader.readLine();
+                        if (selectPlayerName(name, playerNames, i)) {
+                            firstIssue = true;
+                        } else {
+                            i--;
+                            firstIssue = false;
+                        }
+                    }
+                    game.addPlayers(playerAmount, playerNames);
+                    menuStatus = MenuStatus.BOARDSIZE;
                 }
                 case BOARDSIZE -> {
                     if (firstIssue) {
@@ -325,6 +335,70 @@ public class Controller {
                     }
                 }
                 return cache[0] && cache[1];
+            }
+        }
+    }
+
+    /**
+     * Selects the player-mode.
+     *
+     * @param input number of players selected
+     * @return true if no error appeared
+     */
+    public boolean selectPlayerMode(String input) {
+        if (input.length() == 1) {
+            if (input.matches("\\d")) {
+                int num = Integer.parseInt(input);
+                if (num > 4) {
+                    View.error("Only a maximum of 4 players can take part");
+                    return false;
+                } else {
+                    if (num < 1) {
+                        View.error("At least 1 player must take part");
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
+            }
+        }
+        View.error("Entry was not a valid number");
+        return false;
+    }
+
+    /**
+     * Checks weather a name can be taken for a {@link Player}.
+     *
+     * @param playerName    Chosen name
+     * @param playerNames   List of the names of all players
+     * @param pos           Position of the player who should receive this name
+     * @return  true if the chosen name can be taken
+     */
+    public boolean selectPlayerName(String playerName, String[] playerNames,
+                                    int pos) {
+        String newStr = playerName.trim();
+        if (newStr.equals("")) {
+            View.error("No input recognized! Please try again");
+            return false;
+        }
+        if(playerName.equals("noName")){
+            playerNames[pos] = "Spieler" + (pos+1);
+            return true;
+        } else {
+            boolean nameAlreadyTaken = false;
+            for (int i = 0; i < pos; i++) {
+                if (newStr.equals(playerNames[i])) {
+                    nameAlreadyTaken = true;
+                    break;
+                }
+            }
+            if (!nameAlreadyTaken) {
+                playerNames[pos] = newStr;
+                return true;
+            } else {
+                View.error("Selected name already taken! Please select "
+                        + "another one");
+                return false;
             }
         }
     }
