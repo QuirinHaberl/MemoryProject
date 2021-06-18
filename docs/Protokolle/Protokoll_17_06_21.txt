@@ -1,0 +1,45 @@
+Protokoll vom Zoommeeting am 17.06.2021
+Teilnehmende: Alle 
+Autor: Florian Muhrer
+
+
+
+TOP 1 Besprechung des erledigten
+
+-Probleme beim Mergen wurden von Jan behoben
+-Bug gefunden durch Quirin -->wird noch behoben
+-Exception Handling wird durch Isabella noch angepasst
+-Absprache der Javadoc und Einigung auf Standard
+-Absprach des durch Florian angefertigte Klassendiagramm
+
+
+
+TOP2 Umgesetzt im Meeting
+
+-Spielernahmen-Wahl besprochen
+	-Soll bei Spieleranzahl input erfolgen
+	-Eingabevalidierung bereits in Player
+	-Eingabevalidierung wird noch optimiert
+-Diskussion über Aufteilung der execute Methode
+	-Große Methode soll in kleinere aufgeteilt werden
+-Kanban Board für Iteration 4 gemeinsam besprochen
+	-User Stories mit Label="Priorität 3" wurden durchgegangen
+	-Auswahl derjenigen US die umgesetzt werden sollen ist erfolgt
+	-US wurden dem Kanban Board hinzugefügt
+	-US die noch nicht umgesetzt werden, wurden auf Label="Priorität 4" gesetzt
+
+
+
+TOP3 Weiteres Vorgehen
+
+-Bis Samstag sollen alle Tasks zu den US erstellt werden
+-Noch offene To Dos werden noch umgesetzt bis Samstag
+-Bis Sonntag nur noch manuelles Testen und Bugfixes
+-Klassendiagramm fertig stellen am Sonntag
+-Kommentare im Code werden noch überarbeitet
+
+
+
+TOP4 Organisatorisches
+
+-Nächstes Meeting findet Sonntag statt
