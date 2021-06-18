@@ -275,32 +275,14 @@ public class Game {
     }
 
     /**
-     * Selects the player-mode.
+     * Adds players to the {@link PlayerList}.
      *
-     * @param input number of players selected
-     * @return true if no error appeared
+     * @param numPlayers    Number of players to be added
+     * @param playerNames   Names of the new players
      */
-    public boolean selectPlayerMode(String input) {
-        if (input.length() == 1) {
-            if (input.matches("\\d")) {
-                int num = Integer.parseInt(input);
-                if (num > 4) {
-                    View.error("Only a maximum of 4 players can take part");
-                    return false;
-                } else {
-                    if (num < 1) {
-                        View.error("At least 1 player must take part");
-                        return false;
-                    } else {
-                        for (int i = 1; i <= num; ++i) {
-                            playerList.addPlayer("Spieler " + i);
-                        }
-                        return true;
-                    }
-                }
-            }
+    public void addPlayers(int numPlayers, String[] playerNames) {
+        for (int i = 0; i < numPlayers; ++i) {
+            playerList.addPlayer(playerNames[i]);
         }
-        View.error("Entry was not a valid number");
-        return false;
     }
 }
