@@ -68,7 +68,7 @@ public class Controller {
                         View.printSelectPlayerAmount();
                     }
                     View.printMemory();
-                    String input = bufferedReader.readLine();
+                    String input = bufferedReader.readLine().trim();
                     if (selectPlayerMode(input)) {
                         playerAmount = Integer.parseInt(input);
                         menuStatus = MenuStatus.PLAYERNAMES;
@@ -84,7 +84,7 @@ public class Controller {
                             View.printPlayernameRequest(i+1);
                         }
                         View.printMemory();
-                        String name = bufferedReader.readLine();
+                        String name = bufferedReader.readLine().trim();
                         if (selectPlayerName(name, playerNames, i)) {
                             firstIssue = true;
                         } else {
@@ -100,7 +100,7 @@ public class Controller {
                         View.printSelectBoardSize();
                     }
                     View.printMemory();
-                    int size = game.getPlayingField().selectBoardSize(bufferedReader.readLine());
+                    int size = game.getPlayingField().selectBoardSize(bufferedReader.readLine().trim());
                     if (size != 0) {
                         game.getPlayingField().setBoard(size);
                         menuStatus = MenuStatus.CARDSET;
@@ -115,7 +115,7 @@ public class Controller {
                     }
                     View.printMemory();
                     if (game.getPlayingField().
-                            selectCardSet(bufferedReader.readLine())) {
+                            selectCardSet(bufferedReader.readLine().trim())) {
                         game.getPlayingField().fillWithCards();
                         menuStatus = MenuStatus.PLAYERMODE;
                         firstIssue = true;
@@ -152,13 +152,7 @@ public class Controller {
                 View.printPlayer(player.getName());
 
                 View.printMemory();
-                String input = bufferedReader.readLine();
-
-
-                if (input == null) {
-                    View.error("You didn't enter a input!");
-                    break;
-                }
+                String input = bufferedReader.readLine().trim();
 
                 boolean saveBreak = false;
 
@@ -256,7 +250,7 @@ public class Controller {
                                         boolean exit = true;
                                         while (exit) {
                                             View.printMemory();
-                                            String choice = bufferedReader.readLine();
+                                            String choice = bufferedReader.readLine().trim();
                                             switch (choice.toLowerCase()) {
                                                 case "menu", "m" -> {
                                                     game.returnToMenu(game.getPlayerList());
@@ -392,7 +386,7 @@ public class Controller {
             View.error("No input recognized! Please try again");
             return false;
         }
-        if(playerName.equals("noName")){
+        if(playerName.equalsIgnoreCase("noName")){
             playerNames[pos] = "Spieler" + (pos+1);
             return true;
         } else {
@@ -413,5 +407,4 @@ public class Controller {
             }
         }
     }
-
 }

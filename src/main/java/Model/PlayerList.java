@@ -1,7 +1,5 @@
 package Model;
 
-import Control.Controller;
-
 /**
  * This class implements a {@link PlayerList}.
  */
@@ -242,8 +240,8 @@ public class PlayerList {
     /**
      * Gets all {@link Player}'s with the highest {@code score}.
      *
+     * @param playerList the list of all current players
      * @return list of all {@link Player} who have the highest {@code Model.Enums.Player
-     * .score}
      */
     public PlayerList getWinningPlayers(PlayerList playerList) {
         if (front == null) {
@@ -265,10 +263,8 @@ public class PlayerList {
 
     /**
      * Sorts {@link PlayerList} according the {@code score}.
-     *
-     * @return the sorted {@link PlayerList}
      */
-    public PlayerList sort() {
+    public void sort() {
         if (count == 0) {
             throw new IllegalArgumentException("The playList is empty, can't be sorted!");
         }
@@ -287,7 +283,6 @@ public class PlayerList {
             this.getPlayer(min).name = name;
             this.getPlayer(min).score = score;
         }
-        return this;
     }
 
     /**
@@ -305,15 +300,5 @@ public class PlayerList {
             }
         }
         return ranking;
-    }
-
-    public void printList() {
-        for (int i = 0; i < count; i++) {
-            if (i != count-1) {
-                System.out.print(getPlayer(i).getName() + " and ");
-            } else {
-                System.out.print(getPlayer(i).getName());
-            }
-        }
     }
 }
