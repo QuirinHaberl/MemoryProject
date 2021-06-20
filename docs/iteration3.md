@@ -30,7 +30,7 @@
 	-> notwendige Neuerungen: (Stichtag 13.06.21)  
 	-> optionale Neuerungen: Wenn bis 16.06.21 alle notwendigen Neuerungen bereits ausreichend implementiert wurden,
 				  können diese optional ergänzt werden.  
-				  Dies war in dieser Iteration der Fall, sodass alle vorgenommenen Tasks erledigt werden konnten.
+				  Dies war in dieser Iteration der Fall, sodass alle Tasks erledigt werden konnten.
 - Abnahme des Projekts am Sonntag 20.06.21: Gemeinsam Java-Docs korrigieren, Manuelles Testen besprechen, überflüssige Methoden 						     entfernen 
 - Iteration 4 planen:  
 	-> UserStories auswählen  
