@@ -4,6 +4,7 @@ package Control;
  * The enumeration of the menu status.
  */
 public enum MenuStatus {
+    
     /**
      * The player mode is being selected.
      */

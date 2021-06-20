@@ -26,57 +26,9 @@ public class PlayingField {
     private CardSet cardSet;
 
     /**
-     * Stores the height of a {@code board}.
-     */
-    private int height;
-
-    /**
-     * Stores the width of a {@code board}.
-     */
-    private int width;
-
-    /**
-     * The Constructor creates a new {@link PlayingField} and fills the board with {@link Card}'s.
-     *
-     * @param size specifies the size of an array squared
-     */
-    public PlayingField(int size) {
-        this.height = size;
-        this.width = size;
-        board = new Card[height][height];
-    }
-
-    /**
      * Default-constructor of {@link PlayingField}.
      */
     public PlayingField() {
-    }
-
-    /**
-     * Gets the cardset
-     *
-     * @return cardset
-     */
-    public CardSet getCardSet() {
-        return cardSet;
-    }
-
-    /**
-     * Gets the height
-     *
-     * @return height
-     */
-    public int getHeigth() {
-        return height;
-    }
-
-    /**
-     * Sets the height.
-     *
-     * @param height to be used.
-     */
-    public void setHeigth(int height) {
-        this.height = height;
     }
 
     /**
@@ -89,37 +41,10 @@ public class PlayingField {
     }
 
     /**
-     * Gets the width
-     *
-     * @return width
-     */
-    public int getWidth() {
-        return width;
-    }
-
-    /**
-     * Sets the width.
-     *
-     * @param width to be used.
-     */
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    /**
      * @return the {@code board}
      */
     public Card[][] getBoard() {
         return board;
-    }
-
-    /**
-     * Setter of the{@code board}
-     *
-     * @param cards New {@code board}.
-     */
-    public static void setBoard(Card[][] cards) {
-        board = cards;
     }
 
     /**
@@ -136,10 +61,9 @@ public class PlayingField {
      */
     public void fillWithCards() {
         switch (this.cardSet) {
-            //TODO Beide fill-Methoden sind noch sehr ineffizient, aber funktionieren erstmal -Jan
             case DIGITS -> fillDigits();
             case LETTERS -> fillLetters();
-            default -> System.err.println("Dieses Set wurde noch nicht implementiert");
+            default -> System.err.println("This set hasn't been implemented yet.");
         }
         shuffleBoard();
     }

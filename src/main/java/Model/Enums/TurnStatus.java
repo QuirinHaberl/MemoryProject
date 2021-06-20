@@ -6,7 +6,7 @@ package Model.Enums;
 public enum TurnStatus {
 
     /**
-     * The turn hasn't started yet or is already over.
+     * The turn hasn't been started yet or is already over.
      */
     IDLE,
 

@@ -1,11 +1,12 @@
 package Model;
 
+import Model.Enums.CardStatus;
 import Model.Enums.GameStatus;
 import Model.Enums.TurnStatus;
 import View.View;
 
 /**
- * This class is the control part of the MVC-architecture.
+ * This class implements a {@link Game}.
  */
 public class Game {
 
@@ -20,32 +21,23 @@ public class Game {
     private GameStatus gameStatus;
 
     /**
-     * Stores the {@link PlayingField}.
+     * Stores the current {@link PlayingField}.
      */
     private final PlayingField playingField;
 
     /**
-     * Stores {@link Player} in a {@link PlayerList}.
+     * Stores a {@link Player} in the {@link PlayerList}.
      */
     private final PlayerList playerList;
 
     /**
-     * The Constructor initiates the game, the turn and creates a new {@link PlayingField}
+     * The constructor initiates the {@link Game}, the turn and creates a new {@link PlayingField}
      */
     public Game() {
         this.turnStatus = TurnStatus.IDLE;
         this.gameStatus = GameStatus.MENU;
         this.playerList = new PlayerList();
         this.playingField = new PlayingField();
-    }
-
-    /**
-     * Gets the the board of a {@code playingField}.
-     *
-     * @return the board of a {@code playingField}
-     */
-    public Card[][] getBoard() {
-        return playingField.getBoard();
     }
 
     /**
@@ -105,8 +97,8 @@ public class Game {
     /**
      * Gets a specified {@link Card}.
      *
-     * @param row Row position of the selected card
-     * @param col Column position of the selected card
+     * @param row of the selected card
+     * @param col of the selected card
      * @return the selected card
      */
     public Card getCard(int row, int col) {
@@ -131,7 +123,7 @@ public class Game {
 
     /**
      * Reveals the second selected {@link Card} of a turn.
-     * This method used to check check information about the {@link CardStatus}
+     * This method used to check information about the {@link CardStatus}
      *
      * @param secondRow of the {@link Card}
      * @param secondCol of the {@link Card}
@@ -151,10 +143,10 @@ public class Game {
     /**
      * Checks whether two selected {@link Card}'s have the same value and form a pair.
      *
-     * @param rowFirstCard  : Row of the first {@link Card}
-     * @param colFirstCard  : Column of the first {@link Card}
-     * @param rowSecondCard : Row of the second {@link Card}
-     * @param colSecondCard : Column of the second {@link Card}
+     * @param rowFirstCard  Row of the first {@link Card}
+     * @param colFirstCard  Column of the first {@link Card}
+     * @param rowSecondCard Row of the second {@link Card}
+     * @param colSecondCard Column of the second {@link Card}
      * @return whether a pair was found (true) or not (false)
      */
     public boolean pairCheck(int rowFirstCard, int colFirstCard, int rowSecondCard, int colSecondCard) {
@@ -188,12 +180,12 @@ public class Game {
     }
 
     /**
-     * Removes a {@link Card} pair from the {@code board}.
+     * Removes a pair of {@link Card}'s from the {@code board}.
      *
-     * @param row1 Row position of the first selected card
-     * @param col1 Column position of the first selected card
-     * @param row2 Row position of the second selected card
-     * @param col2 Column position of the second selected card
+     * @param row1 Row of the first selected card
+     * @param col1 Column of the first selected card
+     * @param row2 Row of the second selected card
+     * @param col2 Column of the second selected card
      */
     public void removeCards(int row1, int col1, int row2, int col2) {
         playingField.getBoard()[row1][col1].setCardStatus(CardStatus.FOUND);
@@ -201,12 +193,12 @@ public class Game {
     }
 
     /**
-     * Closes a {@link Card} pair from the {@code board}.
+     * Closes a pair of {@link Card}'s on the {@code board}.
      *
-     * @param row1 Row position of the first selected card
-     * @param col1 Column position of the first selected card
-     * @param row2 Row position of the second selected card
-     * @param col2 Column position of the second selected card
+     * @param row1 Row of the first selected card
+     * @param col1 Column of the first selected card
+     * @param row2 Row of the second selected card
+     * @param col2 Column of the second selected card
      */
     public void closeCards(int row1, int col1, int row2, int col2) {
         playingField.getBoard()[row1][col1].setCardStatus(CardStatus.CLOSED);
@@ -214,7 +206,7 @@ public class Game {
     }
 
     /**
-     * Closes all {@link Card}.
+     * Closes all {@link Card}'s.
      */
     public void closeAllCards() {
         for (Card[] cards : playingField.getBoard()) {
@@ -225,7 +217,7 @@ public class Game {
     }
 
     /**
-     * Brings a {@link Player} back to main menu.
+     * Returns a {@link Player} to main menu.
      *
      * @param players list of all players
      */
