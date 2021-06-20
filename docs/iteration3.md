@@ -87,8 +87,7 @@ Auswahl der User Stories für Iteration 4 aus bereits existierenden User Stories
 
 ## Tasks
 
-**E = Erstellt** , 
-**B = Bearbeitet**
+**E = Erstellt**
 
 | ID | Isabella Habereder | Daqian Zhang | Jan Pfeifer | Quirin Haberl | Florian Muhrer|
 |:---:|:------------:|:------------:|:------------:|:------------:|:------------:|
