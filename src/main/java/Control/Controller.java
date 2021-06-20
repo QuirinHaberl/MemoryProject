@@ -392,7 +392,7 @@ public class Controller {
             View.error("No input recognized! Please try again");
             return false;
         }
-        if(playerName.equals("noName")){
+        if(playerName.equalsIgnoreCase("noName")){
             playerNames[pos] = "Spieler" + (pos+1);
             return true;
         } else {
