@@ -1,1 +1,9 @@
-Hier könnten Ihre Kommentare stehen...
+Isabella's Anmerkungen zum Klassendiagramm:
+- Enums mit Pfeil zu den jeweiligen Klassen (gestrichelter Pfeil mit ausgefülltem Kopf)
+- Player zu PlayerList mit unausgefüllter Raute 
+- Card zu PlayingField mit unausgefüllter Raute
+- PlayingField und PlayerList zu Game mit unausgefüllter Raute
+- Enum CardDigits und CardLetters zu Card 
+- Game -- Controller -- View (Einfache Verbindung, Controller als Verbindungsstelle zwischen Game und View)
+
+
