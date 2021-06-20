@@ -78,10 +78,14 @@ public final class View {
         System.out.println(str.append("]"));
     }
 
+    public static void printDefault(){
+        System.out.println("This is a ordinary game of memory. Just follow the instructions or use 'help' to get further information.");
+    }
+
     /**
-     * Prints a description of the memory-game.
+     * Prints a Multiplayer description of the memory-game.
      */
-    public static void printDescription() {
+    public static void printDescriptionMultiplayer() {
         System.out.println("""
 
                 1. On each turn, a player turns over any two cards (one at a time).\s
@@ -91,11 +95,89 @@ public final class View {
                 5. If they successfully match a pair they receive a point, and that player gets another turn.\s
                 6. The found pair is removed from the board.\s
                 7. When a player turns over two cards that do not match, those cards are turned face down again \s
+                   (in the same position) and it becomes the next player's turn.\s
+                8. The trick is to remember which cards are where.\s
+                9. The person with the most pairs at the end of the game wins.
+                """);
+    }
+
+    /**
+     * Prints a Single Player description of the memory-game.
+     */
+
+    public static void printDescriptionSinglePlayer() {
+        System.out.println("""
+
+                1. On each turn, you can turn over any two cards (one at a time).\s
+                2. To open a card, simply input its position, i.e. 2 1\s
+                3. The board will show you the selected card.\s
+                4. Select a second card, same as before.\s
+                5. If you successfully match a pair you receive a point, and you get another turn.\s
+                6. The found pair is removed from the board.\s
+                7. When a player turns over two cards that do not match, those cards are turned face down again \s
                    (in the same position) and it becomes the next player’s turn.\s
                 8. The trick is to remember which cards are where.\s
                 9. The person with the most pairs at the end of the game wins.
                 """);
     }
+    /**
+     * Prints a Complete description of the memory-game.
+     */
+    public static void printDescriptionComplete() {
+        System.out.println("""
+
+                Welcome to the fantastic Game of Memory.\s
+                This fun game helps you to improve your own memory and is also fun to play against friends. \s
+                \s
+                \s
+                Game modes: \s
+                    1.Single Player \s
+                      1. On each turn, you can turn over any two cards (one at a time).\s
+                      2. To open a card, simply input its position, i.e. 2 1\s
+                      3. The board will show you the selected card.\s
+                      4. Select a second card, same as before.\s
+                      5. If you successfully match a pair you receive a point, and you get another turn.\s
+                      6. The found pair is removed from the board.\s
+                      7. When a player turns over two cards that do not match, those cards are turned face down again \s
+                         (in the same position) and it becomes the next player’s turn.\s
+                      8. The trick is to remember which cards are where.\s
+                      9. The person with the most pairs at the end of the game wins.\s
+                    \s
+                    2.Multiplayer \s
+                      1. On each turn, a player turns over any two cards (one at a time).\s
+                      2. To open a card, simply input its position, i.e. 2 1\s
+                      3. The board will show you the selected card.\s
+                      4. Select a second card, same as before.\s
+                      5. If they successfully match a pair they receive a point, and that player gets another turn.\s
+                      6. The found pair is removed from the board.\s
+                      7. When a player turns over two cards that do not match, those cards are turned face down again \s
+                       (in the same position) and it becomes the next player’s turn.\s
+                      8. The trick is to remember which cards are where.\s
+                      9. The person with the most pairs at the end of the game wins.\s
+                    \s
+                    \s
+                Board Sizes:\s
+                At the beginning of the game (after choosing the Game mode) you can choose the board size you would like to play with.\s
+                You can choose between:\s
+                2 -->4 cards in sum on the board\s
+                4 -->16 cards in sum on the board\s
+                6 -->36 cards in sum on the board\s
+                8 -->64 cards in sum on the board\s
+                \s
+                
+                Card Sets:\s
+                You can choose which type of cards you want to play with.\s
+                You can choose between:\s
+                L-->cards "image" will show Letters when turned over\s
+                D-->cards "image" will show digits when turned over\s
+                \s
+                \s
+                We hope you have fun with this game!\s
+                Your developers,\s
+                Quirin, Jan, Isabella, Daqian and Florian
+                """);
+    }
+
 
     /**
      * Prints a list of accepted commands.
@@ -104,6 +186,8 @@ public final class View {
         System.out.println("""                                
                 All possible commands are:\s
                     help:       Shows a list of possible commands\s
+                    rules:      Shows the rules of the game\s
+                    rulescomp:  Shows the complete rule set of the game\s
                     found:      Shows the discard pile of the running game\s
                     score:      Shows the score of all players of the running game\s
                     

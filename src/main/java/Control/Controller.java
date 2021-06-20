@@ -2,12 +2,10 @@ package Control;
 
 import Model.*;
 import Model.Enums.GameStatus;
-import Model.Enums.MenuStatus;
 import View.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.Locale;
 
 /**
  * The controller of the MVC-architecture.
@@ -40,7 +38,7 @@ public class Controller {
      */
     public void execute(BufferedReader bufferedReader) throws IOException {
         //Printing the description of a memory game
-        View.printDescription();
+        View.printDefault();
 
         while (game.getGameStatus() != GameStatus.END) {
             switch (game.getGameStatus()) {
@@ -167,6 +165,19 @@ public class Controller {
                 switch (input.toLowerCase()) {
                     case "help", "h" -> {
                         View.printHelp();
+                        saveBreak = true;
+                    }
+                    case "rules", "ru" -> {
+                        if(game.getPlayerList().getCount()>1) {
+                            View.printDescriptionMultiplayer();
+                        }
+                        else{
+                            View.printDescriptionSinglePlayer();
+                        }
+                        saveBreak = true;
+                    }
+                    case "rulescomp", "ruc" -> {
+                        View.printDescriptionComplete();
                         saveBreak = true;
                     }
                     case "found", "f" -> {

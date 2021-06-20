@@ -1,4 +1,4 @@
-package Model.Enums;
+package Control;
 
 /**
  * The enumeration of the menu status.
