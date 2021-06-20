@@ -154,12 +154,6 @@ public class Controller {
                 View.printMemory();
                 String input = bufferedReader.readLine().trim();
 
-
-                if (input == null) {
-                    View.error("You didn't enter a input!");
-                    break;
-                }
-
                 boolean saveBreak = false;
 
                 switch (input.toLowerCase()) {
@@ -413,5 +407,4 @@ public class Controller {
             }
         }
     }
-
 }

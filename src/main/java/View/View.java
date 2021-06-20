@@ -78,7 +78,7 @@ public final class View {
         System.out.println(str.append("]"));
     }
 
-    public static void printDefault(){
+    public static void printDefault() {
         System.out.println("This is a ordinary game of memory. Just follow the instructions or use 'help' to get further information.");
     }
 
@@ -120,6 +120,7 @@ public final class View {
                 9. The person with the most pairs at the end of the game wins.
                 """);
     }
+
     /**
      * Prints a Complete description of the memory-game.
      */
@@ -164,7 +165,7 @@ public final class View {
                 6 -->36 cards in sum on the board\s
                 8 -->64 cards in sum on the board\s
                 \s
-                
+                                
                 Card Sets:\s
                 You can choose which type of cards you want to play with.\s
                 You can choose between:\s
@@ -177,7 +178,6 @@ public final class View {
                 Quirin, Jan, Isabella, Daqian and Florian
                 """);
     }
-
 
     /**
      * Prints a list of accepted commands.
@@ -297,21 +297,20 @@ public final class View {
     }
 
 
-    public static void printPlayernameRequest(int index){
-        System.out.println("Player"+ index +" enter a name of your choice or"
+    public static void printPlayernameRequest(int index) {
+        System.out.println("Player" + index + " enter a name of your choice or"
                 + " the command noName (if you don't want to choose a name):");
     }
 
     /**
-     * This method prints the winner notification and
-     * the description of the next input options
+     * Prints the winner notification and the description of the next input options.
      *
      * @param highestScore the highest score a player reached
-     * @param game which has been played
+     * @param game         which has been played
      */
     public static void printGameSummary(PlayerList highestScore, Game game) {
-        highestScore.printList();
-        System.out.print(" won the Game with a score of " );
+        printPlayerList(highestScore);
+        System.out.print(" won the Game with a score of ");
         System.out.println(game.getPlayerList().getHighestScore());
         System.out.println("""
                  Please select by entering a command whether you want to\s
@@ -322,5 +321,19 @@ public final class View {
                 """);
     }
 
-
+    /**
+     * Prints all players and their scores.
+     *
+     * @param highestScore the highest score a player reached
+     */
+    public static void printPlayerList(PlayerList highestScore) {
+        int count = highestScore.getCount();
+        for (int i = 0; i < count; i++) {
+            if (i != count - 1) {
+                System.out.print(highestScore.getPlayer(i).getName() + " and ");
+            } else {
+                System.out.print(highestScore.getPlayer(i).getName());
+            }
+        }
+    }
 }
