@@ -310,7 +310,6 @@ public class Controller {
      * @param tokens Passed input
      * @return Returns true if the passed input(two coordinates) was correct.
      */
-    //TODO vielleicht fällt jemanden etwas einfacheres ein
     public boolean correctInput(String[] tokens) {
         //Checks whether the input contained two parameters
         if (tokens.length < 2) {
