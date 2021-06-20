@@ -2,6 +2,7 @@ package Model;
 
 import Model.Enums.CardDigits;
 import Model.Enums.CardLetters;
+import Model.Enums.CardStatus;
 
 /**
  * The class {@link Card} implements a card of the game.
@@ -21,7 +22,7 @@ public class Card {
     /**
      * Constructs a new {@link Card}.
      *
-     * @param value uses the enumerations of {@link CardDigits}
+     * @param value uses the enumerations of {@link CardDigits} or {@link CardLetters}
      */
     public Card(CardDigits value) {
         this.value = value;
@@ -31,7 +32,7 @@ public class Card {
     /**
      * Constructs a new {@link Card}.
      *
-     * @param value uses the enumerations of {@link CardDigits}
+     * @param value uses the enumerations of {@link CardDigits} or {@link CardLetters}
      */
     public Card(CardLetters value) {
         this.value = value;
@@ -50,8 +51,7 @@ public class Card {
     /**
      * Visualizes {@link Card}, defined by {@link CardDigits}.
      *
-     * @return Visualization of the card value transferred
-     * da sie vom Kartenset abhängt
+     * @return visualization of the given card
      */
     public String visualizeCard() {
         if (value instanceof CardDigits) {
@@ -59,7 +59,7 @@ public class Card {
         } else if (value instanceof CardLetters) {
             return ((CardLetters) value).getLetter();
         } else {
-            return null; //TODO Das müss ich noch schöner schreiben -Jan
+            return null;
         }
     }
 

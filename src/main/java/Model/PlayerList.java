@@ -162,42 +162,12 @@ public class PlayerList {
     }
 
     /**
-     * Increments the {@code score} a a selected {@link Player}.
-     *
-     * @param position of the {@link Player}
-     */
-    public void updatePlayerScore(int position) {
-        this.getPlayer(position).addScore();
-    }
-
-    /**
      * Resets all {@code score}'s of {@link Player}'s.
      */
     public void resetAllScores() {
         for (int i = 0; i < count; i++) {
             getPlayer(i).setScore(0);
         }
-    }
-
-    /**
-     * Get the name of a {@link Player}.
-     *
-     * @param position of a Model.Enums.Player
-     * @return the name of a {@link Player}
-     */
-    public String getPlayerName(int position) {
-        return getPlayer(position).getName();
-    }
-
-    /**
-     * Gets the {@code score} of a selected {@link Player}.
-     *
-     * @param position of a {@link Player}
-     * @return the {@code score} of a {@link Player}
-     *
-     */
-    public int getPlayerScore(int position) {
-        return getPlayer(position).getScore();
     }
 
     /**
@@ -229,7 +199,7 @@ public class PlayerList {
             throw new IllegalArgumentException("There is no Model.Enums.Player now!");
         }
         int highestScore = front.getScore();
-        for (int i = 0; i < count-1; i++) {
+        for (int i = 0; i < count - 1; i++) {
             if (getPlayer(i).getNext().getScore() > highestScore) {
                 highestScore = getPlayer(i).getNext().getScore();
             }
@@ -257,48 +227,6 @@ public class PlayerList {
                 deletePlayer(pos);
             }
         }
-
         return playerList;
-    }
-
-    /**
-     * Sorts {@link PlayerList} according the {@code score}.
-     */
-    public void sort() {
-        if (count == 0) {
-            throw new IllegalArgumentException("The playList is empty, can't be sorted!");
-        }
-        for (int i = 0; i < count; i++) {           // that is based on the select sort thought.
-            int min = i;
-            for (int j = i + 1; j < count; j++) {
-                if (this.getPlayer(j).score < this.getPlayer(min).score) {
-                    min = j;
-                }
-            }
-            String name = this.getPlayer(i).name;  // that just change the name and score, every Model.Enums.Player including "next" won't be changed.
-            int score = this.getPlayer(i).score;
-            this.getPlayer(i).name = this.getPlayer(min).name;
-            this.getPlayer(i).score = this.getPlayer(min).score;
-
-            this.getPlayer(min).name = name;
-            this.getPlayer(min).score = score;
-        }
-    }
-
-    /**
-     * Gets the ranking of all {@link Player}'s.
-     *
-     * @param name of the Model.Enums.Player
-     * @return the ranking of the Model.Enums.Player
-     */
-    public int getRanking(String name) {
-        this.sort();
-        int ranking = 0;
-        for (int i = 0; i < count; i++) {
-            if (name.equals(this.getPlayer(i).name)) {
-                ranking = count - i;
-            }
-        }
-        return ranking;
     }
 }

@@ -1,6 +1,7 @@
 package View;
 
 import Model.*;
+import Model.Enums.CardStatus;
 
 /**
  * This class represents the view of the MVC-architecture.
@@ -38,29 +39,6 @@ public final class View {
     }
 
     /**
-     * Prints all {@link Card}'s depending on their {@link CardStatus}.
-     *
-     * @param playingField current {@link PlayingField}
-     */
-    public static void printAllCards(PlayingField playingField) {
-        StringBuilder line = new StringBuilder("  ");
-        for (int i = 0; i < playingField.getBoard().length; i++) {
-            line.append(i).append(" ");
-        }
-        for (int row = 0; row < playingField.getBoard().length; row++) {
-            line = new StringBuilder(line + "\n" + row + " ");
-            for (int col = 0; col < playingField.getBoard()[row].length; col++) {
-                if (playingField.getBoard()[row][col].getCardStatus().equals(CardStatus.FOUND)) {
-                    line.append("  ");
-                } else {
-                    line.append(playingField.getBoard()[row][col].visualizeCard()).append(" ");
-                }
-            }
-        }
-        System.out.println(line);
-    }
-
-    /**
      * Print all {@link Card}'s a {@link Player} has found.
      *
      * @param players current {@link PlayerList}
@@ -78,8 +56,14 @@ public final class View {
         System.out.println(str.append("]"));
     }
 
+    /**
+     * Prints the initial introduction to a game of memory.
+     */
     public static void printDefault() {
-        System.out.println("This is a ordinary game of memory. Just follow the instructions or use 'help' to get further information.");
+        System.out.println("Welcome to the memory game of group 19!\n" +
+                "This is an ordinary game of memory. " +
+                "Just follow the instructions and you can use 'help' " +
+                "to obtain further information during the game.");
     }
 
     /**
@@ -90,12 +74,12 @@ public final class View {
 
                 1. On each turn, a player turns over any two cards (one at a time).\s
                 2. To open a card, simply input its position, i.e. 2 1\s
-                3. The board will show you the selected card.\s
+                3. The board will show your selected card.\s
                 4. Select a second card, same as before.\s
-                5. If they successfully match a pair they receive a point, and that player gets another turn.\s
+                5. If a player successfully matches a pair they receive a point and that player gets another turn.\s
                 6. The found pair is removed from the board.\s
                 7. When a player turns over two cards that do not match, those cards are turned face down again \s
-                   (in the same position) and it becomes the next player's turn.\s
+                   (at the same position) and it becomes the next player's turn.\s
                 8. The trick is to remember which cards are where.\s
                 9. The person with the most pairs at the end of the game wins.
                 """);
@@ -114,10 +98,9 @@ public final class View {
                 4. Select a second card, same as before.\s
                 5. If you successfully match a pair you receive a point, and you get another turn.\s
                 6. The found pair is removed from the board.\s
-                7. When a player turns over two cards that do not match, those cards are turned face down again \s
-                   (in the same position) and it becomes the next player’s turn.\s
+                7. When you select two cards that do not match, those cards are turned face down again \s
+                   (in the same position) and you get to try again.\s
                 8. The trick is to remember which cards are where.\s
-                9. The person with the most pairs at the end of the game wins.
                 """);
     }
 
@@ -127,34 +110,33 @@ public final class View {
     public static void printDescriptionComplete() {
         System.out.println("""
 
-                Welcome to the fantastic Game of Memory.\s
+                Welcome to the fantastic game of memory.\s
                 This fun game helps you to improve your own memory and is also fun to play against friends. \s
                 \s
                 \s
                 Game modes: \s
                     1.Single Player \s
-                      1. On each turn, you can turn over any two cards (one at a time).\s
-                      2. To open a card, simply input its position, i.e. 2 1\s
-                      3. The board will show you the selected card.\s
-                      4. Select a second card, same as before.\s
-                      5. If you successfully match a pair you receive a point, and you get another turn.\s
-                      6. The found pair is removed from the board.\s
-                      7. When a player turns over two cards that do not match, those cards are turned face down again \s
-                         (in the same position) and it becomes the next player’s turn.\s
-                      8. The trick is to remember which cards are where.\s
-                      9. The person with the most pairs at the end of the game wins.\s
+                    1. On each turn, you can turn over any two cards (one at a time).\s
+                    2. To open a card, simply input its position, i.e. 2 1\s
+                    3. The board will show you the selected card.\s
+                    4. Select a second card, same as before.\s
+                    5. If you successfully match a pair you receive a point, and you get another turn.\s
+                    6. The found pair is removed from the board.\s
+                    7. When you select two cards that do not match, those cards are turned face down again \s
+                       (in the same position) and you get to try again.\s
+                    8. The trick is to remember which cards are where.\s
                     \s
                     2.Multiplayer \s
-                      1. On each turn, a player turns over any two cards (one at a time).\s
-                      2. To open a card, simply input its position, i.e. 2 1\s
-                      3. The board will show you the selected card.\s
-                      4. Select a second card, same as before.\s
-                      5. If they successfully match a pair they receive a point, and that player gets another turn.\s
-                      6. The found pair is removed from the board.\s
-                      7. When a player turns over two cards that do not match, those cards are turned face down again \s
-                       (in the same position) and it becomes the next player’s turn.\s
-                      8. The trick is to remember which cards are where.\s
-                      9. The person with the most pairs at the end of the game wins.\s
+                    1. On each turn, a player turns over any two cards (one at a time).\s
+                    2. To open a card, simply input its position, i.e. 2 1\s
+                    3. The board will show your selected card.\s
+                    4. Select a second card, same as before.\s
+                    5. If a player successfully matches a pair they receive a point and that player gets another turn.\s
+                    6. The found pair is removed from the board.\s
+                    7. When a player turns over two cards that do not match, those cards are turned face down again \s
+                       (at the same position) and it becomes the next player's turn.\s
+                    8. The trick is to remember which cards are where.\s
+                    9. The person with the most pairs at the end of the game wins.
                     \s
                     \s
                 Board Sizes:\s
@@ -169,7 +151,7 @@ public final class View {
                 Card Sets:\s
                 You can choose which type of cards you want to play with.\s
                 You can choose between:\s
-                L-->cards "image" will show Letters when turned over\s
+                L-->cards "image" will show letters when turned over\s
                 D-->cards "image" will show digits when turned over\s
                 \s
                 \s
@@ -187,17 +169,17 @@ public final class View {
                 All possible commands are:\s
                     help:       Shows a list of possible commands\s
                     rules:      Shows the rules of the game\s
-                    rulescomp:  Shows the complete rule set of the game\s
-                    found:      Shows the discard pile of the running game\s
-                    score:      Shows the score of all players of the running game\s
+                    allrules:   Shows the complete rule set of the game\s
+                    found:      Shows the cards every player has found\s
+                    score:      Shows the scores of all players\s
                     
-                    menu:       Sends you back to main menu\s
+                    menu:       Returns you back to main menu\s
                     reset:      Resets the running game to start state\s
                     restart:    Restarts the running game with repositioned cards\s
                     quit:       Quits the game\s
                     
                 All sorts of commands can be written in lowercase and uppercase letters.\s
-                Or can also be called by using abbreviations consisting of their first letter.\s
+                They can also be called by using abbreviations consisting of their first letter.\s
                 """);
     }
 
@@ -214,7 +196,7 @@ public final class View {
     }
 
     /**
-     * prints a specified errormessage.
+     * Prints a specified error-massage.
      *
      * @param specification Specification of the error message.
      */
@@ -298,8 +280,8 @@ public final class View {
 
 
     public static void printPlayernameRequest(int index) {
-        System.out.println("Player" + index + " enter a name of your choice or"
-                + " the command noName (if you don't want to choose a name):");
+        System.out.println("Player" + index + " enter your preferred name or"
+                + " the command 'noName' (if you don't want to choose a name):");
     }
 
     /**
@@ -310,7 +292,7 @@ public final class View {
      */
     public static void printGameSummary(PlayerList highestScore, Game game) {
         printPlayerList(highestScore);
-        System.out.print(" won the Game with a score of ");
+        System.out.print(" won the game with a score of ");
         System.out.println(game.getPlayerList().getHighestScore());
         System.out.println("""
                  Please select by entering a command whether you want to\s

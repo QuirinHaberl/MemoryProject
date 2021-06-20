@@ -1,6 +1,7 @@
 package Control;
 
 import Model.*;
+import Model.Enums.CardStatus;
 import Model.Enums.GameStatus;
 import View.*;
 
@@ -37,9 +38,11 @@ public class Controller {
      * @throws IOException on input error.
      */
     public void execute(BufferedReader bufferedReader) throws IOException {
+
         //Printing the description of a memory game
         View.printDefault();
 
+        //Use an execute-method depending on the current game status.
         while (game.getGameStatus() != GameStatus.END) {
             switch (game.getGameStatus()) {
                 case MENU -> executeMenu(bufferedReader);
@@ -50,7 +53,7 @@ public class Controller {
 
     /**
      * This method reads the input from the console and delegates it to
-     * {@link Game} when main {@code Model.Enums.GameStatus.MENU} is active.
+     * {@link Game} when main {@code GameStatus.MENU} is set.
      *
      * @param bufferedReader provides a connection to the console.
      * @throws IOException on input error.
@@ -63,6 +66,8 @@ public class Controller {
         while (game.getGameStatus().equals(GameStatus.MENU)) {
 
             switch (menuStatus) {
+
+                //Is used to determine the number of players.
                 case PLAYERMODE -> {
                     if (firstIssue) {
                         View.printSelectPlayerAmount();
@@ -77,6 +82,8 @@ public class Controller {
                         firstIssue = false;
                     }
                 }
+
+                //Used to set the names of all players.
                 case PLAYERNAMES -> {
                     String[] playerNames = new String[playerAmount];
                     for (int i = 0; i < playerAmount; i++){
@@ -95,6 +102,8 @@ public class Controller {
                     game.addPlayers(playerAmount, playerNames);
                     menuStatus = MenuStatus.BOARDSIZE;
                 }
+
+                //Used to select the board size.
                 case BOARDSIZE -> {
                     if (firstIssue) {
                         View.printSelectBoardSize();
@@ -109,6 +118,8 @@ public class Controller {
                         firstIssue = false;
                     }
                 }
+
+                //Used to select the card set.
                 case CARDSET -> {
                     if (firstIssue) {
                         View.printSelectCardSet();
@@ -131,7 +142,7 @@ public class Controller {
 
     /**
      * This method reads the input from the console and delegates it to
-     * {@link Game} when the game is {@code Model.Enums.GameStatus.RUNNING}.
+     * {@link Game} when the game is {@code GameStatus.RUNNING}.
      *
      * @param bufferedReader provides a connection to the console.
      * @throws IOException on input error.
@@ -140,7 +151,6 @@ public class Controller {
         int firstRow = 0;
         int firstCol = 0;
 
-        //It is read in from the console until the program is ended.
         while (game.getGameStatus().equals(GameStatus.RUNNING)) {
 
             for (Player player = game.getPlayerList().getFront(); player != null; player = player.getNext()) {
@@ -170,7 +180,7 @@ public class Controller {
                         }
                         saveBreak = true;
                     }
-                    case "rulescomp", "ruc" -> {
+                    case "allrules", "ar" -> {
                         View.printDescriptionComplete();
                         saveBreak = true;
                     }
@@ -184,10 +194,6 @@ public class Controller {
                     }
                     case "menu", "m" -> {
                         game.returnToMenu(game.getPlayerList());
-                        saveBreak = true;
-                    }
-                    case "cheat" -> {
-                        View.printAllCards(game.getPlayingField());
                         saveBreak = true;
                     }
                     case "reset", "r" -> {
@@ -205,11 +211,13 @@ public class Controller {
                 }
 
                 if (!saveBreak) {
-                    //The input is split up using spaces.
+                    //The input is split by using spaces.
                     String[] tokens = input.trim().split("\\s+");
 
-                    //Implementation of game phases
+                    //Implementation of the game phases
                     switch (game.getTurnStatus()) {
+
+                        //Is used if the turn hasn't been stated yet.
                         case IDLE:
                             if (correctInput(tokens)) {
                                 firstRow = Integer.parseInt(tokens[0]);
@@ -223,6 +231,8 @@ public class Controller {
                                 }
                             }
                             break;
+
+                        //Is used if the turn has been stated.
                         case ACTIVE:
                             if (correctInput(tokens)) {
                                 int secondRow = Integer.parseInt(tokens[0]);
@@ -295,7 +305,7 @@ public class Controller {
     }
 
     /**
-     * Tests whether the transferred input was correct.
+     * Checks whether the transferred input was correct.
      *
      * @param tokens Passed input
      * @return Returns true if the passed input(two coordinates) was correct.
@@ -372,12 +382,12 @@ public class Controller {
     }
 
     /**
-     * Checks weather a name can be taken for a {@link Player}.
+     * Checks whether a name can be used for a {@link Player}.
      *
-     * @param playerName    Chosen name
-     * @param playerNames   List of the names of all players
-     * @param pos           Position of the player who should receive this name
-     * @return  true if the chosen name can be taken
+     * @param playerName    the chosen name
+     * @param playerNames   lists all player names
+     * @param pos           Position of the player
+     * @return  true whether the chosen name can be used or not
      */
     public boolean selectPlayerName(String playerName, String[] playerNames,
                                     int pos) {
@@ -387,7 +397,7 @@ public class Controller {
             return false;
         }
         if(playerName.equalsIgnoreCase("noName")){
-            playerNames[pos] = "Spieler" + (pos+1);
+            playerNames[pos] = "Player" + (pos+1);
             return true;
         } else {
             boolean nameAlreadyTaken = false;

@@ -24,12 +24,12 @@ public enum CardLetters {
 
 
     /**
-     * The value of a card is stored in {@code label}, which can't be changed.
+     * The value of a card is stored in {@code letter}, which can't be changed.
      */
     private final String letter;
 
     /**
-     * Constructs a new label.
+     * Constructs a new letter.
      *
      * @param letter is saved as a attribute for a {@link CardLetters}
      */
@@ -38,9 +38,9 @@ public enum CardLetters {
     }
 
     /**
-     * Gets the {@code label} of a {@link CardLetters}
+     * Gets the {@code letter} of a {@link CardLetters}
      *
-     * @return the {@code label} of a {@link CardLetters}
+     * @return the {@code letter} of a {@link CardLetters}
      */
     public String getLetter() {
         return letter;

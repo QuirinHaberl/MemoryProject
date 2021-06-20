@@ -58,15 +58,6 @@ public class Player {
     }
 
     /**
-     * Sets the name for a {@link Player}.
-     *
-     * @param name of a Model.Enums.Player
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
      * Gets the the score of a {@link Player}.
      *
      * @return the score of a {@link Player}
@@ -94,30 +85,12 @@ public class Player {
     }
 
     /**
-     * Sets the next {@link Player}.
-     *
-     * @param next {@link Player}
-     */
-    public void setNext(Player next) {
-        this.next = next;
-    }
-
-    /**
      * Gets the last {@link Player}.
      *
      * @return the rear {@link Player}
      */
     public Player getRear() {
         return rear;
-    }
-
-    /**
-     * Sets the last {@link Player}.
-     *
-     * @param rear of the {@link Player}
-     */
-    public void setRear(Player rear) {
-        this.rear = rear;
     }
 
     /**

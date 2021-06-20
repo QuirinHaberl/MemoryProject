@@ -24,12 +24,12 @@ public enum CardDigits {
     THIRTYONE("31"), THIRTYTWO("32");
 
     /**
-     * The value of a card is stored in {@code label}, which can't be changed.
+     * The value of a card is stored in {@code digit}, which can't be changed.
      */
     private final String digit;
 
     /**
-     * Constructs a new label.
+     * Constructs a new digit.
      *
      * @param digit is saved as a attribute for a {@link CardDigits}
      */
@@ -38,9 +38,9 @@ public enum CardDigits {
     }
 
     /**
-     * Gets the {@code label} of a {@link CardDigits}
+     * Gets the {@code digit} of a {@link CardDigits}
      *
-     * @return the {@code label} of a {@link CardDigits}
+     * @return the {@code digit} of a {@link CardDigits}
      */
     public String getDigit() {
         return digit;
