@@ -92,15 +92,16 @@ Auswahl der User Stories für Iteration 4 aus bereits existierenden User Stories
 
 | ID | Isabella Habereder | Daqian Zhang | Jan Pfeifer | Quirin Haberl | Florian Muhrer|
 |:---:|:------------:|:------------:|:------------:|:------------:|:------------:|
-| # ||||||
-| # ||||||
-| # ||||||
-| # ||||||
-| # ||||||
-| # ||||||
-| # ||||||
-| # ||||||
-| # ||||||
-| # ||||||
+| #95 |||||E|
+| #126 |E|||||
+| #127 |E|||||
+| #128 |||||E|
+| #129 |||||E|
+| #130 ||D||||
+| #131 ||D||||
+| #132 ||D||||
+| #135 |||J|||
+| #136 |||J|||
+| #137 |||J|||
 
 
