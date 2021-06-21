@@ -1,0 +1,280 @@
+package Model;
+
+import Model.Enums.CardStatus;
+import Model.Enums.GameStatus;
+import Model.Enums.TurnStatus;
+import View.View;
+
+/**
+ * This class implements a {@link Game}.
+ */
+public class Game {
+
+    /**
+     * Stores the current {@link TurnStatus}.
+     */
+    private TurnStatus turnStatus;
+
+    /**
+     * Stores the current {@link GameStatus}.
+     */
+    private GameStatus gameStatus;
+
+    /**
+     * Stores the current {@link PlayingField}.
+     */
+    private final PlayingField playingField;
+
+    /**
+     * Stores a {@link Player} in the {@link PlayerList}.
+     */
+    private final PlayerList playerList;
+
+    /**
+     * The constructor initiates the {@link Game}, the turn and creates a new {@link PlayingField}
+     */
+    public Game() {
+        this.turnStatus = TurnStatus.IDLE;
+        this.gameStatus = GameStatus.MENU;
+        this.playerList = new PlayerList();
+        this.playingField = new PlayingField();
+    }
+
+    /**
+     * Gets the {@code playingField}.
+     *
+     * @return the current {@code playingField}
+     */
+    public PlayingField getPlayingField() {
+        return playingField;
+    }
+
+    /**
+     * Gets the {@link TurnStatus}.
+     *
+     * @return the {@link TurnStatus}
+     */
+    public TurnStatus getTurnStatus() {
+        return turnStatus;
+    }
+
+    /**
+     * Sets the {@link TurnStatus}.
+     *
+     * @param turnStatus sets the {@link TurnStatus}
+     */
+    public void setTurnStatus(TurnStatus turnStatus) {
+        this.turnStatus = turnStatus;
+    }
+
+    /**
+     * Gets the {@link GameStatus}.
+     *
+     * @return the {@link GameStatus}
+     */
+    public GameStatus getGameStatus() {
+        return gameStatus;
+    }
+
+    /**
+     * Gets the {@code playerList}.
+     *
+     * @return the current {@code playerList}
+     */
+    public PlayerList getPlayerList() {
+        return playerList;
+    }
+
+    /**
+     * Sets the {@link GameStatus}.
+     *
+     * @param gameStatus sets the {@link GameStatus}
+     */
+    public void setGameStatus(GameStatus gameStatus) {
+        this.gameStatus = gameStatus;
+    }
+
+    /**
+     * Gets a specified {@link Card}.
+     *
+     * @param row of the selected card
+     * @param col of the selected card
+     * @return the selected card
+     */
+    public Card getCard(int row, int col) {
+        return playingField.getBoard()[row][col];
+    }
+
+    /**
+     * Reveals the first selected {@link Card} of a turn.
+     *
+     * @param firstRow of the {@link Card}
+     * @param firstCol of the {@link Card}
+     * @return the current {@link CardStatus} of a {@link Card}
+     */
+    public CardStatus revealFirstCard(int firstRow, int firstCol) {
+        Card firstCard = getCard(firstRow, firstCol);
+        if (firstCard.getCardStatus().equals(CardStatus.CLOSED)) {
+            firstCard.setCardStatus(CardStatus.OPEN);
+            setTurnStatus(TurnStatus.ACTIVE);
+        }
+        return firstCard.getCardStatus();
+    }
+
+    /**
+     * Reveals the second selected {@link Card} of a turn.
+     * This method used to check information about the {@link CardStatus}
+     *
+     * @param secondRow of the {@link Card}
+     * @param secondCol of the {@link Card}
+     * @return the current {@link CardStatus} of a {@link Card}
+     */
+    public CardStatus revealSecondCard(int secondRow, int secondCol) {
+        Card secondCard = getCard(secondRow, secondCol);
+        if (secondCard.getCardStatus().equals(CardStatus.OPEN)) {
+            secondCard.setCardStatus(CardStatus.AlREADYOPEN);
+        } else if (secondCard.getCardStatus().equals(CardStatus.CLOSED)) {
+            secondCard.setCardStatus(CardStatus.OPEN);
+            setTurnStatus(TurnStatus.IDLE);
+        }
+        return getCard(secondRow, secondCol).getCardStatus();
+    }
+
+    /**
+     * Checks whether two selected {@link Card}'s have the same value and form a pair.
+     *
+     * @param rowFirstCard  Row of the first {@link Card}
+     * @param colFirstCard  Column of the first {@link Card}
+     * @param rowSecondCard Row of the second {@link Card}
+     * @param colSecondCard Column of the second {@link Card}
+     * @return whether a pair was found (true) or not (false)
+     */
+    public boolean pairCheck(int rowFirstCard, int colFirstCard, int rowSecondCard, int colSecondCard) {
+        Card firstCard = getCard(rowFirstCard, colFirstCard);
+        Card secondCard = getCard(rowSecondCard, colSecondCard);
+        if (firstCard.getValue().equals(secondCard.getValue())) {
+            removeCards(rowFirstCard, colFirstCard, rowSecondCard, colSecondCard);
+            return true;
+        } else {
+            closeCards(rowFirstCard, colFirstCard, rowSecondCard, colSecondCard);
+            return false;
+        }
+    }
+
+    /**
+     * Checks whether all cards have already been turned over.
+     * If true, then the images of all cards are open.
+     * If false, at least one image is still hidden.
+     *
+     * @return whether all cards are open or not.
+     */
+    public boolean areAllCardsOpen() {
+        for (int row = 0; row < playingField.getBoard().length; ++row) {
+            for (int col = 0; col < playingField.getBoard()[row].length; ++col) {
+                if (!(getCard(row, col).getCardStatus().equals(CardStatus.FOUND))) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Removes a pair of {@link Card}'s from the {@code board}.
+     *
+     * @param row1 Row of the first selected card
+     * @param col1 Column of the first selected card
+     * @param row2 Row of the second selected card
+     * @param col2 Column of the second selected card
+     */
+    public void removeCards(int row1, int col1, int row2, int col2) {
+        playingField.getBoard()[row1][col1].setCardStatus(CardStatus.FOUND);
+        playingField.getBoard()[row2][col2].setCardStatus(CardStatus.FOUND);
+    }
+
+    /**
+     * Closes a pair of {@link Card}'s on the {@code board}.
+     *
+     * @param row1 Row of the first selected card
+     * @param col1 Column of the first selected card
+     * @param row2 Row of the second selected card
+     * @param col2 Column of the second selected card
+     */
+    public void closeCards(int row1, int col1, int row2, int col2) {
+        playingField.getBoard()[row1][col1].setCardStatus(CardStatus.CLOSED);
+        playingField.getBoard()[row2][col2].setCardStatus(CardStatus.CLOSED);
+    }
+
+    /**
+     * Closes all {@link Card}'s.
+     */
+    public void closeAllCards() {
+        for (Card[] cards : playingField.getBoard()) {
+            for (Card card : cards) {
+                card.setCardStatus((CardStatus.CLOSED));
+            }
+        }
+    }
+
+    /**
+     * Returns a {@link Player} to main menu.
+     *
+     * @param players list of all players
+     */
+    public void returnToMenu(PlayerList players) {
+        players.deleteAllPlayers();
+        setGameStatus(GameStatus.MENU);
+        setTurnStatus(TurnStatus.IDLE);
+    }
+
+    /**
+     * Quits a running {@link Game}.
+     */
+    public void quitGame() {
+        setGameStatus(GameStatus.END);
+    }
+
+
+    /**
+     * Resets the {@link Game} and restarts it.
+     *
+     * @param players list of all players
+     * @return the rear {@link Player} of the {@link PlayerList}, so that
+     * the next turn is started with the first {@link Player}
+     */
+    public Player resetGame(PlayerList players) {
+        setTurnStatus(TurnStatus.IDLE);
+        closeAllCards();
+        players.resetAllScores();
+        View.printBoard(getPlayingField());
+        return players.getRear();
+    }
+
+    /**
+     * Restarts the {@link Game} with repositioned cards.
+     *
+     * @param players list of all players
+     * @return the rear {@link Player} of the {@link PlayerList}, so that
+     * the next turn is started with the first {@link Player}
+     */
+    public Player restartGame(PlayerList players) {
+        setTurnStatus(TurnStatus.IDLE);
+        closeAllCards();
+        playingField.shuffleBoard();
+        players.resetAllScores();
+        View.printBoard(playingField);
+        return players.getRear();
+    }
+
+    /**
+     * Adds players to the {@link PlayerList}.
+     *
+     * @param numPlayers    Number of players to be added
+     * @param playerNames   Names of the new players
+     */
+    public void addPlayers(int numPlayers, String[] playerNames) {
+        for (int i = 0; i < numPlayers; ++i) {
+            playerList.addPlayer(playerNames[i]);
+        }
+    }
+}
