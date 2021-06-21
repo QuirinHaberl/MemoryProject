@@ -79,8 +79,7 @@ Das Klasendiagramm wurde von Florian Muhrer in VisualParadigm aktualisiert.
 | #124 |I|I|I|I|I|
 
 Bitte um Beachtung: Einige Tasks sind aufwendiger als andere, es wurde aber teamintern darauf geachtet, dass der Arbeitsaufwand gerecht verteilt ist. Ebenso ist es bei den vorhandenen commits. 
-Außerdem möchte ich an dieser Stelle erwähnen, dass Jan Pfeifer unter anderem für das Verwalten des Git-Repositories zuständig war, da er von allen in diesem Bereich die meisten Kenntnisse hat. Da auch immer wieder merge-Konflikte oder falsch erstellte Branches aufgetreten sind, ist die Git-Hub Statistik an dieser Stelle nicht repräsentativ. 
-
+Außerdem möchte ich an dieser Stelle erwähnen, dass Jan Pfeifer unter anderem für das Verwalten (Mergekonflike, falsche Branchführung, usw.) des Git-Repositories zuständig war, da er von allen in diesem Bereich die meisten Kenntnisse hat.
 **Planung Iteration 4**
 
 Auswahl der User Stories für Iteration 4 aus bereits existierenden User Stories aus Iteration 1 ist gemeinsam erfolgt.
