@@ -108,4 +108,31 @@ public class Player {
     public void addScore() { // +1
         this.score++;
     }
+
+    /**
+     * Sets the name for a {@link Player}.
+     *
+     * @param name of a Model.Enums.Player
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Sets the next {@link Player}.
+     *
+     * @param next {@link Player}
+     */
+    public void setNext(Player next) {
+        this.next = next;
+    }
+
+    /**
+     * Sets the last {@link Player}.
+     *
+     * @param rear of the {@link Player}
+     */
+    public void setRear(Player rear) {
+        this.rear = rear;
+    }
 }

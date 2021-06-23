@@ -214,6 +214,7 @@ public class PlayerList {
      * @return list of all {@link Player} who have the highest {@code Model.Enums.Player
      */
     public PlayerList getWinningPlayers(PlayerList playerList) {
+        //TODO Neue Liste erstellen, die nur die führenden Spieler enthält und diese dann ausgeben
         if (front == null) {
             throw new IllegalArgumentException("There is no Model.Enums.Player now!");
         }
@@ -228,5 +229,52 @@ public class PlayerList {
             }
         }
         return playerList;
+    }
+
+    /**
+     * Increments the {@code score} a a selected {@link Player}.
+     *
+     * @param position of the {@link Player}
+     */
+    public void updatePlayerScore(int position) {
+        this.getPlayer(position).addScore();
+    }
+
+    /**
+     * Get the name of a {@link Player}.
+     *
+     * @param position of a Model.Enums.Player
+     * @return the name of a {@link Player}
+     */
+    public String getPlayerName(int position) {
+        return getPlayer(position).getName();
+    }
+
+
+    /**
+     * Gets the {@code score} of a selected {@link Player}.
+     *
+     * @param position of a {@link Player}
+     * @return the {@code score} of a {@link Player}
+     */
+    public int getPlayerScore(int position) {
+        return getPlayer(position).getScore();
+    }
+
+    /**
+     * Gets the ranking of all {@link Player}'s.
+     *
+     * @param name of the Model.Enums.Player
+     * @return the ranking of the Model.Enums.Player
+     */
+    public int getRanking(String name) {
+        //this.sort();
+        int ranking = 0;
+        for (int i = 0; i < count; i++) {
+            if (name.equals(this.getPlayer(i).name)) {
+                ranking = count - i;
+            }
+        }
+        return ranking;
     }
 }
