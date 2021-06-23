@@ -269,12 +269,21 @@ public class Game {
     /**
      * Adds players to the {@link PlayerList}.
      *
-     * @param numPlayers    Number of players to be added
-     * @param playerNames   Names of the new players
+     * @param numPlayers  Number of players to be added
+     * @param playerNames Names of the new players
      */
     public void addPlayers(int numPlayers, String[] playerNames) {
         for (int i = 0; i < numPlayers; ++i) {
             playerList.addPlayer(playerNames[i]);
         }
+    }
+
+    /**
+     * Gets the the board of a {@code playingField}.
+     *
+     * @return the board of a {@code playingField}
+     */
+    public Card[][] getBoard() {
+        return playingField.getBoard();
     }
 }
