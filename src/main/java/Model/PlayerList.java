@@ -37,22 +37,6 @@ public class PlayerList {
         return count;
     }
 
-    /**
-     * Checks, whether a name already exists.
-     *
-     * @param name of a player
-     * @return if a name is already in use
-     */
-    public boolean validateName(String name) {
-        Player current = front;
-        for (int i = 0; i < count; i++) {
-            if (current.name.equals(name)) {
-                return false;
-            }
-            current = current.next;
-        }
-        return true;
-    }
 
     /**
      * Adds a {@link Player} to the {@link PlayerList}.
@@ -60,9 +44,6 @@ public class PlayerList {
      * @param name of a player
      */
     public void addPlayer(String name) {
-        if (!(validateName(name))) {
-            throw new IllegalArgumentException("This name exists already! You should use another name!");
-        }
         Player player = new Player(name, 0, null, null);
         if (front == null) {
             front = player;
@@ -271,7 +252,7 @@ public class PlayerList {
         //this.sort();
         int ranking = 0;
         for (int i = 0; i < count; i++) {
-            if (name.equals(this.getPlayer(i).name)) {
+            if (name.equals(this.getPlayer(i).getName())) {
                 ranking = count - i;
             }
         }

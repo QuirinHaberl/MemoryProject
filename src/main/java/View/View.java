@@ -3,6 +3,8 @@ package View;
 import Model.*;
 import Model.Enums.CardStatus;
 
+import java.util.Arrays;
+
 /**
  * This class represents the view of the MVC-architecture.
  */
@@ -303,6 +305,17 @@ public final class View {
                 """);
     }
 
+    public static void printLoserMessage() {
+        System.out.println("What a pity... You've lost the game!");
+        System.out.println("""
+                 Please select by entering a command whether you want to\s
+                 return to the main menu ('menu'),\s
+                 reset the current game ('reset'),\s
+                 restart the current game ('restart') or\s
+                 quit the game ('quit')\s
+                """);
+    }
+
     /**
      * Prints all players and their scores.
      *
@@ -317,5 +330,31 @@ public final class View {
                 System.out.print(highestScore.getPlayer(i).getName());
             }
         }
+    }
+
+    /**
+     * Prints the request to adjust the single player mode settings
+     */
+    public static void printSinglePlayerModeSettings(){
+        System.out.println("You choosed the Single-Player-Mode." +
+                "To play with lifes please enter 'life' else enter 'time' to play against time.");
+    }
+
+    /**
+     * Prints the number of lifes a player has
+     *
+     * @param lifes of the player
+     */
+    public static void printLifes(int lifes){
+        System.out.println("<3 lifes: " + lifes);
+    }
+
+    /**
+     * Prints the remaining time a player has
+     *
+     * @param remainingTime of the player
+     */
+    public static void printTime(int remainingTime) {
+        System.out.println("This is your remaining time: " + remainingTime);
     }
 }
