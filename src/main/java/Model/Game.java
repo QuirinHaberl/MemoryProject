@@ -5,6 +5,9 @@ import Model.Enums.GameStatus;
 import Model.Enums.TurnStatus;
 import View.View;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * This class implements a {@link Game}.
  */
@@ -29,6 +32,45 @@ public class Game {
      * Stores a {@link Player} in the {@link PlayerList}.
      */
     private final PlayerList playerList;
+
+    /**
+     * This is a inner class for the timer of a {@link Game}.
+     * The default time is 120 seconds (2 minutes)
+     */
+    public class CountDown {
+        private int count = 120;
+        int remainingTime = count;
+
+        public int getCount() {
+            return remainingTime;
+        }
+
+        public CountDown() {
+            Timer timer = new Timer();
+            TimerTask task = new TimerTask() {
+
+                @Override
+                public void run() {
+                    remainingTime = count;
+                    if (count > 0) {
+                        count--;
+                    }
+
+                    if (count == 0) {
+                        View.printLoserMessage();
+                        count = 120;
+                        gameStatus = GameStatus.END;
+                    }
+                }
+            };
+            timer.schedule(task, 0, 1000);
+        }
+    }
+
+    /**
+     * This is the associated attribute of type CountDown for the game.
+     */
+    private CountDown time;
 
     /**
      * The constructor initiates the {@link Game}, the turn and creates a new {@link PlayingField}
@@ -286,4 +328,21 @@ public class Game {
     public Card[][] getBoard() {
         return playingField.getBoard();
     }
+
+    /**
+     * Starts the timer of the {@link Game}.
+     */
+    public void startTimer() {
+        this.time = new CountDown();
+    }
+
+    /**
+     * Gets the time of the {@link Game}.
+     *
+     * @return the time of the {@link Game}.
+     */
+    public CountDown getTime() {
+        return time;
+    }
+
 }

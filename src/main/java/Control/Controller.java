@@ -24,6 +24,11 @@ public class Controller {
     private MenuStatus menuStatus;
 
     /**
+     * Stores the current {@link SinglePlayerMode}.
+     */
+    private SinglePlayerMode singlePlayerMode;
+
+    /**
      * Constructs a new {@link Controller}.
      */
     public Controller() {
@@ -59,24 +64,35 @@ public class Controller {
      * @throws IOException on input error.
      */
     public void executeMenu(BufferedReader bufferedReader) throws IOException {
-
+        //Controls whether the player mode has already been selected
         boolean firstIssue = true;
+
         int playerAmount = 0;
 
         while (game.getGameStatus().equals(GameStatus.MENU)) {
 
             switch (menuStatus) {
 
-                //Is used to determine the number of players.
+                //Is used to determine the number of players
+                // and to set (if needed) the single player mode.
                 case PLAYERMODE -> {
                     if (firstIssue) {
                         View.printSelectPlayerAmount();
                     }
                     View.printMemory();
                     String input = bufferedReader.readLine().trim();
-                    if (selectPlayerMode(input)) {
+                    if (selectPlayerMode(input) > 1) {
                         playerAmount = Integer.parseInt(input);
                         menuStatus = MenuStatus.PLAYERNAMES;
+                        firstIssue = true;
+                    } else if (selectPlayerMode(input) == 1) {
+                        View.printSinglePlayerModeSettings();
+                        View.printMemory();
+                        String mode = bufferedReader.readLine().trim();
+                        if (handleSinglePlayerModeSettings(mode)) {
+                            playerAmount = Integer.parseInt(input);
+                            menuStatus = MenuStatus.PLAYERNAMES;
+                        }
                         firstIssue = true;
                     } else {
                         firstIssue = false;
@@ -132,6 +148,12 @@ public class Controller {
                         firstIssue = true;
                         game.setGameStatus(GameStatus.RUNNING);
                         View.printBoard(game.getPlayingField());
+
+                        //This is only for the single player mode with the setting "play on time"
+                        if(game.getPlayerList().getCount() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
+                            game.startTimer();
+                        }
+
                     } else {
                         firstIssue = false;
                     }
@@ -161,54 +183,20 @@ public class Controller {
                 int counter = 1; //Number of choices
                 View.printPlayer(player.getName());
 
+                //This is only for the single player mode with the setting "play with lifes"
+                if(game.getPlayerList().getCount() == 1 && singlePlayerMode.equals(SinglePlayerMode.LIFEPOINTS)) {
+                    View.printLifes(game.getPlayerList().getPlayer(0).getLifes());
+                }
+
+                //This is only for the single player mode with the setting "play on time"
+                if(game.getPlayerList().getCount() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
+                    View.printTime(game.getTime().getCount());
+                }
+
                 View.printMemory();
                 String input = bufferedReader.readLine().trim();
 
-                boolean saveBreak = false;
-
-                switch (input.toLowerCase()) {
-                    case "help", "h" -> {
-                        View.printHelp();
-                        saveBreak = true;
-                    }
-                    case "rules", "ru" -> {
-                        if(game.getPlayerList().getCount()>1) {
-                            View.printDescriptionMultiplayer();
-                        }
-                        else{
-                            View.printDescriptionSinglePlayer();
-                        }
-                        saveBreak = true;
-                    }
-                    case "allrules", "ar" -> {
-                        View.printDescriptionComplete();
-                        saveBreak = true;
-                    }
-                    case "found", "f" -> {
-                        View.printDiscardPile(game.getPlayerList());
-                        saveBreak = true;
-                    }
-                    case "score", "s" -> {
-                        View.printScore(game.getPlayerList());
-                        saveBreak = true;
-                    }
-                    case "menu", "m" -> {
-                        game.returnToMenu(game.getPlayerList());
-                        saveBreak = true;
-                    }
-                    case "reset", "r" -> {
-                        player = game.resetGame(game.getPlayerList());
-                        saveBreak = true;
-                    }
-                    case "restart", "rs" -> {
-                        player = game.restartGame(game.getPlayerList());
-                        saveBreak = true;
-                    }
-                    case "quit", "q" -> {
-                        game.quitGame();
-                        saveBreak = true;
-                    }
-                }
+                boolean saveBreak = handleInputsDuringGame(input, player);
 
                 if (!saveBreak) {
                     //The input is split by using spaces.
@@ -254,33 +242,13 @@ public class Controller {
                                         //game.setGameStatus(Model.Enums.GameStatus.END);
                                         View.printAllPairsFound();
                                         View.printBoard(game.getPlayingField());
-                                        PlayerList highestScore = game.getPlayerList().
-                                                getWinningPlayers(game.getPlayerList());
-                                        View.printGameSummary(highestScore, game);
+                                        String[] winningPlayers = game.getPlayerList().getWinningPlayers();
+                                        View.printGameSummary(winningPlayers, game);
                                         boolean exit = true;
                                         while (exit) {
                                             View.printMemory();
                                             String choice = bufferedReader.readLine().trim();
-                                            switch (choice.toLowerCase()) {
-                                                case "menu", "m" -> {
-                                                    game.returnToMenu(game.getPlayerList());
-                                                    exit = false;
-                                                }
-                                                case "reset", "r" -> {
-                                                    player = game.resetGame(game.getPlayerList());
-                                                    exit = false;
-                                                }
-                                                case "restart", "rs" -> {
-                                                    player = game.restartGame(game.getPlayerList());
-                                                    exit = false;
-                                                }
-                                                case "quit", "q" -> {
-                                                    game.quitGame();
-                                                    exit = false;
-                                                }
-                                                default -> View.error("No valid command "
-                                                        + "recognized");
-                                            }
+                                            exit = handleInputsAfterGame(choice, player);
                                         }
 
                                     } else {
@@ -290,6 +258,23 @@ public class Controller {
                                 } else {
                                     View.printUnequalCards();
                                     counter = counter + 1;
+
+                                    //This is only for the single player mode with the setting "play with lifes"
+                                    if(game.getPlayerList().getCount() == 1
+                                            && singlePlayerMode.equals(SinglePlayerMode.LIFEPOINTS)) {
+                                        game.getPlayerList().getPlayer(0).reduceLifes();
+
+                                        if(game.getPlayerList().getPlayer(0).getLifes() == 0){
+                                            View.printLoserMessage();
+                                            boolean exit = true;
+                                            while (exit) {
+                                                View.printMemory();
+                                                String choice = bufferedReader.readLine().trim();
+                                                exit = handleInputsAfterGame(choice, player);
+                                                game.getPlayerList().getPlayer(0).setLifes(5);
+                                            }
+                                        }
+                                    }
                                 }
                             }
                             break;
@@ -359,25 +344,22 @@ public class Controller {
      * @param input number of players selected
      * @return true if no error appeared
      */
-    public boolean selectPlayerMode(String input) {
+    public int selectPlayerMode(String input) {
         if (input.length() == 1) {
             if (input.matches("\\d")) {
                 int num = Integer.parseInt(input);
                 if (num > 4) {
                     View.error("Only a maximum of 4 players can take part");
-                    return false;
-                } else {
-                    if (num < 1) {
+                    return 0;
+                } else if (num < 1) {
                         View.error("At least 1 player must take part");
-                        return false;
-                    } else {
-                        return true;
+                        return 0;
+                    } else return num;
                     }
-                }
+
             }
-        }
         View.error("Entry was not a valid number");
-        return false;
+        return 0;
     }
 
     /**
@@ -413,6 +395,118 @@ public class Controller {
                 View.error("Selected name already taken! Please select "
                         + "another one");
                 return false;
+            }
+        }
+    }
+
+    /**
+     * Handles the Settings of the single player mode.
+     * @param mode read input
+     * @return if the setting was successful
+     */
+    public boolean handleSinglePlayerModeSettings(String mode){
+        mode = mode.toLowerCase();
+        if(!(mode.equals("life") || mode.equals("time"))){
+            View.error("You have to choose between 'time' ore 'life'");
+            return false;
+        }
+        if (mode.equals("life")){
+            singlePlayerMode = SinglePlayerMode.LIFEPOINTS;
+            return true;
+        } else if(mode.equals("time")){
+            singlePlayerMode = SinglePlayerMode.TIME;
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Handles the read inputs during a game and passes on the choises
+     * TODO Versuch die Befehle in eine Methode zu packen.
+     *  Gerne nochmal überarbeiten!
+     *
+     * @param input is the command which should be handled.
+     * @param player the affected player
+     */
+    public boolean handleInputsDuringGame(String input, Player player) {
+        boolean saveBreak = false;
+        switch (input.toLowerCase()) {
+            case "help", "h" -> {
+                View.printHelp();
+                saveBreak = true;
+            }
+            case "rules", "ru" -> {
+                if(game.getPlayerList().getCount()>1) {
+                    View.printDescriptionMultiplayer();
+                }
+                else{
+                    View.printDescriptionSinglePlayer();
+                }
+                saveBreak = true;
+            }
+            case "allrules", "ar" -> {
+                View.printDescriptionComplete();
+                saveBreak = true;
+            }
+            case "found", "f" -> {
+                View.printDiscardPile(game.getPlayerList());
+                saveBreak = true;
+            }
+            case "score", "s" -> {
+                View.printScore(game.getPlayerList());
+                saveBreak = true;
+            }
+            case "menu", "m" -> {
+                game.returnToMenu(game.getPlayerList());
+                saveBreak = true;
+            }
+            case "reset", "r" -> {
+                player = game.resetGame(game.getPlayerList());
+                saveBreak = true;
+            }
+            case "restart", "rs" -> {
+                player = game.restartGame(game.getPlayerList());
+                saveBreak = true;
+            }
+            case "quit", "q" -> {
+                game.quitGame();
+                saveBreak = true;
+            }
+        }
+        return saveBreak;
+    }
+
+    /**
+     * Handles the read inputs during a game and passes on the choises
+     * TODO Versuch die Befehle in eine Methode zu packen.
+     *  Gerne nochmal überarbeiten!
+     *
+     * @param input is the command which should be handled.
+     * @param player the affected player
+     * @return the exit value
+     */
+    public boolean handleInputsAfterGame(String input, Player player){
+        switch (input.toLowerCase()) {
+            case "menu", "m" -> {
+                game.returnToMenu(game.getPlayerList());
+                return false;
+            }
+            case "reset", "r" -> {
+                player = game.resetGame(game.getPlayerList());
+                return false;
+            }
+            case "restart", "rs" -> {
+                player = game.restartGame(game.getPlayerList());
+                return false;
+            }
+            case "quit", "q" -> {
+                game.quitGame();
+                return false;
+            }
+            default -> {
+                View.error("No valid command "
+                        + "recognized");
+                return true;
             }
         }
     }

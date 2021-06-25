@@ -10,12 +10,19 @@ public class Player {
     /**
      * Stores the name of a {@link Player}.
      */
-    String name;
+    private String name;
 
     /**
      * Stores the score of a {@link Player}.
      */
-    int score;
+    private int score;
+
+    /**
+     * Stores the lifes of a {@link Player}.
+     * The default number of lifes is 5.
+     */
+    private int lifes = 5;
+
 
     /**
      * Stores the next {@link Player}.
@@ -134,5 +141,31 @@ public class Player {
      */
     public void setRear(Player rear) {
         this.rear = rear;
+    }
+
+    /**
+     * Gets the lifes of a {@link Player}.
+     *
+     * @return the lifes of a {@link Player}.
+     */
+    public int getLifes() {
+        return lifes;
+    }
+
+    /**
+     * Reduces the lifes of a {@link Player}.
+     *
+     */
+    public void reduceLifes() {
+        this.lifes = lifes - 1;
+    }
+
+    /**
+     * Sets the lifes of a {@link Player}.
+     *
+     * @param lifes of a {@link Player}.
+     */
+    public void setLifes(int lifes) {
+        this.lifes = lifes;
     }
 }

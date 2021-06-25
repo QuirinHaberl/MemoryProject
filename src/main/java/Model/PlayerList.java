@@ -37,22 +37,6 @@ public class PlayerList {
         return count;
     }
 
-    /**
-     * Checks, whether a name already exists.
-     *
-     * @param name of a player
-     * @return if a name is already in use
-     */
-    public boolean validateName(String name) {
-        Player current = front;
-        for (int i = 0; i < count; i++) {
-            if (current.name.equals(name)) {
-                return false;
-            }
-            current = current.next;
-        }
-        return true;
-    }
 
     /**
      * Adds a {@link Player} to the {@link PlayerList}.
@@ -60,9 +44,6 @@ public class PlayerList {
      * @param name of a player
      */
     public void addPlayer(String name) {
-        if (!(validateName(name))) {
-            throw new IllegalArgumentException("This name exists already! You should use another name!");
-        }
         Player player = new Player(name, 0, null, null);
         if (front == null) {
             front = player;
@@ -192,43 +173,50 @@ public class PlayerList {
     /**
      * Gets the current highest {@code score} of all {@link Player}'s.
      *
-     * @return highest {@code score}
+     * @return highest {@code score} and how many players reached this score
      */
-    public int getHighestScore() {
-        if (front == null) {
-            throw new IllegalArgumentException("There is no Model.Enums.Player now!");
-        }
+    public int[] getHighestScore() {
+        int num = 0; //counts how many players have reached the highest score
         int highestScore = front.getScore();
-        for (int i = 0; i < count - 1; i++) {
-            if (getPlayer(i).getNext().getScore() > highestScore) {
-                highestScore = getPlayer(i).getNext().getScore();
+
+        for (int i = 1; i < count; i++) {
+            if (getPlayerScore(i) > highestScore) {
+                highestScore = getPlayerScore(i);
             }
         }
-        return highestScore;
+
+        for (int j = 0; j < count; j++) {
+            if (getPlayerScore(j) == highestScore) {
+                num = num + 1;
+            }
+        }
+
+        int[] scoreInformation = {highestScore, num};
+        return scoreInformation;
     }
 
     /**
      * Gets all {@link Player}'s with the highest {@code score}.
      *
-     * @param playerList the list of all current players
      * @return list of all {@link Player} who have the highest {@code Model.Enums.Player
      */
-    public PlayerList getWinningPlayers(PlayerList playerList) {
-        //TODO Neue Liste erstellen, die nur die führenden Spieler enthält und diese dann ausgeben
-        if (front == null) {
-            throw new IllegalArgumentException("There is no Model.Enums.Player now!");
-        }
-        int highestScore = getHighestScore();
+    public String[] getWinningPlayers() {
+        int num = getHighestScore()[1]; // num of players who reached the highest score
+        int highestScore = getHighestScore()[0];
+        String[] winningPlayers = new String [num];
+        int j = 0;
 
-        for (Player player = playerList.front;
-             player.next != front; player = player.next) {
-
-            if (player.getScore() != highestScore) {
-                int pos = getPlayerPosition(player);
-                deletePlayer(pos);
+        for (int i = 0; i < getCount(); i++) {
+            if (getPlayerScore(i) == highestScore) {
+                winningPlayers[j] = getPlayerName(i);
+                if(j < num) {
+                    j = j+1;
+                } else break;
             }
         }
-        return playerList;
+
+        return winningPlayers;
+
     }
 
     /**
@@ -271,7 +259,7 @@ public class PlayerList {
         //this.sort();
         int ranking = 0;
         for (int i = 0; i < count; i++) {
-            if (name.equals(this.getPlayer(i).name)) {
+            if (name.equals(this.getPlayer(i).getName())) {
                 ranking = count - i;
             }
         }

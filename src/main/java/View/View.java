@@ -290,10 +290,21 @@ public final class View {
      * @param highestScore the highest score a player reached
      * @param game         which has been played
      */
-    public static void printGameSummary(PlayerList highestScore, Game game) {
-        printPlayerList(highestScore);
+    public static void printGameSummary(String[] highestScore, Game game) {
+        printWinningPlayers(highestScore);
         System.out.print(" won the game with a score of ");
-        System.out.println(game.getPlayerList().getHighestScore());
+        System.out.println(game.getPlayerList().getHighestScore()[0]);
+        System.out.println("""
+                 Please select by entering a command whether you want to\s
+                 return to the main menu ('menu'),\s
+                 reset the current game ('reset'),\s
+                 restart the current game ('restart') or\s
+                 quit the game ('quit')\s
+                """);
+    }
+
+    public static void printLoserMessage() {
+        System.out.println("What a pity... You've lost the game!");
         System.out.println("""
                  Please select by entering a command whether you want to\s
                  return to the main menu ('menu'),\s
@@ -306,16 +317,41 @@ public final class View {
     /**
      * Prints all players and their scores.
      *
-     * @param highestScore the highest score a player reached
+     * @param winningPlayers the highest score a player reached
      */
-    public static void printPlayerList(PlayerList highestScore) {
-        int count = highestScore.getCount();
-        for (int i = 0; i < count; i++) {
-            if (i != count - 1) {
-                System.out.print(highestScore.getPlayer(i).getName() + " and ");
+    public static void printWinningPlayers(String[] winningPlayers) {
+        for (int i = 0; i < winningPlayers.length; i++) {
+            if (i != winningPlayers.length - 1) {
+                System.out.print(winningPlayers[i] + " and ");
             } else {
-                System.out.print(highestScore.getPlayer(i).getName());
+                System.out.print(winningPlayers[i]);
             }
         }
+    }
+
+    /**
+     * Prints the request to adjust the single player mode settings
+     */
+    public static void printSinglePlayerModeSettings(){
+        System.out.println("You choosed the Single-Player-Mode." +
+                "To play with lifes please enter 'life' else enter 'time' to play against time.");
+    }
+
+    /**
+     * Prints the number of lifes a player has
+     *
+     * @param lifes of the player
+     */
+    public static void printLifes(int lifes){
+        System.out.println("<3 lifes: " + lifes);
+    }
+
+    /**
+     * Prints the remaining time a player has
+     *
+     * @param remainingTime of the player
+     */
+    public static void printTime(int remainingTime) {
+        System.out.println("This is your remaining time: " + remainingTime);
     }
 }
