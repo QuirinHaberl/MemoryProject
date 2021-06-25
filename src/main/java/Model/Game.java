@@ -39,10 +39,10 @@ public class Game {
      */
     public class CountDown {
         private int count = 120;
-        int[] remainingTime = {count};
+        int remainingTime = count;
 
         public int getCount() {
-            return remainingTime[0];
+            return remainingTime;
         }
 
         public CountDown() {
@@ -51,7 +51,7 @@ public class Game {
 
                 @Override
                 public void run() {
-                    remainingTime[0] = count;
+                    remainingTime = count;
                     if (count > 0) {
                         count--;
                     }

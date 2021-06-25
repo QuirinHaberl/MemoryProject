@@ -3,8 +3,6 @@ package View;
 import Model.*;
 import Model.Enums.CardStatus;
 
-import java.util.Arrays;
-
 /**
  * This class represents the view of the MVC-architecture.
  */
@@ -292,10 +290,10 @@ public final class View {
      * @param highestScore the highest score a player reached
      * @param game         which has been played
      */
-    public static void printGameSummary(PlayerList highestScore, Game game) {
-        printPlayerList(highestScore);
+    public static void printGameSummary(String[] highestScore, Game game) {
+        printWinningPlayers(highestScore);
         System.out.print(" won the game with a score of ");
-        System.out.println(game.getPlayerList().getHighestScore());
+        System.out.println(game.getPlayerList().getHighestScore()[0]);
         System.out.println("""
                  Please select by entering a command whether you want to\s
                  return to the main menu ('menu'),\s
@@ -319,15 +317,14 @@ public final class View {
     /**
      * Prints all players and their scores.
      *
-     * @param highestScore the highest score a player reached
+     * @param winningPlayers the highest score a player reached
      */
-    public static void printPlayerList(PlayerList highestScore) {
-        int count = highestScore.getCount();
-        for (int i = 0; i < count; i++) {
-            if (i != count - 1) {
-                System.out.print(highestScore.getPlayer(i).getName() + " and ");
+    public static void printWinningPlayers(String[] winningPlayers) {
+        for (int i = 0; i < winningPlayers.length; i++) {
+            if (i != winningPlayers.length - 1) {
+                System.out.print(winningPlayers[i] + " and ");
             } else {
-                System.out.print(highestScore.getPlayer(i).getName());
+                System.out.print(winningPlayers[i]);
             }
         }
     }

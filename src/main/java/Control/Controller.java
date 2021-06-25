@@ -242,9 +242,8 @@ public class Controller {
                                         //game.setGameStatus(Model.Enums.GameStatus.END);
                                         View.printAllPairsFound();
                                         View.printBoard(game.getPlayingField());
-                                        PlayerList highestScore = game.getPlayerList().
-                                                getWinningPlayers(game.getPlayerList());
-                                        View.printGameSummary(highestScore, game);
+                                        String[] winningPlayers = game.getPlayerList().getWinningPlayers();
+                                        View.printGameSummary(winningPlayers, game);
                                         boolean exit = true;
                                         while (exit) {
                                             View.printMemory();
