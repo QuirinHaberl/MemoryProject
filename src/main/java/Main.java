@@ -1,4 +1,5 @@
 import Control.Controller;
+import Control.Database;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,8 +17,10 @@ public class Main {
      * @throws IOException on input error.
      */
     public static void main(String[] args) throws IOException {
-        Controller controller = new Controller();
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        controller.execute(bufferedReader);
+        Database save = new Database();
+        save.getPlayerHistory();
+        //Controller controller = new Controller();
+        //BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        //controller.execute(bufferedReader);
     }
 }
