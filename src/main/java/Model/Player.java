@@ -23,6 +23,10 @@ public class Player {
      */
     private int lifes = 5;
 
+    /**
+     * Stores the achievments of a {@link Player}
+     */
+    private Achievements achievements = new Achievements();
 
     /**
      * Stores the next {@link Player}.
@@ -154,7 +158,6 @@ public class Player {
 
     /**
      * Reduces the lifes of a {@link Player}.
-     *
      */
     public void reduceLifes() {
         this.lifes = lifes - 1;
@@ -167,5 +170,14 @@ public class Player {
      */
     public void setLifes(int lifes) {
         this.lifes = lifes;
+    }
+
+    /**
+     * Gets the earned achievements of a {@link Player}.
+     *
+     * @return the earned achievements of a {@link Player}
+     */
+    public Achievements getAchievements() {
+        return achievements;
     }
 }

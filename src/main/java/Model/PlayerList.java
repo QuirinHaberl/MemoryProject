@@ -198,25 +198,23 @@ public class PlayerList {
     /**
      * Gets all {@link Player}'s with the highest {@code score}.
      *
-     * @return list of all {@link Player} who have the highest {@code Model.Enums.Player
+     * @return list of all {@link Player} who have the highest {@code score}
      */
-    public String[] getWinningPlayers() {
+    public String[] winningPlayersToString() {
         int num = getHighestScore()[1]; // num of players who reached the highest score
         int highestScore = getHighestScore()[0];
-        String[] winningPlayers = new String [num];
+        String[] winningPlayers = new String[num];
         int j = 0;
 
         for (int i = 0; i < getCount(); i++) {
             if (getPlayerScore(i) == highestScore) {
                 winningPlayers[j] = getPlayerName(i);
-                if(j < num) {
-                    j = j+1;
+                if (j < num) {
+                    j = j + 1;
                 } else break;
             }
         }
-
         return winningPlayers;
-
     }
 
     /**
