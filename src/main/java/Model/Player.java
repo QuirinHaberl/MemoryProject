@@ -172,15 +172,12 @@ public class Player {
         this.lifes = lifes;
     }
 
+    /**
+     * Gets the earned achievements of a {@link Player}.
+     *
+     * @return the earned achievements of a {@link Player}
+     */
     public Achievements getAchievements() {
         return achievements;
-    }
-
-    public void setAchievements(Achievements achievements) {
-        this.achievements = achievements;
-    }
-
-    public void setFoundCards(List<Card> foundCards) {
-        this.foundCards = foundCards;
     }
 }

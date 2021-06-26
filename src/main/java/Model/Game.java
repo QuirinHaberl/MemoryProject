@@ -5,6 +5,7 @@ import Model.Enums.GameStatus;
 import Model.Enums.TurnStatus;
 import View.View;
 
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -41,10 +42,17 @@ public class Game {
         private int count = 120;
         int remainingTime = count;
 
+        /**
+         * //TODO fehlt noch
+         * @return
+         */
         public int getCount() {
             return remainingTime;
         }
 
+        /**
+         * //TODO fehlt noch
+         */
         public CountDown() {
             Timer timer = new Timer();
             TimerTask task = new TimerTask() {
@@ -345,4 +353,19 @@ public class Game {
         return time;
     }
 
+    /**
+     * Loads all existing profiles for the current players.
+     *
+     * @param playerProfiles to be used
+     */
+    public void useProfile(List<String[]> playerProfiles) {
+        for (int i = 0; i < playerList.getCount(); i++) {
+            for (String[] playerProfile : playerProfiles) {
+                if (playerList.getPlayer(i).getName().equals(playerProfile[0])) {
+                    playerList.getPlayer(i).getAchievements().setHighScore(Integer.parseInt(playerProfiles.get(i)[1]));
+                    playerList.getPlayer(i).getAchievements().setHighScore(Integer.parseInt(playerProfiles.get(i)[2]));
+                }
+            }
+        }
+    }
 }

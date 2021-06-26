@@ -17,10 +17,8 @@ public class Main {
      * @throws IOException on input error.
      */
     public static void main(String[] args) throws IOException {
-        Database save = new Database();
-        save.getPlayerHistory();
-        //Controller controller = new Controller();
-        //BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        //controller.execute(bufferedReader);
+        Controller controller = new Controller();
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        controller.execute(bufferedReader);
     }
 }

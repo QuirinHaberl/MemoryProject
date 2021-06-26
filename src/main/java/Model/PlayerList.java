@@ -198,7 +198,7 @@ public class PlayerList {
     /**
      * Gets all {@link Player}'s with the highest {@code score}.
      *
-     * @return list of all {@link Player} who have the highest {@code Model.Enums.Player
+     * @return list of all {@link Player} who have the highest {@code score}
      */
     public String[] winningPlayersToString() {
         int num = getHighestScore()[1]; // num of players who reached the highest score

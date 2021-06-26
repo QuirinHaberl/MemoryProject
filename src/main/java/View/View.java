@@ -303,7 +303,10 @@ public final class View {
         System.out.println("Cards are not equal!");
     }
 
-
+    /**
+     * //TODO fehlt noch
+     * @param index
+     */
     public static void printPlayernameRequest(int index) {
         System.out.println("Player" + index + " enter your preferred name or"
                 + " the command 'noName' (if you don't want to choose a name):");
@@ -328,6 +331,9 @@ public final class View {
                 """);
     }
 
+    /**
+     * //TODO fehlt noch
+     */
     public static void printLoserMessage() {
         System.out.println("What a pity... You've lost the game!");
         System.out.println("""

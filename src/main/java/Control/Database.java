@@ -1,73 +1,122 @@
 package Control;
 
-import java.io.*;
+import Model.PlayerList;
 
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * The class {@link Database} controls the storage of playerProfiles.
+ */
 public class Database {
+
+    /**
+     * Stores the path to profiles.csv.
+     */
+    private final String path = "profiles/profiles.csv";
+
+    /**
+     * Stores the FileReader.
+     */
     private FileReader fr;
+
+    /**
+     * Stores the FileOutputStream.
+     */
     private FileOutputStream fos;
+
+    /**
+     * Stores the PrintWriter.
+     */
     private PrintWriter pw;
+
+    /**
+     * Stores the BufferedReader.
+     */
     private BufferedReader br;
 
+    /**
+     * Stores all playerProfiles
+     */
+    private List<String[]> playerProfiles;
+
+    /**
+     * Constructs a new database-object.
+     */
     public Database() {
         try {
-            this.fr = new FileReader("profiles/players.txt");
+            this.fr = new FileReader(path);
             this.br = new BufferedReader(fr);
-            this.fos = new FileOutputStream("profiles/players.txt", true);
+
+            this.playerProfiles = new ArrayList<>();
+            loadPlayerProfiles();
+
+            this.fos = new FileOutputStream(path);
             this.pw = new PrintWriter(fos);
+
         } catch (IOException e) {
             System.out.println("File does not exist");
         }
     }
 
-    public void updatePlayer(String playerHistory) {
-        getPw().println();
-        getPw().close();
-    }
+    /**
+     * Loads all existing playerProfiles out of profiles.csv.
+     *
+     * @throws IOException if profiles.csv is not found
+     */
+    public void loadPlayerProfiles() throws IOException {
+        String[] values;
+        String playerInfo;
+        int pos = 0;
 
-    public void getPlayerHistory() throws IOException {
-        pw.println(1);
-        pw.println(2);
-        pw.println(3);
-        pw.println(4);
-        pw.println(5);
-        pw.close();
-        String str = "";
-        while (!((str = br.readLine()) == null)) {
-            System.out.println(str);
+        while (!((playerInfo = br.readLine()) == null)) {
+            values = playerInfo.split(";");
+
+            playerProfiles.add(pos, values);
+            pos++;
         }
         br.close();
     }
 
+    /**
+     * Stores all updated playerProfiles in profiles.csv.
+     *
+     * @param playerList contains all players of the current game
+     */
+    public void storePlayerProfiles(PlayerList playerList) {
+        for (String[] playerProfile : playerProfiles) {
+            pw.println(playerProfile[0] + ";" +
+                    playerProfile[1] + ";" +
+                    playerProfile[2] + ";");
+        }
 
-    public FileReader getFr() {
-        return fr;
+        boolean playerHasNoProfile;
+
+        for (int i = 0; i < playerList.getCount(); i++) {
+            playerHasNoProfile = true;
+            for (String[] playerProfile : playerProfiles) {
+                if (playerList.getPlayer(i).getName().equals(playerProfile[0])) {
+                    playerHasNoProfile = false;
+                    break;
+                }
+            }
+            if (playerHasNoProfile) {
+                //TODO Highscore muss angepasst werden
+                pw.println(playerList.getPlayer(i).getName() + ";" +
+                        playerList.getPlayer(i).getScore() + ";" +
+                        playerList.getPlayer(i).getAchievements().getGameCounter());
+            }
+        }
+        pw.close();
     }
 
-    public void setFr(FileReader fr) {
-        this.fr = fr;
-    }
-
-    public FileOutputStream getFos() {
-        return fos;
-    }
-
-    public void setFos(FileOutputStream fos) {
-        this.fos = fos;
-    }
-
-    public BufferedReader getBr() {
-        return br;
-    }
-
-    public void setBr(BufferedReader br) {
-        this.br = br;
-    }
-
-    public PrintWriter getPw() {
-        return pw;
-    }
-
-    public void setPw(PrintWriter pw) {
-        this.pw = pw;
+    /**
+     * Gets all playerProfiles
+     *
+     * @return all playerProfiles
+     */
+    public List<String[]> getPlayerProfiles() {
+        return playerProfiles;
     }
 }

@@ -1,18 +1,49 @@
 package Model;
 
+/**
+ * The class {@link Achievements} keeps track of every {@link Player}'s achievements
+ */
 public class Achievements {
 
+    /**
+     * Stores the amount of total pairs found.
+     */
     int pairCounterTotal;
+
+    /**
+     * Stores the amount of pairs found in a streak.
+     */
     int pairCounterStreak;
+
+    /**
+     * Stores the highScore.
+     */
+    int highScore;
+
+    /**
+     * Stores the amount of total games won.
+     */
     int gameCounter;
+
+    /**
+     * Stores the text for the current achievement.
+     */
     String currentAchievements;
 
+    /**
+     * Constructs a new achievement
+     */
     public Achievements() {
         this.pairCounterTotal = 0;
         this.gameCounter = 0;
     }
 
-
+    /**
+     * Updates all instance-achievements.
+     * An instance-achievement can be earned in every game.
+     *
+     * @return weather a new achievement was earned
+     */
     public boolean updateInstanceAchievements() {
         updatePairCounters();
         clearCurrentAchievement();
@@ -21,6 +52,9 @@ public class Achievements {
         return !(currentAchievements.isEmpty());
     }
 
+    /**
+     * Checks weather a new milestone was hit regarding found pairs in total.
+     */
     public void checkFoundPairsTotal() {
         if (pairCounterTotal == 2) {
             currentAchievements = currentAchievements + "Found two pairs in total!\n";
@@ -31,6 +65,9 @@ public class Achievements {
         }
     }
 
+    /**
+     * Checks weather a new milestone was hit regarding found pairs in a row.
+     */
     public void checkFoundPairsStreak() {
         if (pairCounterStreak == 2) {
             currentAchievements = currentAchievements + "Found two pairs in a row!\n";
@@ -41,15 +78,27 @@ public class Achievements {
         }
     }
 
+    /**
+     * Updates the amount of pairs found.
+     */
     public void updatePairCounters() {
         pairCounterTotal++;
         pairCounterStreak++;
     }
 
+    /**
+     * Removes the text of the last earned achievement.
+     */
     public void clearCurrentAchievement() {
         currentAchievements = "";
     }
 
+    /**
+     * Updates all global-achievements.
+     * A global-achievement can be earned once.
+     *
+     * @return weather a new achievement was earned
+     */
     public boolean updateGlobalAchievements() {
         gameCounter++;
         clearCurrentAchievement();
@@ -57,6 +106,9 @@ public class Achievements {
         return !(currentAchievements.isEmpty());
     }
 
+    /**
+     * Checks weather a new milestone was hit regarding won games.
+     */
     public void checkGamesWon() {
         if (gameCounter == 1) {
             currentAchievements = currentAchievements + "won a game!\n";
@@ -66,23 +118,37 @@ public class Achievements {
         }
     }
 
+    /**
+     * Gets the current achievement.
+     *
+     * @return the current achievement
+     */
     public String getCurrentAchievement() {
         return currentAchievements;
     }
 
-    public void setCurrentAchievement(String currentAchievement) {
-        this.currentAchievements = currentAchievement;
-    }
-
-    public int getPairCounterStreak() {
-        return pairCounterStreak;
-    }
-
-    public void setPairCounterStreak(int pairCounterStreak) {
-        this.pairCounterStreak = pairCounterStreak;
-    }
-
+    /**
+     * Resets the streak of found pairs.
+     */
     public void resetPairCounterStreak() {
         this.pairCounterStreak = 0;
+    }
+
+    /**
+     * Sets a new highScore
+     *
+     * @param highScore to be set
+     */
+    public void setHighScore(int highScore) {
+        this.highScore = highScore;
+    }
+
+    /**
+     * Gets the number of won games.
+     *
+     * @return the number of won games.
+     */
+    public int getGameCounter() {
+        return gameCounter;
     }
 }

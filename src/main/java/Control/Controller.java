@@ -7,7 +7,6 @@ import View.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * The controller of the MVC-architecture.
@@ -30,11 +29,17 @@ public class Controller {
     private SinglePlayerMode singlePlayerMode;
 
     /**
+     * Stores player-profiles
+     */
+    Database database;
+
+    /**
      * Constructs a new {@link Controller}.
      */
     public Controller() {
         this.game = new Game();
         this.menuStatus = MenuStatus.PLAYERMODE;
+        database = new Database();
     }
 
     /**
@@ -117,6 +122,7 @@ public class Controller {
                         }
                     }
                     game.addPlayers(playerAmount, playerNames);
+                    game.useProfile(database.getPlayerProfiles());
                     menuStatus = MenuStatus.BOARDSIZE;
                 }
 
@@ -246,6 +252,7 @@ public class Controller {
                                         checkForAchievements(game.getPlayerList());
 
                                         String[] winningPlayers = game.getPlayerList().winningPlayersToString();
+                                        storeProgress();
                                         View.printGameSummary(winningPlayers, game);
 
                                         boolean exit = true;
@@ -297,13 +304,22 @@ public class Controller {
         }
     }
 
-
+    /**
+     * Checks weather a {@link Player} has earned a new achievement
+     *
+     * @param player who is being checked
+     */
     public void checkForAchievements(Player player) {
         if (player.getAchievements().updateInstanceAchievements()) {
             View.printAchievement(player.getAchievements().getCurrentAchievement(), player);
         }
     }
 
+    /**
+     * Checks weather multiple players have earned an achievement.
+     *
+     * @param players who are being checked
+     */
     public void checkForAchievements(PlayerList players) {
         int highestScore = players.getHighestScore()[0];
 
@@ -455,6 +471,7 @@ public class Controller {
      *
      * @param input  is the command which should be handled.
      * @param player the affected player
+     * @return savebreak
      */
     public boolean handleInputsDuringGame(String input, Player player) {
         boolean saveBreak = false;
@@ -500,6 +517,7 @@ public class Controller {
                 saveBreak = true;
             }
             case "quit", "q" -> {
+                database.storePlayerProfiles(game.getPlayerList());
                 game.quitGame();
                 saveBreak = true;
             }
@@ -542,5 +560,10 @@ public class Controller {
         }
     }
 
-
+    /**
+     * Stores the progress of the current players in their playerProfiles.
+     */
+    public void storeProgress() {
+        database.storePlayerProfiles(game.getPlayerList());
+    }
 }
