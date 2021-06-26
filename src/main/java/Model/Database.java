@@ -1,6 +1,4 @@
-package Control;
-
-import Model.PlayerList;
+package Model;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -14,7 +12,7 @@ public class Database {
     /**
      * Stores the path to profiles.csv.
      */
-    private final String path = "profiles/profiles.csv";
+    private final String path = "src/main/resources/profiles.csv";
 
     /**
      * Stores the FileReader.

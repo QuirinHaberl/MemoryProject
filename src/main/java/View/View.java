@@ -3,6 +3,9 @@ package View;
 import Model.*;
 import Model.Enums.CardStatus;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * This class represents the view of the MVC-architecture.
  */
@@ -214,9 +217,28 @@ public final class View {
      * @param players list of all players
      */
     public static void printScore(PlayerList players) {
+        String[] playerNames = new String[players.getCount()];
+        int[] scores = new int[players.getCount()];
         for (int i = 0; i < players.getCount(); i++) {
-            System.out.println("[" + players.getPlayer(i).getName() + ": "
-                    + players.getPlayer(i).getScore() + "]");
+            playerNames[i] = players.getPlayer(i).getName();
+            scores[i] = players.getPlayer(i).getScore();
+        }
+        //Insertion sort
+        for (int i = 1; i < scores.length; i++) {
+            int currentElement = scores[i];
+            String currentName = playerNames[i];
+            int j = i;
+            while (j > 0 && currentElement < scores[j - 1]) {
+                scores[j] = scores[j - 1];
+                playerNames[j] = playerNames[j - 1];
+                j--;
+            }
+            scores[j] = currentElement;
+            playerNames[j] = currentName;
+        }
+        for (int i = 0; i < players.getCount(); i++) {
+            System.out.println("[" + playerNames[i] + ": "
+                    + scores[i] + "]");
         }
     }
 
@@ -315,13 +337,13 @@ public final class View {
     /**
      * Prints the winner notification and the description of the next input options.
      *
-     * @param highestScore the highest score a player reached
-     * @param game         which has been played
+     * @param winningPlayers    of the current game
+     * @param highestScore      the highest score a player reached
      */
-    public static void printGameSummary(String[] highestScore, Game game) {
-        printWinningPlayers(highestScore);
+    public static void printGameSummary(String[] winningPlayers, int highestScore) {
+        printWinningPlayers(winningPlayers);
         System.out.print(" won the game with a score of ");
-        System.out.println(game.getPlayerList().getHighestScore()[0]);
+        System.out.println(highestScore);
         System.out.println("""
                  Please select by entering a command whether you want to\s
                  return to the main menu ('menu'),\s

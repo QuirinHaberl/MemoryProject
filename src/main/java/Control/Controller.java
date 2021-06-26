@@ -6,6 +6,7 @@ import Model.Enums.GameStatus;
 import View.*;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -17,6 +18,11 @@ public class Controller {
      * Stores the current {@link Game}.
      */
     private final Game game;
+
+    /**
+     * Stores the current {@link HighScoreHistory}.
+     */
+    private HighScoreHistory highScoreHistory;
 
     /**
      * Stores the current {@link MenuStatus}.
@@ -38,6 +44,7 @@ public class Controller {
      */
     public Controller() {
         this.game = new Game();
+        this.highScoreHistory = new HighScoreHistory();
         this.menuStatus = MenuStatus.PLAYERMODE;
         database = new Database();
     }
@@ -248,12 +255,14 @@ public class Controller {
                                     if (game.areAllCardsOpen()) {
                                         View.printAllPairsFound();
                                         View.printBoard(game.getPlayingField());
-
                                         checkForAchievements(game.getPlayerList());
-
                                         String[] winningPlayers = game.getPlayerList().winningPlayersToString();
+                                        int[] highScore =
+                                                game.getPlayerList().getHighestScore();
                                         storeProgress();
-                                        View.printGameSummary(winningPlayers, game);
+                                        View.printGameSummary(winningPlayers,
+                                                highScore[0]);
+                                        highScoreHistory.updateHighScoreHistory(winningPlayers, highScore[0]);
 
                                         boolean exit = true;
                                         while (exit) {
@@ -520,6 +529,11 @@ public class Controller {
                 database.storePlayerProfiles(game.getPlayerList());
                 game.quitGame();
                 saveBreak = true;
+                try {
+                    highScoreHistory.saveHighScoreHistory();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
         }
         return saveBreak;
@@ -550,6 +564,11 @@ public class Controller {
             }
             case "quit", "q" -> {
                 game.quitGame();
+                try {
+                    highScoreHistory.saveHighScoreHistory();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
                 return false;
             }
             default -> {
