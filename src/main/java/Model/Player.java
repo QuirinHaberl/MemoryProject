@@ -23,6 +23,10 @@ public class Player {
      */
     private int lifes = 5;
 
+    /**
+     * Stores the achievments of a {@link Player}
+     */
+    private Achievements achievements = new Achievements();
 
     /**
      * Stores the next {@link Player}.
@@ -154,7 +158,6 @@ public class Player {
 
     /**
      * Reduces the lifes of a {@link Player}.
-     *
      */
     public void reduceLifes() {
         this.lifes = lifes - 1;
@@ -167,5 +170,17 @@ public class Player {
      */
     public void setLifes(int lifes) {
         this.lifes = lifes;
+    }
+
+    public Achievements getAchievements() {
+        return achievements;
+    }
+
+    public void setAchievements(Achievements achievements) {
+        this.achievements = achievements;
+    }
+
+    public void setFoundCards(List<Card> foundCards) {
+        this.foundCards = foundCards;
     }
 }

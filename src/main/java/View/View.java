@@ -39,6 +39,31 @@ public final class View {
     }
 
     /**
+     * Prints the current {@code playingField}.
+     *
+     * @param playingField current {@link PlayingField}
+     */
+    public static void cheat(PlayingField playingField) {
+        StringBuilder line = new StringBuilder("  ");
+        for (int i = 0; i < playingField.getBoard().length; i++) {
+            line.append(i).append(" ");
+        }
+        for (int row = 0; row < playingField.getBoard().length; row++) {
+            line = new StringBuilder(line + "\n" + row + " ");
+            for (int col = 0; col < playingField.getBoard()[row].length; col++) {
+                if (playingField.getBoard()[row][col].getCardStatus().equals(CardStatus.OPEN)) {
+                    line.append(playingField.getBoard()[row][col].visualizeCard()).append(" ");
+                } else if (playingField.getBoard()[row][col].getCardStatus().equals(CardStatus.CLOSED)) {
+                    line.append(playingField.getBoard()[row][col].visualizeCard()).append(" ");
+                } else if (playingField.getBoard()[row][col].getCardStatus().equals(CardStatus.FOUND)) {
+                    line.append("  ");
+                }
+            }
+        }
+        System.out.println(line);
+    }
+
+    /**
      * Print all {@link Card}'s a {@link Player} has found.
      *
      * @param players current {@link PlayerList}
@@ -332,7 +357,7 @@ public final class View {
     /**
      * Prints the request to adjust the single player mode settings
      */
-    public static void printSinglePlayerModeSettings(){
+    public static void printSinglePlayerModeSettings() {
         System.out.println("You choosed the Single-Player-Mode." +
                 "To play with lifes please enter 'life' else enter 'time' to play against time.");
     }
@@ -342,7 +367,7 @@ public final class View {
      *
      * @param lifes of the player
      */
-    public static void printLifes(int lifes){
+    public static void printLifes(int lifes) {
         System.out.println("<3 lifes: " + lifes);
     }
 
@@ -353,5 +378,16 @@ public final class View {
      */
     public static void printTime(int remainingTime) {
         System.out.println("This is your remaining time: " + remainingTime);
+    }
+
+    /**
+     * Prints an achievement a player has earned.
+     *
+     * @param specification achievement to be printed
+     * @param player        who has earned an achievement
+     */
+    public static void printAchievement(String specification, Player player) {
+        System.out.println("\n" + player.getName() + " has new achievements: ");
+        System.out.println(specification);
     }
 }
