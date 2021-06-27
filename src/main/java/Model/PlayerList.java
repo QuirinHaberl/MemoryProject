@@ -37,6 +37,22 @@ public class PlayerList {
         return count;
     }
 
+    /**
+     * Checks, whether a name already exists.
+     *
+     * @param name of a player
+     * @return if a name is already in use
+     */
+    public boolean validateName(String name) {
+        Player current = front;
+        for (int i = 0; i < count; i++) {
+            if (current.name.equals(name)) {
+                return false;
+            }
+            current = current.next;
+        }
+        return true;
+    }
 
     /**
      * Adds a {@link Player} to the {@link PlayerList}.
@@ -44,6 +60,9 @@ public class PlayerList {
      * @param name of a player
      */
     public void addPlayer(String name) {
+        if (!(validateName(name))) {
+            throw new IllegalArgumentException("This name exists already! You should use another name!");
+        }
         Player player = new Player(name, 0, null, null);
         if (front == null) {
             front = player;
@@ -173,94 +192,41 @@ public class PlayerList {
     /**
      * Gets the current highest {@code score} of all {@link Player}'s.
      *
-     * @return highest {@code score} and how many players reached this score
+     * @return highest {@code score}
      */
-    public int[] getHighestScore() {
-        int num = 0; //counts how many players have reached the highest score
+    public int getHighestScore() {
+        if (front == null) {
+            throw new IllegalArgumentException("There is no Model.Enums.Player now!");
+        }
         int highestScore = front.getScore();
-
-        for (int i = 1; i < count; i++) {
-            if (getPlayerScore(i) > highestScore) {
-                highestScore = getPlayerScore(i);
+        for (int i = 0; i < count - 1; i++) {
+            if (getPlayer(i).getNext().getScore() > highestScore) {
+                highestScore = getPlayer(i).getNext().getScore();
             }
         }
-
-        for (int j = 0; j < count; j++) {
-            if (getPlayerScore(j) == highestScore) {
-                num = num + 1;
-            }
-        }
-
-        int[] scoreInformation = {highestScore, num};
-        return scoreInformation;
+        return highestScore;
     }
 
     /**
      * Gets all {@link Player}'s with the highest {@code score}.
      *
-     * @return list of all {@link Player} who have the highest {@code score}
+     * @param playerList the list of all current players
+     * @return list of all {@link Player} who have the highest {@code Model.Enums.Player
      */
-    public String[] winningPlayersToString() {
-        int num = getHighestScore()[1]; // num of players who reached the highest score
-        int highestScore = getHighestScore()[0];
-        String[] winningPlayers = new String[num];
-        int j = 0;
+    public PlayerList getWinningPlayers(PlayerList playerList) {
+        if (front == null) {
+            throw new IllegalArgumentException("There is no Model.Enums.Player now!");
+        }
+        int highestScore = getHighestScore();
 
-        for (int i = 0; i < getCount(); i++) {
-            if (getPlayerScore(i) == highestScore) {
-                winningPlayers[j] = getPlayerName(i);
-                if (j < num) {
-                    j = j + 1;
-                } else break;
+        for (Player player = playerList.front;
+             player.next != front; player = player.next) {
+
+            if (player.getScore() != highestScore) {
+                int pos = getPlayerPosition(player);
+                deletePlayer(pos);
             }
         }
-        return winningPlayers;
-    }
-
-    /**
-     * Increments the {@code score} a a selected {@link Player}.
-     *
-     * @param position of the {@link Player}
-     */
-    public void updatePlayerScore(int position) {
-        this.getPlayer(position).addScore();
-    }
-
-    /**
-     * Get the name of a {@link Player}.
-     *
-     * @param position of a Model.Enums.Player
-     * @return the name of a {@link Player}
-     */
-    public String getPlayerName(int position) {
-        return getPlayer(position).getName();
-    }
-
-
-    /**
-     * Gets the {@code score} of a selected {@link Player}.
-     *
-     * @param position of a {@link Player}
-     * @return the {@code score} of a {@link Player}
-     */
-    public int getPlayerScore(int position) {
-        return getPlayer(position).getScore();
-    }
-
-    /**
-     * Gets the ranking of all {@link Player}'s.
-     *
-     * @param name of the Model.Enums.Player
-     * @return the ranking of the Model.Enums.Player
-     */
-    public int getRanking(String name) {
-        //this.sort();
-        int ranking = 0;
-        for (int i = 0; i < count; i++) {
-            if (name.equals(this.getPlayer(i).getName())) {
-                ranking = count - i;
-            }
-        }
-        return ranking;
+        return playerList;
     }
 }
