@@ -1,0 +1,26 @@
+Protokoll vom Zoommeeting am 27.06.2021
+Teilnehmende: Alle 
+Autor: Florian Muhrer
+
+
+TOP 1 GUI
+
+-Erste entwürfe wurden von Florian vorgestellt
+-Probleme bestehen noch bei der Implementierung in Intellij mit JavaFX
+-->Wird frühstmöglichst umgesetzt und auf Antwort von Georg reagiert
+-Funktionelle Umsetzung wurde besprochen:
+    -Aktions-Handling
+    -Umsetzung der Spielfelfdgröße -->wird noch evaluiert ob dynamische Umsetzung möglich ist
+    -Punktestand während des Spiels soll als Observer Pattern umgesetzt werden
+    -Karten sollen wie in aktueller Umsetzung verteilt werden und ein Bild zugeordnet bekommen
+    -Factory Pattern soll umgesetzt werden für Befehlaufrufe während dem Spiel
+-GUI Task wird aufgesplittet nachdem 
+
+
+
+TOP 2 Weiteres Vorgehen
+
+-Durch Scrum Master geleitetes Durchgehen der Tasks im Kanban Board
+-weitere Bugs werden entfernt
+-PlayerID soll implementiert werden durch Jan
+-Spielerprofile sollen zusammen mit Highsore History umgesetzt werden
