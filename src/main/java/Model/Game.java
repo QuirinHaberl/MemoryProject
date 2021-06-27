@@ -5,6 +5,10 @@ import Model.Enums.GameStatus;
 import Model.Enums.TurnStatus;
 import View.View;
 
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * This class implements a {@link Game}.
  */
@@ -29,6 +33,52 @@ public class Game {
      * Stores a {@link Player} in the {@link PlayerList}.
      */
     private final PlayerList playerList;
+
+    /**
+     * This is a inner class for the timer of a {@link Game}.
+     * The default time is 120 seconds (2 minutes)
+     */
+    public class CountDown {
+        private int count = 120;
+        int remainingTime = count;
+
+        /**
+         * //TODO fehlt noch
+         * @return
+         */
+        public int getCount() {
+            return remainingTime;
+        }
+
+        /**
+         * //TODO fehlt noch
+         */
+        public CountDown() {
+            Timer timer = new Timer();
+            TimerTask task = new TimerTask() {
+
+                @Override
+                public void run() {
+                    remainingTime = count;
+                    if (count > 0) {
+                        count--;
+                    }
+
+                    if (count == 0) {
+                        View.printLoserMessage();
+                        count = 120;
+                        gameStatus = GameStatus.END;
+                    }
+                }
+            };
+            timer.schedule(task, 0, 1000);
+        }
+    }
+
+    /**
+     * This is the associated attribute of type CountDown for the game.
+     */
+    private CountDown time;
 
     /**
      * The constructor initiates the {@link Game}, the turn and creates a new {@link PlayingField}
@@ -229,8 +279,12 @@ public class Game {
 
     /**
      * Quits a running {@link Game}.
+     * Update the gameSum of every player
      */
     public void quitGame() {
+        for(int i = 0; i < this.getPlayerList().getCount(); i ++){
+            this.getPlayerList().getPlayer(i).getAchievements().updateGameSum();
+        }
         setGameStatus(GameStatus.END);
     }
 
@@ -269,12 +323,53 @@ public class Game {
     /**
      * Adds players to the {@link PlayerList}.
      *
-     * @param numPlayers    Number of players to be added
-     * @param playerNames   Names of the new players
+     * @param numPlayers  Number of players to be added
+     * @param playerNames Names of the new players
      */
     public void addPlayers(int numPlayers, String[] playerNames) {
         for (int i = 0; i < numPlayers; ++i) {
             playerList.addPlayer(playerNames[i]);
+        }
+    }
+
+    /**
+     * Gets the the board of a {@code playingField}.
+     *
+     * @return the board of a {@code playingField}
+     */
+    public Card[][] getBoard() {
+        return playingField.getBoard();
+    }
+
+    /**
+     * Starts the timer of the {@link Game}.
+     */
+    public void startTimer() {
+        this.time = new CountDown();
+    }
+
+    /**
+     * Gets the time of the {@link Game}.
+     *
+     * @return the time of the {@link Game}.
+     */
+    public CountDown getTime() {
+        return time;
+    }
+
+    /**
+     * Loads all existing profiles for the current players.
+     *
+     * @param playerProfiles to be used
+     */
+    public void useProfile(List<String[]> playerProfiles) {
+        for (int i = 0; i < playerList.getCount(); i++) {
+            for (String[] playerProfile : playerProfiles) {
+                if (playerList.getPlayer(i).getName().equals(playerProfile[0])) {
+                    playerList.getPlayer(i).getAchievements().setHighScore(Integer.parseInt(playerProfiles.get(i)[1]));
+                    playerList.getPlayer(i).getAchievements().setHighScore(Integer.parseInt(playerProfiles.get(i)[2]));
+                }
+            }
         }
     }
 }
