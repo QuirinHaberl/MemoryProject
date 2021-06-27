@@ -1,6 +1,7 @@
 package Model;
 
 import java.io.*;
+import java.util.List;
 
 /**
  * The class {@link HighScoreHistory} controls the storage of the high score
@@ -24,14 +25,15 @@ public class HighScoreHistory {
     private BufferedReader bufferedReader;
 
     /**
-     * Stores the path to highScoreHistory.txt.
+     * Stores the path to highScoreHistory.csv.
      */
-    private final String path = "src/main/resources/highScoreHistory.txt";
+    private final String path = "src/main/resources/highScoreHistory.csv";
 
     /**
-     * Stores the {@link HighScoreHistory} in a list.
+     * Stores the {@link HighScoreHistory} in a list. At first
+     * position it contains the player name and at second place his high score.
      */
-    private String[][] highScoreList = new String[10][2];
+    private List<String[]> highScoreList;
 
     /**
      * Constructs a new highScoreHistory-object.
@@ -49,18 +51,17 @@ public class HighScoreHistory {
     }
 
     /**
-     * Loads the {@link HighScoreHistory} from the highScoreHistory.txt file
+     * Loads the {@link HighScoreHistory} from the highScoreHistory.csv file
      * and stores it in the {@code highScoreList}.
      *
-     * @throws IOException if highScoreHistory.txt is not found
+     * @throws IOException if highScoreHistory.csv is not found
      */
     private void loadHighScoreHistory() throws IOException {
         String str;
         int i = 0;
         while (!((str = bufferedReader.readLine()) == null)) {
-            String[] tokens = str.trim().split("\\s+");
-            highScoreList[i][0] = tokens[0];
-            highScoreList[i][1] = tokens[1];
+            String[] tokens = str.split(";");
+            highScoreList.add(i, tokens);
             i++;
         }
         bufferedReader.close();
@@ -68,9 +69,9 @@ public class HighScoreHistory {
 
     /**
      * Saves the {@link HighScoreHistory} from the {@code highScoreList} in the
-     * highScoreHistory.txt file.
+     * highScoreHistory.csv file.
      *
-     * @throws FileNotFoundException if highScoreHistory.txt is not found
+     * @throws FileNotFoundException if highScoreHistory.csv is not found
      */
     public void saveHighScoreHistory() throws FileNotFoundException {
         fileOutputStream = new FileOutputStream(path,false);
@@ -79,7 +80,7 @@ public class HighScoreHistory {
         fileOutputStream = new FileOutputStream(path,true);
         printWriter = new PrintWriter(fileOutputStream);
         for (String[] strings : highScoreList) {
-            printWriter.println(strings[0] + " " + strings[1]);
+            printWriter.println(strings[0] + ";" + strings[1]);
         }
         printWriter.close();
     }
@@ -111,19 +112,18 @@ public class HighScoreHistory {
      * @return  true if the players data was updated.
      */
     private boolean updateHighScore(String player, int highScore) {
-        for (int i = 0; i < highScoreList.length; i++) {
-            if (highScoreList[i][0].equals(player)) {
-                if (Integer.parseInt(highScoreList[i][1]) < highScore) {
+        int pos = 0;
+        for (String[] values : highScoreList) {
+            if (values[0].equals(player)) {
+                if (Integer.parseInt(values[1]) < highScore) {
                     //Deletes old data and inserts it at the new correct
                     // position
-                    for (int j = i; j < highScoreList.length; j++) {
-                        highScoreList[j][0] = highScoreList[j + 1][0];
-                        highScoreList[j][1] = highScoreList[j + 1][1];
-                    }
-                    createNewList(i, player, String.valueOf(highScore));
+                    highScoreList.remove(pos);
+                    addNewHighScore(player, highScore);
                 }
                 return true;
             }
+            pos++;
         }
         return false;
     }
@@ -135,13 +135,15 @@ public class HighScoreHistory {
      * @param highScore of the winning player.
      */
     private void addNewHighScore(String player, int highScore) {
-        for (int j = 0; j < highScoreList.length; j++) {
-            if (highScoreList[j][0].equals("Not yet occupied!")) {
-                createNewList(j, player, String.valueOf(highScore));
+        int pos = 0;
+        for (String[] values : highScoreList) {
+            if (values[0].equals("Not yet occupied!")) {
+                createNewList(pos, player, String.valueOf(highScore));
             }
-            if (Integer.parseInt(highScoreList[j][1]) <= highScore) {
-                createNewList(j, player, String.valueOf(highScore));
+            if (Integer.parseInt(values[1]) <= highScore) {
+                createNewList(pos, player, String.valueOf(highScore));
             }
+            pos++;
         }
     }
 
@@ -156,17 +158,10 @@ public class HighScoreHistory {
      */
     private void createNewList(int pos, String winningPlayer,
                                      String highScore) {
-        String[][] str = new String[highScoreList.length][2];
-        for (int k = 0; k < pos; k++) {
-            str[k][0] = highScoreList[k][0];
-            str[k][1] = highScoreList[k][1];
+        String[] newPlayer = {winningPlayer, String.valueOf(highScore)};
+        highScoreList.add(pos, newPlayer);
+        if (highScoreList.get(10) != null) {
+            highScoreList.remove(10);
         }
-        for (int l = pos; l < highScoreList.length - 1; l++) {
-            str[l + 1][0] = highScoreList[l][0];
-            str[l + 1][1] = highScoreList[l][1];
-        }
-        str[pos][0] = winningPlayer;
-        str[pos][1] = highScore;
-        highScoreList = str;
     }
 }
