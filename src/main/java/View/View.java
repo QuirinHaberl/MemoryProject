@@ -3,9 +3,6 @@ package View;
 import Model.*;
 import Model.Enums.CardStatus;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * This class represents the view of the MVC-architecture.
  */
@@ -33,31 +30,6 @@ public final class View {
                     line.append(playingField.getBoard()[row][col].visualizeCard()).append(" ");
                 } else if (playingField.getBoard()[row][col].getCardStatus().equals(CardStatus.CLOSED)) {
                     line.append("X ");
-                } else if (playingField.getBoard()[row][col].getCardStatus().equals(CardStatus.FOUND)) {
-                    line.append("  ");
-                }
-            }
-        }
-        System.out.println(line);
-    }
-
-    /**
-     * Prints the current {@code playingField}.
-     *
-     * @param playingField current {@link PlayingField}
-     */
-    public static void cheat(PlayingField playingField) {
-        StringBuilder line = new StringBuilder("  ");
-        for (int i = 0; i < playingField.getBoard().length; i++) {
-            line.append(i).append(" ");
-        }
-        for (int row = 0; row < playingField.getBoard().length; row++) {
-            line = new StringBuilder(line + "\n" + row + " ");
-            for (int col = 0; col < playingField.getBoard()[row].length; col++) {
-                if (playingField.getBoard()[row][col].getCardStatus().equals(CardStatus.OPEN)) {
-                    line.append(playingField.getBoard()[row][col].visualizeCard()).append(" ");
-                } else if (playingField.getBoard()[row][col].getCardStatus().equals(CardStatus.CLOSED)) {
-                    line.append(playingField.getBoard()[row][col].visualizeCard()).append(" ");
                 } else if (playingField.getBoard()[row][col].getCardStatus().equals(CardStatus.FOUND)) {
                     line.append("  ");
                 }
@@ -217,28 +189,9 @@ public final class View {
      * @param players list of all players
      */
     public static void printScore(PlayerList players) {
-        String[] playerNames = new String[players.getCount()];
-        int[] scores = new int[players.getCount()];
         for (int i = 0; i < players.getCount(); i++) {
-            playerNames[i] = players.getPlayer(i).getName();
-            scores[i] = players.getPlayer(i).getScore();
-        }
-        //Insertion sort
-        for (int i = 1; i < scores.length; i++) {
-            int currentElement = scores[i];
-            String currentName = playerNames[i];
-            int j = i;
-            while (j > 0 && currentElement < scores[j - 1]) {
-                scores[j] = scores[j - 1];
-                playerNames[j] = playerNames[j - 1];
-                j--;
-            }
-            scores[j] = currentElement;
-            playerNames[j] = currentName;
-        }
-        for (int i = 0; i < players.getCount(); i++) {
-            System.out.println("[" + playerNames[i] + ": "
-                    + scores[i] + "]");
+            System.out.println("[" + players.getPlayer(i).getName() + ": "
+                    + players.getPlayer(i).getScore() + "]");
         }
     }
 
@@ -325,10 +278,7 @@ public final class View {
         System.out.println("Cards are not equal!");
     }
 
-    /**
-     * //TODO fehlt noch
-     * @param index
-     */
+
     public static void printPlayernameRequest(int index) {
         System.out.println("Player" + index + " enter your preferred name or"
                 + " the command 'noName' (if you don't want to choose a name):");
@@ -337,27 +287,13 @@ public final class View {
     /**
      * Prints the winner notification and the description of the next input options.
      *
-     * @param winningPlayers    of the current game
-     * @param highestScore      the highest score a player reached
+     * @param highestScore the highest score a player reached
+     * @param game         which has been played
      */
-    public static void printGameSummary(String[] winningPlayers, int highestScore) {
-        printWinningPlayers(winningPlayers);
+    public static void printGameSummary(PlayerList highestScore, Game game) {
+        printPlayerList(highestScore);
         System.out.print(" won the game with a score of ");
-        System.out.println(highestScore);
-        System.out.println("""
-                 Please select by entering a command whether you want to\s
-                 return to the main menu ('menu'),\s
-                 reset the current game ('reset'),\s
-                 restart the current game ('restart') or\s
-                 quit the game ('quit')\s
-                """);
-    }
-
-    /**
-     * //TODO fehlt noch
-     */
-    public static void printLoserMessage() {
-        System.out.println("What a pity... You've lost the game!");
+        System.out.println(game.getPlayerList().getHighestScore());
         System.out.println("""
                  Please select by entering a command whether you want to\s
                  return to the main menu ('menu'),\s
@@ -370,52 +306,16 @@ public final class View {
     /**
      * Prints all players and their scores.
      *
-     * @param winningPlayers the highest score a player reached
+     * @param highestScore the highest score a player reached
      */
-    public static void printWinningPlayers(String[] winningPlayers) {
-        for (int i = 0; i < winningPlayers.length; i++) {
-            if (i != winningPlayers.length - 1) {
-                System.out.print(winningPlayers[i] + " and ");
+    public static void printPlayerList(PlayerList highestScore) {
+        int count = highestScore.getCount();
+        for (int i = 0; i < count; i++) {
+            if (i != count - 1) {
+                System.out.print(highestScore.getPlayer(i).getName() + " and ");
             } else {
-                System.out.print(winningPlayers[i]);
+                System.out.print(highestScore.getPlayer(i).getName());
             }
         }
-    }
-
-    /**
-     * Prints the request to adjust the single player mode settings
-     */
-    public static void printSinglePlayerModeSettings() {
-        System.out.println("You choosed the Single-Player-Mode." +
-                "To play with lifes please enter 'life' else enter 'time' to play against time.");
-    }
-
-    /**
-     * Prints the number of lifes a player has
-     *
-     * @param lifes of the player
-     */
-    public static void printLifes(int lifes) {
-        System.out.println("<3 lifes: " + lifes);
-    }
-
-    /**
-     * Prints the remaining time a player has
-     *
-     * @param remainingTime of the player
-     */
-    public static void printTime(int remainingTime) {
-        System.out.println("This is your remaining time: " + remainingTime);
-    }
-
-    /**
-     * Prints an achievement a player has earned.
-     *
-     * @param specification achievement to be printed
-     * @param player        who has earned an achievement
-     */
-    public static void printAchievement(String specification, Player player) {
-        System.out.println("\n" + player.getName() + " has new achievements: ");
-        System.out.println(specification);
     }
 }

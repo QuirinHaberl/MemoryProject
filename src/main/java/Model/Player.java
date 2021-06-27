@@ -10,23 +10,12 @@ public class Player {
     /**
      * Stores the name of a {@link Player}.
      */
-    private String name;
+    String name;
 
     /**
      * Stores the score of a {@link Player}.
      */
-    private int score;
-
-    /**
-     * Stores the lifes of a {@link Player}.
-     * The default number of lifes is 5.
-     */
-    private int lifes = 5;
-
-    /**
-     * Stores the achievments of a {@link Player}
-     */
-    private Achievements achievements = new Achievements();
+    int score;
 
     /**
      * Stores the next {@link Player}.
@@ -118,71 +107,5 @@ public class Player {
      */
     public void addScore() { // +1
         this.score++;
-    }
-
-    /**
-     * Sets the name for a {@link Player}.
-     *
-     * @param name of a Model.Enums.Player
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * Sets the next {@link Player}.
-     *
-     * @param next {@link Player}
-     */
-    public void setNext(Player next) {
-        this.next = next;
-    }
-
-    /**
-     * Sets the last {@link Player}.
-     *
-     * @param rear of the {@link Player}
-     */
-    public void setRear(Player rear) {
-        this.rear = rear;
-    }
-
-    /**
-     * Gets the lifes of a {@link Player}.
-     *
-     * @return the lifes of a {@link Player}.
-     */
-    public int getLifes() {
-        return lifes;
-    }
-
-    /**
-     * Reduces the lifes of a {@link Player}.
-     */
-    public void reduceLifes() {
-        this.lifes = lifes - 1;
-    }
-
-    /**
-     * Sets the lifes of a {@link Player}.
-     *
-     * @param lifes of a {@link Player}.
-     */
-    public void setLifes(int lifes) {
-        this.lifes = lifes;
-    }
-
-    /**
-     * Gets the earned achievements of a {@link Player}.
-     *
-     * @return the earned achievements of a {@link Player}
-     */
-    public Achievements getAchievements() {
-        return achievements;
-    }
-
-    public String getPlayerProfile(){
-        String profile = this.name + ", highest score: " + this.achievements.highScore + ", " + " has played " + this.achievements.gameSum+ " times.";
-        return profile;
     }
 }
