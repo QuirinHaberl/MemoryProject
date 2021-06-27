@@ -180,4 +180,9 @@ public class Player {
     public Achievements getAchievements() {
         return achievements;
     }
+
+    public String getPlayerProfile(){
+        String profile = this.name + ", highest score: " + this.achievements.highScore + ", " + " has played " + this.achievements.gameSum+ " times.";
+        return profile;
+    }
 }

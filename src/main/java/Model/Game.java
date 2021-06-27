@@ -279,8 +279,12 @@ public class Game {
 
     /**
      * Quits a running {@link Game}.
+     * Update the gameSum of every player
      */
     public void quitGame() {
+        for(int i = 0; i < this.getPlayerList().getCount(); i ++){
+            this.getPlayerList().getPlayer(i).getAchievements().updateGameSum();
+        }
         setGameStatus(GameStatus.END);
     }
 
