@@ -8,6 +8,7 @@ import View.*;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Scanner;
 
 /**
  * The controller of the MVC-architecture.
@@ -474,7 +475,7 @@ public class Controller {
     }
 
     /**
-     * Handles the read inputs during a game and passes on the choises
+     * Handles the read inputs during a game and passes on the choices
      * TODO Versuch die Befehle in eine Methode zu packen.
      * Gerne nochmal überarbeiten!
      *
@@ -534,6 +535,18 @@ public class Controller {
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
+            }
+            case "show current" ->{       //durch dem kann man nur den Spieler schauen, der momentan im Spiel ist.
+                Scanner sc = new Scanner(System.in);  // wenn der spieler momentan nicht im Spiel aber in profiles.csv ist, kann man nicht schauen.
+                System.out.println("input the name of player in this current game whom you want to know:");
+                String name = sc.next();
+                for(int i = 0; i < game.getPlayerList().getCount(); i ++){
+                    if(name.equals(game.getPlayerList().getPlayer(i).getName())){
+                        System.out.println("the achievement of " + name + "is: ");
+                        System.out.println(game.getPlayerList().getPlayer(i).getPlayerProfile());
+                    }
+                }
+                saveBreak = true;
             }
         }
         return saveBreak;

@@ -26,6 +26,11 @@ public class Achievements {
     int gameCounter;
 
     /**
+     * Stores the sum of the games that the player already joined in
+     */
+    int gameSum;
+
+    /**
      * Stores the text for the current achievement.
      */
     String currentAchievements;
@@ -97,7 +102,7 @@ public class Achievements {
      * Updates all global-achievements.
      * A global-achievement can be earned once.
      *
-     * @return weather a new achievement was earned
+     * @return whether a new achievement was earned
      */
     public boolean updateGlobalAchievements() {
         gameCounter++;
@@ -107,7 +112,7 @@ public class Achievements {
     }
 
     /**
-     * Checks weather a new milestone was hit regarding won games.
+     * Checks whether a new milestone was hit regarding won games.
      */
     public void checkGamesWon() {
         if (gameCounter == 1) {
@@ -150,5 +155,30 @@ public class Achievements {
      */
     public int getGameCounter() {
         return gameCounter;
+    }
+
+    /**
+     * Sets a new gameSum
+     *
+     * @param gameSum to be set
+     */
+    public void setGameSum(int gameSum){
+        this.gameSum = gameSum;
+    }
+
+    /**
+     * Gets the number of times that you joined games
+     * @return
+     */
+    public int getGameSum(){
+        return this.gameSum;
+    }
+
+    /**
+     * Updates the sum of games that player joined in total, gameSum +1
+     *
+     */
+    public void updateGameSum(){
+        this.gameSum++;
     }
 }
