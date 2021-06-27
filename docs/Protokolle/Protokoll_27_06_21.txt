@@ -5,16 +5,17 @@ Autor: Florian Muhrer
 
 TOP 1 GUI
 
--Erste entwürfe wurden von Florian vorgestellt
+-Erste Entwürfe wurden von Florian vorgestellt
 -Probleme bestehen noch bei der Implementierung in Intellij mit JavaFX
--->Wird frühstmöglichst umgesetzt und auf Antwort von Georg reagiert
+    -->Wird frühstmöglichst umgesetzt und auf Antwort von Georg gewartet
 -Funktionelle Umsetzung wurde besprochen:
     -Aktions-Handling
-    -Umsetzung der Spielfelfdgröße -->wird noch evaluiert ob dynamische Umsetzung möglich ist
-    -Punktestand während des Spiels soll als Observer Pattern umgesetzt werden
+    -Umsetzung der Spielfeldgröße 
+        -->wird noch evaluiert, ob eine dynamische Umsetzung möglich ist.
+    -Punktestand während des Spiels soll als Observer Pattern umgesetzt werden und im GUI neben dem Spielernamen immer angezeigt werden.
     -Karten sollen wie in aktueller Umsetzung verteilt werden und ein Bild zugeordnet bekommen
     -Factory Pattern soll umgesetzt werden für Befehlaufrufe während dem Spiel
--GUI Task wird aufgesplittet nachdem 
+-GUI Task wird aufgesplittet nachdem die aktuellen Tasks abgearbeitet wurden.
 
 
 
@@ -24,3 +25,5 @@ TOP 2 Weiteres Vorgehen
 -weitere Bugs werden entfernt
 -PlayerID soll implementiert werden durch Jan
 -Spielerprofile sollen zusammen mit Highsore History umgesetzt werden
+-SinglePlayerModus wird von Isabella ausgebaut. Hier muss der Modus gegen die Zeit noch lauffähig umgesetzt werden.
+-Game, PlayerList, Database, HighscoreHistory, PlayingField dürfen nur in einer Instanz während dem Spiel existieren und werden evtl. durch das Singleton Pattern ergänzt.
