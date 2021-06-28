@@ -1,7 +1,5 @@
 package de.uni_passau.se.memory.Model;
 
-import de.uni_passau.se.memory.Control.Controller;
-
 import java.io.*;
 import java.util.List;
 

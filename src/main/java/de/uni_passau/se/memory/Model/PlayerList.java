@@ -109,11 +109,11 @@ public class PlayerList {
      * Gets the {@link Player} at {@code position}.
      *
      * @param position of the {@link Player}
-     * @return the de.uni_passau.se.memory.Model.Enums.Player
+     * @return the Player
      */
     public Player getPlayer(int position) {
         if (front == null) {
-            throw new IllegalArgumentException("There is no de.uni_passau.se.memory.Model.Enums.Player now!");
+            throw new IllegalArgumentException("There is no Player now!");
         }
         Player current = front;
         for (int i = 0; i < position; i++) {
@@ -189,8 +189,7 @@ public class PlayerList {
             }
         }
 
-        int[] scoreInformation = {highestScore, num};
-        return scoreInformation;
+        return (new int[]{highestScore, num});
     }
 
     /**
@@ -202,14 +201,10 @@ public class PlayerList {
         int num = getHighestScore()[1]; // num of players who reached the highest score
         int highestScore = getHighestScore()[0];
         String[] winningPlayers = new String[num];
-        int j = 0;
 
         for (int i = 0; i < getCount(); i++) {
             if (getPlayerScore(i) == highestScore) {
-                winningPlayers[j] = getPlayerName(i);
-                if (j < num) {
-                    j = j + 1;
-                } else break;
+                winningPlayers[i] = getPlayerName(i);
             }
         }
         return winningPlayers;
@@ -227,7 +222,7 @@ public class PlayerList {
     /**
      * Get the name of a {@link Player}.
      *
-     * @param position of a de.uni_passau.se.memory.Model.Enums.Player
+     * @param position of a Player
      * @return the name of a {@link Player}
      */
     public String getPlayerName(int position) {
@@ -248,8 +243,8 @@ public class PlayerList {
     /**
      * Gets the ranking of all {@link Player}'s.
      *
-     * @param name of the de.uni_passau.se.memory.Model.Enums.Player
-     * @return the ranking of the de.uni_passau.se.memory.Model.Enums.Player
+     * @param name of the Player
+     * @return the ranking of the Player
      */
     public int getRanking(String name) {
         //this.sort();

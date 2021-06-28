@@ -384,17 +384,17 @@ public final class View {
      * Prints the request to adjust the single player mode settings
      */
     public static void printSinglePlayerModeSettings() {
-        System.out.println("You choosed the Single-Player-Mode." +
-                "To play with lifes please enter 'life' else enter 'time' to play against time.");
+        System.out.println("You choose the Single-Player-Mode." +
+                "To play with lives please enter 'live' else enter 'time' to play against time.");
     }
 
     /**
-     * Prints the number of lifes a player has
+     * Prints the number of lives a player has
      *
-     * @param lifes of the player
+     * @param lives of the player
      */
-    public static void printLives(int lifes) {
-        System.out.println("<3 lifes: " + lifes);
+    public static void printLives(int lives) {
+        System.out.println("<3 lives: " + lives);
     }
 
     /**
@@ -415,5 +415,15 @@ public final class View {
     public static void printAchievement(String specification, Player player) {
         System.out.println("\n" + player.getName() + " has new achievements: ");
         System.out.println(specification);
+    }
+
+    /**
+     * Prints to ask if the player wants to use playerProfiles.
+     *
+     * @param player to be asked.
+     */
+    public static void printUsingProfiles(String player) {
+        System.out.println(player + ", do you want to use profiles?" +
+                "Type 'yes' or 'no'.");
     }
 }
