@@ -563,7 +563,7 @@ public final class Controller {
                 game.quitGame();
                 saveBreak = true;
             }
-            case "show current" -> {       //durch dem kann man nur den Spieler schauen, der momentan im Spiel ist.
+            case "show", "sp" -> {       //durch dem kann man nur den Spieler schauen, der momentan im Spiel ist.
                 Scanner sc = new Scanner(System.in);  // wenn der spieler momentan nicht im Spiel aber in profiles.csv ist, kann man nicht schauen.
                 System.out.println("input the name of player in this current game whom you want to know:");
                 String name = sc.next();

@@ -423,7 +423,7 @@ public final class View {
      * @param player to be asked.
      */
     public static void printUsingProfiles(String player) {
-        System.out.println(player + ", do you want to use profiles?" +
+        System.out.println(player + ", do you want to use profiles? " +
                 "Type 'yes' or 'no'.");
     }
 }
