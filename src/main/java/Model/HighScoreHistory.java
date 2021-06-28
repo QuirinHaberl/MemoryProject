@@ -36,9 +36,16 @@ public class HighScoreHistory {
     private List<String[]> highScoreList;
 
     /**
+     * Creates a new {@code INSTANCE} of the {@link HighScoreHistory}.
+     */
+    private static class InstanceHolder {
+        private static final HighScoreHistory INSTANCE = new HighScoreHistory();
+    }
+
+    /**
      * Constructs a new highScoreHistory-object.
      */
-    public HighScoreHistory() {
+    private HighScoreHistory() {
         try {
             FileReader fileReader = new FileReader(path);
             this.bufferedReader = new BufferedReader(fileReader);
@@ -48,6 +55,13 @@ public class HighScoreHistory {
         } catch (IOException e) {
             System.out.println("File does not exist");
         }
+    }
+
+    /**
+     * Returns a new {@code INSTANCE} of the {@link HighScoreHistory}.
+     */
+    public static HighScoreHistory getInstance() {
+        return HighScoreHistory.InstanceHolder.INSTANCE;
     }
 
     /**

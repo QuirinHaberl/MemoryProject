@@ -40,9 +40,16 @@ public class Database {
     private List<String[]> playerProfiles;
 
     /**
+     * Creates a new {@code INSTANCE} of the {@link Database}.
+     */
+    private static class InstanceHolder {
+        private static final Database INSTANCE = new Database();
+    }
+
+    /**
      * Constructs a new database-object.
      */
-    public Database() {
+    private Database() {
         try {
             this.fr = new FileReader(path);
             this.br = new BufferedReader(fr);
@@ -56,6 +63,13 @@ public class Database {
         } catch (IOException e) {
             System.out.println("File does not exist");
         }
+    }
+
+    /**
+     * Returns a new {@code INSTANCE} of the {@link Database}.
+     */
+    public static Database getInstance() {
+        return Database.InstanceHolder.INSTANCE;
     }
 
     /**
