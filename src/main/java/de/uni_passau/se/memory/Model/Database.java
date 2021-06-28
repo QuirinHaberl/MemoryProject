@@ -1,5 +1,6 @@
 package de.uni_passau.se.memory.Model;
 
+import de.uni_passau.se.memory.Control.Controller;
 import de.uni_passau.se.memory.View.View;
 
 import java.io.*;
@@ -18,7 +19,7 @@ public class Database {
      * A profile has the following structure:
      * playerID;player1;highScore;gamePlayed;gamesWon
      */
-    private List<String[]> playerProfiles;
+    private final List<String[]> playerProfiles;
 
     /**
      * Creates a new {@code INSTANCE} of the {@link Database}.
@@ -36,7 +37,9 @@ public class Database {
     }
 
     /**
-     * Returns a new {@code INSTANCE} of the {@link Database}.
+     *  Returns a new {@code INSTANCE} of the {@link Database}.
+     *
+     * @return the INSTANCE of a {@link Database}.
      */
     public static Database getInstance() {
         return Database.InstanceHolder.INSTANCE;
