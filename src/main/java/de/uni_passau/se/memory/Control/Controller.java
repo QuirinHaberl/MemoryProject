@@ -57,7 +57,7 @@ public final class Controller {
     }
 
     /**
-     *  Returns a new {@code INSTANCE} of the {@link Controller}.
+     * Returns a new {@code INSTANCE} of the {@link Controller}.
      *
      * @return the INSTANCE of a {@link Controller}.
      */
@@ -145,10 +145,8 @@ public final class Controller {
                         }
                     }
                     game.addPlayers(playerAmount, playerNames);
-                    //TODO Die Profilauswahl muss noch implementiert werden
-                    //TODO bis jetzt werden alle Profile geladen, die gefunden werden
                     database.loadPlayerProfiles();
-                    game.useProfile(database.getPlayerProfiles());
+                    game.useProfile(database.getPlayerProfiles(), bufferedReader);
                     menuStatus = MenuStatus.BOARDSIZE;
                 }
 
@@ -499,11 +497,10 @@ public final class Controller {
         if (mode.equals("live")) {
             singlePlayerMode = SinglePlayerMode.LIVEPOINTS;
             return true;
-        } else if (mode.equals("time")) {
+        } else {
             singlePlayerMode = SinglePlayerMode.TIME;
             return true;
         }
-        return false;
     }
 
     /**
@@ -624,7 +621,7 @@ public final class Controller {
     /**
      * Stores the progress of all playerProfiles and the HighScoreHistory.
      */
-    public void storeProgress(){
+    public void storeProgress() {
         //try {
         // TODO Doesn't work
         // highScoreHistory.saveHighScoreHistory();

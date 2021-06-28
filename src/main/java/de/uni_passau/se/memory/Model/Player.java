@@ -8,9 +8,9 @@ import java.util.*;
 public class Player {
 
     /**
-     * Stores the id of a {@link Player}.
+     * Stores the playerId of a {@link Player}.
      */
-    private String id;
+    private String playerId;
 
     /**
      * Stores the name of a {@link Player}.
@@ -29,9 +29,9 @@ public class Player {
     private int lives = 5;
 
     /**
-     * Stores the achievments of a {@link Player}
+     * Stores the achievements of a {@link Player}
      */
-    private Achievements achievements = new Achievements();
+    private final Achievements achievements = new Achievements();
 
     /**
      * Stores the next {@link Player}.
@@ -57,7 +57,7 @@ public class Player {
      * @param rear  the last @link Player}
      */
     public Player(String name, int score, Player next, Player rear) {
-        //TODO PlayerID muss hier noch implementier werden
+        this.playerId = UUID.randomUUID().toString();
         this.name = name;
         this.score = score;
         this.next = next;
@@ -70,17 +70,17 @@ public class Player {
      *
      * @return the playerId
      */
-    public String getId() {
-        return id;
+    public String getPlayerId() {
+        return playerId;
     }
 
     /**
      * Sets the playerId
      *
-     * @param id to be set
+     * @param playerId to be set
      */
-    public void setId(String id) {
-        this.id = id;
+    public void setPlayerId(String playerId) {
+        this.playerId = playerId;
     }
 
     /**
@@ -104,7 +104,7 @@ public class Player {
     /**
      * Set the score for a {@link Player}.
      *
-     * @param score of a de.uni_passau.se.memory.Model.Enums.Player
+     * @param score of a player
      */
     public void setScore(int score) {
         this.score = score;
@@ -147,7 +147,7 @@ public class Player {
     /**
      * Sets the name for a {@link Player}.
      *
-     * @param name of a de.uni_passau.se.memory.Model.Enums.Player
+     * @param name of a player
      */
     public void setName(String name) {
         this.name = name;

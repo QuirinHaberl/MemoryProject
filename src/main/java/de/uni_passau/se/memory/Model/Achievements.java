@@ -201,7 +201,7 @@ public class Achievements {
     }
 
     /**
-     *  Checks whether a highScore was hit and generates a achievement.
+     * Checks whether a highScore was hit and generates a achievement.
      *
      * @param score the new score of a player
      */
