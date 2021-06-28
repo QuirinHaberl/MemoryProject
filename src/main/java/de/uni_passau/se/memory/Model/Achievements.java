@@ -33,78 +33,14 @@ public class Achievements {
     /**
      * Stores the text for the current achievement.
      */
-    private String currentAchievements="";
+    private String currentAchievements = "";
 
     /**
-     * Constructs a new achievement
+     * Constructs a new object of {@link Achievements}.
      */
     public Achievements() {
         this.pairCounterTotal = 0;
-        this.gamesWon = 0;
-    }
-
-    /**
-     * Updates all instance-achievements.
-     * An instance-achievement can be earned in every game.
-     *
-     * @return weather a new achievement was earned
-     */
-    public boolean updateInstanceAchievements() {
-        return !(currentAchievements.isEmpty());
-    }
-
-    /**
-     * Checks weather a new milestone was hit regarding found pairs in total.
-     */
-    public void checkFoundPairsTotal() {
-        if (pairCounterTotal == 2) {
-            currentAchievements = currentAchievements + "Found two pairs in total!\n";
-        }
-
-        if (pairCounterTotal == 5) {
-            currentAchievements = currentAchievements + "Found five pairs in total!\n";
-        }
-    }
-
-    /**
-     * Checks weather a new milestone was hit regarding found pairs in a row.
-     */
-    public void checkFoundPairsStreak() {
-        if (pairCounterStreak == 2) {
-            currentAchievements = currentAchievements + "Found two pairs in a row!\n";
-        }
-
-        if (pairCounterStreak == 5) {
-            currentAchievements = currentAchievements + "Found five pairs in a row!\n";
-        }
-    }
-
-    /**
-     * Updates the amount of pairs found.
-     */
-    public void updatePairCounters() {
-        pairCounterTotal++;
-        pairCounterStreak++;
-    }
-
-    /**
-     * Removes the text of the last earned achievement.
-     */
-    public void clearCurrentAchievement() {
-        currentAchievements = "";
-    }
-
-
-    /**
-     * Checks whether a new milestone was hit regarding won games.
-     */
-    public void checkGamesWon() {
-        if (gamesWon == 1) {
-            currentAchievements = currentAchievements + "won his/her first game!\n";
-        }
-        if (gamesWon == 2) {
-            currentAchievements = currentAchievements + "won his/her second games!\n";
-        }
+        this.pairCounterStreak = 0;
     }
 
     /**
@@ -141,36 +77,31 @@ public class Achievements {
         return gamesWon;
     }
 
-    public int getPairCounterTotal() {
-        return pairCounterTotal;
-    }
-
-    public void setPairCounterTotal(int pairCounterTotal) {
-        this.pairCounterTotal = pairCounterTotal;
-    }
-
-    public int getPairCounterStreak() {
-        return pairCounterStreak;
-    }
-
-    public void setPairCounterStreak(int pairCounterStreak) {
-        this.pairCounterStreak = pairCounterStreak;
-    }
-
+    /**
+     * Gets the personal highScore.
+     *
+     * @return the the personal highScore
+     */
     public int getHighScore() {
         return highScore;
     }
 
+    /**
+     * Sets {@code gamesWon} to a given value.
+     *
+     * @param gameCounter to be set
+     */
     public void setGamesWon(int gameCounter) {
         this.gamesWon = gameCounter;
     }
 
+    /**
+     * Gets the current achievement-massage.
+     *
+     * @return the current achievement-massage
+     */
     public String getCurrentAchievements() {
         return currentAchievements;
-    }
-
-    public void setCurrentAchievements(String currentAchievements) {
-        this.currentAchievements = currentAchievements;
     }
 
     /**
@@ -183,9 +114,9 @@ public class Achievements {
     }
 
     /**
-     * Gets the number of times that you joined games
+     * Gets the number of games played.
      *
-     * @return
+     * @return the number of games played
      */
     public int getGamesPlayed() {
         return this.gamesPlayed;
@@ -199,16 +130,93 @@ public class Achievements {
     }
 
     /**
-     * //TODO JavaDoc
-     **/
+     * Increments {@code gamesWon}.
+     */
     public void updateGamesWon() {
         gamesWon++;
     }
 
-    public void checkHighScore(int score) {
-        if (score < getHighScore()) {
-            setHighScore(score);
+    /**
+     * Updates the amount of pairs found.
+     */
+    public void updatePairCounters() {
+        pairCounterTotal++;
+        pairCounterStreak++;
+    }
+
+    /**
+     * Removes the text of the last earned achievement.
+     */
+    public void clearCurrentAchievement() {
+        currentAchievements = "";
+    }
+
+    /**
+     * Checks weather a new milestone was hit regarding found pairs in total.
+     */
+    public void checkFoundPairsTotal() {
+        if (pairCounterTotal == 2) {
+            currentAchievements = currentAchievements + "Found two pairs in total!\n";
+        } else if (pairCounterTotal == 4) {
+            currentAchievements = currentAchievements + "Found four pairs in total!\n";
+        } else if (pairCounterTotal == 6) {
+            currentAchievements = currentAchievements + "Found six pairs in total!\n";
+        } else if (pairCounterTotal == 8) {
+            currentAchievements = currentAchievements + "Found eight pairs in total!\n";
+        } else if (pairCounterTotal == 10) {
+            currentAchievements = currentAchievements + "Found ten pairs in total!\n";
         }
-        //TODO Add new highScore achievements
+    }
+
+    /**
+     * Checks weather a new milestone was hit regarding found pairs in a row.
+     */
+    public void checkFoundPairsStreak() {
+        if (pairCounterStreak == 2) {
+            currentAchievements = currentAchievements + "Found two pairs in a row!\n";
+        } else if (pairCounterStreak == 4) {
+            currentAchievements = currentAchievements + "Found four pairs in a row!\n";
+        } else if (pairCounterStreak == 6) {
+            currentAchievements = currentAchievements + "Found six pairs in a row!\n";
+        } else if (pairCounterStreak == 8) {
+            currentAchievements = currentAchievements + "Found eight pairs in a row!\n";
+        } else if (pairCounterStreak == 10) {
+            currentAchievements = currentAchievements + "Found ten pairs in a row!\n";
+        }
+    }
+
+    /**
+     * Checks whether a new milestone was hit regarding won games.
+     */
+    public void checkGamesWon() {
+        if (gamesWon == 1) {
+            currentAchievements = currentAchievements + "won his/her first game!\n";
+        } else if (gamesWon == 2) {
+            currentAchievements = currentAchievements + "won his/her second game!\n";
+        } else if (gamesWon == 3) {
+            currentAchievements = currentAchievements + "won his/her third game!\n";
+        } else if (gamesWon == 4) {
+            currentAchievements = currentAchievements + "won his/her fifth game!\n";
+        }
+    }
+
+    /**
+     *  Checks whether a highScore was hit and generates a achievement.
+     *
+     * @param score the new score of a player
+     */
+    public void checkHighScore(int score) {
+        if (score > getHighScore()) {
+            setHighScore(score);
+            if (score == 4) {
+                currentAchievements = currentAchievements + "has a new personal highScore of 4!\n";
+            } else if (score == 8) {
+                currentAchievements = currentAchievements + "has a new personal highScore of 8!\n";
+            } else if (score == 12) {
+                currentAchievements = currentAchievements + "has a new personal highScore of 12!\n";
+            } else if (score == 16) {
+                currentAchievements = currentAchievements + "has a new personal highScore of 16!\n";
+            }
+        }
     }
 }
