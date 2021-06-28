@@ -1,4 +1,4 @@
-package Model.Enums;
+package de.uni_passau.se.memory.Model.Enums;
 
 /**
  * The enumeration represents a {@link CardSet}.

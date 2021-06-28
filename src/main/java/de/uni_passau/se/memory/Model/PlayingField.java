@@ -1,14 +1,14 @@
-package Model;
+package de.uni_passau.se.memory.Model;
 
-import Model.Enums.CardDigits;
-import Model.Enums.CardLetters;
-import Model.Enums.CardSet;
-import View.View;
+import de.uni_passau.se.memory.Model.Enums.CardDigits;
+import de.uni_passau.se.memory.Model.Enums.CardLetters;
+import de.uni_passau.se.memory.Model.Enums.CardSet;
+import de.uni_passau.se.memory.View.View;
 
 import java.util.Random;
 
 /**
- * The class Model.Enums.PlayingField implements the {@link PlayingField} of the memory game
+ * The class de.uni_passau.se.memory.Model.Enums.PlayingField implements the {@link PlayingField} of the memory game
  * as a two-dimensional array.
  * In addition, a controlArray of the boolean type is created to store
  * whether a card is revealed or not.

@@ -1,8 +1,8 @@
-package Model;
+package de.uni_passau.se.memory.Model;
 
-import Model.Enums.CardDigits;
-import Model.Enums.CardLetters;
-import Model.Enums.CardStatus;
+import de.uni_passau.se.memory.Model.Enums.CardDigits;
+import de.uni_passau.se.memory.Model.Enums.CardLetters;
+import de.uni_passau.se.memory.Model.Enums.CardStatus;
 
 /**
  * The class {@link Card} implements a card of the game.

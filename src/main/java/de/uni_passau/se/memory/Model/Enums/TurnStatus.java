@@ -1,4 +1,4 @@
-package Model.Enums;
+package de.uni_passau.se.memory.Model.Enums;
 
 /**
  * The enumeration of the turn status.

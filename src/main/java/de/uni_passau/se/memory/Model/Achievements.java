@@ -1,4 +1,4 @@
-package Model;
+package de.uni_passau.se.memory.Model;
 
 /**
  * The class {@link Achievements} keeps track of every {@link Player}'s achievements
@@ -199,7 +199,7 @@ public class Achievements {
     }
 
     /**
-     * //todo
+     * //TODO JavaDoc
      **/
     public void updateGamesWon() {
         gamesWon++;

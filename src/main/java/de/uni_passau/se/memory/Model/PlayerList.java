@@ -1,4 +1,4 @@
-package Model;
+package de.uni_passau.se.memory.Model;
 
 /**
  * This class implements a {@link PlayerList}.
@@ -109,11 +109,11 @@ public class PlayerList {
      * Gets the {@link Player} at {@code position}.
      *
      * @param position of the {@link Player}
-     * @return the Model.Enums.Player
+     * @return the de.uni_passau.se.memory.Model.Enums.Player
      */
     public Player getPlayer(int position) {
         if (front == null) {
-            throw new IllegalArgumentException("There is no Model.Enums.Player now!");
+            throw new IllegalArgumentException("There is no de.uni_passau.se.memory.Model.Enums.Player now!");
         }
         //TODO Enable again
         /*else if (position > count || position < 0) {
@@ -231,7 +231,7 @@ public class PlayerList {
     /**
      * Get the name of a {@link Player}.
      *
-     * @param position of a Model.Enums.Player
+     * @param position of a de.uni_passau.se.memory.Model.Enums.Player
      * @return the name of a {@link Player}
      */
     public String getPlayerName(int position) {
@@ -252,8 +252,8 @@ public class PlayerList {
     /**
      * Gets the ranking of all {@link Player}'s.
      *
-     * @param name of the Model.Enums.Player
-     * @return the ranking of the Model.Enums.Player
+     * @param name of the de.uni_passau.se.memory.Model.Enums.Player
+     * @return the ranking of the de.uni_passau.se.memory.Model.Enums.Player
      */
     public int getRanking(String name) {
         //this.sort();

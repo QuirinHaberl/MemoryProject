@@ -1,10 +1,9 @@
-package Model;
+package de.uni_passau.se.memory.Model;
 
-import Control.Controller;
-import Model.Enums.CardStatus;
-import Model.Enums.GameStatus;
-import Model.Enums.TurnStatus;
-import View.View;
+import de.uni_passau.se.memory.Model.Enums.CardStatus;
+import de.uni_passau.se.memory.Model.Enums.GameStatus;
+import de.uni_passau.se.memory.Model.Enums.TurnStatus;
+import de.uni_passau.se.memory.View.View;
 
 import java.util.List;
 import java.util.Timer;

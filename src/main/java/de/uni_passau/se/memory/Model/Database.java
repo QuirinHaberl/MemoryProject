@@ -1,10 +1,9 @@
-package Model;
+package de.uni_passau.se.memory.Model;
 
-import View.View;
+import de.uni_passau.se.memory.View.View;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -102,15 +101,5 @@ public class Database {
      */
     public List<String[]> getPlayerProfiles() {
         return playerProfiles;
-    }
-
-    public static void main(String[] args) {
-        Database database = new Database();
-        for (int i = 0; i < database.getPlayerProfiles().size(); i++) {
-            //System.out.println(Arrays.toString(database.getPlayerProfiles().get(i)));
-        }
-        PlayerList playerList = new PlayerList();
-        database.loadPlayerProfiles();
-        database.storePlayerProfiles();
     }
 }
