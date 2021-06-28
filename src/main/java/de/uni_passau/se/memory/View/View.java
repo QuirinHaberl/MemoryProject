@@ -323,10 +323,11 @@ public final class View {
     }
 
     /**
-     * //TODO fehlt noch
-     * @param index
+     * Prints a PlayerNameRequest.
+     *
+     * @param index of the player whose information is requested
      */
-    public static void printPlayernameRequest(int index) {
+    public static void printPlayerNameRequest(int index) {
         System.out.println("Player" + index + " enter your preferred name or"
                 + " the command 'noName' (if you don't want to choose a name):");
     }
@@ -334,8 +335,8 @@ public final class View {
     /**
      * Prints the winner notification and the description of the next input options.
      *
-     * @param winningPlayers    of the current game
-     * @param highestScore      the highest score a player reached
+     * @param winningPlayers of the current game
+     * @param highestScore   the highest score a player reached
      */
     public static void printGameSummary(String[] winningPlayers, int highestScore) {
         printWinningPlayers(winningPlayers);
@@ -351,7 +352,7 @@ public final class View {
     }
 
     /**
-     * //TODO fehlt noch
+     * Prints the message of a lost game.
      */
     public static void printLoserMessage() {
         System.out.println("What a pity... You've lost the game!");
@@ -392,7 +393,7 @@ public final class View {
      *
      * @param lifes of the player
      */
-    public static void printLifes(int lifes) {
+    public static void printLives(int lifes) {
         System.out.println("<3 lifes: " + lifes);
     }
 

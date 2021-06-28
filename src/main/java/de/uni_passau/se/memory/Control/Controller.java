@@ -57,7 +57,9 @@ public final class Controller {
     }
 
     /**
-     * Returns a new {@code INSTANCE} of the {@link Controller}.
+     *  Returns a new {@code INSTANCE} of the {@link Controller}.
+     *
+     * @return the INSTANCE of a {@link Controller}.
      */
     public static Controller getInstance() {
         return InstanceHolder.INSTANCE;
@@ -131,7 +133,7 @@ public final class Controller {
                     String[] playerNames = new String[playerAmount];
                     for (int i = 0; i < playerAmount; i++) {
                         if (firstIssue) {
-                            View.printPlayernameRequest(i + 1);
+                            View.printPlayerNameRequest(i + 1);
                         }
                         View.printMemory();
                         String name = bufferedReader.readLine().trim();
@@ -214,9 +216,9 @@ public final class Controller {
                 int counter = 1; //Number of choices
                 View.printPlayer(player.getName());
 
-                //This is only for the single player mode with the setting "play with lifes"
-                if (game.getPlayerList().getCount() == 1 && singlePlayerMode.equals(SinglePlayerMode.LIFEPOINTS)) {
-                    View.printLifes(game.getPlayerList().getPlayer(0).getLifes());
+                //This is only for the single player mode with the setting "play with lives"
+                if (game.getPlayerList().getCount() == 1 && singlePlayerMode.equals(SinglePlayerMode.LIVEPOINTS)) {
+                    View.printLives(game.getPlayerList().getPlayer(0).getLives());
                 }
 
                 //This is only for the single player mode with the setting "play on time"
@@ -289,12 +291,12 @@ public final class Controller {
                                         while (exit) {
                                             View.printMemory();
                                             String choice = bufferedReader.readLine().trim();
+
                                             exit = handleInputsAfterGame(choice, player);
                                         }
 
                                     } else {
                                         View.printFoundPair();
-                                        checkForAchievements(player);
                                         View.printBoard(game.getPlayingField());
                                     }
                                 } else {
@@ -306,17 +308,17 @@ public final class Controller {
 
                                     //This is only for the single player mode with the setting "play with lives"
                                     if (game.getPlayerList().getCount() == 1
-                                            && singlePlayerMode.equals(SinglePlayerMode.LIFEPOINTS)) {
-                                        game.getPlayerList().getPlayer(0).reduceLifes();
+                                            && singlePlayerMode.equals(SinglePlayerMode.LIVEPOINTS)) {
+                                        game.getPlayerList().getPlayer(0).reduceLives();
 
-                                        if (game.getPlayerList().getPlayer(0).getLifes() == 0) {
+                                        if (game.getPlayerList().getPlayer(0).getLives() == 0) {
                                             View.printLoserMessage();
                                             boolean exit = true;
                                             while (exit) {
                                                 View.printMemory();
                                                 String choice = bufferedReader.readLine().trim();
                                                 exit = handleInputsAfterGame(choice, player);
-                                                game.getPlayerList().getPlayer(0).setLifes(5);
+                                                game.getPlayerList().getPlayer(0).setLives(5);
                                             }
                                         }
                                     }
@@ -362,6 +364,7 @@ public final class Controller {
             players.getPlayer(i).getAchievements().updateGamesPlayed();
             if (players.getPlayerScore(i) == highestScore) {
                 players.getPlayer(i).getAchievements().updateGamesWon();
+                players.getPlayer(i).getAchievements().checkGamesWon();
                 if (!(players.getPlayer(i).getAchievements().getCurrentAchievements().isEmpty())) {
                     players.getPlayer(i).getAchievements().checkGamesWon();
                     View.printAchievement(players.getPlayer(i).getAchievements().getCurrentAchievement(), players.getPlayer(i));
@@ -489,12 +492,12 @@ public final class Controller {
      */
     public boolean handleSinglePlayerModeSettings(String mode) {
         mode = mode.toLowerCase();
-        if (!(mode.equals("life") || mode.equals("time"))) {
-            View.error("You have to choose between 'time' ore 'life'");
+        if (!(mode.equals("live") || mode.equals("time"))) {
+            View.error("You have to choose between 'time' ore 'live'");
             return false;
         }
-        if (mode.equals("life")) {
-            singlePlayerMode = SinglePlayerMode.LIFEPOINTS;
+        if (mode.equals("live")) {
+            singlePlayerMode = SinglePlayerMode.LIVEPOINTS;
             return true;
         } else if (mode.equals("time")) {
             singlePlayerMode = SinglePlayerMode.TIME;
@@ -544,26 +547,22 @@ public final class Controller {
                 saveBreak = true;
             }
             case "menu", "m" -> {
+                storeProgress();
                 game.returnToMenu(game.getPlayerList());
                 saveBreak = true;
             }
             case "reset", "r" -> {
+                storeProgress();
                 player = game.resetGame(game.getPlayerList());
                 saveBreak = true;
             }
             case "restart", "rs" -> {
+                storeProgress();
                 player = game.restartGame(game.getPlayerList());
                 saveBreak = true;
             }
             case "quit", "q" -> {
-                //try {
-                // TODO Doesn't work
-                // highScoreHistory.saveHighScoreHistory();
-                game.saveProfile(database.getPlayerProfiles());
-                database.storePlayerProfiles();
-                //} catch (FileNotFoundException e) {
-                //   e.printStackTrace();
-                //}
+                storeProgress();
                 game.quitGame();
                 saveBreak = true;
             }
@@ -574,7 +573,7 @@ public final class Controller {
                 for (int i = 0; i < game.getPlayerList().getCount(); i++) {
                     if (name.equals(game.getPlayerList().getPlayer(i).getName())) {
                         System.out.println("the achievement of " + name + "is: ");
-                        System.out.println(game.getPlayerList().getPlayer(i).getPlayerProfile());
+                        System.out.println(game.getPlayerList().getPlayer(i).playerProfileToString());
                     }
                 }
                 saveBreak = true;
@@ -595,26 +594,22 @@ public final class Controller {
     public boolean handleInputsAfterGame(String input, Player player) {
         switch (input.toLowerCase()) {
             case "menu", "m" -> {
+                storeProgress();
                 game.returnToMenu(game.getPlayerList());
                 return false;
             }
             case "reset", "r" -> {
+                storeProgress();
                 player = game.resetGame(game.getPlayerList());
                 return false;
             }
             case "restart", "rs" -> {
+                storeProgress();
                 player = game.restartGame(game.getPlayerList());
                 return false;
             }
             case "quit", "q" -> {
-                //try {
-                // TODO Doesn't work
-                // highScoreHistory.saveHighScoreHistory();
-                game.saveProfile(database.getPlayerProfiles());
-                database.storePlayerProfiles();
-                //} catch (FileNotFoundException e) {
-                //   e.printStackTrace();
-                //}
+                storeProgress();
                 game.quitGame();
                 return false;
             }
@@ -624,5 +619,19 @@ public final class Controller {
                 return true;
             }
         }
+    }
+
+    /**
+     * Stores the progress of all playerProfiles and the HighScoreHistory.
+     */
+    public void storeProgress(){
+        //try {
+        // TODO Doesn't work
+        // highScoreHistory.saveHighScoreHistory();
+        game.saveProfile(database.getPlayerProfiles());
+        database.storePlayerProfiles();
+        //} catch (FileNotFoundException e) {
+        //   e.printStackTrace();
+        //}
     }
 }
