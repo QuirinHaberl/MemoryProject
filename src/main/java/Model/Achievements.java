@@ -8,39 +8,39 @@ public class Achievements {
     /**
      * Stores the amount of total pairs found.
      */
-    int pairCounterTotal;
+    private int pairCounterTotal;
 
     /**
      * Stores the amount of pairs found in a streak.
      */
-    int pairCounterStreak;
+    private int pairCounterStreak;
 
     /**
      * Stores the highScore.
      */
-    int highScore;
+    private int highScore;
 
     /**
      * Stores the amount of total games won.
      */
-    int gameCounter;
+    private int gamesWon;
 
     /**
      * Stores the sum of the games that the player already joined in
      */
-    int gameSum;
+    private int gamesPlayed;
 
     /**
      * Stores the text for the current achievement.
      */
-    String currentAchievements;
+    private String currentAchievements="";
 
     /**
      * Constructs a new achievement
      */
     public Achievements() {
         this.pairCounterTotal = 0;
-        this.gameCounter = 0;
+        this.gamesWon = 0;
     }
 
     /**
@@ -50,10 +50,6 @@ public class Achievements {
      * @return weather a new achievement was earned
      */
     public boolean updateInstanceAchievements() {
-        updatePairCounters();
-        clearCurrentAchievement();
-        checkFoundPairsTotal();
-        checkFoundPairsStreak();
         return !(currentAchievements.isEmpty());
     }
 
@@ -98,28 +94,16 @@ public class Achievements {
         currentAchievements = "";
     }
 
-    /**
-     * Updates all global-achievements.
-     * A global-achievement can be earned once.
-     *
-     * @return whether a new achievement was earned
-     */
-    public boolean updateGlobalAchievements() {
-        gameCounter++;
-        clearCurrentAchievement();
-        checkGamesWon();
-        return !(currentAchievements.isEmpty());
-    }
 
     /**
      * Checks whether a new milestone was hit regarding won games.
      */
     public void checkGamesWon() {
-        if (gameCounter == 1) {
-            currentAchievements = currentAchievements + "won a game!\n";
+        if (gamesWon == 1) {
+            currentAchievements = currentAchievements + "won his/her first game!\n";
         }
-        if (gameCounter == 2) {
-            currentAchievements = currentAchievements + "won two games!\n";
+        if (gamesWon == 2) {
+            currentAchievements = currentAchievements + "won his/her second games!\n";
         }
     }
 
@@ -153,32 +137,78 @@ public class Achievements {
      *
      * @return the number of won games.
      */
-    public int getGameCounter() {
-        return gameCounter;
+    public int getGameWon() {
+        return gamesWon;
+    }
+
+    public int getPairCounterTotal() {
+        return pairCounterTotal;
+    }
+
+    public void setPairCounterTotal(int pairCounterTotal) {
+        this.pairCounterTotal = pairCounterTotal;
+    }
+
+    public int getPairCounterStreak() {
+        return pairCounterStreak;
+    }
+
+    public void setPairCounterStreak(int pairCounterStreak) {
+        this.pairCounterStreak = pairCounterStreak;
+    }
+
+    public int getHighScore() {
+        return highScore;
+    }
+
+    public void setGamesWon(int gameCounter) {
+        this.gamesWon = gameCounter;
+    }
+
+    public String getCurrentAchievements() {
+        return currentAchievements;
+    }
+
+    public void setCurrentAchievements(String currentAchievements) {
+        this.currentAchievements = currentAchievements;
     }
 
     /**
      * Sets a new gameSum
      *
-     * @param gameSum to be set
+     * @param gamesPlayed to be set
      */
-    public void setGameSum(int gameSum){
-        this.gameSum = gameSum;
+    public void setGamesPlayed(int gamesPlayed) {
+        this.gamesPlayed = gamesPlayed;
     }
 
     /**
      * Gets the number of times that you joined games
+     *
      * @return
      */
-    public int getGameSum(){
-        return this.gameSum;
+    public int getGamesPlayed() {
+        return this.gamesPlayed;
     }
 
     /**
      * Updates the sum of games that player joined in total, gameSum +1
-     *
      */
-    public void updateGameSum(){
-        this.gameSum++;
+    public void updateGamesPlayed() {
+        this.gamesPlayed++;
+    }
+
+    /**
+     * //todo
+     **/
+    public void updateGamesWon() {
+        gamesWon++;
+    }
+
+    public void checkHighScore(int score) {
+        if (score < getHighScore()) {
+            setHighScore(score);
+        }
+        //TODO Add new highScore achievements
     }
 }
