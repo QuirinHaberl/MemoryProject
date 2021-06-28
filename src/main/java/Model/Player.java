@@ -8,6 +8,11 @@ import java.util.*;
 public class Player {
 
     /**
+     * Stores the id of a {@link Player}.
+     */
+    private String id;
+
+    /**
      * Stores the name of a {@link Player}.
      */
     private String name;
@@ -52,11 +57,26 @@ public class Player {
      * @param rear  the last @link Player}
      */
     public Player(String name, int score, Player next, Player rear) {
+        //TODO ID
         this.name = name;
         this.score = score;
         this.next = next;
         this.rear = rear;
         this.foundCards = new ArrayList<>();
+    }
+
+    /**
+     * @return
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * @param id
+     */
+    public void setId(String id) {
+        this.id = id;
     }
 
     /**
@@ -181,8 +201,10 @@ public class Player {
         return achievements;
     }
 
-    public String getPlayerProfile(){
-        String profile = this.name + ", highest score: " + this.achievements.highScore + ", " + " has played " + this.achievements.gameSum+ " times.";
+    public String getPlayerProfile() {
+        String profile = this.name + ", highest score: " + this.achievements.getHighScore() + ", " + " has played " + this.achievements.getGamesPlayed() + " times.";
         return profile;
     }
+
+
 }
