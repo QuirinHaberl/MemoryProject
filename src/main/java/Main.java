@@ -16,7 +16,7 @@ public class Main {
      * @throws IOException on input error
      */
     public static void main(String[] args) throws IOException {
-        Controller controller = new Controller();
+        Controller controller = Controller.getInstance();
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         controller.execute(bufferedReader);
     }

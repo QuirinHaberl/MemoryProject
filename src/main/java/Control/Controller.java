@@ -14,7 +14,7 @@ import java.util.Scanner;
 /**
  * The controller of the MVC-architecture.
  */
-public class Controller {
+public final class Controller {
 
     /**
      * Stores the current {@link Game}.
@@ -42,14 +42,27 @@ public class Controller {
     Database database;
 
     /**
+     * Creates a new {@code INSTANCE} of the {@link Controller}.
+     */
+    private static class InstanceHolder {
+        private static final Controller INSTANCE = new Controller();
+    }
+
+    /**
      * Constructs a new {@link Controller}.
      */
-    public Controller() {
-        this.game = new Game();
-        //TODO Doesn't work
-        //this.highScoreHistory = new HighScoreHistory();
-        this.database = new Database();
+    private Controller() {
+        this.game = Game.getInstance();
+        this.highScoreHistory = HighScoreHistory.getInstance();
         this.menuStatus = MenuStatus.PLAYERMODE;
+        database = Database.getInstance();
+    }
+
+    /**
+     * Returns a new {@code INSTANCE} of the {@link Controller}.
+     */
+    public static Controller getInstance() {
+        return InstanceHolder.INSTANCE;
     }
 
     /**

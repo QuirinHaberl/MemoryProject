@@ -1,5 +1,6 @@
 package Model;
 
+import Control.Controller;
 import Model.Enums.CardStatus;
 import Model.Enums.GameStatus;
 import Model.Enums.TurnStatus;
@@ -12,7 +13,7 @@ import java.util.TimerTask;
 /**
  * This class implements a {@link Game}.
  */
-public class Game {
+public final class Game {
 
     /**
      * Stores the current {@link TurnStatus}.
@@ -82,13 +83,27 @@ public class Game {
     private CountDown time;
 
     /**
+     * Creates a new {@code INSTANCE} of the {@link Game}.
+     */
+    private static class InstanceHolder {
+        private static final Game INSTANCE = new Game();
+    }
+
+    /**
      * The constructor initiates the {@link Game}, the turn and creates a new {@link PlayingField}
      */
-    public Game() {
+    private Game() {
         this.turnStatus = TurnStatus.IDLE;
         this.gameStatus = GameStatus.MENU;
         this.playerList = new PlayerList();
         this.playingField = new PlayingField();
+    }
+
+    /**
+     * Returns a new {@code INSTANCE} of the {@link Game}.
+     */
+    public static Game getInstance() {
+        return Game.InstanceHolder.INSTANCE;
     }
 
     /**

@@ -22,11 +22,25 @@ public class Database {
     private List<String[]> playerProfiles;
 
     /**
+     * Creates a new {@code INSTANCE} of the {@link Database}.
+     */
+    private static class InstanceHolder {
+        private static final Database INSTANCE = new Database();
+    }
+
+    /**
      * Constructs a new database-object.
      */
     public Database() {
         this.path = "src/main/resources/profiles.csv";
         this.playerProfiles = new ArrayList<>();
+    }
+
+    /**
+     * Returns a new {@code INSTANCE} of the {@link Database}.
+     */
+    public static Database getInstance() {
+        return Database.InstanceHolder.INSTANCE;
     }
 
     /**
