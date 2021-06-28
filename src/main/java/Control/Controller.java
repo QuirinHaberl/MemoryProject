@@ -8,6 +8,7 @@ import View.*;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -144,6 +145,8 @@ public final class Controller {
                         }
                     }
                     game.addPlayers(playerAmount, playerNames);
+                    //TODO profilauswahl
+                    database.loadPlayerProfiles();
                     game.useProfile(database.getPlayerProfiles());
                     menuStatus = MenuStatus.BOARDSIZE;
                 }
@@ -267,17 +270,21 @@ public final class Controller {
                                 if (game.pairCheck(firstRow, firstCol, secondRow, secondCol)) {
                                     player.addScore();
                                     player.getFoundCards().add(game.getPlayingField().getBoard()[secondRow][secondCol]);
+                                    //Check if a player has a new achievement
+                                    checkForAchievements(player);
                                     if (game.areAllCardsOpen()) {
                                         View.printAllPairsFound();
                                         View.printBoard(game.getPlayingField());
-                                        checkForAchievements(game.getPlayerList());
                                         String[] winningPlayers = game.getPlayerList().winningPlayersToString();
                                         int[] highScore =
                                                 game.getPlayerList().getHighestScore();
-                                        storeProgress();
+
+                                        //Check if a player has a new achievement
+                                        checkForAchievements(game.getPlayerList());
                                         View.printGameSummary(winningPlayers,
                                                 highScore[0]);
-                                        highScoreHistory.updateHighScoreHistory(winningPlayers, highScore[0]);
+                                        //TODO Doesn't work
+                                        //highScoreHistory.updateHighScoreHistory(winningPlayers, highScore[0]);
 
                                         boolean exit = true;
                                         while (exit) {
@@ -298,7 +305,7 @@ public final class Controller {
                                     //Reset streak for achievements
                                     player.getAchievements().resetPairCounterStreak();
 
-                                    //This is only for the single player mode with the setting "play with lifes"
+                                    //This is only for the single player mode with the setting "play with lives"
                                     if (game.getPlayerList().getCount() == 1
                                             && singlePlayerMode.equals(SinglePlayerMode.LIFEPOINTS)) {
                                         game.getPlayerList().getPlayer(0).reduceLifes();
@@ -334,8 +341,13 @@ public final class Controller {
      * @param player who is being checked
      */
     public void checkForAchievements(Player player) {
-        if (player.getAchievements().updateInstanceAchievements()) {
+        player.getAchievements().updatePairCounters();
+        player.getAchievements().checkFoundPairsTotal();
+        player.getAchievements().checkFoundPairsStreak();
+        player.getAchievements().checkHighScore(player.getScore());
+        if (!(player.getAchievements().getCurrentAchievements().isEmpty())) {
             View.printAchievement(player.getAchievements().getCurrentAchievement(), player);
+            player.getAchievements().clearCurrentAchievement();
         }
     }
 
@@ -345,12 +357,16 @@ public final class Controller {
      * @param players who are being checked
      */
     public void checkForAchievements(PlayerList players) {
-        int highestScore = players.getHighestScore()[0];
 
+        int highestScore = players.getHighestScore()[0];
         for (int i = 0; i < players.getCount(); i++) {
+            players.getPlayer(i).getAchievements().updateGamesPlayed();
             if (players.getPlayerScore(i) == highestScore) {
-                if (players.getPlayer(i).getAchievements().updateGlobalAchievements()) {
+                players.getPlayer(i).getAchievements().updateGamesWon();
+                if (!(players.getPlayer(i).getAchievements().getCurrentAchievements().isEmpty())) {
+                    players.getPlayer(i).getAchievements().checkGamesWon();
                     View.printAchievement(players.getPlayer(i).getAchievements().getCurrentAchievement(), players.getPlayer(i));
+                    players.getPlayer(i).getAchievements().clearCurrentAchievement();
                 }
             }
         }
@@ -541,21 +557,23 @@ public final class Controller {
                 saveBreak = true;
             }
             case "quit", "q" -> {
-                database.storePlayerProfiles(game.getPlayerList());
+                //try {
+                // TODO Doesn't work
+                // highScoreHistory.saveHighScoreHistory();
+                game.saveProfile(database.getPlayerProfiles());
+                database.storePlayerProfiles();
+                //} catch (FileNotFoundException e) {
+                //   e.printStackTrace();
+                //}
                 game.quitGame();
                 saveBreak = true;
-                try {
-                    highScoreHistory.saveHighScoreHistory();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
             }
-            case "show current" ->{       //durch dem kann man nur den Spieler schauen, der momentan im Spiel ist.
+            case "show current" -> {       //durch dem kann man nur den Spieler schauen, der momentan im Spiel ist.
                 Scanner sc = new Scanner(System.in);  // wenn der spieler momentan nicht im Spiel aber in profiles.csv ist, kann man nicht schauen.
                 System.out.println("input the name of player in this current game whom you want to know:");
                 String name = sc.next();
-                for(int i = 0; i < game.getPlayerList().getCount(); i ++){
-                    if(name.equals(game.getPlayerList().getPlayer(i).getName())){
+                for (int i = 0; i < game.getPlayerList().getCount(); i++) {
+                    if (name.equals(game.getPlayerList().getPlayer(i).getName())) {
                         System.out.println("the achievement of " + name + "is: ");
                         System.out.println(game.getPlayerList().getPlayer(i).getPlayerProfile());
                     }
@@ -590,12 +608,15 @@ public final class Controller {
                 return false;
             }
             case "quit", "q" -> {
+                //try {
+                // TODO Doesn't work
+                // highScoreHistory.saveHighScoreHistory();
+                game.saveProfile(database.getPlayerProfiles());
+                database.storePlayerProfiles();
+                //} catch (FileNotFoundException e) {
+                //   e.printStackTrace();
+                //}
                 game.quitGame();
-                try {
-                    highScoreHistory.saveHighScoreHistory();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
                 return false;
             }
             default -> {
@@ -604,12 +625,5 @@ public final class Controller {
                 return true;
             }
         }
-    }
-
-    /**
-     * Stores the progress of the current players in their playerProfiles.
-     */
-    public void storeProgress() {
-        database.storePlayerProfiles(game.getPlayerList());
     }
 }

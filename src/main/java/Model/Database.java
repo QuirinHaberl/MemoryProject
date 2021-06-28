@@ -1,7 +1,10 @@
 package Model;
 
+import View.View;
+
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -9,33 +12,12 @@ import java.util.List;
  */
 public class Database {
 
-    /**
-     * Stores the path to profiles.csv.
-     */
-    private final String path = "src/main/resources/profiles.csv";
-
-    /**
-     * Stores the FileReader.
-     */
-    private FileReader fr;
-
-    /**
-     * Stores the FileOutputStream.
-     */
-    private FileOutputStream fos;
-
-    /**
-     * Stores the PrintWriter.
-     */
-    private PrintWriter pw;
-
-    /**
-     * Stores the BufferedReader.
-     */
-    private BufferedReader br;
+    String path;
 
     /**
      * Stores all playerProfiles
+     * A profile has the following structure:
+     * playerID;player1;highScore;gamePlayed;gamesWon
      */
     private List<String[]> playerProfiles;
 
@@ -49,20 +31,9 @@ public class Database {
     /**
      * Constructs a new database-object.
      */
-    private Database() {
-        try {
-            this.fr = new FileReader(path);
-            this.br = new BufferedReader(fr);
-
-            this.playerProfiles = new ArrayList<>();
-            loadPlayerProfiles();
-
-            this.fos = new FileOutputStream(path);
-            this.pw = new PrintWriter(fos);
-
-        } catch (IOException e) {
-            System.out.println("File does not exist");
-        }
+    public Database() {
+        this.path = "src/main/resources/profiles.csv";
+        this.playerProfiles = new ArrayList<>();
     }
 
     /**
@@ -74,53 +45,54 @@ public class Database {
 
     /**
      * Loads all existing playerProfiles out of profiles.csv.
-     *
-     * @throws IOException if profiles.csv is not found
      */
-    public void loadPlayerProfiles() throws IOException {
-        String[] values;
-        String playerInfo;
-        int pos = 0;
+    public void loadPlayerProfiles() {
+        try {
+            FileReader fr = new FileReader(path);
+            BufferedReader br = new BufferedReader(fr);
 
-        while (!((playerInfo = br.readLine()) == null)) {
-            values = playerInfo.split(";");
+            String[] values;
+            String playerInfo;
+            int pos = 0;
 
-            playerProfiles.add(pos, values);
-            pos++;
+            while (!((playerInfo = br.readLine()) == null)) {
+                values = playerInfo.split(";");
+
+                playerProfiles.add(pos, values);
+                pos++;
+            }
+            br.close();
+            fr.close();
+        } catch (FileNotFoundException e) {
+            View.error("File not found!");
+        } catch (IOException e) {
+            View.error("Couldn't write to profiles.csv");
         }
-        br.close();
     }
 
     /**
      * Stores all updated playerProfiles in profiles.csv.
-     *
-     * @param playerList contains all players of the current game
+     * A profile has the following structure:
+     * playerID;player1;highScore;gamePlayed;gamesWon
      */
-    public void storePlayerProfiles(PlayerList playerList) {
-        for (String[] playerProfile : playerProfiles) {
-            pw.println(playerProfile[0] + ";" +
-                    playerProfile[1] + ";" +
-                    playerProfile[2] + ";");
-        }
-
-        boolean playerHasNoProfile;
-
-        for (int i = 0; i < playerList.getCount(); i++) {
-            playerHasNoProfile = true;
+    public void storePlayerProfiles() {
+        try {
+            FileOutputStream fos = new FileOutputStream(path);
+            PrintWriter pw = new PrintWriter(fos);
             for (String[] playerProfile : playerProfiles) {
-                if (playerList.getPlayer(i).getName().equals(playerProfile[0])) {
-                    playerHasNoProfile = false;
-                    break;
-                }
+                pw.println(playerProfile[0] + ";" +
+                        playerProfile[1] + ";" +
+                        playerProfile[2] + ";" +
+                        playerProfile[3] + ";" +
+                        playerProfile[4] + ";");
             }
-            if (playerHasNoProfile) {
-                //TODO Highscore muss angepasst werden
-                pw.println(playerList.getPlayer(i).getName() + ";" +
-                        playerList.getPlayer(i).getScore() + ";" +
-                        playerList.getPlayer(i).getAchievements().getGameCounter());
-            }
+            pw.close();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            View.error("File not found!");
+        } catch (IOException e) {
+            View.error("Couldn't write to profiles.csv");
         }
-        pw.close();
     }
 
     /**
@@ -130,5 +102,15 @@ public class Database {
      */
     public List<String[]> getPlayerProfiles() {
         return playerProfiles;
+    }
+
+    public static void main(String[] args) {
+        Database database = new Database();
+        for (int i = 0; i < database.getPlayerProfiles().size(); i++) {
+            //System.out.println(Arrays.toString(database.getPlayerProfiles().get(i)));
+        }
+        PlayerList playerList = new PlayerList();
+        database.loadPlayerProfiles();
+        database.storePlayerProfiles();
     }
 }

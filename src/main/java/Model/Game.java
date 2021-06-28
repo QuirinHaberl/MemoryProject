@@ -45,6 +45,7 @@ public final class Game {
 
         /**
          * //TODO fehlt noch
+         *
          * @return
          */
         public int getCount() {
@@ -297,8 +298,8 @@ public final class Game {
      * Update the gameSum of every player
      */
     public void quitGame() {
-        for(int i = 0; i < this.getPlayerList().getCount(); i ++){
-            this.getPlayerList().getPlayer(i).getAchievements().updateGameSum();
+        for (int i = 0; i < this.getPlayerList().getCount(); i++) {
+            this.getPlayerList().getPlayer(i).getAchievements().updateGamesPlayed();
         }
         setGameStatus(GameStatus.END);
     }
@@ -374,15 +375,55 @@ public final class Game {
 
     /**
      * Loads all existing profiles for the current players.
+     * A playerProfile has the following structure:
+     * playerId;playerName;highScore;gamesPlayed;gamesWon
      *
      * @param playerProfiles to be used
      */
     public void useProfile(List<String[]> playerProfiles) {
+        boolean hasProfile;
         for (int i = 0; i < playerList.getCount(); i++) {
-            for (String[] playerProfile : playerProfiles) {
-                if (playerList.getPlayer(i).getName().equals(playerProfile[0])) {
-                    playerList.getPlayer(i).getAchievements().setHighScore(Integer.parseInt(playerProfiles.get(i)[1]));
-                    playerList.getPlayer(i).getAchievements().setHighScore(Integer.parseInt(playerProfiles.get(i)[2]));
+            hasProfile = false;
+            int j;
+            for (j = 0; j < playerProfiles.size(); j++) {
+                if (playerList.getPlayer(i).getName().equals(playerProfiles.get(j)[1])) {
+                    hasProfile = true;
+                    break;
+                }
+
+            }
+            if (hasProfile) {
+                playerList.getPlayer(i).getAchievements().setHighScore(Integer.parseInt(playerProfiles.get(j)[2]));
+                playerList.getPlayer(i).getAchievements().setGamesPlayed(Integer.parseInt(playerProfiles.get(j)[3]));
+                playerList.getPlayer(i).getAchievements().setGamesWon(Integer.parseInt(playerProfiles.get(j)[4]));
+            } else {
+                String[] newProfile = new String[]{
+                        playerList.getPlayer(i).getId(),
+                        playerList.getPlayer(i).getName(),
+                        playerList.getPlayer(i).getAchievements().getHighScore()+"",
+                        playerList.getPlayer(i).getAchievements().getGamesPlayed()+"",
+                        playerList.getPlayer(i).getAchievements().getGameWon()+""
+                };
+                playerProfiles.add(newProfile);
+            }
+        }
+    }
+
+    /**
+     * Loads all existing profiles for the current players.
+     * A playerProfile has the following structure:
+     * playerId;playerName;highScore;gamesPlayed;gamesWon
+     *
+     * @param playerProfiles to be used
+     */
+    public void saveProfile(List<String[]> playerProfiles) {
+        for (int i = 0; i < playerProfiles.size(); i++) {
+            for (int j = 0; j < playerList.getCount(); j++) {
+                if (playerProfiles.get(i)[1].equals(playerList.getPlayer(j).getName())) {
+                    playerProfiles.get(i)[2] = playerList.getPlayer(j).getAchievements().getHighScore() + "";
+                    playerProfiles.get(i)[3] = playerList.getPlayer(j).getAchievements().getGamesPlayed() + "";
+                    playerProfiles.get(i)[4] = playerList.getPlayer(j).getAchievements().getGameWon() + "";
+                    break;
                 }
             }
         }

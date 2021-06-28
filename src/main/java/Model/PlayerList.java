@@ -114,9 +114,11 @@ public class PlayerList {
     public Player getPlayer(int position) {
         if (front == null) {
             throw new IllegalArgumentException("There is no Model.Enums.Player now!");
-        } else if (position >= count || position < 0) {
-            throw new IllegalArgumentException("Position is bigger than count or smaller than 0!");
         }
+        //TODO Enable again
+        /*else if (position > count || position < 0) {
+            throw new IllegalArgumentException("Position is bigger than count or smaller than 0!");
+        }*/
         Player current = front;
         for (int i = 0; i < position; i++) {
             current = current.getNext();
