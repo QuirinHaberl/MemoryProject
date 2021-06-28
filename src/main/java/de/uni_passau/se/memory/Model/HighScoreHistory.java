@@ -59,6 +59,8 @@ public class HighScoreHistory {
 
     /**
      * Returns a new {@code INSTANCE} of the {@link HighScoreHistory}.
+     *
+     * @return the INSTANCE of a {@link HighScoreHistory}.
      */
     public static HighScoreHistory getInstance() {
         return HighScoreHistory.InstanceHolder.INSTANCE;
@@ -88,10 +90,10 @@ public class HighScoreHistory {
      * @throws FileNotFoundException if highScoreHistory.csv is not found
      */
     public void saveHighScoreHistory() throws FileNotFoundException {
-        fileOutputStream = new FileOutputStream(path,false);
+        fileOutputStream = new FileOutputStream(path, false);
         printWriter = new PrintWriter(fileOutputStream);
         printWriter.write("");
-        fileOutputStream = new FileOutputStream(path,true);
+        fileOutputStream = new FileOutputStream(path, true);
         printWriter = new PrintWriter(fileOutputStream);
         for (String[] strings : highScoreList) {
             printWriter.println(strings[0] + ";" + strings[1]);
@@ -103,8 +105,8 @@ public class HighScoreHistory {
      * Updates the {@link HighScoreHistory} with the current winning players
      * and their high score.
      *
-     * @param winningPlayers    of the current game.
-     * @param highScore         of the winning players.
+     * @param winningPlayers of the current game.
+     * @param highScore      of the winning players.
      */
     public void updateHighScoreHistory(String[] winningPlayers,
                                        int highScore) {
@@ -123,7 +125,7 @@ public class HighScoreHistory {
      *
      * @param player    that won the current game.
      * @param highScore of the winning player.
-     * @return  true if the players data was updated.
+     * @return true if the players data was updated.
      */
     private boolean updateHighScore(String player, int highScore) {
         int pos = 0;
@@ -171,7 +173,7 @@ public class HighScoreHistory {
      * @param highScore     of the winning player.
      */
     private void createNewList(int pos, String winningPlayer,
-                                     String highScore) {
+                               String highScore) {
         String[] newPlayer = {winningPlayer, String.valueOf(highScore)};
         highScoreList.add(pos, newPlayer);
         if (highScoreList.get(10) != null) {

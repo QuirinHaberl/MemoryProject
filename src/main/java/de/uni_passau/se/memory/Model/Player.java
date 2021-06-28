@@ -8,9 +8,9 @@ import java.util.*;
 public class Player {
 
     /**
-     * Stores the id of a {@link Player}.
+     * Stores the playerId of a {@link Player}.
      */
-    private String id;
+    private String playerId;
 
     /**
      * Stores the name of a {@link Player}.
@@ -23,15 +23,15 @@ public class Player {
     private int score;
 
     /**
-     * Stores the lifes of a {@link Player}.
-     * The default number of lifes is 5.
+     * Stores the lives of a {@link Player}.
+     * The default number of lives is 5.
      */
-    private int lifes = 5;
+    private int lives = 5;
 
     /**
-     * Stores the achievments of a {@link Player}
+     * Stores the achievements of a {@link Player}
      */
-    private Achievements achievements = new Achievements();
+    private final Achievements achievements = new Achievements();
 
     /**
      * Stores the next {@link Player}.
@@ -57,7 +57,7 @@ public class Player {
      * @param rear  the last @link Player}
      */
     public Player(String name, int score, Player next, Player rear) {
-        //TODO PlayerID muss hier noch implementier werden
+        this.playerId = UUID.randomUUID().toString();
         this.name = name;
         this.score = score;
         this.next = next;
@@ -66,17 +66,21 @@ public class Player {
     }
 
     /**
-     * @return
+     * Gets the playerId.
+     *
+     * @return the playerId
      */
-    public String getId() {
-        return id;
+    public String getPlayerId() {
+        return playerId;
     }
 
     /**
-     * @param id
+     * Sets the playerId
+     *
+     * @param playerId to be set
      */
-    public void setId(String id) {
-        this.id = id;
+    public void setPlayerId(String playerId) {
+        this.playerId = playerId;
     }
 
     /**
@@ -100,7 +104,7 @@ public class Player {
     /**
      * Set the score for a {@link Player}.
      *
-     * @param score of a de.uni_passau.se.memory.Model.Enums.Player
+     * @param score of a player
      */
     public void setScore(int score) {
         this.score = score;
@@ -143,7 +147,7 @@ public class Player {
     /**
      * Sets the name for a {@link Player}.
      *
-     * @param name of a de.uni_passau.se.memory.Model.Enums.Player
+     * @param name of a player
      */
     public void setName(String name) {
         this.name = name;
@@ -168,28 +172,28 @@ public class Player {
     }
 
     /**
-     * Gets the lifes of a {@link Player}.
+     * Gets the lives of a {@link Player}.
      *
-     * @return the lifes of a {@link Player}.
+     * @return the lives of a {@link Player}.
      */
-    public int getLifes() {
-        return lifes;
+    public int getLives() {
+        return lives;
     }
 
     /**
-     * Reduces the lifes of a {@link Player}.
+     * Reduces the lives of a {@link Player}.
      */
-    public void reduceLifes() {
-        this.lifes = lifes - 1;
+    public void reduceLives() {
+        this.lives = lives - 1;
     }
 
     /**
-     * Sets the lifes of a {@link Player}.
+     * Sets the lives of a {@link Player}.
      *
-     * @param lifes of a {@link Player}.
+     * @param lives of a {@link Player}.
      */
-    public void setLifes(int lifes) {
-        this.lifes = lifes;
+    public void setLives(int lives) {
+        this.lives = lives;
     }
 
     /**
@@ -201,9 +205,15 @@ public class Player {
         return achievements;
     }
 
-    public String getPlayerProfile() {
-        String profile = this.name + ", highest score: " + this.achievements.getHighScore() + ", " + " has played " + this.achievements.getGamesPlayed() + " times.";
-        return profile;
+    /**
+     * Generates a String of a playerProfile.
+     *
+     * @return the playerProfile as a String
+     */
+    public String playerProfileToString() {
+        return (this.name + ", highest score: " +
+                this.achievements.getHighScore() + ", " + " has played " +
+                this.achievements.getGamesPlayed() + " times.");
     }
 
 

@@ -16,9 +16,9 @@ public class Database {
     /**
      * Stores all playerProfiles
      * A profile has the following structure:
-     * playerID;player1;highScore;gamePlayed;gamesWon
+     * playerId;player1;highScore;gamePlayed;gamesWon
      */
-    private List<String[]> playerProfiles;
+    private final List<String[]> playerProfiles;
 
     /**
      * Creates a new {@code INSTANCE} of the {@link Database}.
@@ -37,6 +37,8 @@ public class Database {
 
     /**
      * Returns a new {@code INSTANCE} of the {@link Database}.
+     *
+     * @return the INSTANCE of a {@link Database}.
      */
     public static Database getInstance() {
         return Database.InstanceHolder.INSTANCE;
@@ -72,7 +74,7 @@ public class Database {
     /**
      * Stores all updated playerProfiles in profiles.csv.
      * A profile has the following structure:
-     * playerID;player1;highScore;gamePlayed;gamesWon
+     * playerId;player1;highScore;gamePlayed;gamesWon
      */
     public void storePlayerProfiles() {
         try {

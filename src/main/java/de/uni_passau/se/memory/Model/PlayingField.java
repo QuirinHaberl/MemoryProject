@@ -8,7 +8,7 @@ import de.uni_passau.se.memory.View.View;
 import java.util.Random;
 
 /**
- * The class de.uni_passau.se.memory.Model.Enums.PlayingField implements the {@link PlayingField} of the memory game
+ * The class PlayingField implements the {@link PlayingField} of the memory game
  * as a two-dimensional array.
  * In addition, a controlArray of the boolean type is created to store
  * whether a card is revealed or not.
@@ -184,9 +184,9 @@ public class PlayingField {
     }
 
     /**
-     * Gets the cardset
+     * Gets the cardSet
      *
-     * @return cardset
+     * @return a cardSet
      */
     public CardSet getCardSet() {
         return cardSet;
@@ -197,7 +197,7 @@ public class PlayingField {
      *
      * @return height
      */
-    public int getHeigth() {
+    public int getHeight() {
         return height;
     }
 
@@ -206,7 +206,7 @@ public class PlayingField {
      *
      * @param height to be used.
      */
-    public void setHeigth(int height) {
+    public void setHeight(int height) {
         this.height = height;
     }
 
