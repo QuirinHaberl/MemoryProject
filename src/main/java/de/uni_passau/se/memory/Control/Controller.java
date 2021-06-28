@@ -1,14 +1,12 @@
-package Control;
+package de.uni_passau.se.memory.Control;
 
-import Model.*;
-import Model.Enums.CardStatus;
-import Model.Enums.GameStatus;
-import View.*;
+import de.uni_passau.se.memory.Model.*;
+import de.uni_passau.se.memory.Model.Enums.CardStatus;
+import de.uni_passau.se.memory.Model.Enums.GameStatus;
+import de.uni_passau.se.memory.View.*;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -53,7 +51,7 @@ public final class Controller {
      */
     private Controller() {
         this.game = Game.getInstance();
-        this.highScoreHistory = HighScoreHistory.getInstance();
+        //this.highScoreHistory = HighScoreHistory.getInstance();
         this.menuStatus = MenuStatus.PLAYERMODE;
         database = Database.getInstance();
     }
@@ -145,7 +143,8 @@ public final class Controller {
                         }
                     }
                     game.addPlayers(playerAmount, playerNames);
-                    //TODO profilauswahl
+                    //TODO Die Profilauswahl muss noch implementiert werden
+                    //TODO bis jetzt werden alle Profile geladen, die gefunden werden
                     database.loadPlayerProfiles();
                     game.useProfile(database.getPlayerProfiles());
                     menuStatus = MenuStatus.BOARDSIZE;

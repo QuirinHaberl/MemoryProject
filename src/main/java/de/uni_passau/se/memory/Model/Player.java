@@ -1,4 +1,4 @@
-package Model;
+package de.uni_passau.se.memory.Model;
 
 import java.util.*;
 
@@ -57,7 +57,7 @@ public class Player {
      * @param rear  the last @link Player}
      */
     public Player(String name, int score, Player next, Player rear) {
-        //TODO ID
+        //TODO PlayerID muss hier noch implementier werden
         this.name = name;
         this.score = score;
         this.next = next;
@@ -100,7 +100,7 @@ public class Player {
     /**
      * Set the score for a {@link Player}.
      *
-     * @param score of a Model.Enums.Player
+     * @param score of a de.uni_passau.se.memory.Model.Enums.Player
      */
     public void setScore(int score) {
         this.score = score;
@@ -143,7 +143,7 @@ public class Player {
     /**
      * Sets the name for a {@link Player}.
      *
-     * @param name of a Model.Enums.Player
+     * @param name of a de.uni_passau.se.memory.Model.Enums.Player
      */
     public void setName(String name) {
         this.name = name;

@@ -1,6 +1,6 @@
-package Model.Enums;
+package de.uni_passau.se.memory.Model.Enums;
 
-import Model.Card;
+import de.uni_passau.se.memory.Model.Card;
 
 /**
  * The enumeration of the card status.

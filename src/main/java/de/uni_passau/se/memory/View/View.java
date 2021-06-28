@@ -1,10 +1,7 @@
-package View;
+package de.uni_passau.se.memory.View;
 
-import Model.*;
-import Model.Enums.CardStatus;
-
-import java.util.ArrayList;
-import java.util.List;
+import de.uni_passau.se.memory.Model.*;
+import de.uni_passau.se.memory.Model.Enums.CardStatus;
 
 /**
  * This class represents the view of the MVC-architecture.
@@ -212,7 +209,7 @@ public final class View {
     }
 
     /**
-     * Prints every {@link Player} and its {@code Model.Enums.Player.score}.
+     * Prints every {@link Player} and its {@code de.uni_passau.se.memory.Model.Enums.Player.score}.
      *
      * @param players list of all players
      */
@@ -283,7 +280,7 @@ public final class View {
     }
 
     /**
-     * Informs the user to input the {@link Model.Enums.CardSet}.
+     * Informs the user to input the {@link de.uni_passau.se.memory.Model.Enums.CardSet}.
      */
     public static void printSelectCardSet() {
         System.out.println("Type 'L' for letters or 'D' for digits:");

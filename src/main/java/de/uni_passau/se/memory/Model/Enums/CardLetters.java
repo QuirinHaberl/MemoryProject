@@ -1,6 +1,6 @@
-package Model.Enums;
+package de.uni_passau.se.memory.Model.Enums;
 
-import Model.Card;
+import de.uni_passau.se.memory.Model.Card;
 
 /**
  * This is the {@link CardSet} with letters.

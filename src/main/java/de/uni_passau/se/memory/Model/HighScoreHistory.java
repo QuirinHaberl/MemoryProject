@@ -1,4 +1,4 @@
-package Model;
+package de.uni_passau.se.memory.Model;
 
 import java.io.*;
 import java.util.List;

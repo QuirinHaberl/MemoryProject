@@ -1,4 +1,4 @@
-package Control;
+package de.uni_passau.se.memory.Control;
 
 /**
  * The enumeration of the menu status.
