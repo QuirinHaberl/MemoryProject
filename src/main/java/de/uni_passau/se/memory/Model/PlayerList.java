@@ -115,10 +115,6 @@ public class PlayerList {
         if (front == null) {
             throw new IllegalArgumentException("There is no de.uni_passau.se.memory.Model.Enums.Player now!");
         }
-        //TODO Enable again
-        /*else if (position > count || position < 0) {
-            throw new IllegalArgumentException("Position is bigger than count or smaller than 0!");
-        }*/
         Player current = front;
         for (int i = 0; i < position; i++) {
             current = current.getNext();

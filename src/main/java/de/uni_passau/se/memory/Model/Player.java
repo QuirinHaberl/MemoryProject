@@ -23,10 +23,10 @@ public class Player {
     private int score;
 
     /**
-     * Stores the lifes of a {@link Player}.
-     * The default number of lifes is 5.
+     * Stores the lives of a {@link Player}.
+     * The default number of lives is 5.
      */
-    private int lifes = 5;
+    private int lives = 5;
 
     /**
      * Stores the achievments of a {@link Player}
@@ -66,14 +66,18 @@ public class Player {
     }
 
     /**
-     * @return
+     * Gets the playerId.
+     *
+     * @return the playerId
      */
     public String getId() {
         return id;
     }
 
     /**
-     * @param id
+     * Sets the playerId
+     *
+     * @param id to be set
      */
     public void setId(String id) {
         this.id = id;
@@ -168,28 +172,28 @@ public class Player {
     }
 
     /**
-     * Gets the lifes of a {@link Player}.
+     * Gets the lives of a {@link Player}.
      *
-     * @return the lifes of a {@link Player}.
+     * @return the lives of a {@link Player}.
      */
-    public int getLifes() {
-        return lifes;
+    public int getLives() {
+        return lives;
     }
 
     /**
-     * Reduces the lifes of a {@link Player}.
+     * Reduces the lives of a {@link Player}.
      */
-    public void reduceLifes() {
-        this.lifes = lifes - 1;
+    public void reduceLives() {
+        this.lives = lives - 1;
     }
 
     /**
-     * Sets the lifes of a {@link Player}.
+     * Sets the lives of a {@link Player}.
      *
-     * @param lifes of a {@link Player}.
+     * @param lives of a {@link Player}.
      */
-    public void setLifes(int lifes) {
-        this.lifes = lifes;
+    public void setLives(int lives) {
+        this.lives = lives;
     }
 
     /**
@@ -201,9 +205,15 @@ public class Player {
         return achievements;
     }
 
-    public String getPlayerProfile() {
-        String profile = this.name + ", highest score: " + this.achievements.getHighScore() + ", " + " has played " + this.achievements.getGamesPlayed() + " times.";
-        return profile;
+    /**
+     * Generates a String of a playerProfile.
+     *
+     * @return the playerProfile as a String
+     */
+    public String playerProfileToString() {
+        return (this.name + ", highest score: " +
+                this.achievements.getHighScore() + ", " + " has played " +
+                this.achievements.getGamesPlayed() + " times.");
     }
 
 

@@ -1,5 +1,6 @@
 package de.uni_passau.se.memory.Model;
 
+import de.uni_passau.se.memory.Control.Controller;
 import de.uni_passau.se.memory.Model.Enums.CardStatus;
 import de.uni_passau.se.memory.Model.Enums.GameStatus;
 import de.uni_passau.se.memory.Model.Enums.TurnStatus;
@@ -38,23 +39,23 @@ public final class Game {
      * This is a inner class for the timer of a {@link Game}.
      * The default time is 120 seconds (2 minutes)
      */
-    public class CountDown {
+    public class startCountDown {
         private int count = 120;
         int remainingTime = count;
 
         /**
-         * //TODO fehlt noch
+         * Gets the {@code remainingTime} of a {@link Game}.
          *
-         * @return
+         * @return the {@code remainingTime}
          */
         public int getCount() {
             return remainingTime;
         }
 
         /**
-         * //TODO fehlt noch
+         * Initiates the countDown.
          */
-        public CountDown() {
+        public startCountDown() {
             Timer timer = new Timer();
             TimerTask task = new TimerTask() {
 
@@ -79,7 +80,7 @@ public final class Game {
     /**
      * This is the associated attribute of type CountDown for the game.
      */
-    private CountDown time;
+    private startCountDown time;
 
     /**
      * Creates a new {@code INSTANCE} of the {@link Game}.
@@ -100,6 +101,8 @@ public final class Game {
 
     /**
      * Returns a new {@code INSTANCE} of the {@link Game}.
+     *
+     * @return the INSTANCE of a {@link Game}.
      */
     public static Game getInstance() {
         return Game.InstanceHolder.INSTANCE;
@@ -360,7 +363,7 @@ public final class Game {
      * Starts the timer of the {@link Game}.
      */
     public void startTimer() {
-        this.time = new CountDown();
+        this.time = new startCountDown();
     }
 
     /**
@@ -368,7 +371,7 @@ public final class Game {
      *
      * @return the time of the {@link Game}.
      */
-    public CountDown getTime() {
+    public startCountDown getTime() {
         return time;
     }
 
@@ -399,9 +402,9 @@ public final class Game {
                 String[] newProfile = new String[]{
                         playerList.getPlayer(i).getId(),
                         playerList.getPlayer(i).getName(),
-                        playerList.getPlayer(i).getAchievements().getHighScore()+"",
-                        playerList.getPlayer(i).getAchievements().getGamesPlayed()+"",
-                        playerList.getPlayer(i).getAchievements().getGameWon()+""
+                        playerList.getPlayer(i).getAchievements().getHighScore() + "",
+                        playerList.getPlayer(i).getAchievements().getGamesPlayed() + "",
+                        playerList.getPlayer(i).getAchievements().getGameWon() + ""
                 };
                 playerProfiles.add(newProfile);
             }
