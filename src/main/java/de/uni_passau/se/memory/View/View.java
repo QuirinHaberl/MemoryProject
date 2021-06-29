@@ -385,16 +385,16 @@ public final class View {
      */
     public static void printSinglePlayerModeSettings() {
         System.out.println("You choose the Single-Player-Mode." +
-                "To play with lives please enter 'live' else enter 'time' to play against time.");
+                "To play with lifes please enter 'life' else enter 'time' to play against time.");
     }
 
     /**
-     * Prints the number of lives a player has
+     * Prints the number of lifes a player has
      *
-     * @param lives of the player
+     * @param lifes of the player
      */
-    public static void printLives(int lives) {
-        System.out.println("<3 lives: " + lives);
+    public static void printlifes(int lifes) {
+        System.out.println("<3 lifes: " + lifes);
     }
 
     /**

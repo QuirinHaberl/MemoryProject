@@ -215,9 +215,9 @@ public final class Controller {
                 int counter = 1; //Number of choices
                 View.printPlayer(player.getName());
 
-                //This is only for the single player mode with the setting "play with lives"
-                if (game.getPlayerList().getCount() == 1 && singlePlayerMode.equals(SinglePlayerMode.LIVEPOINTS)) {
-                    View.printLives(game.getPlayerList().getPlayer(0).getLives());
+                //This is only for the single player mode with the setting "play with lifes"
+                if (game.getPlayerList().getCount() == 1 && singlePlayerMode.equals(SinglePlayerMode.lifePOINTS)) {
+                    View.printlifes(game.getPlayerList().getPlayer(0).getlifes());
                 }
 
                 //This is only for the single player mode with the setting "play on time"
@@ -305,19 +305,19 @@ public final class Controller {
                                     //Reset streak for achievements
                                     player.getAchievements().resetPairCounterStreak();
 
-                                    //This is only for the single player mode with the setting "play with lives"
+                                    //This is only for the single player mode with the setting "play with lifes"
                                     if (game.getPlayerList().getCount() == 1
-                                            && singlePlayerMode.equals(SinglePlayerMode.LIVEPOINTS)) {
-                                        game.getPlayerList().getPlayer(0).reduceLives();
+                                            && singlePlayerMode.equals(SinglePlayerMode.lifePOINTS)) {
+                                        game.getPlayerList().getPlayer(0).reducelifes();
 
-                                        if (game.getPlayerList().getPlayer(0).getLives() == 0) {
+                                        if (game.getPlayerList().getPlayer(0).getlifes() == 0) {
                                             View.printLoserMessage();
                                             boolean exit = true;
                                             while (exit) {
                                                 View.printMemory();
                                                 String choice = bufferedReader.readLine().trim();
                                                 exit = handleInputsAfterGame(choice, player);
-                                                game.getPlayerList().getPlayer(0).setLives(5);
+                                                game.getPlayerList().getPlayer(0).setlifes(5);
                                             }
                                         }
                                     }
@@ -361,11 +361,14 @@ public final class Controller {
         int highestScore = players.getHighestScore()[0];
         for (int i = 0; i < players.getCount(); i++) {
             players.getPlayer(i).getAchievements().updateGamesPlayed();
+
+            //If a player has won a game
             if (players.getPlayerScore(i) == highestScore) {
                 players.getPlayer(i).getAchievements().updateGamesWon();
                 players.getPlayer(i).getAchievements().checkGamesWon();
+
+                //If a player has earned a new achievement
                 if (!(players.getPlayer(i).getAchievements().getCurrentAchievements().isEmpty())) {
-                    players.getPlayer(i).getAchievements().checkGamesWon();
                     View.printAchievement(players.getPlayer(i).getAchievements().getCurrentAchievement(), players.getPlayer(i));
                     players.getPlayer(i).getAchievements().clearCurrentAchievement();
                 }
@@ -491,12 +494,12 @@ public final class Controller {
      */
     public boolean handleSinglePlayerModeSettings(String mode) {
         mode = mode.toLowerCase();
-        if (!(mode.equals("live") || mode.equals("time"))) {
-            View.error("You have to choose between 'time' ore 'live'");
+        if (!(mode.equals("life") || mode.equals("time"))) {
+            View.error("You have to choose between 'time' ore 'life'");
             return false;
         }
-        if (mode.equals("live")) {
-            singlePlayerMode = SinglePlayerMode.LIVEPOINTS;
+        if (mode.equals("life")) {
+            singlePlayerMode = SinglePlayerMode.lifePOINTS;
             return true;
         } else {
             singlePlayerMode = SinglePlayerMode.TIME;

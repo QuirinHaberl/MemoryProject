@@ -23,10 +23,10 @@ public class Player {
     private int score;
 
     /**
-     * Stores the lives of a {@link Player}.
-     * The default number of lives is 5.
+     * Stores the lifes of a {@link Player}.
+     * The default number of lifes is 5.
      */
-    private int lives = 5;
+    private int lifes = 5;
 
     /**
      * Stores the achievements of a {@link Player}
@@ -172,28 +172,28 @@ public class Player {
     }
 
     /**
-     * Gets the lives of a {@link Player}.
+     * Gets the lifes of a {@link Player}.
      *
-     * @return the lives of a {@link Player}.
+     * @return the lifes of a {@link Player}.
      */
-    public int getLives() {
-        return lives;
+    public int getlifes() {
+        return lifes;
     }
 
     /**
-     * Reduces the lives of a {@link Player}.
+     * Reduces the lifes of a {@link Player}.
      */
-    public void reduceLives() {
-        this.lives = lives - 1;
+    public void reducelifes() {
+        this.lifes = lifes - 1;
     }
 
     /**
-     * Sets the lives of a {@link Player}.
+     * Sets the lifes of a {@link Player}.
      *
-     * @param lives of a {@link Player}.
+     * @param lifes of a {@link Player}.
      */
-    public void setLives(int lives) {
-        this.lives = lives;
+    public void setlifes(int lifes) {
+        this.lifes = lifes;
     }
 
     /**
