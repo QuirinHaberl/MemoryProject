@@ -66,6 +66,7 @@ public final class Controller {
         return InstanceHolder.INSTANCE;
     }
 
+
     /**
      * Reads the input from the console and delegates it to {@link Game}.
      *
@@ -222,7 +223,11 @@ public final class Controller {
 
                 //This is only for the single player mode with the setting "play on time"
                 if (game.getPlayerList().getCount() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
-                    View.printTime(game.getTime().getCount());
+                    if (game.getTime() == null) {
+                        View.printLoserMessage();
+                    } else {
+                        View.printTime(game.getTime().getCount());
+                    }
                 }
 
                 View.printMemory();
@@ -555,11 +560,17 @@ public final class Controller {
             case "reset", "r" -> {
                 storeProgress();
                 player = game.resetGame(game.getPlayerList());
+                if (game.getPlayerList().getCount() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
+                    game.startTimer();
+                }
                 saveBreak = true;
             }
             case "restart", "rs" -> {
                 storeProgress();
                 player = game.restartGame(game.getPlayerList());
+                if (game.getPlayerList().getCount() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
+                    game.startTimer();
+                }
                 saveBreak = true;
             }
             case "quit", "q" -> {
@@ -602,11 +613,17 @@ public final class Controller {
             case "reset", "r" -> {
                 storeProgress();
                 player = game.resetGame(game.getPlayerList());
+                if (game.getPlayerList().getCount() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
+                    game.startTimer();
+                }
                 return false;
             }
             case "restart", "rs" -> {
                 storeProgress();
                 player = game.restartGame(game.getPlayerList());
+                if (game.getPlayerList().getCount() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
+                    game.startTimer();
+                }
                 return false;
             }
             case "quit", "q" -> {
