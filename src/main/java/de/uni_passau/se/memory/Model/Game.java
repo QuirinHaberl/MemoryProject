@@ -43,7 +43,7 @@ public final class Game {
      * The default time is 120 seconds (2 minutes)
      */
     public class startCountDown {
-        private int count = 10;
+        private int count = 120;
         int remainingTime = count;
 
         /**
