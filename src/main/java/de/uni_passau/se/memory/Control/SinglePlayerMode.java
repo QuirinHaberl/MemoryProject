@@ -8,7 +8,7 @@ public enum SinglePlayerMode {
     /**
      * This mode enables the player to play with life points
      */
-    LIVEPOINTS,
+    lifePOINTS,
 
     /**
      * This mode enables the player to play a game on time
