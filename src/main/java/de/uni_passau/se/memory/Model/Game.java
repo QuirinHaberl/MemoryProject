@@ -1,5 +1,7 @@
 package de.uni_passau.se.memory.Model;
 
+import de.uni_passau.se.memory.Control.Controller;
+import de.uni_passau.se.memory.Control.SinglePlayerMode;
 import de.uni_passau.se.memory.Model.Enums.CardStatus;
 import de.uni_passau.se.memory.Model.Enums.GameStatus;
 import de.uni_passau.se.memory.Model.Enums.TurnStatus;
@@ -60,7 +62,6 @@ public final class Game {
             Timer timer = new Timer();
             TimerTask task = new TimerTask() {
 
-                @Override
                 public void run() {
                     remainingTime = count;
                     if (count > 0) {
@@ -68,9 +69,9 @@ public final class Game {
                     }
 
                     if (count == 0) {
-                        View.printLoserMessage();
-                        count = 120;
-                        gameStatus = GameStatus.END;
+                        timer.cancel();
+                        timer.purge();
+                        time = null;
                     }
                 }
             };
@@ -108,6 +109,12 @@ public final class Game {
     public static Game getInstance() {
         return Game.InstanceHolder.INSTANCE;
     }
+
+    /**
+     * Returns, the the end of the time is reached and new settings can be made.
+     *
+     * @return if the time has ended
+     */
 
     /**
      * Gets the {@code playingField}.
