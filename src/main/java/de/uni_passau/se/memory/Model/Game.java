@@ -393,8 +393,8 @@ public final class Game {
                 hasProfile = false;
                 int j;
                 for (j = 0; j < playerProfiles.size(); j++) {
-                    if (playerList.getPlayer(i).getName().
-                            equals(playerProfiles.get(j)[1])) {
+                    if (playerList.getPlayer(i).getPlayerId().
+                            equals(playerProfiles.get(j)[0])) {
                         hasProfile = true;
                         break;
                     }

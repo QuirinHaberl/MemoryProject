@@ -361,11 +361,14 @@ public final class Controller {
         int highestScore = players.getHighestScore()[0];
         for (int i = 0; i < players.getCount(); i++) {
             players.getPlayer(i).getAchievements().updateGamesPlayed();
+
+            //If a player has won a game
             if (players.getPlayerScore(i) == highestScore) {
                 players.getPlayer(i).getAchievements().updateGamesWon();
                 players.getPlayer(i).getAchievements().checkGamesWon();
+
+                //If a player has earned a new achievement
                 if (!(players.getPlayer(i).getAchievements().getCurrentAchievements().isEmpty())) {
-                    players.getPlayer(i).getAchievements().checkGamesWon();
                     View.printAchievement(players.getPlayer(i).getAchievements().getCurrentAchievement(), players.getPlayer(i));
                     players.getPlayer(i).getAchievements().clearCurrentAchievement();
                 }
