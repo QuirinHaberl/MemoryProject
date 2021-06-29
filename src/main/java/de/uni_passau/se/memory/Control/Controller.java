@@ -51,9 +51,10 @@ public final class Controller {
      */
     private Controller() {
         this.game = Game.getInstance();
-        //this.highScoreHistory = HighScoreHistory.getInstance();
         this.menuStatus = MenuStatus.PLAYERMODE;
         database = Database.getInstance();
+        highScoreHistory = HighScoreHistory.getInstance();
+        highScoreHistory.loadHighScoreHistory();
     }
 
     /**
@@ -282,8 +283,8 @@ public final class Controller {
                                         checkForAchievements(game.getPlayerList());
                                         View.printGameSummary(winningPlayers,
                                                 highScore[0]);
-                                        //TODO Doesn't work
-                                        //highScoreHistory.updateHighScoreHistory(winningPlayers, highScore[0]);
+
+                                        highScoreHistory.updateHighScoreHistory(winningPlayers, highScore[0]);
 
                                         boolean exit = true;
                                         while (exit) {
@@ -622,13 +623,8 @@ public final class Controller {
      * Stores the progress of all playerProfiles and the HighScoreHistory.
      */
     public void storeProgress() {
-        //try {
-        // TODO Doesn't work
-        // highScoreHistory.saveHighScoreHistory();
+        highScoreHistory.saveHighScoreHistory();
         game.saveProfile(database.getPlayerProfiles());
         database.storePlayerProfiles();
-        //} catch (FileNotFoundException e) {
-        //   e.printStackTrace();
-        //}
     }
 }
