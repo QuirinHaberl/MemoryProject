@@ -702,8 +702,8 @@ public final class Controller {
     public void saveProfile(List<String[]> playerProfiles) {
         for (String[] playerProfile : playerProfiles) {
             for (int j = 0; j < game.getPlayerList().getCount(); j++) {
-                if (playerProfile[0].equals(game.getPlayerList().
-                        getPlayer(j).getPlayerId())) {
+                if (playerProfile[1].equals(game.getPlayerList().
+                        getPlayer(j).getName())) {
                     playerProfile[1] = game.getPlayerList().getPlayer(j).
                             getName() + "";
                     playerProfile[2] = game.getPlayerList().getPlayer(j).
