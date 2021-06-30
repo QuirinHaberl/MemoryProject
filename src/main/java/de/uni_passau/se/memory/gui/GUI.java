@@ -27,7 +27,6 @@ public class GUI extends Application {
         Scene scene = new Scene(root);
         stage.setTitle("MEMORY");
         stage.setScene(scene);
-        scene.getStylesheets().add("@stylesheet/Style.css");
         stage.show();
     }
 
