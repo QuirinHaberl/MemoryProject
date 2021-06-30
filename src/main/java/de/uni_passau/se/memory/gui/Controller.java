@@ -17,7 +17,7 @@ import java.util.ResourceBundle;
 /**
  * The controller of the MVC-architecture.
  */
-public final class Controller implements Initializable{
+public class Controller implements Initializable{
 
 
     @Override
@@ -50,32 +50,15 @@ public final class Controller implements Initializable{
     Database database;
 
     /**
-     * Creates a new {@code INSTANCE} of the {@link Controller}.
-     */
-    private static class InstanceHolder {
-        private static final Controller INSTANCE = new Controller();
-    }
-
-    /**
      * Constructs a new {@link Controller}.
      */
-    private Controller() {
+    public Controller() {
         this.game = Game.getInstance();
         this.menuStatus = MenuStatus.PLAYERMODE;
         database = Database.getInstance();
         highScoreHistory = HighScoreHistory.getInstance();
         highScoreHistory.loadHighScoreHistory();
     }
-
-    /**
-     * Returns a new {@code INSTANCE} of the {@link Controller}.
-     *
-     * @return the INSTANCE of a {@link Controller}.
-     */
-    public static Controller getInstance() {
-        return InstanceHolder.INSTANCE;
-    }
-
 
     /**
      * Reads the input from the console and delegates it to {@link Game}.
