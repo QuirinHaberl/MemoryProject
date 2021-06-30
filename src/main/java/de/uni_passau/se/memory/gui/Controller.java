@@ -1,4 +1,4 @@
-package de.uni_passau.se.memory.Control;
+package de.uni_passau.se.memory.gui;
 
 import de.uni_passau.se.memory.Model.*;
 import de.uni_passau.se.memory.Model.Enums.CardStatus;
@@ -9,11 +9,21 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Scanner;
 
+import javafx.fxml.Initializable;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
 /**
  * The controller of the MVC-architecture.
  */
-public final class Controller {
+public final class Controller implements Initializable{
 
+
+    @Override
+    public void initialize (URL url, ResourceBundle rb){
+
+    }
     /**
      * Stores the current {@link Game}.
      */
@@ -647,4 +657,7 @@ public final class Controller {
         game.saveProfile(database.getPlayerProfiles());
         database.storePlayerProfiles();
     }
+
+
+
 }

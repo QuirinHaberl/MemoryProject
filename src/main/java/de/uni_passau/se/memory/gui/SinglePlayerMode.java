@@ -1,4 +1,4 @@
-package de.uni_passau.se.memory.Control;
+package de.uni_passau.se.memory.gui;
 
 /**
  * The enumeration of the Singleplayer Mode

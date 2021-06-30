@@ -1,7 +1,5 @@
 package de.uni_passau.se.memory.Model;
 
-import de.uni_passau.se.memory.Control.Controller;
-import de.uni_passau.se.memory.Control.SinglePlayerMode;
 import de.uni_passau.se.memory.Model.Enums.CardStatus;
 import de.uni_passau.se.memory.Model.Enums.GameStatus;
 import de.uni_passau.se.memory.Model.Enums.TurnStatus;

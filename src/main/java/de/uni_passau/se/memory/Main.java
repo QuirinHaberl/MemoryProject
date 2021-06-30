@@ -1,6 +1,6 @@
 package de.uni_passau.se.memory;
 
-import de.uni_passau.se.memory.Control.Controller;
+import de.uni_passau.se.memory.gui.Controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;

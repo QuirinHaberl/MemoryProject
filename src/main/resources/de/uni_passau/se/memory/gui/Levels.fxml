@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="441.0" prefWidth="600.0" style="-fx-background-color: black;" stylesheets="@../../../../../java/de/uni_passau/se/memory/gui/stylesheet/Style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="441.0" prefWidth="600.0" style="-fx-background-color: black;" stylesheets="@stylesheet/Style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -69,14 +69,14 @@
             </HBox>
             <HBox layoutX="10.0" layoutY="310.0" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <HBox prefHeight="100.0" prefWidth="5000.0" styleClass="Fire" stylesheets="@../../../../../java/de/uni_passau/se/memory/gui/stylesheet/Style.css" />
-                  <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="5000.0" styleClass="Fire" stylesheets="@../../../../../java/de/uni_passau/se/memory/gui/stylesheet/Style.css" />
-                  <HBox layoutX="410.0" layoutY="10.0" prefHeight="100.0" prefWidth="5000.0" styleClass="Fire" stylesheets="@../../../../../java/de/uni_passau/se/memory/gui/stylesheet/Style.css" />
-                  <HBox layoutX="460.0" layoutY="10.0" prefHeight="100.0" prefWidth="5000.0" styleClass="Fire" stylesheets="@../../../../../java/de/uni_passau/se/memory/gui/stylesheet/Style.css" />
-                  <HBox layoutX="490.0" layoutY="10.0" prefHeight="100.0" prefWidth="5000.0" styleClass="Fire" stylesheets="@../../../../../java/de/uni_passau/se/memory/gui/stylesheet/Style.css" />
-                  <HBox layoutX="510.0" layoutY="10.0" prefHeight="100.0" prefWidth="5000.0" styleClass="Fire" stylesheets="@../../../../../java/de/uni_passau/se/memory/gui/stylesheet/Style.css" />
-                  <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="5000.0" styleClass="Fire" stylesheets="@../../../../../java/de/uni_passau/se/memory/gui/stylesheet/Style.css" />
-                  <HBox layoutX="524.0" layoutY="10.0" prefHeight="100.0" prefWidth="5000.0" styleClass="Fire" stylesheets="@../../../../../java/de/uni_passau/se/memory/gui/stylesheet/Style.css" />
+                  <HBox prefHeight="100.0" prefWidth="5000.0" styleClass="Fire" stylesheets="@stylesheet/Style.css" />
+                  <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="5000.0" styleClass="Fire" stylesheets="@stylesheet/Style.css" />
+                  <HBox layoutX="410.0" layoutY="10.0" prefHeight="100.0" prefWidth="5000.0" styleClass="Fire" stylesheets="@stylesheet/Style.css" />
+                  <HBox layoutX="460.0" layoutY="10.0" prefHeight="100.0" prefWidth="5000.0" styleClass="Fire" stylesheets="@stylesheet/Style.css" />
+                  <HBox layoutX="490.0" layoutY="10.0" prefHeight="100.0" prefWidth="5000.0" styleClass="Fire" stylesheets="@stylesheet/Style.css" />
+                  <HBox layoutX="510.0" layoutY="10.0" prefHeight="100.0" prefWidth="5000.0" styleClass="Fire" stylesheets="@stylesheet/Style.css" />
+                  <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="5000.0" styleClass="Fire" stylesheets="@stylesheet/Style.css" />
+                  <HBox layoutX="524.0" layoutY="10.0" prefHeight="100.0" prefWidth="5000.0" styleClass="Fire" stylesheets="@stylesheet/Style.css" />
                </children>
             </HBox>
          </children>
