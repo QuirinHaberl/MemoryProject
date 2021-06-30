@@ -350,7 +350,7 @@ public final class Controller {
         player.getAchievements().updatePairCounters();
         player.getAchievements().checkFoundPairsTotal();
         player.getAchievements().checkFoundPairsStreak();
-        player.getAchievements().checkHighScore(player.getScore());
+        player.getAchievements().checkHighScore();
         if (!(player.getAchievements().getCurrentAchievements().isEmpty())) {
             View.printAchievement(player.getAchievements().getCurrentAchievement(), player);
             player.getAchievements().clearCurrentAchievement();

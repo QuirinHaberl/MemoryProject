@@ -202,20 +202,18 @@ public class Achievements {
 
     /**
      * Checks whether a highScore was hit and generates a achievement.
-     *
-     * @param score the new score of a player
      */
-    public void checkHighScore(int score) {
-        if (score > getHighScore()) {
-            setHighScore(score);
-            if (score == 4) {
-                currentAchievements = currentAchievements + "has a new personal highScore of 4!\n";
-            } else if (score == 8) {
-                currentAchievements = currentAchievements + "has a new personal highScore of 8!\n";
-            } else if (score == 12) {
-                currentAchievements = currentAchievements + "has a new personal highScore of 12!\n";
-            } else if (score == 16) {
-                currentAchievements = currentAchievements + "has a new personal highScore of 16!\n";
+    public void checkHighScore() {
+        if (pairCounterTotal > getHighScore()) {
+            setHighScore(pairCounterTotal);
+            if (pairCounterTotal == 4) {
+                currentAchievements = currentAchievements + "New personal highScore of 4!\n";
+            } else if (pairCounterTotal == 8) {
+                currentAchievements = currentAchievements + "New personal highScore of 8!\n";
+            } else if (pairCounterTotal == 12) {
+                currentAchievements = currentAchievements + "New personal highScore of 12!\n";
+            } else if (pairCounterTotal == 16) {
+                currentAchievements = currentAchievements + "New personal highScore of 16!\n";
             }
         }
     }
