@@ -4,63 +4,28 @@
     src: url("VT323-Regular.ttf");
 }
 
-.root{
--fx-background-image: url("@Background_game.png");
--fx-background-size: 100% 100%;
-}
-
 .text {
     -fx-font-family: "VT323";
     -fx-font-size: 25;
 }
 
 .GameBack{
- -fx-background-image: url("@Images/Background.png");
+ -fx-background-image: url("Images/Background_game.png");
  -fx-background-size: 100% 100%;
 }
 
 .Card{
- -fx-background-image: url("./Images/Card.png");
+ -fx-background-image: url("Images/Card.png");
  -fx-background-size: 100% 100%;
+ size <50> <50>;
 }
 
-.Start{
- -fx-background-image: url("../images/StartBack.png");
- -fx-background-size: 100% 100%;
+.Card_Trophy{
+-fx-background-image: url("Images/Card_Trophy.png");
+-fx-background-size: 100% 100%;
 }
 
-
-.Banner{
- -fx-background-image: url("../images/Banner.png");
- -fx-background-size: 100% 100%;
-}
-
-.Trophy{
- -fx-background-image: url("../images/Trophy.png");
- -fx-background-size: 100% 100%;
-}
-
-.SecondPlace{
- -fx-background-image: url("../images/2ndPlace.png");
- -fx-background-size: 100% 100%;
-}
-
-.ThirdPlace{
- -fx-background-image: url("../images/3rdPlace.png");
- -fx-background-size: 100% 100%;
-}
-
-.FourthPlace{
- -fx-background-image: url("../images/4thPlace.png");
- -fx-background-size: 100% 100%;
-}
-
-.Rules{
- -fx-background-image: url("../images/Rules.png");
- -fx-background-size: 100% 100%;
-}
-
-.Fire{
- -fx-background-image: url("../images/Fire.png");
- -fx-background-size: 100% 100%;
+.Card_Ring{
+-fx-background-image: url("Images/Card_Ring.png");
+-fx-background-size: 100% 100%;
 }
