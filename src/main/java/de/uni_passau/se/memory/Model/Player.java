@@ -57,7 +57,7 @@ public class Player {
      * @param rear  the last @link Player}
      */
     public Player(String name, int score, Player next, Player rear) {
-        this.playerId = UUID.randomUUID().toString();
+        //this.playerId = UUID.randomUUID().toString();
         this.name = name;
         this.score = score;
         this.next = next;
@@ -215,6 +215,4 @@ public class Player {
                 this.achievements.getHighScore() + ", " + " has played " +
                 this.achievements.getGamesPlayed() + " times.");
     }
-
-
 }
