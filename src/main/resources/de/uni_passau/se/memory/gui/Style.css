@@ -4,18 +4,23 @@
     src: url("VT323-Regular.ttf");
 }
 
+.root{
+-fx-background-image: url("@Background_game.png");
+-fx-background-size: 100% 100%;
+}
+
 .text {
     -fx-font-family: "VT323";
     -fx-font-size: 25;
 }
 
 .GameBack{
- -fx-background-image: url("../images/Background.png");
+ -fx-background-image: url("@Images/Background.png");
  -fx-background-size: 100% 100%;
 }
 
 .Card{
- -fx-background-image: url("../images/Card.png");
+ -fx-background-image: url("./Images/Card.png");
  -fx-background-size: 100% 100%;
 }
 
