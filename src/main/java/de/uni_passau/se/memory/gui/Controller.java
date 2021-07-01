@@ -9,7 +9,18 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Scanner;
 
+import javafx.css.Style;
+import javafx.css.StyleableProperty;
+import javafx.css.Stylesheet;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -642,5 +653,44 @@ public class Controller implements Initializable{
     }
 
 
+    /**
+     * Filling the Stage with Objects
+      */
+
+public HBox A;
+public HBox B;
+public HBox C;
+public HBox D;
+
+    public Node newButton(String id) {
+        Button button = new Button();
+        button.setPrefSize(100, 70);
+        String css = this.getClass().getResource("Style.css").toExternalForm();
+        button.getStylesheets().add(css);
+        button.getStyleClass().add("Card");
+        button.setId(id);
+        button.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                button.getStyleClass().removeAll("Card");
+                button.getStyleClass().add("Card_Trophy");
+                //button.setVisible(false);
+                System.out.println(id);
+
+            }
+        });
+        return button;
+    }
+
+    public Button start;
+    public void startClicked(){
+        for (int i = 0; i < 4; i++) {
+            A.getChildren().add(newButton("A"+i));
+            B.getChildren().add(newButton("B"+i));
+            C.getChildren().add(newButton("C"+i));
+            D.getChildren().add(newButton("D"+i));
+        }
+
+    }
 
 }
