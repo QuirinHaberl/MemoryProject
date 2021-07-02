@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uni_passau.se.memory.gui.ControllerPack.CardSetController">
+   <children>
+      <HBox>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <children>
+            <Button mnemonicParsing="false" onAction="#cardSetOne" text="CardSetOne">
+               <HBox.margin>
+                  <Insets left="75.0" right="100.0" />
+               </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#cardSetTwo" text="CardSetTwo" />
+            <Button mnemonicParsing="false" onAction="#CardSetThree" text="CardSetThree">
+               <HBox.margin>
+                  <Insets left="75.0" right="100.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+         <padding>
+            <Insets top="300.0" />
+         </padding>
+      </HBox>
+   </children>
+</AnchorPane>

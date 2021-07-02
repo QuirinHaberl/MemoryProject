@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="854.0" prefWidth="1042.0" stylesheets="" styleClass="GameBack" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uni_passau.se.memory.gui.Controller">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="854.0" prefWidth="1042.0" styleClass="GameBack" stylesheets="" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uni_passau.se.memory.gui.ControllerPack.GameController">
    <center>
       <AnchorPane accessibleRole="IMAGE_VIEW" prefHeight="5000.0" prefWidth="5000.0">
          <children>
@@ -107,7 +107,7 @@
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="5000.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="44.0" prefWidth="500.0" style="-fx-background-color: black;" text="Back to the Castle" textFill="WHITE">
+                  <Button mnemonicParsing="false" onAction="#back" prefHeight="44.0" prefWidth="500.0" style="-fx-background-color: black;" text="Back to the Castle" textFill="WHITE">
                      <effect>
                         <DropShadow />
                      </effect>
@@ -120,7 +120,7 @@
             <HBox prefHeight="100.0" prefWidth="5000.0" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="5000.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="44.0" prefWidth="500.0" style="-fx-background-color: black;" text="Restart" textFill="WHITE">
+                  <Button mnemonicParsing="false" onAction="#restart" prefHeight="44.0" prefWidth="500.0" style="-fx-background-color: black;" text="Restart" textFill="WHITE">
                      <effect>
                         <DropShadow />
                      </effect>
@@ -133,7 +133,7 @@
             <HBox layoutX="410.0" layoutY="10.0" prefHeight="100.0" prefWidth="5000.0" />
             <HBox alignment="CENTER" layoutX="610.0" layoutY="10.0" prefHeight="100.0" prefWidth="5000.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="44.0" prefWidth="500.0" style="-fx-background-color: black;" text="Help" textFill="WHITE">
+                  <Button mnemonicParsing="false" onAction="#help" prefHeight="44.0" prefWidth="500.0" style="-fx-background-color: black;" text="Help" textFill="WHITE">
                      <effect>
                         <DropShadow />
                      </effect>

@@ -10,20 +10,13 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
-import javafx.css.Style;
-import javafx.css.StyleableProperty;
-import javafx.css.Stylesheet;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
-import javafx.scene.Cursor;
 import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Dialog;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
 import java.net.URL;

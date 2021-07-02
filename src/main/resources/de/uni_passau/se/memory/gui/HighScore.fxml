@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uni_passau.se.memory.gui.ControllerPack.HighScoreController">
+   <children>
+      <Button layoutX="534.0" layoutY="361.0" mnemonicParsing="false" onAction="#back" text="Back" />
+      <VBox>
+         <children>
+            <Label text="HighScoreHistoy">
+               <padding>
+                  <Insets bottom="15.0" />
+               </padding>
+            </Label>
+            <HBox>
+               <children>
+                  <Label text="1.">
+                     <padding>
+                        <Insets bottom="5.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="name1" text="Name">
+                     <padding>
+                        <Insets left="21.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="score1" text="Score">
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Label>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets bottom="5.0" left="10.0" />
+               </padding>
+            </HBox>
+            <HBox>
+               <children>
+                  <Label text="2.">
+                     <padding>
+                        <Insets bottom="5.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="name2" text="Name">
+                     <padding>
+                        <Insets left="21.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="score2" text="Score">
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Label>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets bottom="5.0" left="10.0" />
+               </padding>
+            </HBox>
+            <HBox>
+               <children>
+                  <Label text="3.">
+                     <padding>
+                        <Insets bottom="5.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="name3" text="Name">
+                     <padding>
+                        <Insets left="21.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="score3" text="Score">
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Label>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets bottom="5.0" left="10.0" />
+               </padding>
+            </HBox>
+            <HBox>
+               <children>
+                  <Label text="4.">
+                     <padding>
+                        <Insets bottom="5.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="name4" text="Name">
+                     <padding>
+                        <Insets left="21.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="score4" text="Score">
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Label>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets bottom="5.0" left="10.0" />
+               </padding>
+            </HBox>
+            <HBox>
+               <children>
+                  <Label text="5.">
+                     <padding>
+                        <Insets bottom="5.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="name5" text="Name">
+                     <padding>
+                        <Insets left="21.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="score5" text="Score">
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Label>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets bottom="5.0" left="10.0" />
+               </padding>
+            </HBox>
+            <HBox>
+               <children>
+                  <Label text="6.">
+                     <padding>
+                        <Insets bottom="5.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="name6" text="Name">
+                     <padding>
+                        <Insets left="21.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="score6" text="Score">
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Label>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets bottom="5.0" left="10.0" />
+               </padding>
+            </HBox>
+            <HBox>
+               <children>
+                  <Label text="7.">
+                     <padding>
+                        <Insets bottom="5.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="name7" text="Name">
+                     <padding>
+                        <Insets left="21.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="score7" text="Score">
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Label>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets bottom="5.0" left="10.0" />
+               </padding>
+            </HBox>
+            <HBox>
+               <children>
+                  <Label text="8.">
+                     <padding>
+                        <Insets bottom="5.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="name8" text="Name">
+                     <padding>
+                        <Insets left="21.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="score8" text="Score">
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Label>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets bottom="5.0" left="10.0" />
+               </padding>
+            </HBox>
+            <HBox>
+               <children>
+                  <Label text="9.">
+                     <padding>
+                        <Insets bottom="5.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="name9" text="Name">
+                     <padding>
+                        <Insets left="21.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="score9" text="Score">
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Label>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets bottom="5.0" left="10.0" />
+               </padding>
+            </HBox>
+            <HBox>
+               <children>
+                  <Label text="10.">
+                     <padding>
+                        <Insets bottom="5.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="name10" text="Name">
+                     <padding>
+                        <Insets left="15.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="score10" text="Score">
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Label>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets bottom="5.0" left="10.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
