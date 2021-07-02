@@ -15,9 +15,12 @@ import javafx.css.Stylesheet;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
+import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Dialog;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -668,6 +671,8 @@ public HBox D;
         String css = this.getClass().getResource("Style.css").toExternalForm();
         button.getStylesheets().add(css);
         button.getStyleClass().add("Card");
+        Image image = new Image(this.getClass().getResource("Images/Cursor.png").toExternalForm());
+        button.setCursor(new ImageCursor(image));
         button.setId(id);
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
