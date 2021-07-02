@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="441.0" prefWidth="600.0" style="-fx-background-color: black;" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label text="Choose the Number of Cards you would like to play with" textAlignment="CENTER" textFill="WHITE" underline="true" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="5000.0">
+                     <children>
+                        <Button mnemonicParsing="false" style="-fx-background-color: green;" text="Level 1">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="5000.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="91.0" prefWidth="300.0" text="You will be playing with&#10; 4 cards&#10;Very easy" textAlignment="CENTER" textFill="WHITE" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="110.0" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="5000.0">
+                     <children>
+                        <Button mnemonicParsing="false" style="-fx-background-color: yellow;" text="Level 2">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="5000.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="91.0" prefWidth="300.0" text="You will be playing with&#10; 16 cards&#10;Medium" textAlignment="CENTER" textFill="WHITE" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="210.0" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="5000.0">
+                     <children>
+                        <Button mnemonicParsing="false" style="-fx-background-color: red;" text="Level 3">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="5000.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="91.0" prefWidth="300.0" text="You will be playing with&#10; 64 cards&#10;Very hard" textAlignment="CENTER" textFill="WHITE" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="310.0" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="5000.0" styleClass="Fire" stylesheets="@Style.css" />
+                  <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="5000.0" styleClass="Fire" stylesheets="@Style.css" />
+                  <HBox layoutX="410.0" layoutY="10.0" prefHeight="100.0" prefWidth="5000.0" styleClass="Fire" stylesheets="@Style.css" />
+                  <HBox layoutX="460.0" layoutY="10.0" prefHeight="100.0" prefWidth="5000.0" styleClass="Fire" stylesheets="@Style.css" />
+                  <HBox layoutX="490.0" layoutY="10.0" prefHeight="100.0" prefWidth="5000.0" styleClass="Fire" stylesheets="@Style.css" />
+                  <HBox layoutX="510.0" layoutY="10.0" prefHeight="100.0" prefWidth="5000.0" styleClass="Fire" stylesheets="@Style.css" />
+                  <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="5000.0" styleClass="Fire" stylesheets="@Style.css" />
+                  <HBox layoutX="524.0" layoutY="10.0" prefHeight="100.0" prefWidth="5000.0" styleClass="Fire" stylesheets="@Style.css" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

@@ -1,0 +1,31 @@
+
+@font-face {
+    font-family: 'VT323';
+    src: url("VT323-Regular.ttf");
+}
+
+.text {
+    -fx-font-family: "VT323";
+    -fx-font-size: 25;
+}
+
+.GameBack{
+ -fx-background-image: url("Images/Background_game.png");
+ -fx-background-size: 100% 100%;
+}
+
+.Card{
+ -fx-background-image: url("Images/Card.png");
+ -fx-background-size: 100% 100%;
+ size <50> <50>;
+}
+
+.Card_Trophy{
+-fx-background-image: url("Images/Card_Trophy.png");
+-fx-background-size: 100% 100%;
+}
+
+.Card_Ring{
+-fx-background-image: url("Images/Card_Ring.png");
+-fx-background-size: 100% 100%;
+}

@@ -35,8 +35,8 @@ group = "de.uni-passau.se.memory"
 version = "0.1"
 
 application {
-    mainModule.set("java.Main")
-    mainClass.set("de.uni_passau.se.memory.GUI")
+    mainModule.set("de.uni_passau.se.memory.gui")
+    mainClass.set("de.uni_passau.se.memory.gui.GUI")
 }
 
 java {
