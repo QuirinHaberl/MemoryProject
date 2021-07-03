@@ -92,7 +92,7 @@ public final class Game {
     /**
      * The constructor initiates the {@link Game}, the turn and creates a new {@link PlayingField}
      */
-    private Game() {
+    public Game() {
         this.turnStatus = TurnStatus.IDLE;
         this.gameStatus = GameStatus.MENU;
         this.playerList = new PlayerList();

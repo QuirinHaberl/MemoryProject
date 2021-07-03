@@ -6,10 +6,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
+<?import javafx.scene.control.TextField?>
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uni_passau.se.memory.gui.ControllerPack.NameSelectionController">
    <children>
       <CheckBox layoutX="105.0" layoutY="191.0" mnemonicParsing="false" onAction="#usePlayerProfile" text="Use player profile" />
-      <Label layoutX="105.0" layoutY="220.0" minWidth="200.0" style="-fx-border-color: black;" />
+      <TextField layoutX="105.0" layoutY="220.0" minWidth="200.0" style="-fx-border-color: black;" />
       <Label layoutX="105.0" layoutY="146.0" text="Player1 choose your name." />
       <Button layoutX="324.0" layoutY="217.0" mnemonicParsing="false" onAction="#ok" text="Confirm your choice" />
    </children>
