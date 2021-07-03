@@ -12,12 +12,12 @@
       <Button layoutX="534.0" layoutY="361.0" mnemonicParsing="false" onAction="#back" text="Back" />
       <VBox>
          <children>
-            <Label text="HighScoreHistoy">
+            <Label text="HighScoreHistory">
                <padding>
                   <Insets bottom="15.0" />
                </padding>
             </Label>
-            <HBox>
+            <HBox fx:id="box1" visible="false">
                <children>
                   <Label text="1.">
                      <padding>
@@ -42,7 +42,7 @@
                   <Insets bottom="5.0" left="10.0" />
                </padding>
             </HBox>
-            <HBox>
+            <HBox fx:id="box2" visible="false">
                <children>
                   <Label text="2.">
                      <padding>
@@ -67,7 +67,7 @@
                   <Insets bottom="5.0" left="10.0" />
                </padding>
             </HBox>
-            <HBox>
+            <HBox fx:id="box3" visible="false">
                <children>
                   <Label text="3.">
                      <padding>
@@ -92,7 +92,7 @@
                   <Insets bottom="5.0" left="10.0" />
                </padding>
             </HBox>
-            <HBox>
+            <HBox fx:id="box4" visible="false">
                <children>
                   <Label text="4.">
                      <padding>
@@ -117,7 +117,7 @@
                   <Insets bottom="5.0" left="10.0" />
                </padding>
             </HBox>
-            <HBox>
+            <HBox fx:id="box5" visible="false">
                <children>
                   <Label text="5.">
                      <padding>
@@ -142,7 +142,7 @@
                   <Insets bottom="5.0" left="10.0" />
                </padding>
             </HBox>
-            <HBox>
+            <HBox fx:id="box6" visible="false">
                <children>
                   <Label text="6.">
                      <padding>
@@ -167,7 +167,7 @@
                   <Insets bottom="5.0" left="10.0" />
                </padding>
             </HBox>
-            <HBox>
+            <HBox fx:id="box7" visible="false">
                <children>
                   <Label text="7.">
                      <padding>
@@ -192,7 +192,7 @@
                   <Insets bottom="5.0" left="10.0" />
                </padding>
             </HBox>
-            <HBox>
+            <HBox fx:id="box8" visible="false">
                <children>
                   <Label text="8.">
                      <padding>
@@ -217,7 +217,7 @@
                   <Insets bottom="5.0" left="10.0" />
                </padding>
             </HBox>
-            <HBox>
+            <HBox fx:id="box9" visible="false">
                <children>
                   <Label text="9.">
                      <padding>
@@ -242,7 +242,7 @@
                   <Insets bottom="5.0" left="10.0" />
                </padding>
             </HBox>
-            <HBox>
+            <HBox fx:id="box10" visible="false">
                <children>
                   <Label text="10.">
                      <padding>
@@ -269,5 +269,6 @@
             </HBox>
          </children>
       </VBox>
+      <Button layoutX="471.0" layoutY="361.0" mnemonicParsing="false" onAction="#show" text="Show" />
    </children>
 </AnchorPane>
