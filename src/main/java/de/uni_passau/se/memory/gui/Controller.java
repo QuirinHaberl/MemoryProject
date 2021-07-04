@@ -1,6 +1,7 @@
 package de.uni_passau.se.memory.gui;
 
 import de.uni_passau.se.memory.Model.*;
+import de.uni_passau.se.memory.Model.Enums.CardLetters;
 import de.uni_passau.se.memory.Model.Enums.CardStatus;
 import de.uni_passau.se.memory.Model.Enums.GameStatus;
 import de.uni_passau.se.memory.View.*;
@@ -12,13 +13,17 @@ import java.util.Scanner;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -721,62 +726,5 @@ public class Controller implements Initializable {
         }
     }
 
-    /**
-     * This is for the Game-Gui:
-     * TODO Das Ganze in den richtigen Controller verschieben!
-     */
 
-    /**
-     * Filling the Stage with Objects
-     */
-    public HBox A;
-    public HBox B;
-    public HBox C;
-    public HBox D;
-
-    public Node newButton(String id) {
-        Button button = new Button();
-        button.setPrefSize(100, 70);
-        String css = this.getClass().getResource("Style.css").toExternalForm();
-        button.getStylesheets().add(css);
-        button.getStyleClass().add("Card");
-        Image image = new Image(this.getClass().getResource("Images/Cursor.png").toExternalForm());
-        button.setCursor(new ImageCursor(image));
-        button.setId(id);
-        button.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                button.getStyleClass().removeAll("Card");
-                button.getStyleClass().add("Card_Trophy");
-                //button.setVisible(false);
-                System.out.println(id);
-
-            }
-        });
-        return button;
-    }
-
-    public Button start;
-
-    public void startClicked() {
-        for (int i = 0; i < DataDisplay.getInstance().getGame().getPlayingField().getSize(); i++) {
-            A.getChildren().add(newButton("A" + i));
-            B.getChildren().add(newButton("B" + i));
-            C.getChildren().add(newButton("C" + i));
-            D.getChildren().add(newButton("D" + i));
-        }
-
-    }
-
-    /**
-     * The other actions
-     */
-    public void menu(ActionEvent actionEvent) {
-        ((Stage)(((Button)actionEvent.getSource()).getScene().getWindow())).close();
-        new Window("StartScreen.fxml");
-    }
-
-    public void help(ActionEvent actionEvent) {
-        new Window("Rules.fxml");
-    }
 }
