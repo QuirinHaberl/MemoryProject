@@ -48,11 +48,11 @@
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
-                  <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="500.0" text="Menu">
+                  <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#menu" prefHeight="100.0" prefWidth="500.0" text="Menu">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
-                  <Button layoutX="110.0" layoutY="10.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="500.0" text="Help">
+                  <Button layoutX="110.0" layoutY="10.0" mnemonicParsing="false" onAction="#help" prefHeight="100.0" prefWidth="500.0" text="Help">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>

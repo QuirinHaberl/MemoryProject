@@ -193,12 +193,12 @@ public class PlayingField {
     }
 
     /**
-     * Gets the height
+     * Gets the size
      *
-     * @return height
+     * @return size
      */
-    public int getHeight() {
-        return height;
+    public int getSize() {
+        return board.length;
     }
 
     /**

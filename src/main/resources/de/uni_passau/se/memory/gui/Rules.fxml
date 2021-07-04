@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="Rules" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <ListView layoutX="100.0" layoutY="59.0" prefHeight="322.0" prefWidth="414.0" />
-   </children>
-</AnchorPane>
+<ScrollPane prefHeight="700.0" prefWidth="1000.0" styleClass="Paper" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uni_passau.se.memory.gui.ControllerPack.RulesController">
+   <content>
+      <Label prefWidth="1180.0" text="Welcome to the fantastic game of memory.&#10;This fun game helps you to improve your own memory and is also fun to play against friends. &#10;&#10;&#10;Game modes:&#10;    1.Single Player &#10;    1. On each turn, you can turn over any two cards (one at a time).&#10;    2. To open a card, simply input its position, i.e. 2 1&#10;    3. The board will show you the selected card.&#10;    4. Select a second card, same as before.&#10;    5. If you successfully match a pair you receive a point, and you get another turn.&#10;    6. The found pair is removed from the board.&#10;    7. When you select two cards that do not match, those cards are turned face down again &#10;       (in the same position) and you get to try again.&#10;    8. The trick is to remember which cards are where.&#10;    &#10;    2.Multiplayer &#10;    1. On each turn, a player turns over any two cards (one at a time).&#10;    2. To open a card, simply input its position, i.e. 2 1&#10;    3. The board will show your selected card.&#10;    4. Select a second card, same as before.&#10;    5. If a player successfully matches a pair they receive a point and that player gets another turn.&#10;    6. The found pair is removed from the board.&#10;    7. When a player turns over two cards that do not match, those cards are turned face down again &#10;       (at the same position) and it becomes the next player's turn.&#10;    8. The trick is to remember which cards are where.&#10;    9. The person with the most pairs at the end of the game wins.&#10;    &#10;    &#10;Board Sizes:&#10;At the beginning of the game (after choosing the Game mode) you can choose the board size you would like to play with.&#10;You can choose between:&#10;Level 1 --&gt;4 cards in sum on the board&#10;Level 2 --&gt;16 cards in sum on the board&#10;Level 3 --&gt;36 cards in sum on the board&#10;Level 4 --&gt;64 cards in sum on the board&#10;&#10;&#10;We hope you have fun with this game!&#10;Your developers,&#10;Quirin, Jan, Isabella, Daqian and Florian&#10;" />
+   </content>
+   <padding>
+      <Insets left="150.0" right="150.0" top="150.0" />
+   </padding>
+</ScrollPane>

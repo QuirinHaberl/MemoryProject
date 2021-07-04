@@ -85,7 +85,7 @@ public class HighScoreHistory {
             PrintWriter pw = new PrintWriter(fos);
             for (int i = 0; i < highScoreList.size(); i++) {
                 if (highScoreList.get(i)[0].equals("Not yet occupied!")) {
-                    pw.println(highScoreList.get(i)[0]);
+                    pw.println(highScoreList.get(i)[0] + ";" + "0");
                 } else {
                     pw.println(highScoreList.get(i)[0] + ";" + highScoreList.get(i)[1]);
                 }
