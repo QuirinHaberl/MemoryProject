@@ -27,29 +27,31 @@
 
 **Agenda für Iteration 4:**
 - Umsetzung der grafischen Oberfläche:
-	- Erstellung der Projektstruktur des GUI's
-	- Design der graphischen Oberfläche (v. a. Fenster, Icons)
-	- Implementierung der grundlegenden Steuerung des Memoriespiels
+	- Erstellung der Projektstruktur des GUI's durch Florian mit Hilfe des Betreuers Georg.
+	- Design der graphischen Oberfläche (v. a. Fenster, Icons) wurde hauptsächlich von Florian übernommen.
+	- Implementierung der grundlegenden Steuerung des Memoriespiels durch Quirin, Isabella und Florian.
   
 - Implementierung der noch fehlenden, geplanten Features:
- 	- SinglePlayer-Spielmodi 'Spiel gegen die Zeit' und 'Spiel mit Leben' 
-	- HighScore- und Achievementtracking
-	- Fortschrittsspeicherung in einem Spielerprofil bzw. in der HighScoreHistory
+ 	- SinglePlayer-Spielmodi 'Spiel gegen die Zeit' und 'Spiel mit Leben' durch Isabella
+	- HighScore- und Achievementtracking durch Jan und Quirin
+	- Fortschrittsspeicherung in einem Spielerprofil bzw. in der HighScoreHistory durch Jan, Daqian und Quirin
   
 - Refactoring und Dokumentaion des Codes:
-	- Steigerung der Lesbarkeit durch Namensänderungen, Auslagerung im Methoden und Optimierung einiger Codepassagen
-	- Dokumentaion via JavaDoc angepasst bzw. neu hinzugefügt
+	- Steigerung der Lesbarkeit durch Namensänderungen, Auslagerung im Methoden und Optimierung einiger Codepassagen durch das ganze Team
+	- Dokumentaion via JavaDoc angepasst bzw. neu hinzugefügt. Jedes Teammitglied hat hier beigetragen.
   
 - Verwendung der Entwurfsmuster:
-	- Umsetzung des Singleton Patterns in den Klassen Controller, Game, Database, HighScoreHistory
+	- Umsetzung des Singleton Patterns in den Klassen Controller, Game, Database, HighScoreHistory durch Quirin und Isabella
+	- Umsetzung des Observer Patterns in den Klassen DataDisplay durch Isabella
   
 - Abnahme des Projekts am 04.07.21:
-	-
+	- Nach Iteration 5 ist die Entwicklung der GUI weit fortgeschritten, jedoch noch nicht abgeschlossen. Die spielbare Version wird noch auf der Konsole ausgegeben
+	- Das Klassendiagramm wurde in der Gruppe umgesetzt und von Jan erstellt
   
 - Iteration 5 planen:  
-	- User Stories auswählen und ggf. anpassen  
-	- Tasks zum Refactoring, zur Dokumenation und zu den Tests erstellen.
-	- Kanbanboard und Milestone der 5. Iteration erstellen
+	- User Stories auswählen und ggf. anpassen
+	- Tasks zum Refactoring, zur Dokumenation und zu den Tests erstellen durch Jan.
+	- Kanbanboard und Milestone der 5. Iteration erstellen durch Jan.
 
 
 
@@ -62,7 +64,7 @@ Protokolle der Zoom-Meetings:
 
 
 **Klassendiagramm:**  
-Das Klassendiagramm wurde weiterentwickelt und von *Florian Muhrer* aktualisiert.
+Das Klassendiagramm wurde im Team aktualisiert und von Jan erstellt.
 
 
 **Iteration 4**
@@ -70,7 +72,6 @@ Das Klassendiagramm wurde weiterentwickelt und von *Florian Muhrer* aktualisiert
 #User Stories
 
 **E = Erstellt**
-
 **B = Beigetragen**
 
 | ID | Isabella Habereder | Daqian Zhang | Jan Pfeifer | Quirin Haberl | Florian Muhrer|
@@ -111,20 +112,31 @@ Das Klassendiagramm wurde weiterentwickelt und von *Florian Muhrer* aktualisiert
 | #143 |||P, R|R||
 | #150 ||||P, R||
 | #157 |||P, R|||
-
-Das grafische Design der GUI entstand zu großen Teilen durch Florian Muhrer.
+| #167 |R|R|P, R|R|R|
+| #168 |P, R|||||
+| #169 |P, R|||||
+| #172 |P, R|||||
 
 
 **Planung Iteration 5**
 
-Die Auswahl der User Stories für Iteration 5 ist aus bereits existieren User Storys der vorherigen Iterationen erfolgt.
+Die Auswahl der User Stories für Iteration 5 ist zum Teil aus existieren User Storys der vorherigen Iterationen erfolgt.
+Für die JavaDoc-Dokumentation sowie für das Refactoring wurden keine User Stories erstellt.
 
-## Tasks
+## Tasks und User Stories
 
 **E = Erstellt**
+**B = Beigetragen**
 
 | ID | Isabella Habereder | Daqian Zhang | Jan Pfeifer | Quirin Haberl | Florian Muhrer|
 |:---:|:------------:|:------------:|:------------:|:------------:|:------------:|
-| # ||||||
-| # ||||||
-| # ||||||
+| #166 |||E|||
+| #167 |||E|||
+| #168 |||E|||
+| #174 |||E|||
+| #175 |||E|B||
+| #176 |B||E|||
+| #177 ||B|E|||
+| #178 |||E||B|
+| #179 |||E|||
+| #180 |||E|||
