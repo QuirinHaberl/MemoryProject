@@ -7,6 +7,8 @@ import de.uni_passau.se.memory.Model.Game;
  * To allow the communication with the Gui-controllers.
  * The used pattern is the Singleton-Pattern, to generate only one game
  * TODO Evtl. noch mit einem Observer-Pattern umsetzen
+ * TODO Ich musste den Game Konstruktor public machen, da die getInstance() aus Game nicht
+ *  funktioniert. Vielleicht weiß von euch jemand wie man das fixt.
  */
 public class DataDisplay {
     /**

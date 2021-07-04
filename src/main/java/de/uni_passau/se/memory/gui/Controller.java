@@ -16,8 +16,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -720,9 +722,13 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Filling the Stage with Objects
+     * This is for the Game-Gui:
+     * TODO Das Ganze in den richtigen Controller verschieben!
      */
 
+    /**
+     * Filling the Stage with Objects
+     */
     public HBox A;
     public HBox B;
     public HBox C;
@@ -753,12 +759,24 @@ public class Controller implements Initializable {
     public Button start;
 
     public void startClicked() {
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < DataDisplay.getInstance().getGame().getPlayingField().getSize(); i++) {
             A.getChildren().add(newButton("A" + i));
             B.getChildren().add(newButton("B" + i));
             C.getChildren().add(newButton("C" + i));
             D.getChildren().add(newButton("D" + i));
         }
 
+    }
+
+    /**
+     * The other actions
+     */
+    public void menu(ActionEvent actionEvent) {
+        ((Stage)(((Button)actionEvent.getSource()).getScene().getWindow())).close();
+        new Window("StartScreen.fxml");
+    }
+
+    public void help(ActionEvent actionEvent) {
+        new Window("Rules.fxml");
     }
 }

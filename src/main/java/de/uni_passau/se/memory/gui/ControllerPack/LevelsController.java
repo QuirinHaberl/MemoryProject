@@ -9,6 +9,9 @@ import javafx.stage.Stage;
 
 public class LevelsController {
 
+    public LevelsController(){
+    }
+
     public void level1(ActionEvent actionEvent) {
         selectLevel(actionEvent, 4);
     }
@@ -24,6 +27,8 @@ public class LevelsController {
     private void selectLevel(ActionEvent actionEvent, int size) {
         DataDisplay.getInstance().getGame().getPlayingField().setBoard(size);
         ((Stage)(((Button)actionEvent.getSource()).getScene().getWindow())).close();
-        new Window("Game.fxml");
+        new Window("test.fxml");
     }
+
+
 }
