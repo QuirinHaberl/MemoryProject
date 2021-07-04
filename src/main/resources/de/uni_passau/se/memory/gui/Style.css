@@ -14,6 +14,11 @@
  -fx-background-size: 100% 100%;
 }
 
+.Background2{
+ -fx-background-image: url("Images/Background2.png");
+ -fx-background-size: 100% 100%;
+}
+
 .Card{
  -fx-background-image: url("Images/Card.png");
  -fx-background-size: 100% 100%;
@@ -28,4 +33,49 @@
 .Card_Ring{
 -fx-background-image: url("Images/Card_Ring.png");
 -fx-background-size: 100% 100%;
+}
+
+.StartScreen{
+-fx-background-image: url("Images/StartScreen.png");
+-fx-background-size: 100% 100%;
+}
+
+.MemoryBanner{
+-fx-background-image: url("Images/MemoryBanner.png");
+-fx-background-size: 100% 100%;
+}
+
+.Banner{
+-fx-background-image: url("Images/Banner.png");
+-fx-background-size: 100% 100%;
+-fx-text-fill: white;
+}
+
+.BannerSingleP{
+-fx-background-image: url("Images/BannerSingleP.png");
+-fx-background-size: 100% 100%;
+-fx-text-fill: white;
+}
+
+.BannerMultiP{
+-fx-background-image: url("Images/BannerMultiP.png");
+-fx-background-size: 100% 100%;
+-fx-text-fill: white;
+}
+
+.BannerHighscore{
+-fx-background-image: url("Images/BannerHighscore.png");
+-fx-background-size: 100% 100%;
+-fx-text-fill: white;
+}
+
+.Paper{
+-fx-background-image: url("Images/Paper.png");
+-fx-background-size: 100% 100%;
+}
+
+.Paper2{
+-fx-background-image: url("Images/Paper2.png");
+-fx-background-size: 100% 100%;
+-fx-font-size: 20;
 }
