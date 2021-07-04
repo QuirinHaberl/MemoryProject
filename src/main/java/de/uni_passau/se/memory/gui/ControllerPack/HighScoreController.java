@@ -6,7 +6,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.util.List;
@@ -15,12 +14,6 @@ import java.util.List;
  * Controller of the {@link HighScoreHistory}.
  */
 public class HighScoreController {
-
-    /**
-     * HBox for the first player and his high score
-     */
-    @FXML
-    private HBox box1;
 
     /**
      * Label for the first player
@@ -35,12 +28,6 @@ public class HighScoreController {
     private Label score1;
 
     /**
-     * HBox for the second player and his high score
-     */
-    @FXML
-    private HBox box2;
-
-    /**
      * Label for the second player
      */
     @FXML
@@ -51,12 +38,6 @@ public class HighScoreController {
      */
     @FXML
     private Label score2;
-
-    /**
-     * HBox for the third player and his high score
-     */
-    @FXML
-    private HBox box3;
 
     /**
      * Label for the third player
@@ -71,12 +52,6 @@ public class HighScoreController {
     private Label score3;
 
     /**
-     * HBox for the fourth player and his high score
-     */
-    @FXML
-    private HBox box4;
-
-    /**
      * Label for the fourth player
      */
     @FXML
@@ -87,12 +62,6 @@ public class HighScoreController {
      */
     @FXML
     private Label score4;
-
-    /**
-     * HBox for the fifth player and his high score
-     */
-    @FXML
-    private HBox box5;
 
     /**
      * Label for the fifth player
@@ -107,12 +76,6 @@ public class HighScoreController {
     private Label score5;
 
     /**
-     * HBox for the sixth player and his high score
-     */
-    @FXML
-    private HBox box6;
-
-    /**
      * Label for the sixth player
      */
     @FXML
@@ -123,12 +86,6 @@ public class HighScoreController {
      */
     @FXML
     private Label score6;
-
-    /**
-     * HBox for the seventh player and his high score
-     */
-    @FXML
-    private HBox box7;
 
     /**
      * Label for the seventh player
@@ -143,12 +100,6 @@ public class HighScoreController {
     private Label score7;
 
     /**
-     * HBox for the eighth player and his high score
-     */
-    @FXML
-    private HBox box8;
-
-    /**
      * Label for the eighth player
      */
     @FXML
@@ -161,12 +112,6 @@ public class HighScoreController {
     private Label score8;
 
     /**
-     * HBox for the ninth player and his high score
-     */
-    @FXML
-    private HBox box9;
-
-    /**
      * Label for the ninth player
      */
     @FXML
@@ -177,12 +122,6 @@ public class HighScoreController {
      */
     @FXML
     private Label score9;
-
-    /**
-     * HBox for the tenth player and his high score
-     */
-    @FXML
-    private HBox box10;
 
     /**
      * Label for the tenth player
@@ -198,47 +137,32 @@ public class HighScoreController {
 
     /**
      * Shows the current {@link HighScoreHistory}.
-     *
-     * @param actionEvent when button clicked
      */
     @FXML
-    //TODO Bisher noch keine Möglichkeit gefunden bei der Erstellung bereits
-    // die Daten korrekt anzuzeigen
-    private void show (ActionEvent actionEvent) {
+    public void initialize () {
         HighScoreHistory highScoreHistory = HighScoreHistory.getInstance();
         highScoreHistory.loadHighScoreHistory();
         List<String[]> highScoreList = highScoreHistory.getHighScoreHistory();
         name1.setText(highScoreList.get(0)[0]);
         score1.setText(highScoreList.get(0)[1]);
-        box1.setVisible(true);
         name2.setText(highScoreList.get(1)[0]);
         score2.setText(highScoreList.get(1)[1]);
-        box2.setVisible(true);
         name3.setText(highScoreList.get(2)[0]);
         score3.setText(highScoreList.get(2)[1]);
-        box3.setVisible(true);
         name4.setText(highScoreList.get(3)[0]);
         score4.setText(highScoreList.get(3)[1]);
-        box4.setVisible(true);
         name5.setText(highScoreList.get(4)[0]);
         score5.setText(highScoreList.get(4)[1]);
-        box5.setVisible(true);
         name6.setText(highScoreList.get(5)[0]);
         score6.setText(highScoreList.get(5)[1]);
-        box6.setVisible(true);
         name7.setText(highScoreList.get(6)[0]);
         score7.setText(highScoreList.get(6)[1]);
-        box7.setVisible(true);
         name8.setText(highScoreList.get(7)[0]);
         score8.setText(highScoreList.get(7)[1]);
-        box8.setVisible(true);
         name9.setText(highScoreList.get(8)[0]);
         score9.setText(highScoreList.get(8)[1]);
-        box9.setVisible(true);
         name10.setText(highScoreList.get(9)[0]);
         score10.setText(highScoreList.get(9)[1]);
-        box10.setVisible(true);
-
     }
 
     /**
