@@ -22,18 +22,137 @@
 .Card{
  -fx-background-image: url("Images/Card.png");
  -fx-background-size: 100% 100%;
- size <50> <50>;
 }
 
+.Card_Apple{
+    -fx-background-image: url("Images/Card_Apple.png");
+    -fx-background-size: 100% 100%;
+}
+.Card_Armor{
+    -fx-background-image: url("Images/Card_Armor.png");
+    -fx-background-size: 100% 100%;
+}
+.Card_Arrow{
+    -fx-background-image: url("Images/Card_Arrow.png");
+    -fx-background-size: 100% 100%;
+}
+.Card_Axe{
+    -fx-background-image: url("Images/Card_Axe.png");
+    -fx-background-size: 100% 100%;
+}
+.Card_BlueGem{
+    -fx-background-image: url("Images/Card_BlueGem.png");
+    -fx-background-size: 100% 100%;
+}
+.Card_BluePotion{
+    -fx-background-image: url("Images/Card_BluePotion.png");
+    -fx-background-size: 100% 100%;
+}
+.Card_Bone{
+    -fx-background-image: url("Images/Card_Bone.png");
+    -fx-background-size: 100% 100%;
+}
+.Card_Bone2{
+    -fx-background-image: url("Images/Card_Bone2.png");
+    -fx-background-size: 100% 100%;
+}
+.Card_Book{
+    -fx-background-image: url("Images/Card_Book.png");
+    -fx-background-size: 100% 100%;
+}
+.Card_Bow{
+    -fx-background-image: url("Images/Card_Bow.png");
+    -fx-background-size: 100% 100%;
+}
+.Card_Caldron{
+    -fx-background-image: url("Images/Card_Caldron.png");
+    -fx-background-size: 100% 100%;
+}
+.Card_Carrot{
+    -fx-background-image: url("Images/Card_Carrot.png");
+    -fx-background-size: 100% 100%;
+}
+.Card_Clover{
+    -fx-background-image: url("Images/Card_Clover.png");
+    -fx-background-size: 100% 100%;
+}
+.Card_Crown{
+    -fx-background-image: url("Images/Card_Crown.png");
+    -fx-background-size: 100% 100%;
+}
+.Card_Diamond{
+    -fx-background-image: url("Images/Card_Diamond.png");
+    -fx-background-size: 100% 100%;
+}
+.Card_Gold{
+    -fx-background-image: url("Images/Card_Gold.png");
+    -fx-background-size: 100% 100%;
+}
+.Card_GreenGem{
+    -fx-background-image: url("Images/Card_GreenGem.png");
+    -fx-background-size: 100% 100%;
+}
+.Card_GreenPotion{
+    -fx-background-image: url("Images/Card_GreenPotion.png");
+    -fx-background-size: 100% 100%;
+}
+.Card_Helmet{
+    -fx-background-image: url("Images/Card_Helmet.png");
+    -fx-background-size: 100% 100%;
+}
+.Card_Letter{
+    -fx-background-image: url("Images/Card_Letter.png");
+    -fx-background-size: 100% 100%;
+}
+.Card_Mushroom{
+    -fx-background-image: url("Images/Card_Mushroom.png");
+    -fx-background-size: 100% 100%;
+}
+.Card_PinkGem{
+    -fx-background-image: url("Images/Card_PinkGem.png");
+    -fx-background-size: 100% 100%;
+}
+.Card_RedGem{
+    -fx-background-image: url("Images/Card_RedGem.png");
+    -fx-background-size: 100% 100%;
+}
+.Card_RedPotion{
+    -fx-background-image: url("Images/Card_RedPotion.png");
+    -fx-background-size: 100% 100%;
+}
+.Card_Ring{
+    -fx-background-image: url("Images/Card_Ring.png");
+    -fx-background-size: 100% 100%;
+}
+.Card_Shield1{
+    -fx-background-image: url("Images/Card_Shield1.png");
+    -fx-background-size: 100% 100%;
+}
+.Card_Shield2{
+    -fx-background-image: url("Images/Card_Shield2.png");
+    -fx-background-size: 100% 100%;
+}
+.Card_Skull{
+    -fx-background-image: url("Images/Card_Skull.png");
+    -fx-background-size: 100% 100%;
+}
+.Card_Sword{
+    -fx-background-image: url("Images/Card_Sword.png");
+    -fx-background-size: 100% 100%;
+}
+.Card_Trident{
+    -fx-background-image: url("Images/Card_Trident.png");
+    -fx-background-size: 100% 100%;
+}
 .Card_Trophy{
 -fx-background-image: url("Images/Card_Trophy.png");
 -fx-background-size: 100% 100%;
 }
-
-.Card_Ring{
--fx-background-image: url("Images/Card_Ring.png");
--fx-background-size: 100% 100%;
+.Card_Wand{
+    -fx-background-image: url("Images/Card_Wand.png");
+    -fx-background-size: 100% 100%;
 }
+
 
 .StartScreen{
 -fx-background-image: url("Images/StartScreen.png");
