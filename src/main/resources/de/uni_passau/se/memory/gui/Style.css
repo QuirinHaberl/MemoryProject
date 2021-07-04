@@ -40,6 +40,11 @@
 -fx-background-size: 100% 100%;
 }
 
+.Rules{
+-fx-background-image: url("Images/Paper.png");
+-fx-background-size: 100% 100%;
+}
+
 .MemoryBanner{
 -fx-background-image: url("Images/MemoryBanner.png");
 -fx-background-size: 100% 100%;
@@ -78,4 +83,24 @@
 -fx-background-image: url("Images/Paper2.png");
 -fx-background-size: 100% 100%;
 -fx-font-size: 20;
+}
+
+.PlaceOne{
+-fx-background-image: url("Images/1stPlace.png");
+-fx-background-size: 100% 100%;
+}
+
+.PlaceTwo{
+-fx-background-image: url("Images/2ndPlace.png");
+-fx-background-size: 100% 100%;
+}
+
+.PlaceThree{
+-fx-background-image: url("Images/3rdPlace.png");
+-fx-background-size: 100% 100%;
+}
+
+.PlaceFour{
+-fx-background-image: url("Images/4thPlace.png");
+-fx-background-size: 100% 100%;
 }
