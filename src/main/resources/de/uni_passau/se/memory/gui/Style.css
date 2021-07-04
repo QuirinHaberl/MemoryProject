@@ -45,6 +45,14 @@
 -fx-background-size: 100% 100%;
 }
 
+.scroll-pane{
+   -fx-background-color:transparent;
+}
+
+.scroll-pane > .viewport {
+   -fx-background-color: transparent;
+}
+
 .MemoryBanner{
 -fx-background-image: url("Images/MemoryBanner.png");
 -fx-background-size: 100% 100%;
