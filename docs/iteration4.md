@@ -111,10 +111,15 @@ ist das Klassendiagram sehr unübersichtlich. Dies wird sich nach dem Refactorin
 | #143 |||P, R|R||
 | #150 ||||P, R||
 | #157 |||P, R|||
+| #158 ||||P, R||
+| #165 |P|P|P, R|P|P|
 | #167 |R|R|P, R|R|R|
 | #168 |P, R|||||
 | #169 |P, R|||||
+| #170 ||||P, R||
+| #171 ||||P, R||
 | #172 |P, R|||||
+| #173 ||||P, R||
 | #182 |P, R|||||
 
 
