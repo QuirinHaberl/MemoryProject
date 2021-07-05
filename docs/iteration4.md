@@ -93,9 +93,7 @@ ist das Klassendiagram sehr unübersichtlich. Dies wird sich nach dem Refactorin
 #Tasks
 
 **P = Planung**
-
 **R = Realisierung**
-
 **C = Closed**
 
 | ID | Isabella Habereder | Daqian Zhang | Jan Pfeifer | Quirin Haberl | Florian Muhrer|
