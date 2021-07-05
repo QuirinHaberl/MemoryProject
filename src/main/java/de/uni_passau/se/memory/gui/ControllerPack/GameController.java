@@ -1,6 +1,11 @@
 package de.uni_passau.se.memory.gui.ControllerPack;
 
 import de.uni_passau.se.memory.Model.Enums.CardLetters;
+import de.uni_passau.se.memory.Model.Enums.CardStatus;
+import de.uni_passau.se.memory.Model.Enums.GameStatus;
+import de.uni_passau.se.memory.Model.Game;
+import de.uni_passau.se.memory.Model.Player;
+import de.uni_passau.se.memory.Model.PlayerList;
 import de.uni_passau.se.memory.View.DataDisplay;
 import de.uni_passau.se.memory.gui.Window;
 import javafx.event.ActionEvent;
@@ -16,13 +21,17 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
 
 public class GameController implements Initializable {
+
+    int firstRow;
+    int firstCol;
+    Player activePlayer = DataDisplay.getInstance().getGame().getPlayerList().getFront();
+    int size = DataDisplay.getInstance().getGame().getPlayingField().getSize();
 
     public GameController() {
     }
@@ -49,7 +58,62 @@ public class GameController implements Initializable {
                 button.getStyleClass().add(((CardLetters) card).getPicture());
                 //button.setVisible(false);
                 System.out.println(id);
+                if (!(DataDisplay.getInstance().getGame().getGameStatus().equals(GameStatus.RUNNING))) {
+                    return;
+                }
 
+                //Implementation of the game phases
+                switch (DataDisplay.getInstance().getGame().getTurnStatus()) {
+                    //Is used if the turn hasn't been stated yet.
+                    case IDLE:
+                        firstRow = row;
+                        firstCol = col;
+                        Object firstCard = DataDisplay.getInstance().getGame().getCard(row, col).getValue();
+                        CardStatus firstCardStatus = DataDisplay.getInstance().getGame().revealFirstCard(firstRow, firstCol);
+                        button.getStyleClass().removeAll("Card");
+                        button.getStyleClass().add(((CardLetters) firstCard).getPicture());
+                        if (firstCardStatus.equals(CardStatus.FOUND)) {
+                            break;
+                        }
+                        break;
+                    //Is used if the turn has been stated.
+                    case ACTIVE:
+                        int secondRow = row;
+                        int secondCol = col;
+                        Object secondCard = DataDisplay.getInstance().getGame().getCard(secondRow, secondCol).getValue();
+                        CardStatus secondCardStatus = DataDisplay.getInstance().getGame().revealSecondCard(secondRow, secondCol);
+
+                        // TODO Hier ist irgendwo noch ein Bug!
+                        button.getStyleClass().removeAll("Card");
+                        button.getStyleClass().add(((CardLetters) secondCard).getPicture());
+                        if (secondCardStatus.equals(CardStatus.FOUND)) {
+                            break;
+                        } else if (secondCardStatus.equals(CardStatus.AlREADYOPEN)) {
+                            break;
+
+                        }
+                        if (DataDisplay.getInstance().getGame().pairCheck(firstRow, firstCol, secondRow, secondCol)) {
+                            if (DataDisplay.getInstance().getGame().areAllCardsOpen()) {
+                                // TODO Hier muss Ausgabe erfolgen dass alle Karten gefunden sind
+                            }
+                        } else {
+
+                            try {
+                                Thread.sleep(200);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+
+                            Button b1 = (Button) Board.getChildren().get(firstRow * size + firstCol);
+                            b1.getStyleClass().clear();
+                            b1.getStyleClass().add("Card");
+                            Button b2 = (Button) Board.getChildren().get(secondRow * size + secondCol);
+                            b2.getStyleClass().clear();
+                            b2.getStyleClass().add("Card");
+
+                            activePlayer = activePlayer.getNext();
+                        }
+                }
             }
         });
         return button;
@@ -84,7 +148,9 @@ public class GameController implements Initializable {
                 Board.add(newButton("(" + row + " " + col + ")", row, col), col, row);
             }
         }
+        DataDisplay.getInstance().getGame().setGameStatus(GameStatus.RUNNING);
     }
+
 
     /**
      * The other actions
