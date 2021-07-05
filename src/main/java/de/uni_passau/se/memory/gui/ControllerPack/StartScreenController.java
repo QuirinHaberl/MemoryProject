@@ -18,17 +18,18 @@ public class StartScreenController {
     }
 
     public void singlePlayer(ActionEvent actionEvent) {
-        ((Stage)(((Button)actionEvent.getSource()).getScene().getWindow())).close();
+        DataDisplay.getInstance().getGame().setPlayerAmount(1);
+        ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
         new Window("NameSelection.fxml");
     }
 
     public void multiPlayer(ActionEvent actionEvent) {
-        ((Stage)(((Button)actionEvent.getSource()).getScene().getWindow())).close();
+        ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
         new Window("NumberOfPlayers.fxml");
     }
 
     public void highscore(ActionEvent actionEvent) {
-        ((Stage)(((Button)actionEvent.getSource()).getScene().getWindow())).close();
+        ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
         new Window("HighScore.fxml");
     }
 

@@ -11,18 +11,41 @@ import de.uni_passau.se.memory.gui.Window;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.ImageCursor;
 import javafx.scene.Node;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+
+import java.net.URL;
 import java.nio.file.Paths;
+import java.util.ResourceBundle;
 
 
-public class GameController {
+public class GameController implements Initializable {
+
+    @FXML
+    public Button start;
+
+    @FXML
+    private Label labelPlayer1;
+
+    @FXML
+    private Label labelPlayer2;
+
+    @FXML
+    private Label labelPlayer3;
+
+    @FXML
+    private Label labelPlayer4;
+
+    @FXML
+    private GridPane Board;
 
     int firstRow;
     int firstCol;
@@ -35,7 +58,6 @@ public class GameController {
     /**
      * Filling the Stage with Objects
      */
-
     public Node newButton(String id, int row, int col) {
         Button button = new Button();
         button.setPrefSize(100, 70);
@@ -49,6 +71,12 @@ public class GameController {
 
             @Override
             public void handle(ActionEvent event) {
+                button.getStyleClass().removeAll("Card");
+                Object card = DataDisplay.getInstance().getGame().getCard(row, col).getValue();
+                ((CardLetters) card).getPicture();
+                button.getStyleClass().add(((CardLetters) card).getPicture());
+                //button.setVisible(false);
+                System.out.println(id);
                 if (!(DataDisplay.getInstance().getGame().getGameStatus().equals(GameStatus.RUNNING))) {
                     return;
                 }
@@ -110,14 +138,7 @@ public class GameController {
         return button;
     }
 
-    public Button start;
-
-
-    @FXML
-    private GridPane Board;
-
     public void startClicked() {
-
         int size = DataDisplay.getInstance().getGame().getPlayingField().getSize();
         DataDisplay.getInstance().getGame().getPlayingField().fillLetters();
 
@@ -135,7 +156,7 @@ public class GameController {
      * The other actions
      */
     public void menu(ActionEvent actionEvent) {
-        ((Stage)(((Button)actionEvent.getSource()).getScene().getWindow())).close();
+        ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
         new Window("StartScreen.fxml");
     }
 
@@ -143,4 +164,19 @@ public class GameController {
         new Window("Rules.fxml");
     }
 
+    public void setPlayerLabel() {
+        Label[] playerLabels = {labelPlayer1, labelPlayer2,
+                labelPlayer3, labelPlayer4};
+        for (int i = 0; i < DataDisplay.getInstance().getGame().
+                getPlayerAmount(); i++) {
+            playerLabels[i].setText(DataDisplay.getInstance().getGame().
+                    getPlayerList().getPlayer(i).getName());
+        }
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        setPlayerLabel();
+        startClicked();
+    }
 }

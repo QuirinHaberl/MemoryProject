@@ -1,5 +1,6 @@
 package de.uni_passau.se.memory.gui.ControllerPack;
 
+import de.uni_passau.se.memory.Model.Database;
 import de.uni_passau.se.memory.View.DataDisplay;
 import de.uni_passau.se.memory.gui.Window;
 import javafx.event.ActionEvent;
@@ -20,6 +21,7 @@ public class NumberOfPlayersController {
     }
 
     private void selectPlayers (ActionEvent actionEvent, int number) {
+        DataDisplay.getInstance().getGame().setPlayerAmount(number);
         ((Stage)(((Button)actionEvent.getSource()).getScene().getWindow())).close();
         new Window("NameSelection.fxml");
     }
