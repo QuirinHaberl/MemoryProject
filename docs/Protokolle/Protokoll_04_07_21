@@ -1,0 +1,36 @@
+Protokoll vom Zoommeeting am 04.07.2021
+Teilnehmende: Alle
+Autoren: Daqian Zhang, Jan Pfeifer
+
+
+1.Besprechung der Änderungen seit dem letzten Meeting nach Teammembers:
+   1.1 Jan.. 
+         ..hat die SpielerID ersteinmal wieder entfernt und die zugehörigen Methoden angepasst.
+         ..hat mit dem Refactoring und Dokumentieren begonnen.
+         ..hat Jan in Git einige Tasks für die nächste Iteration angelegt, das Kanbanboard sowie Meilenstein erstellt.
+         
+   1.2 Quirin.. 
+        ..hat „HighScoreHistory“ repariert.
+        ..sich um die Teile der Logik des GUI's gekümmert und diese implementiert.
+
+   1.3 Isabella..
+         ..hat den SinglePlayerMode weiter implementiert und das Spiel auf Leben von Buggs befreit. 
+         ..sich um die Teile der Logik des GUI's gekümmert und diese implementiert.
+         ..hat eine Class DataDisplay erstellt als Wrapper erstellt.
+
+   1.4 Florian..
+        ..hat sich um den Großteil des Designs des GUI's gekümmert und dieses erweitert.
+        ..sich um die Teile der Logik des GUI's gekümmert und diese implementiert.
+         
+   1.5 Daqian..
+        ..hat nach Bugs im Projekt gesucht und begonnen, diese zu beheben.
+        ..hat mit Jan das GuiHub-Repository gemanaged.
+   
+
+2. Planung für nächste Woche
+    - Der vorhandene Code muss gerefactored werden. Dazu wurden die Klassen auf die Teammitglieder aufgeteilt
+    - Im gleichen Zug müssen zu den Klassen JUnit Tests geschrieben werden. Hierzu wurden Tasks erstellt
+    - Einigung, dass jeder versucht die JavaDoc-Dokumentation aktuell für die nächste Iteration zu halten.
+    - Während dem Refactorn werden noch weitere Entwurfsmuster implementiert und auf das Gesetzt von Demeter geachtet. 
+    
+    
