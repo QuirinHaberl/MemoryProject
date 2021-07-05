@@ -21,12 +21,31 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
 
 public class GameController implements Initializable {
+
+    @FXML
+    public Button start;
+
+    @FXML
+    private Label labelPlayer1;
+
+    @FXML
+    private Label labelPlayer2;
+
+    @FXML
+    private Label labelPlayer3;
+
+    @FXML
+    private Label labelPlayer4;
+
+    @FXML
+    private GridPane Board;
 
     int firstRow;
     int firstCol;
@@ -119,26 +138,7 @@ public class GameController implements Initializable {
         return button;
     }
 
-    @FXML
-    public Button start;
-
-    @FXML
-    private Label labelPlayer1;
-
-    @FXML
-    private Label labelPlayer2;
-
-    @FXML
-    private Label labelPlayer3;
-
-    @FXML
-    private Label labelPlayer4;
-
-    @FXML
-    private GridPane Board;
-
     public void startClicked() {
-        setPlayerLabel();
         int size = DataDisplay.getInstance().getGame().getPlayingField().getSize();
         DataDisplay.getInstance().getGame().getPlayingField().fillLetters();
 
@@ -165,9 +165,8 @@ public class GameController implements Initializable {
     }
 
     public void setPlayerLabel() {
-        Label[] playerLabels = {
-                labelPlayer1, labelPlayer2, labelPlayer3, labelPlayer4
-        };
+        Label[] playerLabels = {labelPlayer1, labelPlayer2,
+                labelPlayer3, labelPlayer4};
         for (int i = 0; i < DataDisplay.getInstance().getGame().
                 getPlayerAmount(); i++) {
             playerLabels[i].setText(DataDisplay.getInstance().getGame().
@@ -177,6 +176,7 @@ public class GameController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        setPlayerLabel();
         startClicked();
     }
 }
