@@ -1,5 +1,3 @@
-**Das ist eine WorkInProgress-Version der iteration4.md**
-
 # SE Team 19 - Iteration 4
 
 ## Team
@@ -32,24 +30,25 @@
 	- Implementierung der grundlegenden Steuerung des Memoriespiels durch Quirin, Isabella und Florian.
   
 - Implementierung der noch fehlenden, geplanten Features:
- 	- SinglePlayer-Spielmodi 'Spiel gegen die Zeit' und 'Spiel mit Leben' durch Isabella
-	- HighScore- und Achievementtracking durch Jan und Quirin
-	- Fortschrittsspeicherung in einem Spielerprofil bzw. in der HighScoreHistory durch Jan, Daqian und Quirin
+ 	- SinglePlayer-Spielmodi 'Spiel gegen die Zeit' und 'Spiel mit Leben' durch Isabella.
+	- HighScore- und Achievementtracking durch Jan und Quirin.
+	- Fortschrittsspeicherung in einem Spielerprofil bzw. in der HighScoreHistory durch Jan, Daqian und Quirin.
   
 - Refactoring und Dokumentaion des Codes:
-	- Steigerung der Lesbarkeit durch Namensänderungen, Auslagerung im Methoden und Optimierung einiger Codepassagen durch das ganze Team
+	- Steigerung der Lesbarkeit durch Namensänderungen, Auslagerung im Methoden und Optimierung einiger Codepassagen durch das ganze Team.
 	- Dokumentaion via JavaDoc angepasst bzw. neu hinzugefügt. Jedes Teammitglied hat hier beigetragen.
   
-- Verwendung der Entwurfsmuster:
-	- Umsetzung des Singleton Patterns in den Klassen Controller, Game, Database, HighScoreHistory durch Quirin und Isabella
-	- Umsetzung des Observer Patterns in den Klassen DataDisplay durch Isabella
+- Verwendung der Entwurfsmuster/Entwurfsprinzipien:
+	- Umsetzung des Singleton Patterns in den Klassen Controller, Game, Database, HighScoreHistory durch Quirin und Isabella. Da es hier zu Fehlern nach der Implementierung 	   der Pattern kam, wurden Controller und Game wieder in den ursprünglichen Zustand versetzt.
+	- die Umsetzung des Observer Patterns in den Klassen DataDisplay durch Isabella war geplant und wird in der nächsten Iteration erfolgen.
+	- im Zuge der nächsten Iteration wird beim Refactoring darauf geachted das Gesetz von Demeter zu berücksichtigen.
   
 - Abnahme des Projekts am 04.07.21:
-	- Nach Iteration 5 ist die Entwicklung der GUI weit fortgeschritten, jedoch noch nicht abgeschlossen. Die spielbare Version wird noch auf der Konsole ausgegeben
-	- Das Klassendiagramm wurde in der Gruppe umgesetzt und von Jan erstellt
+	- Nach Iteration 5 ist die Entwicklung der GUI weit fortgeschritten, jedoch noch nicht abgeschlossen. Die spielbare Version wird noch auf der Konsole ausgegeben.
+	- Das Klassendiagramm wurde in der Gruppe umgesetzt und von Jan generiert.
   
 - Iteration 5 planen:  
-	- User Stories auswählen und ggf. anpassen
+	- User Stories auswählen und ggf. anpassen und neu erstellen.
 	- Tasks zum Refactoring, zur Dokumenation und zu den Tests erstellen durch Jan.
 	- Kanbanboard und Milestone der 5. Iteration erstellen durch Jan.
 
@@ -64,7 +63,9 @@ Protokolle der Zoom-Meetings:
 
 
 **Klassendiagramm:**  
-Das Klassendiagramm wurde im Team aktualisiert und von Jan erstellt.
+Das Klassendiagramm wurde im Team aktualisiert und von Jan generiert. 
+Da das GUI noch nicht lauffähig ist und noch Änderungen an der Programmstruktur geplant sind,
+ist das Klassendiagram sehr unübersichtlich. Dies wird sich nach dem Refactoring verbessern.
 
 
 **Iteration 4**
@@ -116,6 +117,7 @@ Das Klassendiagramm wurde im Team aktualisiert und von Jan erstellt.
 | #168 |P, R|||||
 | #169 |P, R|||||
 | #172 |P, R|||||
+| #182 |P, R|||||
 
 
 **Planung Iteration 5**
