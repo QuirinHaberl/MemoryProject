@@ -125,7 +125,7 @@ public class Database {
      * Saves the {@code HighScoreHistory} from the {@code highScoreList} in the
      * highScoreHistory.csv file.
      */
-    public void saveHighScoreHistory() {
+    public void storeHighScoreHistory() {
         try {
             FileOutputStream fos = new FileOutputStream(pathToHighScores);
             PrintWriter pw = new PrintWriter(fos);
