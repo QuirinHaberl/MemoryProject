@@ -27,7 +27,7 @@ public class LevelsController {
     private void selectLevel(ActionEvent actionEvent, int size) {
         DataDisplay.getInstance().getGame().getPlayingField().setBoard(size);
         ((Stage)(((Button)actionEvent.getSource()).getScene().getWindow())).close();
-        new Window("test.fxml");
+        new Window("Game.fxml");
     }
 
 
