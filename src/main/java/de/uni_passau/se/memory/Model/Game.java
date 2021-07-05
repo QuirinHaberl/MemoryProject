@@ -36,6 +36,91 @@ public final class Game {
      */
     private final PlayerList playerList;
 
+    private int playerAmount;
+
+    /**
+     * Stores player-profiles
+     */
+    Database database;
+
+    /**
+     * Loads all existing profiles for the current players.
+     * A playerProfile has the following structure:
+     * playerId;playerName;highScore;gamesPlayed;gamesWon
+     *
+     * @param playerProfiles to be used
+     */
+    public void saveProfile(List<String[]> playerProfiles) {
+        for (String[] playerProfile : playerProfiles) {
+            for (int j = 0; j < getPlayerList().getCount(); j++) {
+                if (playerProfile[1].equals(getPlayerList().
+                        getPlayer(j).getName())) {
+                    playerProfile[1] = getPlayerList().getPlayer(j).
+                            getName() + "";
+                    playerProfile[2] = getPlayerList().getPlayer(j).
+                            getAchievements().getHighScore() + "";
+                    playerProfile[3] = getPlayerList().getPlayer(j).
+                            getAchievements().getGamesPlayed() + "";
+                    playerProfile[4] = getPlayerList().getPlayer(j).
+                            getAchievements().getGameWon() + "";
+                    break;
+                }
+            }
+        }
+    }
+
+    /**
+     * Loads all existing profiles for the current players.
+     * A playerProfile has the following structure:
+     * playerId;playerName;highScore;gamesPlayed;gamesWon
+     *
+     * @param playerProfiles to be used
+     */
+    public void useProfile(List<String[]> playerProfiles) {
+        boolean hasProfile;
+        for (int i = 0; i < getPlayerList().getCount(); i++) {
+            hasProfile = false;
+            int j;
+            for (j = 0; j < playerProfiles.size(); j++) {
+                if (getPlayerList().getPlayer(i).getName().
+                        equals(playerProfiles.get(j)[1])) {
+                    hasProfile = true;
+                    break;
+                }
+
+            }
+            if (hasProfile) {
+                getPlayerList().getPlayer(i).
+                        setPlayerId(playerProfiles.get(j)[0]);
+                getPlayerList().getPlayer(i).setName(playerProfiles.get(j)[1]);
+                getPlayerList().getPlayer(i).getAchievements().
+                        setHighScore(Integer.parseInt(playerProfiles.get(j)[2]));
+                getPlayerList().getPlayer(i).getAchievements().
+                        setGamesPlayed(Integer.parseInt(playerProfiles.get(j)[3]));
+                getPlayerList().getPlayer(i).getAchievements().
+                        setGamesWon(Integer.parseInt(playerProfiles.get(j)[4]));
+            } else {
+                String[] newProfile = new String[]{
+                        getPlayerList().getPlayer(i).getPlayerId(),
+                        getPlayerList().getPlayer(i).getName(),
+                        getPlayerList().getPlayer(i).getAchievements().getHighScore() + "",
+                        getPlayerList().getPlayer(i).getAchievements().getGamesPlayed() + "",
+                        getPlayerList().getPlayer(i).getAchievements().getGameWon() + ""
+                };
+                playerProfiles.add(newProfile);
+            }
+        }
+    }
+
+    /**
+     * Stores the progress of all playerProfiles and the HighScoreHistory.
+     */
+    public void storeProgress() {
+        getDatabase().storeHighScoreHistory();
+        saveProfile(getDatabase().getPlayerProfiles());
+        getDatabase().storePlayerProfiles();
+    }
+
     /**
      * This is a inner class for the timer of a {@link Game}.
      * The default time is 120 seconds (2 minutes)
@@ -97,6 +182,8 @@ public final class Game {
         this.gameStatus = GameStatus.MENU;
         this.playerList = new PlayerList();
         this.playingField = new PlayingField();
+        this.database = Database.getInstance();
+        this.database.loadHighScoreHistory();
     }
 
     /**
@@ -356,6 +443,11 @@ public final class Game {
         }
     }
 
+    public void addPlayer(String playerName) {
+        playerList.addPlayer(playerName);
+    }
+
+
     /**
      * Gets the the board of a {@code playingField}.
      *
@@ -379,5 +471,21 @@ public final class Game {
      */
     public startCountDown getTime() {
         return time;
+    }
+
+    public int getPlayerAmount() {
+        return playerAmount;
+    }
+
+    public void setPlayerAmount(int playerAmount) {
+        this.playerAmount = playerAmount;
+    }
+
+    public Database getDatabase() {
+        return database;
+    }
+
+    public void setDatabase(Database database) {
+        this.database = database;
     }
 }

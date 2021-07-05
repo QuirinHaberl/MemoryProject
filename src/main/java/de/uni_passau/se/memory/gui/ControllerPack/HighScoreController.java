@@ -1,9 +1,10 @@
 package de.uni_passau.se.memory.gui.ControllerPack;
 
-import de.uni_passau.se.memory.Model.HighScoreHistory;
+import de.uni_passau.se.memory.Model.Database;
 import de.uni_passau.se.memory.gui.Window;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
@@ -11,7 +12,7 @@ import javafx.stage.Stage;
 import java.util.List;
 
 /**
- * Controller of the {@link HighScoreHistory}.
+ * Controller of the {@code HighScoreHistory}.
  */
 public class HighScoreController {
 
@@ -136,11 +137,11 @@ public class HighScoreController {
     private Label score10;
 
     /**
-     * Shows the current {@link HighScoreHistory}.
+     * Shows the current {@code HighScoreHistory}.
      */
     @FXML
     public void initialize () {
-        HighScoreHistory highScoreHistory = HighScoreHistory.getInstance();
+        Database highScoreHistory = Database.getInstance();
         highScoreHistory.loadHighScoreHistory();
         List<String[]> highScoreList = highScoreHistory.getHighScoreHistory();
         name1.setText(highScoreList.get(0)[0]);

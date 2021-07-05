@@ -11,7 +11,21 @@ import java.util.List;
  */
 public class Database {
 
-    String path;
+    /**
+     * Stores the path to highScoreHistory.csv.
+     */
+    String pathToProfiles;
+
+    /**
+     * Stores the path to highScoreHistory.csv.
+     */
+    String pathToHighScores;
+
+    /**
+     * Stores the {@code HighScoreHistory} in a list. At first
+     * position it contains the player name and at second place his high score.
+     */
+    private final List<String[]> highScoreList;
 
     /**
      * Stores all playerProfiles
@@ -31,8 +45,10 @@ public class Database {
      * Constructs a new database-object.
      */
     public Database() {
-        this.path = "src/main/resources/profiles.csv";
+        this.pathToProfiles = "src/main/resources/profiles.csv";
+        this.pathToHighScores = "src/main/resources/highScoreHistory.csv";
         this.playerProfiles = new ArrayList<>();
+        this.highScoreList = new ArrayList<>();
     }
 
     /**
@@ -44,22 +60,31 @@ public class Database {
         return Database.InstanceHolder.INSTANCE;
     }
 
-    /**
-     * Loads all existing playerProfiles out of profiles.csv.
-     */
     public void loadPlayerProfiles() {
+        loadFromFile(pathToProfiles, playerProfiles);
+    }
+
+    public void loadHighScoreHistory() {
+        loadFromFile(pathToHighScores, highScoreList);
+    }
+
+    /**
+     * Loads the {@code HighScoreHistory} from the highScoreHistory.csv file
+     * and stores it in the {@code highScoreList}.
+     */
+    public void loadFromFile(String path, List<String[]> list) {
         try {
             FileReader fr = new FileReader(path);
             BufferedReader br = new BufferedReader(fr);
 
             String[] values;
-            String playerInfo;
+            String highScoreInfo;
             int pos = 0;
 
-            while (!((playerInfo = br.readLine()) == null)) {
-                values = playerInfo.split(";");
+            while (!((highScoreInfo = br.readLine()) == null)) {
+                values = highScoreInfo.split(";");
 
-                playerProfiles.add(pos, values);
+                list.add(pos, values);
                 pos++;
             }
             br.close();
@@ -67,7 +92,7 @@ public class Database {
         } catch (FileNotFoundException e) {
             View.error("File not found!");
         } catch (IOException e) {
-            View.error("Couldn't write to profiles.csv");
+            View.error("Couldn't write to " + path);
         }
     }
 
@@ -78,7 +103,7 @@ public class Database {
      */
     public void storePlayerProfiles() {
         try {
-            FileOutputStream fos = new FileOutputStream(path);
+            FileOutputStream fos = new FileOutputStream(pathToProfiles);
             PrintWriter pw = new PrintWriter(fos);
             for (String[] playerProfile : playerProfiles) {
                 pw.println(playerProfile[0] + ";" +
@@ -92,7 +117,31 @@ public class Database {
         } catch (FileNotFoundException e) {
             View.error("File not found!");
         } catch (IOException e) {
-            View.error("Couldn't write to profiles.csv");
+            View.error("Couldn't write to " + pathToProfiles);
+        }
+    }
+
+    /**
+     * Saves the {@code HighScoreHistory} from the {@code highScoreList} in the
+     * highScoreHistory.csv file.
+     */
+    public void storeHighScoreHistory() {
+        try {
+            FileOutputStream fos = new FileOutputStream(pathToHighScores);
+            PrintWriter pw = new PrintWriter(fos);
+            for (String[] strings : highScoreList) {
+                if (strings[0].equals("Not yet occupied!")) {
+                    pw.println(strings[0] + ";" + "0");
+                } else {
+                    pw.println(strings[0] + ";" + strings[1]);
+                }
+            }
+            pw.close();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            View.error("File not found!");
+        } catch (IOException e) {
+            View.error("Couldn't write to " + pathToHighScores);
         }
     }
 
@@ -103,5 +152,80 @@ public class Database {
      */
     public List<String[]> getPlayerProfiles() {
         return playerProfiles;
+    }
+
+    /**
+     * Gets all playerProfiles
+     *
+     * @return all playerProfiles
+     */
+    public List<String[]> getHighScoreHistory() {
+        return highScoreList;
+    }
+
+    /**
+     * Updates the {@code HighScoreHistory} with the current winning players
+     * and their high score.
+     *
+     * @param winningPlayers of the current game.
+     * @param highestScore   of the winning players.
+     */
+    public void updateHighScoreHistory(String[] winningPlayers,
+                                       int highestScore) {
+        for (int i = winningPlayers.length - 1; i >= 0; i--) {
+            if (!updateHighScore(winningPlayers[i], highestScore)) {
+                addNewHighScore(winningPlayers[i], highestScore);
+            }
+        }
+    }
+
+    /**
+     * Updates the high score of the handed over player, if he is already in
+     * the {@code HighScoreHistory}, and updates his position in the
+     * {@code HighScoreHistory}.
+     *
+     * @param player    that won the current game.
+     * @param highScore of the winning player.
+     * @return true if the players data was updated.
+     */
+    private boolean updateHighScore(String player, int highScore) {
+        for (int i = 0; i < highScoreList.size(); i++) {
+            if (player.equals(highScoreList.get(i)[0])) {
+                if (Integer.parseInt(highScoreList.get(i)[1]) < highScore) {
+                    //Deletes old data and inserts it at the new correct
+                    // position
+                    highScoreList.remove(i);
+                    addNewHighScore(player, highScore);
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Adds a player with his high score to the {@code highScoreList}.
+     *
+     * @param player    that won the current game.
+     * @param highScore of the winning player.
+     */
+    private void addNewHighScore(String player, int highScore) {
+        for (int i = 0; i < highScoreList.size(); i++) {
+            if (highScoreList.get(i)[0].equals("Not yet occupied!")) {
+                highScoreList.remove(i);
+                String[] newPlayer = {player, String.valueOf(highScore)};
+                highScoreList.add(i, newPlayer);
+                break;
+            } else {
+                if (Integer.parseInt(highScoreList.get(i)[1]) <= highScore) {
+                    String[] newPlayer = {player, String.valueOf(highScore)};
+                    highScoreList.add(i, newPlayer);
+                    if (highScoreList.size() > 10) {
+                        highScoreList.remove(10);
+                    }
+                    break;
+                }
+            }
+        }
     }
 }

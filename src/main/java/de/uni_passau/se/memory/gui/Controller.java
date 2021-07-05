@@ -1,30 +1,15 @@
 package de.uni_passau.se.memory.gui;
 
 import de.uni_passau.se.memory.Model.*;
-import de.uni_passau.se.memory.Model.Enums.CardLetters;
 import de.uni_passau.se.memory.Model.Enums.CardStatus;
 import de.uni_passau.se.memory.Model.Enums.GameStatus;
 import de.uni_passau.se.memory.View.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.List;
 import java.util.Scanner;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.ImageCursor;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -46,11 +31,6 @@ public class Controller implements Initializable {
     private final Game game;
 
     /**
-     * Stores the current {@link HighScoreHistory}.
-     */
-    private HighScoreHistory highScoreHistory;
-
-    /**
      * Stores the current {@link MenuStatus}.
      */
     private MenuStatus menuStatus;
@@ -61,19 +41,11 @@ public class Controller implements Initializable {
     private SinglePlayerMode singlePlayerMode;
 
     /**
-     * Stores player-profiles
-     */
-    Database database;
-
-    /**
      * Constructs a new {@link Controller}.
      */
     public Controller() {
         this.game = Game.getInstance();
         this.menuStatus = MenuStatus.PLAYERMODE;
-        database = Database.getInstance();
-        highScoreHistory = HighScoreHistory.getInstance();
-        highScoreHistory.loadHighScoreHistory();
     }
 
     /**
@@ -156,8 +128,8 @@ public class Controller implements Initializable {
                         }
                     }
                     game.addPlayers(playerAmount, playerNames);
-                    database.loadPlayerProfiles();
-                    useProfile(database.getPlayerProfiles());
+                    game.getDatabase().loadPlayerProfiles();
+                    game.useProfile(game.getDatabase().getPlayerProfiles());
                     menuStatus = MenuStatus.BOARDSIZE;
                 }
 
@@ -298,7 +270,7 @@ public class Controller implements Initializable {
                                         View.printGameSummary(winningPlayers,
                                                 highScore[0]);
 
-                                        highScoreHistory.updateHighScoreHistory(winningPlayers, highScore[0]);
+                                        game.getDatabase().updateHighScoreHistory(winningPlayers, highScore[0]);
 
                                         boolean exit = true;
                                         while (exit) {
@@ -562,12 +534,12 @@ public class Controller implements Initializable {
                 saveBreak = true;
             }
             case "menu", "m" -> {
-                storeProgress();
+                game.storeProgress();
                 game.returnToMenu(game.getPlayerList());
                 saveBreak = true;
             }
             case "reset", "r" -> {
-                storeProgress();
+                game.storeProgress();
                 player = game.resetGame(game.getPlayerList());
                 if (game.getPlayerList().getCount() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
                     game.startTimer();
@@ -575,7 +547,7 @@ public class Controller implements Initializable {
                 saveBreak = true;
             }
             case "restart", "rs" -> {
-                storeProgress();
+                game.storeProgress();
                 player = game.restartGame(game.getPlayerList());
                 if (game.getPlayerList().getCount() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
                     game.startTimer();
@@ -583,7 +555,7 @@ public class Controller implements Initializable {
                 saveBreak = true;
             }
             case "quit", "q" -> {
-                storeProgress();
+                game.storeProgress();
                 game.quitGame();
                 saveBreak = true;
             }
@@ -615,12 +587,12 @@ public class Controller implements Initializable {
     public boolean handleInputsAfterGame(String input, Player player) {
         switch (input.toLowerCase()) {
             case "menu", "m" -> {
-                storeProgress();
+                game.storeProgress();
                 game.returnToMenu(game.getPlayerList());
                 return false;
             }
             case "reset", "r" -> {
-                storeProgress();
+                game.storeProgress();
                 player = game.resetGame(game.getPlayerList());
                 if (game.getPlayerList().getCount() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
                     game.startTimer();
@@ -628,7 +600,7 @@ public class Controller implements Initializable {
                 return false;
             }
             case "restart", "rs" -> {
-                storeProgress();
+                game.storeProgress();
                 player = game.restartGame(game.getPlayerList());
                 if (game.getPlayerList().getCount() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
                     game.startTimer();
@@ -636,7 +608,7 @@ public class Controller implements Initializable {
                 return false;
             }
             case "quit", "q" -> {
-                storeProgress();
+                game.storeProgress();
                 game.quitGame();
                 return false;
             }
@@ -644,84 +616,6 @@ public class Controller implements Initializable {
                 View.error("No valid command "
                         + "recognized");
                 return true;
-            }
-        }
-    }
-
-    /**
-     * Stores the progress of all playerProfiles and the HighScoreHistory.
-     */
-    public void storeProgress() {
-        highScoreHistory.saveHighScoreHistory();
-        saveProfile(database.getPlayerProfiles());
-        database.storePlayerProfiles();
-    }
-
-    /**
-     * Loads all existing profiles for the current players.
-     * A playerProfile has the following structure:
-     * playerId;playerName;highScore;gamesPlayed;gamesWon
-     *
-     * @param playerProfiles to be used
-     */
-    public void useProfile(List<String[]> playerProfiles) {
-        boolean hasProfile;
-        for (int i = 0; i < game.getPlayerList().getCount(); i++) {
-            hasProfile = false;
-            int j;
-            for (j = 0; j < playerProfiles.size(); j++) {
-                if (game.getPlayerList().getPlayer(i).getName().
-                        equals(playerProfiles.get(j)[1])) {
-                    hasProfile = true;
-                    break;
-                }
-
-            }
-            if (hasProfile) {
-                game.getPlayerList().getPlayer(i).
-                        setPlayerId(playerProfiles.get(j)[0]);
-                game.getPlayerList().getPlayer(i).setName(playerProfiles.get(j)[1]);
-                game.getPlayerList().getPlayer(i).getAchievements().
-                        setHighScore(Integer.parseInt(playerProfiles.get(j)[2]));
-                game.getPlayerList().getPlayer(i).getAchievements().
-                        setGamesPlayed(Integer.parseInt(playerProfiles.get(j)[3]));
-                game.getPlayerList().getPlayer(i).getAchievements().
-                        setGamesWon(Integer.parseInt(playerProfiles.get(j)[4]));
-            } else {
-                String[] newProfile = new String[]{
-                        game.getPlayerList().getPlayer(i).getPlayerId(),
-                        game.getPlayerList().getPlayer(i).getName(),
-                        game.getPlayerList().getPlayer(i).getAchievements().getHighScore() + "",
-                        game.getPlayerList().getPlayer(i).getAchievements().getGamesPlayed() + "",
-                        game.getPlayerList().getPlayer(i).getAchievements().getGameWon() + ""
-                };
-                playerProfiles.add(newProfile);
-            }
-        }
-    }
-
-    /**
-     * Loads all existing profiles for the current players.
-     * A playerProfile has the following structure:
-     * playerId;playerName;highScore;gamesPlayed;gamesWon
-     *
-     * @param playerProfiles to be used
-     */
-    public void saveProfile(List<String[]> playerProfiles) {
-        for (String[] playerProfile : playerProfiles) {
-            for (int j = 0; j < game.getPlayerList().getCount(); j++) {
-                if (playerProfile[1].equals(game.getPlayerList().
-                        getPlayer(j).getName())) {
-                    playerProfile[1] = game.getPlayerList().getPlayer(j).
-                            getName() + "";
-                    playerProfile[2] = game.getPlayerList().getPlayer(j).
-                            getAchievements().getHighScore() + "";
-                    playerProfile[3] = game.getPlayerList().getPlayer(j).
-                            getAchievements().getGamesPlayed() + "";
-                    playerProfile[4] = game.getPlayerList().getPlayer(j).
-                            getAchievements().getGameWon() + "";
-                    break;
-                }
             }
         }
     }
