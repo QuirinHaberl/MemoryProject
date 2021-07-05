@@ -1,7 +1,6 @@
 package de.uni_passau.se.memory.gui;
 
 import de.uni_passau.se.memory.Model.*;
-import de.uni_passau.se.memory.Model.Enums.CardLetters;
 import de.uni_passau.se.memory.Model.Enums.CardStatus;
 import de.uni_passau.se.memory.Model.Enums.GameStatus;
 import de.uni_passau.se.memory.View.*;
@@ -11,20 +10,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.ImageCursor;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -44,11 +30,6 @@ public class Controller implements Initializable {
      * Stores the current {@link Game}.
      */
     private final Game game;
-
-    /**
-     * Stores the current {@link HighScoreHistory}.
-     */
-    private HighScoreHistory highScoreHistory;
 
     /**
      * Stores the current {@link MenuStatus}.
@@ -72,8 +53,7 @@ public class Controller implements Initializable {
         this.game = Game.getInstance();
         this.menuStatus = MenuStatus.PLAYERMODE;
         database = Database.getInstance();
-        highScoreHistory = HighScoreHistory.getInstance();
-        highScoreHistory.loadHighScoreHistory();
+        database.loadHighScoreHistory();
     }
 
     /**
@@ -298,7 +278,7 @@ public class Controller implements Initializable {
                                         View.printGameSummary(winningPlayers,
                                                 highScore[0]);
 
-                                        highScoreHistory.updateHighScoreHistory(winningPlayers, highScore[0]);
+                                        database.updateHighScoreHistory(winningPlayers, highScore[0]);
 
                                         boolean exit = true;
                                         while (exit) {
@@ -652,7 +632,7 @@ public class Controller implements Initializable {
      * Stores the progress of all playerProfiles and the HighScoreHistory.
      */
     public void storeProgress() {
-        highScoreHistory.saveHighScoreHistory();
+        database.saveHighScoreHistory();
         saveProfile(database.getPlayerProfiles());
         database.storePlayerProfiles();
     }
