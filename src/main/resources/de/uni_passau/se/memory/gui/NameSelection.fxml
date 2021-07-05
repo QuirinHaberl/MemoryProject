@@ -2,20 +2,18 @@
 
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="Background2" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uni_passau.se.memory.gui.ControllerPack.NameSelectionController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="Background2" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uni_passau.se.memory.gui.ControllerPack.NameSelectionController">
    <children>
-      <CheckBox layoutX="105.0" layoutY="191.0" mnemonicParsing="false" onAction="#usePlayerProfile" text="Use player profile" textFill="WHITE" />
-      <TextField layoutX="105.0" layoutY="220.0" minWidth="200.0" style="-fx-border-color: black;">
+      <TextField fx:id="player1Input" layoutX="200.0" layoutY="187.0" minWidth="200.0" style="-fx-border-color: black;">
          <cursor>
             <Cursor fx:constant="TEXT" />
          </cursor></TextField>
-      <Label layoutX="105.0" layoutY="146.0" text="Player1 choose your name." textFill="WHITE" />
-      <Button layoutX="324.0" layoutY="217.0" mnemonicParsing="false" onAction="#ok" style="-fx-background-color: black;" text="Confirm your choice" textFill="WHITE">
+      <Label fx:id="nameLabel" layoutX="28.0" layoutY="131.0" text="Choose your name:" textFill="WHITE" />
+      <Button layoutX="336.0" layoutY="334.0" mnemonicParsing="false" onAction="#ok" style="-fx-background-color: black;" text="Confirm your choice" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
@@ -24,5 +22,24 @@
             <Label alignment="CENTER" prefHeight="93.0" prefWidth="600.0" text="Hero names" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children>
       </AnchorPane>
+      <Label fx:id="nameLabel1" layoutX="28.0" layoutY="182.0" text="Player1:" textFill="WHITE" />
+      <TextField fx:id="player2Input" layoutX="200.0" layoutY="219.0" minWidth="200.0" style="-fx-border-color: black;">
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
+      </TextField>
+      <Label fx:id="nameLabel2" layoutX="28.0" layoutY="214.0" text="Player2:" textFill="WHITE" />
+      <TextField fx:id="player3Input" layoutX="200.0" layoutY="251.0" minWidth="200.0" style="-fx-border-color: black;">
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
+      </TextField>
+      <Label fx:id="nameLabel3" layoutX="28.0" layoutY="246.0" text="Player3:" textFill="WHITE" />
+      <TextField fx:id="player4Input" layoutX="200.0" layoutY="283.0" minWidth="200.0" style="-fx-border-color: black;">
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
+      </TextField>
+      <Label fx:id="nameLabel4" layoutX="28.0" layoutY="278.0" text="Player4:" textFill="WHITE" />
    </children>
 </AnchorPane>
