@@ -1,0 +1,23 @@
+Protokoll vom Zoommeeting am 23.06.2021
+Teilnehmende: Alle 
+Autor: Florian Muhrer
+
+
+TOP 1 Probleme die in Iteration 4 bearbeitet werden sollen
+
+-Bug bei Gewinnmitteilung entdeckt
+-Gemeinsame Suche nach Bug ist erfolgt
+-GetWinningPlayer soll umgeschrieben werden um Redundanz zu vermeiden
+-Isabelle hat Milestones in Issues gesetzt und bereinigt
+-Execute Methode wird nochmals geprüft von Jan und Quirin und ggf. überarbeitet
+-Besprechung der Speicher-Methode für die Highscore-History
+
+
+
+TOP 2 Besprechung von Iteration 4 (Blatt)
+
+-Gemeinsam wurde erneut die Scene Builder Umgebung angesehen
+-GUI wird von Florian erstellt 
+-Bei Problemen unterstützen alle
+-Implementierung des codes folgt auf die Erstellung
+-Restlichen Tasks aus Kanban-Board wurden zugeteilt

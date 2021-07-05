@@ -1,0 +1,40 @@
+Protokoll vom Zoommeeting am 30.06.2021
+Teilnehmende: Alle 
+Autor: Jan Pfeifer
+
+
+1. Besprechung der Änderungen seit dem letzten Meeting
+	
+	1.1 Probleme bei der Arbeit mit einer PlayerID
+		- Die Umsetzung einer PlayerID die über alle Spiele hinweg eindeutig ist, hat sich als Herrausforderung herausgestellt.
+		Jan hat deshalb die Spileridentifizierung ersteinmal über den Spielernamen implementiert und Spielerprofile werden automatisch geladen/erstellt.
+		
+	1.2 Umsetzung der HighScoreHistory und Design Patterns
+		- Quirin hat sich um die Umsetzung der HighScoreHistory gekümmert.
+		- In dem Zug hat Qurin auch das Singleton Pattern für HighScoreHistory, Database und Controller umgesetzt.
+		
+	1.3 Bugfixing im zeitbasierten Einzelspielermodus
+		- Isabella hat den zweiten Spielmodi für den Einzelspieler umgesetzt und Bugs behoben.
+		
+	1.4 Implementierung der Spielerprofile
+		- Daqian hat bei der Implementierung der Spielerprofile weitergemacht und mit Jan zusammen eine lauffähige Version dazu erstellt.
+		
+	1.5 Umsetung der GUI
+		- Florian hat sich um das GUI-Design gekümmert. Bei der Zusammenführung mit dem Code kam es jedoch zu Problemen, weshalb Georg zu Rat gezogen wurde.
+		Hier wird im Moment noch gebugfixt.
+	
+2. Planung bis zum nächsten Meeting am Sonntag
+
+	2.1 Besprechung der Startschwierigkeiten des GUI
+		- Da die GUI-Anwenung im Moment noch nicht korrekt startet, müssen erst die Startschwierigkeiten überwunden werden, bevor die eigentliche Implementierung anfangen kann.
+		  Hier wird noch auf Antwort von Georg gewartet.
+		  
+	2.2 Umsetzung des Spielfelds
+		- Das Spielfeld wird dynamisch auf Usereingabe aufgebaut. Eine genaue Planung ist aufgrund mangelnder Erfahrungen schwer möglich, doch die Idee ist wie folgt:
+		Der Spieler soll eine Größe wählen (z.B. via Dropdownmenu) und anschließend werden in einer Forschleife entsprechend viele Tiles/Buttons einer Liste hinzugefügt. 
+		Hier werden je zwei das gleiche Bild zugeordnet. Die Anordnung im GUI erfolgt dann nachdem die Tiles-Liste geshuffeld wurde, wie bisher in der Konsolenanwendung.
+		
+	2.3 Besprechung welche Design Patterns noch umgesetzt werden
+		- Bis jetzt wurden HighScoreHistory, Database und Controller als Singleton umgesetzt. Bei Controller kam es dadurch zu Problemen mit dem GUI - hier muss noch nachgearbeitet werden.
+		- Evtl. sollen die Karten über das Factory Pattern erstellt werden.
+		- Evlt. könnte das Spielfeld mit dem Observer Pattern umgesetzt werden.
