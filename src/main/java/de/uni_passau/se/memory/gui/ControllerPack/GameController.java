@@ -154,10 +154,11 @@ public class GameController implements Initializable {
 
     /**
      * The other actions
+     * TODO Game muss auch geschlossen werden wenn im Menü --> Main Menu asgewählt wird
      */
     public void menu(ActionEvent actionEvent) {
-        ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
-        new Window("StartScreen.fxml");
+        //((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
+        new Window("Menu.fxml");
     }
 
     public void help(ActionEvent actionEvent) {

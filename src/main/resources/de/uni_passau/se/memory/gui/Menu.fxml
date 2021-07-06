@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="342.0" style="-fx-background-color: black;" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uni_passau.se.memory.gui.ControllerPack.MenuController">
+   <children>
+      <VBox prefHeight="400.0" prefWidth="342.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane prefHeight="500.0" prefWidth="342.0" styleClass="MemoryBanner" />
+            <HBox prefHeight="500.0" prefWidth="200.0" />
+            <HBox alignment="CENTER" prefHeight="500.0">
+               <children>
+                  <Button fx:id="TryAgain" mnemonicParsing="false" onAction="#TryAgainClicked" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: transparent;" styleClass="Banner" text="Try again">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="500.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="MainMenu" mnemonicParsing="false" onAction="#MainMenuClicked" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: transparent;" styleClass="Banner" text="Main Menu">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="410.0" prefHeight="500.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="Exit" mnemonicParsing="false" onAction="#ExitClicked" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: transparent;" styleClass="Banner" text="Exit">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
