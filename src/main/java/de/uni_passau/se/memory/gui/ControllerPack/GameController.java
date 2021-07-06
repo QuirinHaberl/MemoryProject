@@ -3,9 +3,9 @@ package de.uni_passau.se.memory.gui.ControllerPack;
 import de.uni_passau.se.memory.Model.Enums.CardPictures;
 import de.uni_passau.se.memory.Model.Enums.CardStatus;
 import de.uni_passau.se.memory.Model.Enums.GameStatus;
+import de.uni_passau.se.memory.Model.Enums.TurnStatus;
 import de.uni_passau.se.memory.Model.Game;
 import de.uni_passau.se.memory.Model.Player;
-import de.uni_passau.se.memory.Model.PlayerList;
 import de.uni_passau.se.memory.View.DataDisplay;
 import de.uni_passau.se.memory.gui.Window;
 import javafx.event.ActionEvent;
@@ -14,14 +14,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.ImageCursor;
 import javafx.scene.Node;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.nio.file.Paths;
@@ -71,13 +69,41 @@ public class GameController implements Initializable {
 
     @FXML
     private GridPane Board;
+    Object firstCard;
+    Object secondCard;
+
+    private Button b1;
+    private Button b2;
 
     int firstRow;
     int firstCol;
-    Player activePlayer = DataDisplay.getInstance().getGame().getPlayerList().getFront();
-    int size = DataDisplay.getInstance().getGame().getPlayingField().getSize();
+    int secondRow;
+    int secondCol;
+    Game game = DataDisplay.getInstance().getGame();
+    Player activePlayer = game.getPlayerList().getFront();
+    int size = game.getPlayingField().getSize();
 
     public GameController() {
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        setPlayerLabel();
+        startClicked();
+    }
+
+    public void startClicked() {
+        int size = game.getPlayingField().getSize();
+        game.getPlayingField().fillWithCards();
+
+        for (int row = 0; row < size; row++) {
+            Board.getColumnConstraints().add(new ColumnConstraints(100));
+            for (int col = 0; col < size; col++) {
+                Board.add(newButton("(" + row + " " + col + ")", row, col), col, row);
+            }
+        }
+        game.setGameStatus(GameStatus.RUNNING);
+        game.setTurnStatus(TurnStatus.IDLE);
     }
 
     /**
@@ -92,89 +118,16 @@ public class GameController implements Initializable {
         Image image = new Image(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Images/Cursor.png").toUri().toString());
         button.setCursor(new ImageCursor(image));
         button.setId(id);
-        button.setOnAction(new EventHandler<ActionEvent>() {
 
+        //TODO das hier sieht nicht gut aus :c
+        button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                button.getStyleClass().removeAll("Card");
-                Object card = DataDisplay.getInstance().getGame().getCard(row, col).getValue();
-                button.getStyleClass().add(((CardPictures) card).getPicture());
-                //button.setVisible(false);
-                System.out.println(id);
-                if (!(DataDisplay.getInstance().getGame().getGameStatus().equals(GameStatus.RUNNING))) {
-                    return;
-                }
-
-                //Implementation of the game phases
-                switch (DataDisplay.getInstance().getGame().getTurnStatus()) {
-                    //Is used if the turn hasn't been stated yet.
-                    case IDLE:
-                        firstRow = row;
-                        firstCol = col;
-                        Object firstCard = DataDisplay.getInstance().getGame().getCard(row, col).getValue();
-                        CardStatus firstCardStatus = DataDisplay.getInstance().getGame().revealFirstCard(firstRow, firstCol);
-                        button.getStyleClass().removeAll("Card");
-                        button.getStyleClass().add(((CardPictures) firstCard).getPicture());
-                        if (firstCardStatus.equals(CardStatus.FOUND)) {
-                            break;
-                        }
-                        break;
-                    //Is used if the turn has been stated.
-                    case ACTIVE:
-                        int secondRow = row;
-                        int secondCol = col;
-                        Object secondCard = DataDisplay.getInstance().getGame().getCard(secondRow, secondCol).getValue();
-                        CardStatus secondCardStatus = DataDisplay.getInstance().getGame().revealSecondCard(secondRow, secondCol);
-
-                        // TODO Hier ist irgendwo noch ein Bug!
-                        button.getStyleClass().removeAll("Card");
-                        button.getStyleClass().add(((CardPictures) secondCard).getPicture());
-                        if (secondCardStatus.equals(CardStatus.FOUND)) {
-                            break;
-                        } else if (secondCardStatus.equals(CardStatus.AlREADYOPEN)) {
-                            break;
-
-                        }
-                        if (DataDisplay.getInstance().getGame().pairCheck(firstRow, firstCol, secondRow, secondCol)) {
-                            if (DataDisplay.getInstance().getGame().areAllCardsOpen()) {
-                                // TODO Hier muss Ausgabe erfolgen dass alle Karten gefunden sind
-                            }
-                        } else {
-
-                            try {
-                                Thread.sleep(200);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-
-                            Button b1 = (Button) Board.getChildren().get(firstRow * size + firstCol);
-                            b1.getStyleClass().clear();
-                            b1.getStyleClass().add("Card");
-                            Button b2 = (Button) Board.getChildren().get(secondRow * size + secondCol);
-                            b2.getStyleClass().clear();
-                            b2.getStyleClass().add("Card");
-
-                            activePlayer = activePlayer.getNext();
-                        }
-                }
+                buttonClicked(event, button, id, row, col);
             }
         });
         return button;
     }
-
-    public void startClicked() {
-        int size = DataDisplay.getInstance().getGame().getPlayingField().getSize();
-        DataDisplay.getInstance().getGame().getPlayingField().fillWithCards();
-
-        for (int row = 0; row < size; row++) {
-            Board.getColumnConstraints().add(new ColumnConstraints(100));
-            for (int col = 0; col < size; col++) {
-                Board.add(newButton("(" + row + " " + col + ")", row, col), col, row);
-            }
-        }
-        DataDisplay.getInstance().getGame().setGameStatus(GameStatus.RUNNING);
-    }
-
 
     /**
      * The other actions
@@ -205,18 +158,116 @@ public class GameController implements Initializable {
             keyAnchorPanes[i].setVisible(false);
         }
 
-        for (int i = 0; i < DataDisplay.getInstance().getGame().
+        for (int i = 0; i < game.
                 getPlayerAmount(); i++) {
-            playerLabels[i].setText(DataDisplay.getInstance().getGame().
+            playerLabels[i].setText(game.
                     getPlayerList().getPlayer(i).getName());
             scoreLabels[i].setVisible(true);
             keyAnchorPanes[i].setVisible(true);
         }
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        setPlayerLabel();
-        startClicked();
+
+    public void updateAllScores() {
+        Label[] scoreLabels = {labelScore1, labelScore2, labelScore3, labelScore4};
+        for (int i = 0; i < game.getPlayerAmount(); i++) {
+            scoreLabels[i].setText("Score: " + game.getPlayerList().getPlayer(i).getScore());
+        }
+    }
+
+    public void stop() {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void buttonClicked(ActionEvent event, Button button, String id, int row, int col) {
+
+        //Implementation of the game phases
+        switch (game.getTurnStatus()) {
+            //Is used if the turn hasn't been stated yet.
+            case IDLE:
+                firstRow = row;
+                firstCol = col;
+                CardStatus firstCardStatus = game.revealFirstCard(firstRow, firstCol);
+                if (firstCardStatus.equals(CardStatus.FOUND)) {
+                    break;
+                }
+                executeIdle(button, id, row, col);
+                break;
+            //Is used if the turn has been stated.
+            case ACTIVE:
+                secondRow = row;
+                secondCol = col;
+                CardStatus secondCardStatus = game.revealSecondCard(secondRow, secondCol);
+                if (secondCardStatus.equals(CardStatus.FOUND) ||
+                        secondCardStatus.equals(CardStatus.AlREADYOPEN)) {
+                    break;
+                }
+                executeActive(button, id, row, col);
+                break;
+        }
+    }
+
+    public void executeIdle(Button button, String id, int row, int col) {
+
+        closeCards();
+
+        b1 = button;
+        firstCard = game.getCard(row, col).getValue();
+
+        b1.getStyleClass().removeAll("Card");
+        b1.getStyleClass().add(((CardPictures) firstCard).getPicture());
+
+        game.setTurnStatus(TurnStatus.ACTIVE);
+    }
+
+    public void executeActive(Button button, String id, int row, int col) {
+
+        b2 = button;
+
+        secondCard = game.getCard(secondRow, secondCol).getValue();
+
+        b2.getStyleClass().removeAll("Card");
+        b2.getStyleClass().add(((CardPictures) secondCard).getPicture());
+        checkIfWon();
+        activePlayer = activePlayer.getNext();
+
+        game.setTurnStatus(TurnStatus.IDLE);
+        if(firstCard.equals(secondCard)){
+            activePlayer.updateScore();
+            updateAllScores();
+            b1.setVisible(false);
+            b2.setVisible(false);
+        }
+    }
+
+    public boolean checkIfWon() {
+        if (game.pairCheck(firstRow, firstCol, secondRow, secondCol)) {
+
+
+            if (game.areAllCardsOpen()) {
+                //TODO
+                System.out.println("Spiel gewonnen!");
+                //new Window("GameResultController.fxml");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void closeCards() {
+        try {
+            b1.getStyleClass().clear();
+            b1.getStyleClass().add("Card");
+            b2.getStyleClass().clear();
+            b2.getStyleClass().add("Card");
+        } catch (NullPointerException e) {
+
+        }
     }
 }
+

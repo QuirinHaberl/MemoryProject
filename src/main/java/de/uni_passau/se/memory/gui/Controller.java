@@ -254,7 +254,7 @@ public class Controller implements Initializable {
                                 }
                                 View.printBoard(game.getPlayingField());
                                 if (game.pairCheck(firstRow, firstCol, secondRow, secondCol)) {
-                                    player.addScore();
+                                    player.updateScore();
                                     player.getFoundCards().add(game.getPlayingField().getBoard()[secondRow][secondCol]);
                                     //Check if a player has a new achievement
                                     checkForAchievements(player);

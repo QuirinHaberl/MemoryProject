@@ -140,7 +140,7 @@ public class Player {
     /**
      * Increments the {@code score} by 1.
      */
-    public void addScore() { // +1
+    public void updateScore () { // +1
         this.score++;
     }
 

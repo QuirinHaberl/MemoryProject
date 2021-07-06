@@ -56,7 +56,11 @@ public class NameSelectionController implements Initializable {
         TextField[] textFields = {player1Input, player2Input, player3Input, player4Input};
         int playerAmount = game.getPlayerAmount();
         for (int i = 0; i < playerAmount; i++) {
-            game.addPlayer(textFields[i].getText());
+            if (textFields[i].getText().isEmpty()) {
+                game.addPlayer("Player" + (i + 1));
+            } else {
+                game.addPlayer(textFields[i].getText());
+            }
         }
         game.getDatabase().loadPlayerProfiles();
         game.useProfile(game.getDatabase().getPlayerProfiles());
@@ -71,6 +75,7 @@ public class NameSelectionController implements Initializable {
         for (int i = 0; i < labels.length; i++) {
             labels[i].setVisible(false);
             textFields[i].setVisible(false);
+            textFields[i].setText("");
         }
         for (int i = 0; i < DataDisplay.getInstance().getGame().getPlayerAmount(); i++) {
             labels[i].setVisible(true);
