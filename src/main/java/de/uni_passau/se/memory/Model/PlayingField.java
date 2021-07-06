@@ -105,16 +105,17 @@ public class PlayingField {
      * Shuffles {@link Card} elements of {@code board}.
      */
     public void shuffleBoard() {
-        Card tmp;
-        int randRow, randCol;
         Random r = new Random();
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++) {
-                randRow = r.nextInt(board.length - 1);
-                randCol = r.nextInt(board.length - 1);
-                tmp = board[i][j];
-                board[i][j] = board[randRow][randCol];
-                board[randRow][randCol] = tmp;
+
+        //Fisher-Yates-Algorithm
+        for (int i = board.length - 1; i > 0; i--) {
+            for (int j = board[i].length - 1; j > 0; j--) {
+                int m = r.nextInt(i + 1);
+                int n = r.nextInt(j + 1);
+
+                Card temp = board[i][j];
+                board[i][j] = board[m][n];
+                board[m][n] = temp;
             }
         }
     }
