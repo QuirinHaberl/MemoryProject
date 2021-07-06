@@ -18,6 +18,7 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -33,16 +34,40 @@ public class GameController implements Initializable {
     public Button start;
 
     @FXML
+    private AnchorPane key1;
+
+    @FXML
     private Label labelPlayer1;
+
+    @FXML
+    private Label labelScore1;
+
+    @FXML
+    private AnchorPane key2;
 
     @FXML
     private Label labelPlayer2;
 
     @FXML
+    private Label labelScore2;
+
+    @FXML
+    private AnchorPane key3;
+
+    @FXML
     private Label labelPlayer3;
 
     @FXML
+    private Label labelScore3;
+
+    @FXML
+    private AnchorPane key4;
+
+    @FXML
     private Label labelPlayer4;
+
+    @FXML
+    private Label labelScore4;
 
     @FXML
     private GridPane Board;
@@ -168,10 +193,25 @@ public class GameController implements Initializable {
     public void setPlayerLabel() {
         Label[] playerLabels = {labelPlayer1, labelPlayer2,
                 labelPlayer3, labelPlayer4};
+        Label[] scoreLabels = {labelScore1, labelScore2,
+                labelScore3, labelScore4};
+        AnchorPane[] keyAnchorPanes = {key1, key2,
+                key3, key4};
+
+        //TODO Man könnte die auch default invisible setzten
+        //@Quirin du kannst die AnchorPanes gerne hier löschen, wenn du was anderes vor hast.
+
+        for (int i = 0; i < scoreLabels.length; i++) {
+            scoreLabels[i].setVisible(false);
+            keyAnchorPanes[i].setVisible(false);
+        }
+
         for (int i = 0; i < DataDisplay.getInstance().getGame().
                 getPlayerAmount(); i++) {
             playerLabels[i].setText(DataDisplay.getInstance().getGame().
                     getPlayerList().getPlayer(i).getName());
+            scoreLabels[i].setVisible(true);
+            keyAnchorPanes[i].setVisible(true);
         }
     }
 
