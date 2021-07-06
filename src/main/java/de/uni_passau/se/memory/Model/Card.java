@@ -33,6 +33,16 @@ public class Card {
     /**
      * Constructs a new {@link Card}.
      *
+     * @param value uses the enumerations of {@link CardDigits}
+     */
+    public Card(Object value) {
+        this.value = value;
+        this.cardStatus = CardStatus.CLOSED;
+    }
+
+    /**
+     * Constructs a new {@link Card}.
+     *
      * @param value uses the enumerations of @link CardLetters}
      */
     public Card(CardLetters value) {
