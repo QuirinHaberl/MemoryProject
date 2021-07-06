@@ -216,7 +216,7 @@ public class PlayerList {
      * @param position of the {@link Player}
      */
     public void updatePlayerScore(int position) {
-        this.getPlayer(position).addScore();
+        this.getPlayer(position).updateScore();
     }
 
     /**
