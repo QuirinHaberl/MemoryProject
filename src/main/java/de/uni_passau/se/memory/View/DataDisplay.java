@@ -1,5 +1,6 @@
 package de.uni_passau.se.memory.View;
 
+import de.uni_passau.se.memory.Model.Enums.CardSet;
 import de.uni_passau.se.memory.Model.Game;
 
 /**
@@ -19,18 +20,21 @@ public class DataDisplay {
      */
     private DataDisplay() {
         this.game = new Game();
+        game.getPlayingField().setCardSet(CardSet.PICTURES);
     }
 
     /**
      * Gets the instance of the DataDisplay
+     *
      * @return the Instance
      */
-    public static DataDisplay getInstance(){
+    public static DataDisplay getInstance() {
         return INSTANCE;
     }
 
     /**
      * Getter of the game
+     *
      * @return the game
      */
     public Game getGame() {
@@ -39,6 +43,7 @@ public class DataDisplay {
 
     /**
      * Setter of the game
+     *
      * @param game the game
      */
     public void setGame(Game game) {
