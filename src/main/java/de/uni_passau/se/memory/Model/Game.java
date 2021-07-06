@@ -60,7 +60,7 @@ public final class Game {
                     playerProfile[3] = getPlayerList().getPlayer(j).
                             getAchievements().getGamesPlayed() + "";
                     playerProfile[4] = getPlayerList().getPlayer(j).
-                            getAchievements().getGameWon() + "";
+                            getAchievements().getGamesWon() + "";
                     break;
                 }
             }
@@ -103,7 +103,7 @@ public final class Game {
                         getPlayerList().getPlayer(i).getName(),
                         getPlayerList().getPlayer(i).getAchievements().getHighScore() + "",
                         getPlayerList().getPlayer(i).getAchievements().getGamesPlayed() + "",
-                        getPlayerList().getPlayer(i).getAchievements().getGameWon() + ""
+                        getPlayerList().getPlayer(i).getAchievements().getGamesWon() + ""
                 };
                 playerProfiles.add(newProfile);
             }
@@ -158,7 +158,9 @@ public final class Game {
                 //If a player has earned a new achievement
                 if (!(players.getPlayer(i).getAchievements().getCurrentAchievements().isEmpty())) {
                     View.printAchievement(players.getPlayer(i).getAchievements().getCurrentAchievements(), players.getPlayer(i));
-                    currentAchievement = currentAchievement + players.getPlayer(i).getAchievements().getCurrentAchievements();
+                    currentAchievement = currentAchievement +
+                            players.getPlayer(i).getName() + " has earned:\n" +
+                            players.getPlayer(i).getAchievements().getCurrentAchievements() + "\n";
                     players.getPlayer(i).getAchievements().clearCurrentAchievement();
                 }
             }
