@@ -5,8 +5,6 @@ import de.uni_passau.se.memory.Model.Enums.GameStatus;
 import de.uni_passau.se.memory.Model.Enums.TurnStatus;
 import de.uni_passau.se.memory.View.View;
 
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -119,6 +117,53 @@ public final class Game {
         getDatabase().storeHighScoreHistory();
         saveProfile(getDatabase().getPlayerProfiles());
         getDatabase().storePlayerProfiles();
+    }
+
+    /**
+     * Checks weather a {@link Player} has earned a new achievement
+     *
+     * @param player who is being checked
+     */
+    public String checkForAchievements(Player player) {
+        player.getAchievements().updatePairCounters();
+        player.getAchievements().checkFoundPairsTotal();
+        player.getAchievements().checkFoundPairsStreak();
+        player.getAchievements().checkHighScore();
+        if (!(player.getAchievements().getCurrentAchievements().isEmpty())) {
+            View.printAchievement(player.getAchievements().getCurrentAchievements(), player);
+            String currentAchievement = player.getAchievements().getCurrentAchievements();
+            player.getAchievements().clearCurrentAchievement();
+            return currentAchievement;
+        }
+        return "";
+    }
+
+    /**
+     * Checks weather multiple players have earned an achievement.
+     *
+     * @param players who are being checked
+     */
+    public String checkForAchievements(PlayerList players) {
+        String currentAchievement = "";
+
+        int highestScore = players.getHighestScore()[0];
+        for (int i = 0; i < players.getCount(); i++) {
+            players.getPlayer(i).getAchievements().updateGamesPlayed();
+
+            //If a player has won a game
+            if (players.getPlayerScore(i) == highestScore) {
+                players.getPlayer(i).getAchievements().updateGamesWon();
+                players.getPlayer(i).getAchievements().checkGamesWon();
+
+                //If a player has earned a new achievement
+                if (!(players.getPlayer(i).getAchievements().getCurrentAchievements().isEmpty())) {
+                    View.printAchievement(players.getPlayer(i).getAchievements().getCurrentAchievements(), players.getPlayer(i));
+                    currentAchievement = currentAchievement + players.getPlayer(i).getAchievements().getCurrentAchievements();
+                    players.getPlayer(i).getAchievements().clearCurrentAchievement();
+                }
+            }
+        }
+        return currentAchievement;
     }
 
     /**

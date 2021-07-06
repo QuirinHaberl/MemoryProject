@@ -257,7 +257,7 @@ public class Controller implements Initializable {
                                     player.updateScore();
                                     player.getFoundCards().add(game.getPlayingField().getBoard()[secondRow][secondCol]);
                                     //Check if a player has a new achievement
-                                    checkForAchievements(player);
+                                    game.checkForAchievements(player);
                                     if (game.areAllCardsOpen()) {
                                         View.printAllPairsFound();
                                         View.printBoard(game.getPlayingField());
@@ -266,7 +266,7 @@ public class Controller implements Initializable {
                                                 game.getPlayerList().getHighestScore();
 
                                         //Check if a player has a new achievement
-                                        checkForAchievements(game.getPlayerList());
+                                        game.checkForAchievements(game.getPlayerList());
                                         View.printGameSummary(winningPlayers,
                                                 highScore[0]);
 
@@ -316,47 +316,6 @@ public class Controller implements Initializable {
                     }
                 } else {
                     player = player.getRear();
-                }
-            }
-        }
-    }
-
-    /**
-     * Checks weather a {@link Player} has earned a new achievement
-     *
-     * @param player who is being checked
-     */
-    public void checkForAchievements(Player player) {
-        player.getAchievements().updatePairCounters();
-        player.getAchievements().checkFoundPairsTotal();
-        player.getAchievements().checkFoundPairsStreak();
-        player.getAchievements().checkHighScore();
-        if (!(player.getAchievements().getCurrentAchievements().isEmpty())) {
-            View.printAchievement(player.getAchievements().getCurrentAchievement(), player);
-            player.getAchievements().clearCurrentAchievement();
-        }
-    }
-
-    /**
-     * Checks weather multiple players have earned an achievement.
-     *
-     * @param players who are being checked
-     */
-    public void checkForAchievements(PlayerList players) {
-
-        int highestScore = players.getHighestScore()[0];
-        for (int i = 0; i < players.getCount(); i++) {
-            players.getPlayer(i).getAchievements().updateGamesPlayed();
-
-            //If a player has won a game
-            if (players.getPlayerScore(i) == highestScore) {
-                players.getPlayer(i).getAchievements().updateGamesWon();
-                players.getPlayer(i).getAchievements().checkGamesWon();
-
-                //If a player has earned a new achievement
-                if (!(players.getPlayer(i).getAchievements().getCurrentAchievements().isEmpty())) {
-                    View.printAchievement(players.getPlayer(i).getAchievements().getCurrentAchievement(), players.getPlayer(i));
-                    players.getPlayer(i).getAchievements().clearCurrentAchievement();
                 }
             }
         }

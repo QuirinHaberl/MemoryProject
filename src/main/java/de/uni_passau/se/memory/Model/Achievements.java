@@ -44,15 +44,6 @@ public class Achievements {
     }
 
     /**
-     * Gets the current achievement.
-     *
-     * @return the current achievement
-     */
-    public String getCurrentAchievement() {
-        return currentAchievements;
-    }
-
-    /**
      * Resets the streak of found pairs.
      */
     public void resetPairCounterStreak() {

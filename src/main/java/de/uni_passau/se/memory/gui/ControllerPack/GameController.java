@@ -20,6 +20,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.nio.file.Paths;
@@ -30,6 +31,9 @@ public class GameController implements Initializable {
 
     @FXML
     public Button start;
+
+    @FXML
+    private Label achievementLabel;
 
     @FXML
     private AnchorPane key1;
@@ -134,7 +138,7 @@ public class GameController implements Initializable {
      * TODO Game muss auch geschlossen werden wenn im Menü --> Main Menu asgewählt wird
      */
     public void menu(ActionEvent actionEvent) {
-        //((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
+        ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
         new Window("Menu.fxml");
     }
 
@@ -174,15 +178,6 @@ public class GameController implements Initializable {
             scoreLabels[i].setText("Score: " + game.getPlayerList().getPlayer(i).getScore());
         }
     }
-
-    public void stop() {
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
 
     public void buttonClicked(ActionEvent event, Button button, String id, int row, int col) {
 
@@ -235,28 +230,51 @@ public class GameController implements Initializable {
         b2.getStyleClass().add(((CardPictures) secondCard).getPicture());
         checkIfWon();
         activePlayer = activePlayer.getNext();
+        //Setzte Pointer auf nächsten
+
 
         game.setTurnStatus(TurnStatus.IDLE);
-        if(firstCard.equals(secondCard)){
+        if (firstCard.equals(secondCard)) {
             activePlayer.updateScore();
+            //Ineffizient, funktioniert aber :3
             updateAllScores();
             b1.setVisible(false);
             b2.setVisible(false);
+        } else {
+            activePlayer.getAchievements().resetPairCounterStreak();
         }
     }
 
-    public boolean checkIfWon() {
+    public void checkIfWon() {
         if (game.pairCheck(firstRow, firstCol, secondRow, secondCol)) {
 
-
+            checkAchievementsDuringGame();
             if (game.areAllCardsOpen()) {
                 //TODO
                 System.out.println("Spiel gewonnen!");
                 //new Window("GameResultController.fxml");
-                return true;
+
+                checkAchievementsAfterGame();
+
+                game.storeProgress();
             }
         }
-        return false;
+    }
+
+    public void checkAchievementsDuringGame() {
+        String achievement = game.checkForAchievements(activePlayer);
+        if (!achievement.isEmpty()) {
+            achievementLabel.setStyle("-fx-font-size: 15pt;");
+            achievementLabel.setText(activePlayer.getName() + " has earned:\n" + achievement);
+        }
+    }
+
+    public void checkAchievementsAfterGame(){
+        String achievement = game.checkForAchievements(game.getPlayerList());
+        if (!achievement.isEmpty()) {
+            achievementLabel.setStyle("-fx-font-size: 15pt;");
+            achievementLabel.setText(activePlayer.getName() + " has earned:\n" + achievement);
+        }
     }
 
     public void closeCards() {
@@ -266,7 +284,7 @@ public class GameController implements Initializable {
             b2.getStyleClass().clear();
             b2.getStyleClass().add("Card");
         } catch (NullPointerException e) {
-
+            //Die Buttons wurden noch nicht geklickt und sind deswegen leer.
         }
     }
 }
