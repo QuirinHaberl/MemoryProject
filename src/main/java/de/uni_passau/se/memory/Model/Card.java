@@ -2,6 +2,7 @@ package de.uni_passau.se.memory.Model;
 
 import de.uni_passau.se.memory.Model.Enums.CardDigits;
 import de.uni_passau.se.memory.Model.Enums.CardLetters;
+import de.uni_passau.se.memory.Model.Enums.CardPictures;
 import de.uni_passau.se.memory.Model.Enums.CardStatus;
 
 /**
@@ -22,7 +23,7 @@ public class Card {
     /**
      * Constructs a new {@link Card}.
      *
-     * @param value uses the enumerations of {@link CardDigits} or {@link CardLetters}
+     * @param value uses the enumerations of {@link CardDigits}
      */
     public Card(CardDigits value) {
         this.value = value;
@@ -32,9 +33,29 @@ public class Card {
     /**
      * Constructs a new {@link Card}.
      *
-     * @param value uses the enumerations of {@link CardDigits} or {@link CardLetters}
+     * @param value uses the enumerations of {@link CardDigits}
+     */
+    public Card(Object value) {
+        this.value = value;
+        this.cardStatus = CardStatus.CLOSED;
+    }
+
+    /**
+     * Constructs a new {@link Card}.
+     *
+     * @param value uses the enumerations of @link CardLetters}
      */
     public Card(CardLetters value) {
+        this.value = value;
+        this.cardStatus = CardStatus.CLOSED;
+    }
+
+    /**
+     * Constructs a new {@link Card}.
+     *
+     * @param value uses the enumerations of @link CardPictures}
+     */
+    public Card(CardPictures value) {
         this.value = value;
         this.cardStatus = CardStatus.CLOSED;
     }
@@ -58,6 +79,8 @@ public class Card {
             return ((CardDigits) value).getDigit();
         } else if (value instanceof CardLetters) {
             return ((CardLetters) value).getLetter();
+        } else if (value instanceof CardPictures) {
+            return ((CardPictures) value).getPicture();
         } else {
             return null;
         }

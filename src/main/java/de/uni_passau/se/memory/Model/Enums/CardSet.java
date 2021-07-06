@@ -13,5 +13,10 @@ public enum CardSet {
     /**
      * This {@link CardSet} uses letters.
      */
-    LETTERS
+    LETTERS,
+
+    /**
+     * This {@link CardSet} uses pictures.
+     */
+    PICTURES;
 }

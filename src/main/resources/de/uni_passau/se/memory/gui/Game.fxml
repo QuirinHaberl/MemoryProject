@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uni_passau.se.memory.gui.ControllerPack.GameController">
+<BorderPane stylesheets="@Style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uni_passau.se.memory.gui.ControllerPack.GameController">
    <center>
       <VBox alignment="CENTER" prefHeight="650.0" prefWidth="1000.0" styleClass="GameBack" BorderPane.alignment="CENTER">
          <children>
@@ -53,44 +53,44 @@
          <children>
             <HBox>
                <children>
-                  <AnchorPane prefHeight="200.0" prefWidth="500.0" styleClass="PointerPlayer" />
+                  <AnchorPane fx:id="key1" prefHeight="200.0" prefWidth="500.0" styleClass="PointerPlayer" />
                   <VBox alignment="CENTER_LEFT" prefWidth="500.0">
                      <children>
                         <Label fx:id="labelPlayer1" textFill="WHITE" />
-                        <Label text="Score" textFill="WHITE" />
+                        <Label fx:id="labelScore1" text="Score" textFill="WHITE" />
                      </children>
                   </VBox>
                </children>
             </HBox>
             <HBox>
                <children>
-                  <AnchorPane prefHeight="200.0" prefWidth="500.0" styleClass="PointerPlayer" />
+                  <AnchorPane fx:id="key2" prefHeight="200.0" prefWidth="500.0" styleClass="PointerPlayer" />
                   <VBox alignment="CENTER_LEFT" prefWidth="500.0">
                      <children>
                         <Label fx:id="labelPlayer2" textFill="WHITE" />
-                        <Label text="Score" textFill="WHITE" />
+                        <Label fx:id="labelScore2" text="Score" textFill="WHITE" />
                      </children>
                   </VBox>
                </children>
             </HBox>
             <HBox>
                <children>
-                  <AnchorPane prefHeight="200.0" prefWidth="500.0" styleClass="PointerPlayer" />
+                  <AnchorPane fx:id="key3" prefHeight="200.0" prefWidth="500.0" styleClass="PointerPlayer" />
                   <VBox alignment="CENTER_LEFT" prefWidth="500.0">
                      <children>
                         <Label fx:id="labelPlayer3" textFill="WHITE" />
-                        <Label text="Score" textFill="WHITE" />
+                        <Label fx:id="labelScore3" text="Score" textFill="WHITE" />
                      </children>
                   </VBox>
                </children>
             </HBox>
             <HBox>
                <children>
-                  <AnchorPane prefHeight="200.0" prefWidth="500.0" styleClass="PointerPlayer" />
+                  <AnchorPane fx:id="key4" prefHeight="200.0" prefWidth="500.0" styleClass="PointerPlayer" />
                   <VBox alignment="CENTER_LEFT" prefWidth="500.0">
                      <children>
                         <Label fx:id="labelPlayer4" textFill="WHITE" />
-                        <Label text="Score" textFill="WHITE" />
+                        <Label fx:id="labelScore4" text="Score" textFill="WHITE" />
                      </children>
                   </VBox>
                </children>

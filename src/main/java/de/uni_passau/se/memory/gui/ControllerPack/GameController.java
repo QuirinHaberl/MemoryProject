@@ -1,6 +1,6 @@
 package de.uni_passau.se.memory.gui.ControllerPack;
 
-import de.uni_passau.se.memory.Model.Enums.CardLetters;
+import de.uni_passau.se.memory.Model.Enums.CardPictures;
 import de.uni_passau.se.memory.Model.Enums.CardStatus;
 import de.uni_passau.se.memory.Model.Enums.GameStatus;
 import de.uni_passau.se.memory.Model.Game;
@@ -18,6 +18,7 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -33,16 +34,40 @@ public class GameController implements Initializable {
     public Button start;
 
     @FXML
+    private AnchorPane key1;
+
+    @FXML
     private Label labelPlayer1;
+
+    @FXML
+    private Label labelScore1;
+
+    @FXML
+    private AnchorPane key2;
 
     @FXML
     private Label labelPlayer2;
 
     @FXML
+    private Label labelScore2;
+
+    @FXML
+    private AnchorPane key3;
+
+    @FXML
     private Label labelPlayer3;
 
     @FXML
+    private Label labelScore3;
+
+    @FXML
+    private AnchorPane key4;
+
+    @FXML
     private Label labelPlayer4;
+
+    @FXML
+    private Label labelScore4;
 
     @FXML
     private GridPane Board;
@@ -73,8 +98,7 @@ public class GameController implements Initializable {
             public void handle(ActionEvent event) {
                 button.getStyleClass().removeAll("Card");
                 Object card = DataDisplay.getInstance().getGame().getCard(row, col).getValue();
-                ((CardLetters) card).getPicture();
-                button.getStyleClass().add(((CardLetters) card).getPicture());
+                button.getStyleClass().add(((CardPictures) card).getPicture());
                 //button.setVisible(false);
                 System.out.println(id);
                 if (!(DataDisplay.getInstance().getGame().getGameStatus().equals(GameStatus.RUNNING))) {
@@ -90,7 +114,7 @@ public class GameController implements Initializable {
                         Object firstCard = DataDisplay.getInstance().getGame().getCard(row, col).getValue();
                         CardStatus firstCardStatus = DataDisplay.getInstance().getGame().revealFirstCard(firstRow, firstCol);
                         button.getStyleClass().removeAll("Card");
-                        button.getStyleClass().add(((CardLetters) firstCard).getPicture());
+                        button.getStyleClass().add(((CardPictures) firstCard).getPicture());
                         if (firstCardStatus.equals(CardStatus.FOUND)) {
                             break;
                         }
@@ -104,7 +128,7 @@ public class GameController implements Initializable {
 
                         // TODO Hier ist irgendwo noch ein Bug!
                         button.getStyleClass().removeAll("Card");
-                        button.getStyleClass().add(((CardLetters) secondCard).getPicture());
+                        button.getStyleClass().add(((CardPictures) secondCard).getPicture());
                         if (secondCardStatus.equals(CardStatus.FOUND)) {
                             break;
                         } else if (secondCardStatus.equals(CardStatus.AlREADYOPEN)) {
@@ -140,7 +164,7 @@ public class GameController implements Initializable {
 
     public void startClicked() {
         int size = DataDisplay.getInstance().getGame().getPlayingField().getSize();
-        DataDisplay.getInstance().getGame().getPlayingField().fillLetters();
+        DataDisplay.getInstance().getGame().getPlayingField().fillWithCards();
 
         for (int row = 0; row < size; row++) {
             Board.getColumnConstraints().add(new ColumnConstraints(100));
@@ -168,10 +192,25 @@ public class GameController implements Initializable {
     public void setPlayerLabel() {
         Label[] playerLabels = {labelPlayer1, labelPlayer2,
                 labelPlayer3, labelPlayer4};
+        Label[] scoreLabels = {labelScore1, labelScore2,
+                labelScore3, labelScore4};
+        AnchorPane[] keyAnchorPanes = {key1, key2,
+                key3, key4};
+
+        //TODO Man könnte die auch default invisible setzten
+        //@Quirin du kannst die AnchorPanes gerne hier löschen, wenn du was anderes vor hast.
+
+        for (int i = 0; i < scoreLabels.length; i++) {
+            scoreLabels[i].setVisible(false);
+            keyAnchorPanes[i].setVisible(false);
+        }
+
         for (int i = 0; i < DataDisplay.getInstance().getGame().
                 getPlayerAmount(); i++) {
             playerLabels[i].setText(DataDisplay.getInstance().getGame().
                     getPlayerList().getPlayer(i).getName());
+            scoreLabels[i].setVisible(true);
+            keyAnchorPanes[i].setVisible(true);
         }
     }
 
