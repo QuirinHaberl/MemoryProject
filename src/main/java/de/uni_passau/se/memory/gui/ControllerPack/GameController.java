@@ -232,8 +232,6 @@ public class GameController implements Initializable {
 
 
         //Setzte Pointer auf nächsten
-
-
         game.setTurnStatus(TurnStatus.IDLE);
         if (firstCard.equals(secondCard)) {
             activePlayer.updateScore();
@@ -244,8 +242,9 @@ public class GameController implements Initializable {
             b2.setVisible(false);
         } else {
             activePlayer.getAchievements().resetPairCounterStreak();
+            activePlayer = activePlayer.getNext();
         }
-        activePlayer = activePlayer.getNext();
+
     }
 
     public void checkIfWon() {
