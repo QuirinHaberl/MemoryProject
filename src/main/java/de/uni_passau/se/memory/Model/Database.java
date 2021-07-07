@@ -78,11 +78,11 @@ public class Database {
             BufferedReader br = new BufferedReader(fr);
 
             String[] values;
-            String highScoreInfo;
+            String infos;
             int pos = 0;
 
-            while (!((highScoreInfo = br.readLine()) == null)) {
-                values = highScoreInfo.split(";");
+            while (!((infos = br.readLine()) == null)) {
+                values = infos.split(";");
 
                 list.add(pos, values);
                 pos++;
@@ -109,8 +109,7 @@ public class Database {
                 pw.println(playerProfile[0] + ";" +
                         playerProfile[1] + ";" +
                         playerProfile[2] + ";" +
-                        playerProfile[3] + ";" +
-                        playerProfile[4] + ";");
+                        playerProfile[3] + ";");
             }
             pw.close();
             fos.close();

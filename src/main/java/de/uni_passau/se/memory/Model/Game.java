@@ -51,15 +51,20 @@ public final class Game {
     public void saveProfile(List<String[]> playerProfiles) {
         for (String[] playerProfile : playerProfiles) {
             for (int j = 0; j < getPlayerList().getCount(); j++) {
-                if (playerProfile[1].equals(getPlayerList().
-                        getPlayer(j).getName())) {
-                    playerProfile[1] = getPlayerList().getPlayer(j).
+                if (playerProfile[0].equals(getPlayerList().
+                        getPlayer(j).getName()) && !(
+                        getPlayerList().getPlayer(j).getName().equals("Player1")
+                                || getPlayerList().getPlayer(j).getName().equals("Player2")
+                                || getPlayerList().getPlayer(j).getName().equals("Player3")
+                                || getPlayerList().getPlayer(j).getName().equals("Player4")
+                )) {
+                    playerProfile[0] = getPlayerList().getPlayer(j).
                             getName() + "";
-                    playerProfile[2] = getPlayerList().getPlayer(j).
+                    playerProfile[1] = getPlayerList().getPlayer(j).
                             getAchievements().getHighScore() + "";
-                    playerProfile[3] = getPlayerList().getPlayer(j).
+                    playerProfile[2] = getPlayerList().getPlayer(j).
                             getAchievements().getGamesPlayed() + "";
-                    playerProfile[4] = getPlayerList().getPlayer(j).
+                    playerProfile[3] = getPlayerList().getPlayer(j).
                             getAchievements().getGamesWon() + "";
                     break;
                 }
@@ -74,38 +79,37 @@ public final class Game {
      *
      * @param playerProfiles to be used
      */
-    public void useProfile(List<String[]> playerProfiles) {
+    public void useProfile(List<String[]> playerProfiles, List<Boolean> usesProfiles) {
         boolean hasProfile;
         for (int i = 0; i < getPlayerList().getCount(); i++) {
-            hasProfile = false;
-            int j;
-            for (j = 0; j < playerProfiles.size(); j++) {
-                if (getPlayerList().getPlayer(i).getName().
-                        equals(playerProfiles.get(j)[1])) {
-                    hasProfile = true;
-                    break;
-                }
+            if (usesProfiles.get(i)) {
+                hasProfile = false;
+                int j;
+                for (j = 0; j < playerProfiles.size(); j++) {
+                    if (getPlayerList().getPlayer(i).getName().
+                            equals(playerProfiles.get(j)[0])) {
+                        hasProfile = true;
+                        break;
+                    }
 
-            }
-            if (hasProfile) {
-                getPlayerList().getPlayer(i).
-                        setPlayerId(playerProfiles.get(j)[0]);
-                getPlayerList().getPlayer(i).setName(playerProfiles.get(j)[1]);
-                getPlayerList().getPlayer(i).getAchievements().
-                        setHighScore(Integer.parseInt(playerProfiles.get(j)[2]));
-                getPlayerList().getPlayer(i).getAchievements().
-                        setGamesPlayed(Integer.parseInt(playerProfiles.get(j)[3]));
-                getPlayerList().getPlayer(i).getAchievements().
-                        setGamesWon(Integer.parseInt(playerProfiles.get(j)[4]));
-            } else {
-                String[] newProfile = new String[]{
-                        getPlayerList().getPlayer(i).getPlayerId(),
-                        getPlayerList().getPlayer(i).getName(),
-                        getPlayerList().getPlayer(i).getAchievements().getHighScore() + "",
-                        getPlayerList().getPlayer(i).getAchievements().getGamesPlayed() + "",
-                        getPlayerList().getPlayer(i).getAchievements().getGamesWon() + ""
-                };
-                playerProfiles.add(newProfile);
+                }
+                if (hasProfile) {
+                    getPlayerList().getPlayer(i).setName(playerProfiles.get(j)[0]);
+                    getPlayerList().getPlayer(i).getAchievements().
+                            setHighScore(Integer.parseInt(playerProfiles.get(j)[1]));
+                    getPlayerList().getPlayer(i).getAchievements().
+                            setGamesPlayed(Integer.parseInt(playerProfiles.get(j)[2]));
+                    getPlayerList().getPlayer(i).getAchievements().
+                            setGamesWon(Integer.parseInt(playerProfiles.get(j)[3]));
+                } else {
+                    String[] newProfile = new String[]{
+                            getPlayerList().getPlayer(i).getName(),
+                            getPlayerList().getPlayer(i).getAchievements().getHighScore() + "",
+                            getPlayerList().getPlayer(i).getAchievements().getGamesPlayed() + "",
+                            getPlayerList().getPlayer(i).getAchievements().getGamesWon() + ""
+                    };
+                    playerProfiles.add(newProfile);
+                }
             }
         }
     }

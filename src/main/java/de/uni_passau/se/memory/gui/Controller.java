@@ -129,7 +129,7 @@ public class Controller implements Initializable {
                     }
                     game.addPlayers(playerAmount, playerNames);
                     game.getDatabase().loadPlayerProfiles();
-                    game.useProfile(game.getDatabase().getPlayerProfiles());
+                    game.useProfile(game.getDatabase().getPlayerProfiles(), null);
                     menuStatus = MenuStatus.BOARDSIZE;
                 }
 
