@@ -26,7 +26,6 @@ import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
-
 public class GameController implements Initializable {
 
     @FXML
@@ -228,14 +227,17 @@ public class GameController implements Initializable {
 
         b2.getStyleClass().removeAll("Card");
         b2.getStyleClass().add(((CardValues) secondCard).getPicture());
+
         checkIfWon();
-        activePlayer = activePlayer.getNext();
+
+
         //Setzte Pointer auf nächsten
 
 
         game.setTurnStatus(TurnStatus.IDLE);
         if (firstCard.equals(secondCard)) {
             activePlayer.updateScore();
+
             //Ineffizient, funktioniert aber :3
             updateAllScores();
             b1.setVisible(false);
@@ -243,6 +245,7 @@ public class GameController implements Initializable {
         } else {
             activePlayer.getAchievements().resetPairCounterStreak();
         }
+        activePlayer = activePlayer.getNext();
     }
 
     public void checkIfWon() {
@@ -269,11 +272,11 @@ public class GameController implements Initializable {
         }
     }
 
-    public void checkAchievementsAfterGame(){
+    public void checkAchievementsAfterGame() {
         String achievement = game.checkForAchievements(game.getPlayerList());
         if (!achievement.isEmpty()) {
             achievementLabel.setStyle("-fx-font-size: 15pt;");
-            achievementLabel.setText(activePlayer.getName() + " has earned:\n" + achievement);
+            achievementLabel.setText(achievement);
         }
     }
 
