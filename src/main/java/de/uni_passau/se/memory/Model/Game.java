@@ -5,8 +5,6 @@ import de.uni_passau.se.memory.Model.Enums.GameStatus;
 import de.uni_passau.se.memory.Model.Enums.TurnStatus;
 import de.uni_passau.se.memory.View.View;
 
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -53,16 +51,21 @@ public final class Game {
     public void saveProfile(List<String[]> playerProfiles) {
         for (String[] playerProfile : playerProfiles) {
             for (int j = 0; j < getPlayerList().getCount(); j++) {
-                if (playerProfile[1].equals(getPlayerList().
-                        getPlayer(j).getName())) {
-                    playerProfile[1] = getPlayerList().getPlayer(j).
+                if (playerProfile[0].equals(getPlayerList().
+                        getPlayer(j).getName()) && !(
+                        getPlayerList().getPlayer(j).getName().equals("Player1")
+                                || getPlayerList().getPlayer(j).getName().equals("Player2")
+                                || getPlayerList().getPlayer(j).getName().equals("Player3")
+                                || getPlayerList().getPlayer(j).getName().equals("Player4")
+                )) {
+                    playerProfile[0] = getPlayerList().getPlayer(j).
                             getName() + "";
-                    playerProfile[2] = getPlayerList().getPlayer(j).
+                    playerProfile[1] = getPlayerList().getPlayer(j).
                             getAchievements().getHighScore() + "";
-                    playerProfile[3] = getPlayerList().getPlayer(j).
+                    playerProfile[2] = getPlayerList().getPlayer(j).
                             getAchievements().getGamesPlayed() + "";
-                    playerProfile[4] = getPlayerList().getPlayer(j).
-                            getAchievements().getGameWon() + "";
+                    playerProfile[3] = getPlayerList().getPlayer(j).
+                            getAchievements().getGamesWon() + "";
                     break;
                 }
             }
@@ -76,38 +79,37 @@ public final class Game {
      *
      * @param playerProfiles to be used
      */
-    public void useProfile(List<String[]> playerProfiles) {
+    public void useProfile(List<String[]> playerProfiles, List<Boolean> usesProfiles) {
         boolean hasProfile;
         for (int i = 0; i < getPlayerList().getCount(); i++) {
-            hasProfile = false;
-            int j;
-            for (j = 0; j < playerProfiles.size(); j++) {
-                if (getPlayerList().getPlayer(i).getName().
-                        equals(playerProfiles.get(j)[1])) {
-                    hasProfile = true;
-                    break;
-                }
+            if (usesProfiles.get(i)) {
+                hasProfile = false;
+                int j;
+                for (j = 0; j < playerProfiles.size(); j++) {
+                    if (getPlayerList().getPlayer(i).getName().
+                            equals(playerProfiles.get(j)[0])) {
+                        hasProfile = true;
+                        break;
+                    }
 
-            }
-            if (hasProfile) {
-                getPlayerList().getPlayer(i).
-                        setPlayerId(playerProfiles.get(j)[0]);
-                getPlayerList().getPlayer(i).setName(playerProfiles.get(j)[1]);
-                getPlayerList().getPlayer(i).getAchievements().
-                        setHighScore(Integer.parseInt(playerProfiles.get(j)[2]));
-                getPlayerList().getPlayer(i).getAchievements().
-                        setGamesPlayed(Integer.parseInt(playerProfiles.get(j)[3]));
-                getPlayerList().getPlayer(i).getAchievements().
-                        setGamesWon(Integer.parseInt(playerProfiles.get(j)[4]));
-            } else {
-                String[] newProfile = new String[]{
-                        getPlayerList().getPlayer(i).getPlayerId(),
-                        getPlayerList().getPlayer(i).getName(),
-                        getPlayerList().getPlayer(i).getAchievements().getHighScore() + "",
-                        getPlayerList().getPlayer(i).getAchievements().getGamesPlayed() + "",
-                        getPlayerList().getPlayer(i).getAchievements().getGameWon() + ""
-                };
-                playerProfiles.add(newProfile);
+                }
+                if (hasProfile) {
+                    getPlayerList().getPlayer(i).setName(playerProfiles.get(j)[0]);
+                    getPlayerList().getPlayer(i).getAchievements().
+                            setHighScore(Integer.parseInt(playerProfiles.get(j)[1]));
+                    getPlayerList().getPlayer(i).getAchievements().
+                            setGamesPlayed(Integer.parseInt(playerProfiles.get(j)[2]));
+                    getPlayerList().getPlayer(i).getAchievements().
+                            setGamesWon(Integer.parseInt(playerProfiles.get(j)[3]));
+                } else {
+                    String[] newProfile = new String[]{
+                            getPlayerList().getPlayer(i).getName(),
+                            getPlayerList().getPlayer(i).getAchievements().getHighScore() + "",
+                            getPlayerList().getPlayer(i).getAchievements().getGamesPlayed() + "",
+                            getPlayerList().getPlayer(i).getAchievements().getGamesWon() + ""
+                    };
+                    playerProfiles.add(newProfile);
+                }
             }
         }
     }
@@ -119,6 +121,72 @@ public final class Game {
         getDatabase().storeHighScoreHistory();
         saveProfile(getDatabase().getPlayerProfiles());
         getDatabase().storePlayerProfiles();
+    }
+
+    /**
+     * Checks weather a {@link Player} has earned a new achievement
+     *
+     * @param player who is being checked
+     */
+    public String checkForAchievements(Player player) {
+        player.getAchievements().updatePairCounters();
+        player.getAchievements().checkFoundPairsTotal();
+        player.getAchievements().checkFoundPairsStreak();
+        player.getAchievements().checkHighScore();
+        if (!(player.getAchievements().getCurrentAchievements().isEmpty())) {
+            View.printAchievement(player.getAchievements().getCurrentAchievements(), player);
+            String currentAchievement = player.getAchievements().getCurrentAchievements();
+            player.getAchievements().clearCurrentAchievement();
+            return currentAchievement;
+        }
+        return "";
+    }
+
+    /**
+     * Checks weather multiple players have earned an achievement.
+     *
+     * @param players who are being checked
+     */
+    public String checkForAchievements(PlayerList players) {
+        String currentAchievement = "";
+
+        if (checkForDraw(players)) {
+
+            int highestScore = players.getHighestScore()[0];
+            for (int i = 0; i < players.getCount(); i++) {
+                players.getPlayer(i).getAchievements().updateGamesPlayed();
+
+                //If a player has won a game
+                if (players.getPlayerScore(i) == highestScore) {
+                    players.getPlayer(i).getAchievements().updateGamesWon();
+                    players.getPlayer(i).getAchievements().checkGamesWon();
+
+                    //If a player has earned a new achievement
+                    if (!(players.getPlayer(i).getAchievements().getCurrentAchievements().isEmpty())) {
+                        View.printAchievement(players.getPlayer(i).getAchievements().getCurrentAchievements(), players.getPlayer(i));
+                        currentAchievement = currentAchievement +
+                                players.getPlayer(i).getName() + " has earned:\n" +
+                                players.getPlayer(i).getAchievements().getCurrentAchievements() + "\n";
+                        players.getPlayer(i).getAchievements().clearCurrentAchievement();
+                        break;
+                    }
+                }
+            }
+            return currentAchievement;
+        } else {
+            return "This game was a draw!";
+        }
+    }
+
+    public boolean checkForDraw(PlayerList players) {
+        int highestScore = players.getHighestScore()[0];
+        int playersWithHighestScore = 0;
+        for (int i = 0; i < players.getCount(); i++) {
+            if (players.getPlayer(i).getScore() == highestScore) {
+                playersWithHighestScore++;
+            }
+        }
+        return playersWithHighestScore == 1;
     }
 
     /**

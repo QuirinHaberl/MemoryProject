@@ -44,15 +44,6 @@ public class Achievements {
     }
 
     /**
-     * Gets the current achievement.
-     *
-     * @return the current achievement
-     */
-    public String getCurrentAchievement() {
-        return currentAchievements;
-    }
-
-    /**
      * Resets the streak of found pairs.
      */
     public void resetPairCounterStreak() {
@@ -73,7 +64,7 @@ public class Achievements {
      *
      * @return the number of won games.
      */
-    public int getGameWon() {
+    public int getGamesWon() {
         return gamesWon;
     }
 
@@ -133,15 +124,15 @@ public class Achievements {
      * Increments {@code gamesWon}.
      */
     public void updateGamesWon() {
-        gamesWon++;
+        this.gamesWon++;
     }
 
     /**
      * Updates the amount of pairs found.
      */
     public void updatePairCounters() {
-        pairCounterTotal++;
-        pairCounterStreak++;
+        this.pairCounterTotal++;
+        this.pairCounterStreak++;
     }
 
     /**
@@ -156,15 +147,15 @@ public class Achievements {
      */
     public void checkFoundPairsTotal() {
         if (pairCounterTotal == 2) {
-            currentAchievements = currentAchievements + "Found two pairs in total!\n";
+            currentAchievements = currentAchievements + "Found 2 pairs in total!\n";
         } else if (pairCounterTotal == 4) {
-            currentAchievements = currentAchievements + "Found four pairs in total!\n";
+            currentAchievements = currentAchievements + "Found 4 pairs in total!\n";
         } else if (pairCounterTotal == 6) {
-            currentAchievements = currentAchievements + "Found six pairs in total!\n";
+            currentAchievements = currentAchievements + "Found 6 pairs in total!\n";
         } else if (pairCounterTotal == 8) {
-            currentAchievements = currentAchievements + "Found eight pairs in total!\n";
+            currentAchievements = currentAchievements + "Found 8 pairs in total!\n";
         } else if (pairCounterTotal == 10) {
-            currentAchievements = currentAchievements + "Found ten pairs in total!\n";
+            currentAchievements = currentAchievements + "Found 10 pairs in total!\n";
         }
     }
 
@@ -173,15 +164,15 @@ public class Achievements {
      */
     public void checkFoundPairsStreak() {
         if (pairCounterStreak == 2) {
-            currentAchievements = currentAchievements + "Found two pairs in a row!\n";
+            currentAchievements = currentAchievements + "Found 2 pairs in a row!\n";
         } else if (pairCounterStreak == 4) {
-            currentAchievements = currentAchievements + "Found four pairs in a row!\n";
+            currentAchievements = currentAchievements + "Found 4 pairs in a row!\n";
         } else if (pairCounterStreak == 6) {
-            currentAchievements = currentAchievements + "Found six pairs in a row!\n";
+            currentAchievements = currentAchievements + "Found 6 pairs in a row!\n";
         } else if (pairCounterStreak == 8) {
-            currentAchievements = currentAchievements + "Found eight pairs in a row!\n";
+            currentAchievements = currentAchievements + "Found 8 pairs in a row!\n";
         } else if (pairCounterStreak == 10) {
-            currentAchievements = currentAchievements + "Found ten pairs in a row!\n";
+            currentAchievements = currentAchievements + "Found 10 pairs in a row!\n";
         }
     }
 
@@ -190,13 +181,15 @@ public class Achievements {
      */
     public void checkGamesWon() {
         if (gamesWon == 1) {
-            currentAchievements = currentAchievements + "won his/her first game!\n";
+            currentAchievements = currentAchievements + "1. game won!\n";
         } else if (gamesWon == 2) {
-            currentAchievements = currentAchievements + "won his/her second game!\n";
+            currentAchievements = currentAchievements + "2. game won!\n";
         } else if (gamesWon == 3) {
-            currentAchievements = currentAchievements + "won his/her third game!\n";
+            currentAchievements = currentAchievements + "3. game won!\n";
         } else if (gamesWon == 4) {
-            currentAchievements = currentAchievements + "won his/her fifth game!\n";
+            currentAchievements = currentAchievements + "4. game won!\n";
+        } else if (gamesWon == 5) {
+            currentAchievements = currentAchievements + "5. game won!\n";
         }
     }
 
@@ -207,13 +200,13 @@ public class Achievements {
         if (pairCounterTotal > getHighScore()) {
             setHighScore(pairCounterTotal);
             if (pairCounterTotal == 4) {
-                currentAchievements = currentAchievements + "New personal highScore of 4!\n";
+                currentAchievements = currentAchievements + "New PB of 4!\n";
             } else if (pairCounterTotal == 8) {
-                currentAchievements = currentAchievements + "New personal highScore of 8!\n";
+                currentAchievements = currentAchievements + "New PB of 8!\n";
             } else if (pairCounterTotal == 12) {
-                currentAchievements = currentAchievements + "New personal highScore of 12!\n";
+                currentAchievements = currentAchievements + "New PB of 12!\n";
             } else if (pairCounterTotal == 16) {
-                currentAchievements = currentAchievements + "New personal highScore of 16!\n";
+                currentAchievements = currentAchievements + "New PB of 16!\n";
             }
         }
     }

@@ -1,7 +1,7 @@
 package de.uni_passau.se.memory.gui.ControllerPack;
 
-import de.uni_passau.se.memory.Model.Enums.CardPictures;
 import de.uni_passau.se.memory.Model.Enums.CardStatus;
+import de.uni_passau.se.memory.Model.Enums.CardValues;
 import de.uni_passau.se.memory.Model.Enums.GameStatus;
 import de.uni_passau.se.memory.Model.Enums.TurnStatus;
 import de.uni_passau.se.memory.Model.Game;
@@ -20,17 +20,22 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+
+import javafx.stage.Stage;
+
 import javafx.scene.media.AudioClip;
 
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
-
 public class GameController implements Initializable {
 
     @FXML
     public Button start;
+
+    @FXML
+    private Label achievementLabel;
 
     @FXML
     private AnchorPane key1;
@@ -138,7 +143,9 @@ public class GameController implements Initializable {
      * TODO Game muss auch geschlossen werden wenn im Menü --> Main Menu asgewählt wird
      */
     public void menu(ActionEvent actionEvent) {
+
         new Window("StartScreen.fxml");
+
     }
 
     /**
@@ -188,15 +195,6 @@ public class GameController implements Initializable {
         }
     }
 
-    public void stop() {
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-
     public void buttonClicked(ActionEvent event, Button button, String id, int row, int col) {
 
         //Implementation of the game phases
@@ -233,7 +231,8 @@ public class GameController implements Initializable {
         firstCard = game.getCard(row, col).getValue();
 
         b1.getStyleClass().removeAll("Card");
-        b1.getStyleClass().add(((CardPictures) firstCard).getPicture());
+        b1.getStyleClass().add(((CardValues) firstCard).getPicture());
+
         AudioClip unlock=new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Unlock.wav").toUri().toString());
         unlock.play();
 
@@ -247,37 +246,63 @@ public class GameController implements Initializable {
         secondCard = game.getCard(secondRow, secondCol).getValue();
 
         b2.getStyleClass().removeAll("Card");
-        b2.getStyleClass().add(((CardPictures) secondCard).getPicture());
+        b2.getStyleClass().add(((CardValues) secondCard).getPicture());
+
         AudioClip unlock=new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Unlock.wav").toUri().toString());
         unlock.play();
         checkIfWon();
-        activePlayer = activePlayer.getNext();
 
+
+        //Setzte Pointer auf nächsten
         game.setTurnStatus(TurnStatus.IDLE);
-        if(firstCard.equals(secondCard)){
+        if (firstCard.equals(secondCard)) {
             activePlayer.updateScore();
+
+            //Ineffizient, funktioniert aber :3
             updateAllScores();
             AudioClip found=new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Found.wav").toUri().toString());
             found.play();
             b1.setVisible(false);
             b2.setVisible(false);
+        } else {
+            activePlayer.getAchievements().resetPairCounterStreak();
+            activePlayer = activePlayer.getNext();
         }
+
     }
 
-    public boolean checkIfWon() {
+    public void checkIfWon() {
         if (game.pairCheck(firstRow, firstCol, secondRow, secondCol)) {
 
-
+            checkAchievementsDuringGame();
             if (game.areAllCardsOpen()) {
                 //TODO
                 AudioClip found=new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/GameWon.wav").toUri().toString());
                 found.play();
                 System.out.println("Spiel gewonnen!");
                 //new Window("GameResultController.fxml");
-                return true;
+
+                checkAchievementsAfterGame();
+
+                game.storeProgress();
             }
         }
-        return false;
+    }
+
+    public void checkAchievementsDuringGame() {
+        String achievement = game.checkForAchievements(activePlayer);
+        if (!achievement.isEmpty()) {
+            achievementLabel.setStyle("-fx-font-size: 15pt;");
+            achievementLabel.setText(activePlayer.getName() + " has earned:\n" + achievement);
+        }
+    }
+
+    public void checkAchievementsAfterGame() {
+        String achievement = game.checkForAchievements(game.getPlayerList());
+        if (!achievement.isEmpty()) {
+            achievementLabel.setStyle("-fx-font-size: 15pt;");
+            achievementLabel.setText(achievement);
+        }
     }
 
     public void closeCards() {
@@ -287,7 +312,7 @@ public class GameController implements Initializable {
             b2.getStyleClass().clear();
             b2.getStyleClass().add("Card");
         } catch (NullPointerException e) {
-
+            //Die Buttons wurden noch nicht geklickt und sind deswegen leer.
         }
     }
 }

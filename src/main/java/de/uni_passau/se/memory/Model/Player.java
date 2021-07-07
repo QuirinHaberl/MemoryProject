@@ -8,11 +8,6 @@ import java.util.*;
 public class Player {
 
     /**
-     * Stores the playerId of a {@link Player}.
-     */
-    private String playerId;
-
-    /**
      * Stores the name of a {@link Player}.
      */
     private String name;
@@ -63,24 +58,6 @@ public class Player {
         this.next = next;
         this.rear = rear;
         this.foundCards = new ArrayList<>();
-    }
-
-    /**
-     * Gets the playerId.
-     *
-     * @return the playerId
-     */
-    public String getPlayerId() {
-        return playerId;
-    }
-
-    /**
-     * Sets the playerId
-     *
-     * @param playerId to be set
-     */
-    public void setPlayerId(String playerId) {
-        this.playerId = playerId;
     }
 
     /**

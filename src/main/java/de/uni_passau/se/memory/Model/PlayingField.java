@@ -1,15 +1,9 @@
 package de.uni_passau.se.memory.Model;
 
-import de.uni_passau.se.memory.Model.Enums.CardDigits;
-import de.uni_passau.se.memory.Model.Enums.CardLetters;
-import de.uni_passau.se.memory.Model.Enums.CardPictures;
 import de.uni_passau.se.memory.Model.Enums.CardSet;
+import de.uni_passau.se.memory.Model.Enums.CardValues;
 import de.uni_passau.se.memory.View.View;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -32,7 +26,7 @@ public class PlayingField {
     /**
      * Stores the used {@link CardSet}.
      */
-    private CardSet cardSet;
+    private CardSet globalCardSet;
 
     /**
      * Default-constructor of {@link PlayingField}.
@@ -62,40 +56,34 @@ public class PlayingField {
      * @param cardSet to be used
      */
     public void setCardSet(CardSet cardSet) {
-        this.cardSet = cardSet;
+        this.globalCardSet = cardSet;
     }
 
     /**
      * Fills the {@code board} with {@link Card} elements.
      */
     public void fillWithCards() {
-
-        switch (this.cardSet) {
-            case DIGITS -> fillWithValues(Arrays.asList(CardDigits.values()));
-            case LETTERS -> fillWithValues(Arrays.asList(CardLetters.values()));
-            case PICTURES -> fillWithValues(Arrays.asList(CardPictures.values()));
-            default -> System.err.println("This set hasn't been implemented yet.");
-        }
+        fillWithValues(CardValues.values());
         shuffleBoard();
     }
 
     /**
      * Fills the board with digits
      */
-    public void fillWithValues(List cardValues) {
-        int size = cardValues.size();
+    public void fillWithValues(CardValues[] cardValues) {
+        int size = cardValues.length;
         int counter = 0;
         for (int i = 0; i < board.length / 2; i++) {
             for (int j = 0; j < board[0].length; j++) {
                 board[i][j] =
-                        new Card(cardValues.get(counter % size));
+                        new Card(cardValues[counter % size], globalCardSet);
                 counter++;
             }
         }
         counter = 0;
         for (int i = getBoard().length / 2; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
-                board[i][j] = new Card(cardValues.get(counter % size));
+                board[i][j] = new Card(cardValues[counter % size], globalCardSet);
                 counter++;
             }
         }
@@ -176,7 +164,7 @@ public class PlayingField {
      * @return a cardSet
      */
     public CardSet getCardSet() {
-        return cardSet;
+        return globalCardSet;
     }
 
     /**

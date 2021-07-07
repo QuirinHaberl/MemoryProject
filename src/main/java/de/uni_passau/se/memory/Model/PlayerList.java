@@ -1,5 +1,8 @@
 package de.uni_passau.se.memory.Model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * This class implements a {@link PlayerList}.
  */
@@ -200,13 +203,21 @@ public class PlayerList {
     public String[] winningPlayersToString() {
         int num = getHighestScore()[1]; // num of players who reached the highest score
         int highestScore = getHighestScore()[0];
-        String[] winningPlayers = new String[num];
+        List<String> workaround = new ArrayList<>();
+
 
         for (int i = 0; i < getCount(); i++) {
             if (getPlayerScore(i) == highestScore) {
-                winningPlayers[i] = getPlayerName(i);
+                workaround.add(getPlayerName(i));
             }
         }
+
+        //TODO Dirty Workaround
+        String[] winningPlayers = new String[workaround.size()];
+        for (int i = 0; i < workaround.size(); i++) {
+            winningPlayers[i] = workaround.get(i);
+        }
+
         return winningPlayers;
     }
 
