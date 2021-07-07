@@ -15,7 +15,7 @@ dependencies {
     run { // JavaFX dependencies
         val group = "org.openjfx"
         val version = "15.0.1"
-        val fxModules = arrayListOf("javafx-base", "javafx-graphics", "javafx-controls", "javafx-fxml")
+        val fxModules = arrayListOf("javafx-base", "javafx-graphics", "javafx-controls", "javafx-fxml", "javafx-media")
 
         val osName = System.getProperty("os.name")
         val platform = when {
