@@ -1,7 +1,7 @@
 package de.uni_passau.se.memory.gui.ControllerPack;
 
-import de.uni_passau.se.memory.Model.Enums.CardPictures;
 import de.uni_passau.se.memory.Model.Enums.CardStatus;
+import de.uni_passau.se.memory.Model.Enums.CardValues;
 import de.uni_passau.se.memory.Model.Enums.GameStatus;
 import de.uni_passau.se.memory.Model.Enums.TurnStatus;
 import de.uni_passau.se.memory.Model.Game;
@@ -215,7 +215,7 @@ public class GameController implements Initializable {
         firstCard = game.getCard(row, col).getValue();
 
         b1.getStyleClass().removeAll("Card");
-        b1.getStyleClass().add(((CardPictures) firstCard).getPicture());
+        b1.getStyleClass().add(((CardValues) firstCard).getPicture());
 
         game.setTurnStatus(TurnStatus.ACTIVE);
     }
@@ -227,7 +227,7 @@ public class GameController implements Initializable {
         secondCard = game.getCard(secondRow, secondCol).getValue();
 
         b2.getStyleClass().removeAll("Card");
-        b2.getStyleClass().add(((CardPictures) secondCard).getPicture());
+        b2.getStyleClass().add(((CardValues) secondCard).getPicture());
         checkIfWon();
         activePlayer = activePlayer.getNext();
         //Setzte Pointer auf nächsten
