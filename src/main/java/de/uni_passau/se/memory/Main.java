@@ -1,6 +1,6 @@
 package de.uni_passau.se.memory;
 
-import de.uni_passau.se.memory.gui.Controller;
+import de.uni_passau.se.memory.Controller.ConsoleController;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,7 +18,7 @@ public class Main {
      * @throws IOException on input error
      */
     public static void main(String[] args) throws IOException {
-        Controller controller = new Controller();
+        ConsoleController controller = new ConsoleController();
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         controller.execute(bufferedReader);
     }

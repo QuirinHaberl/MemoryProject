@@ -1,8 +1,7 @@
-package de.uni_passau.se.memory.gui.ControllerPack;
+package de.uni_passau.se.memory.Controller;
 
 import de.uni_passau.se.memory.Model.Game;
 import de.uni_passau.se.memory.Model.Player;
-import de.uni_passau.se.memory.View.DataDisplay;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -18,7 +17,7 @@ public class AchievementController implements Initializable {
     @FXML
     private Label achievementLabel;
 
-    Game game = DataDisplay.getInstance().getGame();
+    Game game = Wrapper.getInstance().getGame();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

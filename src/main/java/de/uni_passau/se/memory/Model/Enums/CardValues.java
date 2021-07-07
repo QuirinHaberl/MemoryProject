@@ -39,7 +39,6 @@ public enum CardValues {
     TWENTYSIX(   "26", "Z",  "C");
 
 
-
     private final String digit;
 
     /**

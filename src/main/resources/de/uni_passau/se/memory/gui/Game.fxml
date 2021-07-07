@@ -10,9 +10,8 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<BorderPane stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uni_passau.se.memory.gui.ControllerPack.GameController">
+<BorderPane stylesheets="@Style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uni_passau.se.memory.Controller.GameController">
    <center>
       <VBox alignment="CENTER" prefHeight="650.0" prefWidth="1000.0" styleClass="GameBack" BorderPane.alignment="CENTER">
          <children>
@@ -30,7 +29,7 @@
          <children>
             <HBox prefHeight="66.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <MenuBar prefHeight="43.0" prefWidth="350.0" styleClass="text20">
+                  <MenuBar prefHeight="44.0" prefWidth="233.0" styleClass="text20">
                     <menus>
                       <Menu mnemonicParsing="false" text="Menu">
                         <items>
@@ -54,9 +53,9 @@
                      <children>
                         <Label alignment="CENTER" prefHeight="34.0" prefWidth="500.0" styleClass="text25" text="Lives and Time" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children></AnchorPane>
-                  <AnchorPane prefHeight="200.0" prefWidth="500.0">
+                  <AnchorPane prefHeight="58.0" prefWidth="116.0">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="34.0" prefWidth="500.0" styleClass="text15" text="Acchievements" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <Label fx:id="achievementLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="35.0" layoutY="-2.0" prefHeight="60.0" prefWidth="222.0" styleClass="text15" textAlignment="CENTER" textFill="WHITE" />
                      </children>
                   </AnchorPane>
                </children>
@@ -116,15 +115,7 @@
             </HBox>
             <HBox>
                <children>
-                  <VBox alignment="CENTER_LEFT" prefHeight="72.0" prefWidth="130.0">
-                     <children>
-                        <Label fx:id="achievementLabel" minHeight="-Infinity" minWidth="-Infinity" prefHeight="72.0" prefWidth="217.0" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="1.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </VBox>
+                  <VBox alignment="CENTER_LEFT" prefHeight="72.0" prefWidth="130.0" />
                </children>
             </HBox>
          </children>

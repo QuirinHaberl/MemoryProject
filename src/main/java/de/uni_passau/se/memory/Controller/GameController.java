@@ -1,4 +1,4 @@
-package de.uni_passau.se.memory.gui.ControllerPack;
+package de.uni_passau.se.memory.Controller;
 
 import de.uni_passau.se.memory.Model.Enums.CardStatus;
 import de.uni_passau.se.memory.Model.Enums.CardValues;
@@ -6,10 +6,8 @@ import de.uni_passau.se.memory.Model.Enums.GameStatus;
 import de.uni_passau.se.memory.Model.Enums.TurnStatus;
 import de.uni_passau.se.memory.Model.Game;
 import de.uni_passau.se.memory.Model.Player;
-import de.uni_passau.se.memory.View.DataDisplay;
 import de.uni_passau.se.memory.gui.Window;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.ImageCursor;
@@ -21,15 +19,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 
-import javafx.stage.Stage;
-
 import javafx.scene.media.AudioClip;
 
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
-public class GameController implements Initializable {
+public class GameController {
 
     @FXML
     public Button start;
@@ -85,15 +81,15 @@ public class GameController implements Initializable {
     int firstCol;
     int secondRow;
     int secondCol;
-    Game game = DataDisplay.getInstance().getGame();
+    Game game = Wrapper.getInstance().getGame();
     Player activePlayer = game.getPlayerList().getFront();
     int size = game.getPlayingField().getSize();
 
     public GameController() {
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    @FXML
+    public void initialize() {
         setPlayerLabel();
         startClicked();
     }
@@ -128,13 +124,10 @@ public class GameController implements Initializable {
         button.setCursor(new ImageCursor(image));
         button.setId(id);
 
+
+
         //TODO das hier sieht nicht gut aus :c
-        button.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                buttonClicked(event, button, id, row, col);
-            }
-        });
+        button.setOnAction(event -> buttonClicked(event, button, id, row, col));
         return button;
     }
 
@@ -150,13 +143,16 @@ public class GameController implements Initializable {
 
     /**
      * TODO erneutes laden muss noch geschehen
+     *
      * @param actionEvent
      */
-    public void TryAgainClicked (ActionEvent actionEvent){
+    public void TryAgainClicked(ActionEvent actionEvent) {
         new Window("Game.fxml");
     }
 
-    public void ExitClicked (ActionEvent actionEvent){System.exit(0);}
+    public void ExitClicked(ActionEvent actionEvent) {
+        System.exit(0);
+    }
 
     public void help(ActionEvent actionEvent) {
         new Window("Rules.fxml");
@@ -180,9 +176,9 @@ public class GameController implements Initializable {
 
         for (int i = 0; i < game.
                 getPlayerAmount(); i++) {
-            playerLabels[i].setText(game.
-                    getPlayerList().getPlayer(i).getName());
+            playerLabels[i].setText(game.getPlayerList().getPlayer(i).getName());
             scoreLabels[i].setVisible(true);
+            scoreLabels[i].setText("Score: " + game.getPlayerList().getPlayer(i).getScore());
             keyAnchorPanes[i].setVisible(true);
         }
     }
@@ -199,6 +195,7 @@ public class GameController implements Initializable {
 
         //Implementation of the game phases
         switch (game.getTurnStatus()) {
+
             //Is used if the turn hasn't been stated yet.
             case IDLE:
                 firstRow = row;
@@ -209,6 +206,7 @@ public class GameController implements Initializable {
                 }
                 executeIdle(button, id, row, col);
                 break;
+
             //Is used if the turn has been stated.
             case ACTIVE:
                 secondRow = row;
@@ -233,7 +231,7 @@ public class GameController implements Initializable {
         b1.getStyleClass().removeAll("Card");
         b1.getStyleClass().add(((CardValues) firstCard).getPicture());
 
-        AudioClip unlock=new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Unlock.wav").toUri().toString());
+        AudioClip unlock = new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Unlock.wav").toUri().toString());
         unlock.play();
 
         game.setTurnStatus(TurnStatus.ACTIVE);
@@ -248,7 +246,7 @@ public class GameController implements Initializable {
         b2.getStyleClass().removeAll("Card");
         b2.getStyleClass().add(((CardValues) secondCard).getPicture());
 
-        AudioClip unlock=new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Unlock.wav").toUri().toString());
+        AudioClip unlock = new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Unlock.wav").toUri().toString());
         unlock.play();
         checkIfWon();
 
@@ -260,7 +258,7 @@ public class GameController implements Initializable {
 
             //Ineffizient, funktioniert aber :3
             updateAllScores();
-            AudioClip found=new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Found.wav").toUri().toString());
+            AudioClip found = new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Found.wav").toUri().toString());
             found.play();
             b1.setVisible(false);
             b2.setVisible(false);
@@ -277,7 +275,7 @@ public class GameController implements Initializable {
             checkAchievementsDuringGame();
             if (game.areAllCardsOpen()) {
                 //TODO
-                AudioClip found=new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/GameWon.wav").toUri().toString());
+                AudioClip found = new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/GameWon.wav").toUri().toString());
                 found.play();
                 System.out.println("Spiel gewonnen!");
                 //new Window("GameResultController.fxml");
@@ -294,6 +292,8 @@ public class GameController implements Initializable {
         if (!achievement.isEmpty()) {
             achievementLabel.setStyle("-fx-font-size: 15pt;");
             achievementLabel.setText(activePlayer.getName() + " has earned:\n" + achievement);
+            AudioClip unlock = new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Achievement.wav").toUri().toString());
+            unlock.play();
         }
     }
 
@@ -302,6 +302,8 @@ public class GameController implements Initializable {
         if (!achievement.isEmpty()) {
             achievementLabel.setStyle("-fx-font-size: 15pt;");
             achievementLabel.setText(achievement);
+            AudioClip unlock = new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Achievement.wav").toUri().toString());
+            unlock.play();
         }
     }
 

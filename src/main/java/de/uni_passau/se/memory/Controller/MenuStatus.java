@@ -1,4 +1,4 @@
-package de.uni_passau.se.memory.gui;
+package de.uni_passau.se.memory.Controller;
 
 /**
  * The enumeration of the menu status.
