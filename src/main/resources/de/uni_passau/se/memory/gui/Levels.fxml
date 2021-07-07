@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="441.0" prefWidth="600.0" styleClass="Background2" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uni_passau.se.memory.gui.ControllerPack.LevelsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="441.0" prefWidth="600.0" styleClass="Background2" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uni_passau.se.memory.gui.ControllerPack.LevelsController">
    <children>
       <AnchorPane prefHeight="93.0" prefWidth="600.0" styleClass="Banner">
          <children>
-            <Label alignment="CENTER" prefHeight="93.0" prefWidth="600.0" text="How many cards would &#10;you like to play with?" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <Label alignment="CENTER" prefHeight="93.0" prefWidth="600.0" styleClass="text30" text="How many cards would &#10;you like to play with?" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children>
       </AnchorPane>
       <VBox alignment="CENTER" layoutY="82.0" prefHeight="359.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="82.0">
@@ -29,7 +26,7 @@
                   </HBox>
                   <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="5000.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="88.0" prefWidth="180.0" styleClass="Paper2" text="4 Cards&#10;Easy" textAlignment="CENTER" />
+                        <Label alignment="CENTER" prefHeight="88.0" prefWidth="180.0" styleClass="Paper2" text="16 Cards&#10;Easy" textAlignment="CENTER" />
                      </children>
                   </HBox>
                </children>
@@ -47,7 +44,7 @@
                   </HBox>
                   <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="5000.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="91.0" prefWidth="180.0" styleClass="Paper2" text="16 Cards&#10;Medium&#10;&#10;" textAlignment="CENTER" />
+                        <Label alignment="CENTER" prefHeight="91.0" prefWidth="180.0" styleClass="Paper2" text="36 Cards&#10;Medium&#10;&#10;" textAlignment="CENTER" />
                      </children>
                   </HBox>
                </children>

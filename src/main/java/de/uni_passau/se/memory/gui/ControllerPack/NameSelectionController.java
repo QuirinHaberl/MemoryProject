@@ -10,11 +10,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
 public class NameSelectionController implements Initializable {
@@ -60,6 +62,8 @@ public class NameSelectionController implements Initializable {
         addPlayers();
 
         ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
+        AudioClip click=new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Click.wav").toUri().toString());
+        click.play();
         new Window("Levels.fxml");
     }
 

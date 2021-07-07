@@ -19,9 +19,9 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <AnchorPane prefHeight="83.0" prefWidth="600.0">
+      <AnchorPane prefHeight="83.0" prefWidth="600.0" styleClass="BannerMultiP">
          <children>
-            <Label alignment="CENTER" prefHeight="83.0" prefWidth="600.0" styleClass="BannerMultiP" text="Adventure with Friend" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <Label alignment="CENTER" prefHeight="83.0" prefWidth="600.0" styleClass="text40" text="Adventure with Friend" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children></AnchorPane>
    </children>
 </AnchorPane>
