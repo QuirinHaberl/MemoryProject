@@ -27,13 +27,16 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button alignment="TOP_LEFT" layoutX="84.0" layoutY="115.0" mnemonicParsing="false" onAction="#quit" prefHeight="203.0" prefWidth="56.0" style="-fx-background-color: transparent;" text="EXIT">
+      <Button alignment="TOP_LEFT" layoutX="84.0" layoutY="115.0" mnemonicParsing="false" onAction="#quit" prefHeight="203.0" prefWidth="56.0" style="-fx-background-color: transparent;" styleClass="text2" text="EXIT">
          <padding>
             <Insets left="10.0" top="15.0" />
          </padding>
          <cursor>
             <Cursor fx:constant="HAND" />
-         </cursor></Button>
+         </cursor>
+         <font>
+            <Font size="20.0" />
+         </font></Button>
       <AnchorPane layoutX="271.0" layoutY="6.0" prefHeight="49.0" prefWidth="252.0" styleClass="MemoryBanner" />
    </children>
 </AnchorPane>
