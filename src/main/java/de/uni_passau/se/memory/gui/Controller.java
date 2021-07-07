@@ -7,6 +7,8 @@ import de.uni_passau.se.memory.View.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import javafx.fxml.Initializable;
@@ -129,7 +131,11 @@ public class Controller implements Initializable {
                     }
                     game.addPlayers(playerAmount, playerNames);
                     game.getDatabase().loadPlayerProfiles();
-                    game.useProfile(game.getDatabase().getPlayerProfiles(), null);
+                    ArrayList<Boolean> workaround = new ArrayList<Boolean>();
+                    for (int i = 0; i < playerAmount; i++) {
+                        workaround.add(true);
+                    }
+                    game.useProfile(game.getDatabase().getPlayerProfiles(), workaround);
                     menuStatus = MenuStatus.BOARDSIZE;
                 }
 
