@@ -19,7 +19,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 
+import javafx.scene.layout.HBox;
 import javafx.scene.media.AudioClip;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.nio.file.Paths;
@@ -118,6 +120,12 @@ public class GameController {
     private GridPane Board;
 
     /**
+     * HBox to store lives or timer
+     */
+    @FXML
+    private HBox livesAndTime;
+
+    /**
      * To store the first revealed card
      */
     Object firstCard;
@@ -182,6 +190,14 @@ public class GameController {
     public void initialize() {
         setPlayerLabel();
         startClicked();
+        if (game.getPlayerAmount() == 1) {
+            if (game.getSinglePlayerMode().equals(SinglePlayerMode.LIFEPOINTS)) {
+                setLives();
+            } else {
+                setTimer();
+                game.startTimer();
+            }
+        }
     }
 
     /**
@@ -205,6 +221,11 @@ public class GameController {
 
     /**
      * Filling the Stage with Objects
+     *
+     * @param id    of the new button
+     * @param row   of position of the new button
+     * @param col   of position of the new button
+     * @return      the new button
      */
     public Node newButton(String id, int row, int col) {
         Button button = new Button();
@@ -258,24 +279,14 @@ public class GameController {
                 labelPlayer3, labelPlayer4};
         Label[] scoreLabels = {labelScore1, labelScore2,
                 labelScore3, labelScore4};
-        AnchorPane[] keyAnchorPanes = {key1, key2,
-                key3, key4};
-
-        //TODO Man könnte die auch default invisible setzten
-        //@Quirin du kannst die AnchorPanes gerne hier löschen, wenn du was anderes vor hast.
-
-        for (int i = 0; i < scoreLabels.length; i++) {
-            scoreLabels[i].setVisible(false);
-            keyAnchorPanes[i].setVisible(false);
-        }
 
         for (int i = 0; i < game.
                 getPlayerAmount(); i++) {
             playerLabels[i].setText(game.getPlayerList().getPlayer(i).getName());
             scoreLabels[i].setVisible(true);
             scoreLabels[i].setText("Score: " + game.getPlayerList().getPlayer(i).getScore());
-            keyAnchorPanes[i].setVisible(true);
         }
+        key1.setVisible(true);
     }
 
     /**
@@ -298,6 +309,19 @@ public class GameController {
      * @param col       column of the current button
      */
     public void buttonClicked(ActionEvent event, Button button, String id, int row, int col) {
+        if (game.getPlayerList().getCount() == 1 && game.getSinglePlayerMode().equals(SinglePlayerMode.LIFEPOINTS)) {
+            setLives();
+        }
+
+        if (game.getPlayerList().getCount() == 1 && game.getSinglePlayerMode().equals(SinglePlayerMode.TIME)) {
+            if (game.getTime() == null) {
+                game.setGameWon(false);
+                ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+                new Window("GameResult.fxml");
+            } else {
+                //TODO timer aktuallieseren
+            }
+        }
 
         //Implementation of the game phases
         switch (game.getTurnStatus()) {
@@ -322,7 +346,7 @@ public class GameController {
                         secondCardStatus.equals(CardStatus.AlREADYOPEN)) {
                     break;
                 }
-                executeActive(button, id, row, col);
+                executeActive(button, id, row, col, event);
                 break;
         }
     }
@@ -359,7 +383,8 @@ public class GameController {
      * @param row       row of the current button
      * @param col       column of the current button
      */
-    public void executeActive(Button button, String id, int row, int col) {
+    public void executeActive(Button button, String id, int row, int col,
+                              ActionEvent event) {
 
         b2 = button;
 
@@ -387,6 +412,16 @@ public class GameController {
         } else {
             activePlayer.getAchievements().resetPairCounterStreak();
             activePlayer = activePlayer.getNext();
+            if (game.getPlayerList().getCount() == 1
+                    && game.getSinglePlayerMode().equals(SinglePlayerMode.LIFEPOINTS)) {
+                game.getPlayerList().getPlayer(0).reducelifes();
+                updateLives();
+                if (game.getPlayerList().getPlayer(0).getlifes() == 0) {
+                    game.setGameWon(false);
+                    ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+                    new Window("GameResult.fxml");
+                }
+            }
         }
 
     }
@@ -450,6 +485,68 @@ public class GameController {
         } catch (NullPointerException e) {
             //Die Buttons wurden noch nicht geklickt und sind deswegen leer.
         }
+    }
+
+    /**
+     * Visualizes the lives.
+     */
+    private void setLives () {
+        for (int i = 0; i < game.getBoard().length; i++) {
+            livesAndTime.getChildren().add(newHeart(String.valueOf(i)));
+            livesAndTime.getChildren().get(i).setVisible(true);
+        }
+        game.getPlayerList().getPlayer(0).setlifes(game.getBoard().length * 2);
+    }
+
+    /**
+     * Creates a new heart.
+     *
+     * @param id of the new heart
+     * @return   the new heart
+     */
+    public Node newHeart(String id) {
+        AnchorPane heart = new AnchorPane();
+        heart.setPrefSize(40, 40);
+        String css = Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Style.css").toUri().toString();
+        heart.getStylesheets().add(css);
+        heart.getStyleClass().add("LifeFull");
+        //Image image = new Image(Paths.get("src/main/resources/de/uni_passau"
+        //+ "/se/memory/gui/Images/Cursor.png").toUri().toString());
+        heart.setId(id);
+
+        return heart;
+    }
+
+    /**
+     * Updates the lives.
+     */
+    private void updateLives() {
+        int id = game.getPlayerList().getPlayer(0).getlifes();
+        if ((id % 2) == 0) {
+            livesAndTime.getChildren().get(id/2).getStyleClass().removeAll(
+                    "LifeFull");
+            livesAndTime.getChildren().get(id/2).getStyleClass().add(
+                    "LifeEmpty");
+        } else {
+            livesAndTime.getChildren().get((id+1)/2).getStyleClass().removeAll(
+                    "LifeFull");
+            //TODO add LifeHalfFull
+            livesAndTime.getChildren().get((id+1)/2).getStyleClass().add(
+                    "LifeHalfFull");
+        }
+    }
+
+    /**
+     * Visualizes the timer.
+     */
+    private void setTimer () {
+        Label timer = new Label();
+        timer.setPrefSize(120, 40);
+        String css = Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Style.css").toUri().toString();
+        timer.getStylesheets().add(css);
+        timer.getStyleClass().add("text15");
+        timer.setVisible(true);
+        livesAndTime.getChildren().add(timer);
     }
 }
 
