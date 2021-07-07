@@ -150,26 +150,43 @@ public final class Game {
     public String checkForAchievements(PlayerList players) {
         String currentAchievement = "";
 
-        int highestScore = players.getHighestScore()[0];
-        for (int i = 0; i < players.getCount(); i++) {
-            players.getPlayer(i).getAchievements().updateGamesPlayed();
+        if (checkForDraw(players)) {
 
-            //If a player has won a game
-            if (players.getPlayerScore(i) == highestScore) {
-                players.getPlayer(i).getAchievements().updateGamesWon();
-                players.getPlayer(i).getAchievements().checkGamesWon();
+            int highestScore = players.getHighestScore()[0];
+            for (int i = 0; i < players.getCount(); i++) {
+                players.getPlayer(i).getAchievements().updateGamesPlayed();
 
-                //If a player has earned a new achievement
-                if (!(players.getPlayer(i).getAchievements().getCurrentAchievements().isEmpty())) {
-                    View.printAchievement(players.getPlayer(i).getAchievements().getCurrentAchievements(), players.getPlayer(i));
-                    currentAchievement = currentAchievement +
-                            players.getPlayer(i).getName() + " has earned:\n" +
-                            players.getPlayer(i).getAchievements().getCurrentAchievements() + "\n";
-                    players.getPlayer(i).getAchievements().clearCurrentAchievement();
+                //If a player has won a game
+                if (players.getPlayerScore(i) == highestScore) {
+                    players.getPlayer(i).getAchievements().updateGamesWon();
+                    players.getPlayer(i).getAchievements().checkGamesWon();
+
+                    //If a player has earned a new achievement
+                    if (!(players.getPlayer(i).getAchievements().getCurrentAchievements().isEmpty())) {
+                        View.printAchievement(players.getPlayer(i).getAchievements().getCurrentAchievements(), players.getPlayer(i));
+                        currentAchievement = currentAchievement +
+                                players.getPlayer(i).getName() + " has earned:\n" +
+                                players.getPlayer(i).getAchievements().getCurrentAchievements() + "\n";
+                        players.getPlayer(i).getAchievements().clearCurrentAchievement();
+                        break;
+                    }
                 }
             }
+            return currentAchievement;
+        } else {
+            return "This game was a draw!";
         }
-        return currentAchievement;
+    }
+
+    public boolean checkForDraw(PlayerList players) {
+        int highestScore = players.getHighestScore()[0];
+        int playersWithHighestScore = 0;
+        for (int i = 0; i < players.getCount(); i++) {
+            if (players.getPlayer(i).getScore() == highestScore) {
+                playersWithHighestScore++;
+            }
+        }
+        return playersWithHighestScore == 1;
     }
 
     /**
