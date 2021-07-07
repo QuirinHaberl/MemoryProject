@@ -4,9 +4,30 @@
     src: url("VT323-Regular.ttf");
 }
 
-.text {
+.text15{
+    -fx-font-family: "VT323";
+    -fx-font-size: 15;
+}
+
+.text20{
+    -fx-font-family: "VT323";
+    -fx-font-size: 20;
+}
+
+.text25 {
     -fx-font-family: "VT323";
     -fx-font-size: 25;
+}
+
+.text30 {
+    -fx-font-family: "VT323";
+    -fx-font-size: 30;
+
+}
+
+.text40 {
+    -fx-font-family: "VT323";
+    -fx-font-size: 40;
 }
 
 .GameBack{
@@ -180,24 +201,32 @@
 .Banner{
 -fx-background-image: url("Images/Banner.png");
 -fx-background-size: 100% 100%;
+-fx-font-family: "VT323";
+-fx-font-size: 25;
 -fx-text-fill: white;
 }
 
 .BannerSingleP{
 -fx-background-image: url("Images/BannerSingleP.png");
 -fx-background-size: 100% 100%;
+    -fx-font-family: "VT323";
+    -fx-font-size: 25;
 -fx-text-fill: white;
 }
 
 .BannerMultiP{
 -fx-background-image: url("Images/BannerMultiP.png");
 -fx-background-size: 100% 100%;
+    -fx-font-family: "VT323";
+    -fx-font-size: 25;
 -fx-text-fill: white;
 }
 
 .BannerHighscore{
 -fx-background-image: url("Images/BannerHighscore.png");
 -fx-background-size: 100% 100%;
+    -fx-font-family: "VT323";
+    -fx-font-size: 25;
 -fx-text-fill: white;
 }
 
@@ -209,7 +238,8 @@
 .Paper2{
 -fx-background-image: url("Images/Paper2.png");
 -fx-background-size: 100% 100%;
--fx-font-size: 20;
+-fx-font-family: "VT323";
+-fx-font-size: 25;
 }
 
 .PlaceOne{

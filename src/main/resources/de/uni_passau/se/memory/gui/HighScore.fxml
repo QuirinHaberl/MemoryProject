@@ -9,13 +9,16 @@
 
 <AnchorPane prefHeight="522.0" prefWidth="600.0" style="-fx-background-color: Black;" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uni_passau.se.memory.gui.ControllerPack.HighScoreController">
    <children>
-      <Button layoutX="530.0" layoutY="474.0" mnemonicParsing="false" onAction="#back" text="Back" />
+      <Button layoutX="530.0" layoutY="474.0" mnemonicParsing="false" onAction="#back" styleClass="text20" text="Back" />
       <AnchorPane prefHeight="84.0" prefWidth="600.0" styleClass="BannerHighscore">
          <children>
-            <Label alignment="CENTER" prefHeight="84.0" prefWidth="600.0" text="Highscore-History" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <Label alignment="CENTER" prefHeight="84.0" prefWidth="600.0" styleClass="text40" text="Highscore-History" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <padding>
+                  <Insets top="20.0" />
+               </padding></Label>
          </children>
       </AnchorPane>
-      <VBox alignment="CENTER" layoutY="91.0" prefHeight="383.0" prefWidth="600.0">
+      <VBox alignment="CENTER" layoutY="91.0" prefHeight="383.0" prefWidth="600.0" styleClass="text25">
          <children>
             <HBox fx:id="box1" alignment="CENTER">
                <children>

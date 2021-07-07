@@ -20,6 +20,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.media.AudioClip;
 
 import java.net.URL;
 import java.nio.file.Paths;
@@ -92,6 +93,9 @@ public class GameController implements Initializable {
         startClicked();
     }
 
+    /**
+     * TODO check ob gebraucht
+     */
     public void startClicked() {
         int size = game.getPlayingField().getSize();
         game.getPlayingField().fillWithCards();
@@ -134,9 +138,18 @@ public class GameController implements Initializable {
      * TODO Game muss auch geschlossen werden wenn im Menü --> Main Menu asgewählt wird
      */
     public void menu(ActionEvent actionEvent) {
-        //((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
-        new Window("Menu.fxml");
+        new Window("StartScreen.fxml");
     }
+
+    /**
+     * TODO erneutes laden muss noch geschehen
+     * @param actionEvent
+     */
+    public void TryAgainClicked (ActionEvent actionEvent){
+        new Window("Game.fxml");
+    }
+
+    public void ExitClicked (ActionEvent actionEvent){System.exit(0);}
 
     public void help(ActionEvent actionEvent) {
         new Window("Rules.fxml");
@@ -221,6 +234,8 @@ public class GameController implements Initializable {
 
         b1.getStyleClass().removeAll("Card");
         b1.getStyleClass().add(((CardPictures) firstCard).getPicture());
+        AudioClip unlock=new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Unlock.wav").toUri().toString());
+        unlock.play();
 
         game.setTurnStatus(TurnStatus.ACTIVE);
     }
@@ -233,6 +248,8 @@ public class GameController implements Initializable {
 
         b2.getStyleClass().removeAll("Card");
         b2.getStyleClass().add(((CardPictures) secondCard).getPicture());
+        AudioClip unlock=new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Unlock.wav").toUri().toString());
+        unlock.play();
         checkIfWon();
         activePlayer = activePlayer.getNext();
 
@@ -240,6 +257,8 @@ public class GameController implements Initializable {
         if(firstCard.equals(secondCard)){
             activePlayer.updateScore();
             updateAllScores();
+            AudioClip found=new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Found.wav").toUri().toString());
+            found.play();
             b1.setVisible(false);
             b2.setVisible(false);
         }
@@ -251,6 +270,8 @@ public class GameController implements Initializable {
 
             if (game.areAllCardsOpen()) {
                 //TODO
+                AudioClip found=new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/GameWon.wav").toUri().toString());
+                found.play();
                 System.out.println("Spiel gewonnen!");
                 //new Window("GameResultController.fxml");
                 return true;
