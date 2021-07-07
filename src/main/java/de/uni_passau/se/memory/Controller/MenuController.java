@@ -25,6 +25,10 @@ public class MenuController {
         new Window("StartScreen.fxml");
     }
 
+    /**
+     * To exit the game.
+     *
+     * @param actionEvent when button clicked
+     */
     public void ExitClicked (ActionEvent actionEvent){System.exit(0);}
-
 }

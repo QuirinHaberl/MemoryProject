@@ -25,69 +25,159 @@ import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
+/**
+ * Controller of the game.
+ */
 public class GameController {
 
     @FXML
     public Button start;
 
+    /**
+     * Label for achievements
+     */
     @FXML
     private Label achievementLabel;
 
+    /**
+     * AnchorPane to indicate that it is the first player's turn
+     */
     @FXML
     private AnchorPane key1;
 
+    /**
+     * Label for the first player's name
+     */
     @FXML
     private Label labelPlayer1;
 
+    /**
+     * Label for the first player's score
+     */
     @FXML
     private Label labelScore1;
 
+    /**
+     * AnchorPane to indicate that it is the second player's turn
+     */
     @FXML
     private AnchorPane key2;
 
+    /**
+     * Label for the second player's name
+     */
     @FXML
     private Label labelPlayer2;
 
+    /**
+     * Label for the second player's score
+     */
     @FXML
     private Label labelScore2;
 
+    /**
+     * AnchorPane to indicate that it is the third player's turn
+     */
     @FXML
     private AnchorPane key3;
 
+    /**
+     * Label for the third player's name
+     */
     @FXML
     private Label labelPlayer3;
 
+    /**
+     * Label for the third player's score
+     */
     @FXML
     private Label labelScore3;
 
+    /**
+     * AnchorPane to indicate that it is the fourth player's turn
+     */
     @FXML
     private AnchorPane key4;
 
+    /**
+     * Label for the fourth player's name
+     */
     @FXML
     private Label labelPlayer4;
 
+    /**
+     * Label for the fourth player's score
+     */
     @FXML
     private Label labelScore4;
 
+    /**
+     * Board to store all buttons of the cards
+     */
     @FXML
     private GridPane Board;
+
+    /**
+     * To store the first revealed card
+     */
     Object firstCard;
+
+    /**
+     * To store the second revealed card
+     */
     Object secondCard;
 
+    /**
+     * Button of the currently first revealed card
+     */
     private Button b1;
+
+    /**
+     * Button of the currently second revealed card
+     */
     private Button b2;
 
+    /**
+     * Indicator of the first cards row
+     */
     int firstRow;
+
+    /**
+     * Indicator of the first cards column
+     */
     int firstCol;
+
+    /**
+     * Indicator of the second cards row
+     */
     int secondRow;
+
+    /**
+     * Indicator of the second cards column
+     */
     int secondCol;
+
+    /**
+     * Stores the current game
+     */
     Game game = Wrapper.getInstance().getGame();
+
+    /**
+     * Stores the player whose turn it is
+     */
     Player activePlayer = game.getPlayerList().getFront();
+
+    /**
+     * Stores the size of the current {@link de.uni_passau.se.memory.Model.PlayingField}
+     */
     int size = game.getPlayingField().getSize();
 
     public GameController() {
     }
 
+    /**
+     * Shows the current {@link GameController}
+     */
     @FXML
     public void initialize() {
         setPlayerLabel();
@@ -95,12 +185,14 @@ public class GameController {
     }
 
     /**
+     * Starts the game.
      * TODO check ob gebraucht
      */
     public void startClicked() {
         int size = game.getPlayingField().getSize();
         game.getPlayingField().fillWithCards();
 
+        // Filling the Board with Buttons for every card
         for (int row = 0; row < size; row++) {
             Board.getColumnConstraints().add(new ColumnConstraints(100));
             for (int col = 0; col < size; col++) {
@@ -158,6 +250,9 @@ public class GameController {
         new Window("Rules.fxml");
     }
 
+    /**
+     * Makes the information about the current players visible.
+     */
     public void setPlayerLabel() {
         Label[] playerLabels = {labelPlayer1, labelPlayer2,
                 labelPlayer3, labelPlayer4};
@@ -183,7 +278,9 @@ public class GameController {
         }
     }
 
-
+    /**
+     * Updates the scores of all players of the current game.
+     */
     public void updateAllScores() {
         Label[] scoreLabels = {labelScore1, labelScore2, labelScore3, labelScore4};
         for (int i = 0; i < game.getPlayerAmount(); i++) {
@@ -191,6 +288,15 @@ public class GameController {
         }
     }
 
+    /**
+     * Opens a card and performs a turn.
+     *
+     * @param event     when button clicked
+     * @param button    which is on action
+     * @param id        id of the current button
+     * @param row       row of the current button
+     * @param col       column of the current button
+     */
     public void buttonClicked(ActionEvent event, Button button, String id, int row, int col) {
 
         //Implementation of the game phases
@@ -221,6 +327,14 @@ public class GameController {
         }
     }
 
+    /**
+     * Performs a turn for a first revealed card.
+     *
+     * @param button    which is on action
+     * @param id        id of the current button
+     * @param row       row of the current button
+     * @param col       column of the current button
+     */
     public void executeIdle(Button button, String id, int row, int col) {
 
         closeCards();
@@ -237,6 +351,14 @@ public class GameController {
         game.setTurnStatus(TurnStatus.ACTIVE);
     }
 
+    /**
+     * Performs a turn for a second revealed card.
+     *
+     * @param button    which is on action
+     * @param id        id of the current button
+     * @param row       row of the current button
+     * @param col       column of the current button
+     */
     public void executeActive(Button button, String id, int row, int col) {
 
         b2 = button;
@@ -269,6 +391,9 @@ public class GameController {
 
     }
 
+    /**
+     * Checks if a player has won the game.
+     */
     public void checkIfWon() {
         if (game.pairCheck(firstRow, firstCol, secondRow, secondCol)) {
 
@@ -287,6 +412,9 @@ public class GameController {
         }
     }
 
+    /**
+     * Checks achievements for the current player during the game.
+     */
     public void checkAchievementsDuringGame() {
         String achievement = game.checkForAchievements(activePlayer);
         if (!achievement.isEmpty()) {
@@ -297,6 +425,9 @@ public class GameController {
         }
     }
 
+    /**
+     * Checks achievements for all players after game.
+     */
     public void checkAchievementsAfterGame() {
         String achievement = game.checkForAchievements(game.getPlayerList());
         if (!achievement.isEmpty()) {
@@ -307,6 +438,9 @@ public class GameController {
         }
     }
 
+    /**
+     * Closes the two opened cards.
+     */
     public void closeCards() {
         try {
             b1.getStyleClass().clear();
