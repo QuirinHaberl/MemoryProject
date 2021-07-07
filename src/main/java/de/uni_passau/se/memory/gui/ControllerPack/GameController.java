@@ -150,13 +150,16 @@ public class GameController implements Initializable {
 
     /**
      * TODO erneutes laden muss noch geschehen
+     *
      * @param actionEvent
      */
-    public void TryAgainClicked (ActionEvent actionEvent){
+    public void TryAgainClicked(ActionEvent actionEvent) {
         new Window("Game.fxml");
     }
 
-    public void ExitClicked (ActionEvent actionEvent){System.exit(0);}
+    public void ExitClicked(ActionEvent actionEvent) {
+        System.exit(0);
+    }
 
     public void help(ActionEvent actionEvent) {
         new Window("Rules.fxml");
@@ -180,8 +183,8 @@ public class GameController implements Initializable {
 
         for (int i = 0; i < game.
                 getPlayerAmount(); i++) {
-            playerLabels[i].setText(game.
-                    getPlayerList().getPlayer(i).getName());
+            playerLabels[i].setText(game.getPlayerList().getPlayer(i).getName() +
+                    game.getPlayerList().getPlayer(i).getScore());
             scoreLabels[i].setVisible(true);
             keyAnchorPanes[i].setVisible(true);
         }
@@ -233,7 +236,7 @@ public class GameController implements Initializable {
         b1.getStyleClass().removeAll("Card");
         b1.getStyleClass().add(((CardValues) firstCard).getPicture());
 
-        AudioClip unlock=new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Unlock.wav").toUri().toString());
+        AudioClip unlock = new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Unlock.wav").toUri().toString());
         unlock.play();
 
         game.setTurnStatus(TurnStatus.ACTIVE);
@@ -248,7 +251,7 @@ public class GameController implements Initializable {
         b2.getStyleClass().removeAll("Card");
         b2.getStyleClass().add(((CardValues) secondCard).getPicture());
 
-        AudioClip unlock=new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Unlock.wav").toUri().toString());
+        AudioClip unlock = new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Unlock.wav").toUri().toString());
         unlock.play();
         checkIfWon();
 
@@ -260,7 +263,7 @@ public class GameController implements Initializable {
 
             //Ineffizient, funktioniert aber :3
             updateAllScores();
-            AudioClip found=new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Found.wav").toUri().toString());
+            AudioClip found = new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Found.wav").toUri().toString());
             found.play();
             b1.setVisible(false);
             b2.setVisible(false);
@@ -277,7 +280,7 @@ public class GameController implements Initializable {
             checkAchievementsDuringGame();
             if (game.areAllCardsOpen()) {
                 //TODO
-                AudioClip found=new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/GameWon.wav").toUri().toString());
+                AudioClip found = new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/GameWon.wav").toUri().toString());
                 found.play();
                 System.out.println("Spiel gewonnen!");
                 //new Window("GameResultController.fxml");
@@ -294,6 +297,8 @@ public class GameController implements Initializable {
         if (!achievement.isEmpty()) {
             achievementLabel.setStyle("-fx-font-size: 15pt;");
             achievementLabel.setText(activePlayer.getName() + " has earned:\n" + achievement);
+            AudioClip unlock = new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Achievement.wav").toUri().toString());
+            unlock.play();
         }
     }
 
@@ -302,6 +307,8 @@ public class GameController implements Initializable {
         if (!achievement.isEmpty()) {
             achievementLabel.setStyle("-fx-font-size: 15pt;");
             achievementLabel.setText(achievement);
+            AudioClip unlock = new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Achievement.wav").toUri().toString());
+            unlock.play();
         }
     }
 
