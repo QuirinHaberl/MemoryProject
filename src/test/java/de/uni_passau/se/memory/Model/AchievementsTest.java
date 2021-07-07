@@ -12,31 +12,7 @@ class AchievementsTest {
     }
 
     @Test
-    void setHighScore() {
-    }
-
-    @Test
-    void getGamesWon() {
-    }
-
-    @Test
-    void getHighScore() {
-    }
-
-    @Test
-    void setGamesWon() {
-    }
-
-    @Test
     void getCurrentAchievements() {
-    }
-
-    @Test
-    void setGamesPlayed() {
-    }
-
-    @Test
-    void getGamesPlayed() {
     }
 
     @Test

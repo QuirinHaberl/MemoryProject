@@ -2,7 +2,7 @@ package de.uni_passau.se.memory.Model;
 
 import de.uni_passau.se.memory.Model.Enums.CardSet;
 import de.uni_passau.se.memory.Model.Enums.CardValues;
-import de.uni_passau.se.memory.View.View;
+import de.uni_passau.se.memory.gui.View;
 
 import java.util.Random;
 

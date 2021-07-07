@@ -1,4 +1,4 @@
-package de.uni_passau.se.memory.gui.ControllerPack;
+package de.uni_passau.se.memory.Controller;
 
 import de.uni_passau.se.memory.Model.Enums.CardStatus;
 import de.uni_passau.se.memory.Model.Enums.CardValues;
@@ -6,10 +6,8 @@ import de.uni_passau.se.memory.Model.Enums.GameStatus;
 import de.uni_passau.se.memory.Model.Enums.TurnStatus;
 import de.uni_passau.se.memory.Model.Game;
 import de.uni_passau.se.memory.Model.Player;
-import de.uni_passau.se.memory.View.DataDisplay;
 import de.uni_passau.se.memory.gui.Window;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.ImageCursor;
@@ -21,15 +19,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 
-import javafx.stage.Stage;
-
 import javafx.scene.media.AudioClip;
 
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
-public class GameController implements Initializable {
+public class GameController {
 
     @FXML
     public Button start;
@@ -85,15 +81,15 @@ public class GameController implements Initializable {
     int firstCol;
     int secondRow;
     int secondCol;
-    Game game = DataDisplay.getInstance().getGame();
+    Game game = Wrapper.getInstance().getGame();
     Player activePlayer = game.getPlayerList().getFront();
     int size = game.getPlayingField().getSize();
 
     public GameController() {
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    @FXML
+    public void initialize() {
         setPlayerLabel();
         startClicked();
     }
@@ -128,13 +124,10 @@ public class GameController implements Initializable {
         button.setCursor(new ImageCursor(image));
         button.setId(id);
 
+
+
         //TODO das hier sieht nicht gut aus :c
-        button.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                buttonClicked(event, button, id, row, col);
-            }
-        });
+        button.setOnAction(event -> buttonClicked(event, button, id, row, col));
         return button;
     }
 
@@ -183,9 +176,9 @@ public class GameController implements Initializable {
 
         for (int i = 0; i < game.
                 getPlayerAmount(); i++) {
-            playerLabels[i].setText(game.getPlayerList().getPlayer(i).getName() +
-                    game.getPlayerList().getPlayer(i).getScore());
+            playerLabels[i].setText(game.getPlayerList().getPlayer(i).getName());
             scoreLabels[i].setVisible(true);
+            scoreLabels[i].setText("Score: " + game.getPlayerList().getPlayer(i).getScore());
             keyAnchorPanes[i].setVisible(true);
         }
     }
@@ -202,6 +195,7 @@ public class GameController implements Initializable {
 
         //Implementation of the game phases
         switch (game.getTurnStatus()) {
+
             //Is used if the turn hasn't been stated yet.
             case IDLE:
                 firstRow = row;
@@ -212,6 +206,7 @@ public class GameController implements Initializable {
                 }
                 executeIdle(button, id, row, col);
                 break;
+
             //Is used if the turn has been stated.
             case ACTIVE:
                 secondRow = row;

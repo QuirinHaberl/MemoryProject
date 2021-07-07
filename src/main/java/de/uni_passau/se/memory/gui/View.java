@@ -1,4 +1,4 @@
-package de.uni_passau.se.memory.View;
+package de.uni_passau.se.memory.gui;
 
 import de.uni_passau.se.memory.Model.*;
 import de.uni_passau.se.memory.Model.Enums.CardStatus;

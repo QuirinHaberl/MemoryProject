@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="522.0" prefWidth="600.0" style="-fx-background-color: Black;" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uni_passau.se.memory.gui.ControllerPack.HighScoreController">
+<AnchorPane prefHeight="522.0" prefWidth="600.0" style="-fx-background-color: Black;" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uni_passau.se.memory.Controller.HighScoreController">
    <children>
       <Button layoutX="530.0" layoutY="474.0" mnemonicParsing="false" onAction="#back" styleClass="text20" text="Back" />
       <AnchorPane prefHeight="84.0" prefWidth="600.0" styleClass="BannerHighscore">

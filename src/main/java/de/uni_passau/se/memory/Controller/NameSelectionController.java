@@ -1,7 +1,6 @@
-package de.uni_passau.se.memory.gui.ControllerPack;
+package de.uni_passau.se.memory.Controller;
 
 import de.uni_passau.se.memory.Model.Game;
-import de.uni_passau.se.memory.View.DataDisplay;
 import de.uni_passau.se.memory.gui.Window;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -68,7 +67,7 @@ public class NameSelectionController implements Initializable {
     }
 
     public void addPlayers() {
-        Game game = DataDisplay.getInstance().getGame();
+        Game game = Wrapper.getInstance().getGame();
         TextField[] textFields = {player1Input, player2Input, player3Input, player4Input};
         CheckBox[] checkBoxes = {checkPlayer1, checkPlayer2, checkPlayer3, checkPlayer4};
         int playerAmount = game.getPlayerAmount();
@@ -106,7 +105,7 @@ public class NameSelectionController implements Initializable {
             checkBoxes[i].setVisible(false);
             textFields[i].setText("");
         }
-        for (int i = 0; i < DataDisplay.getInstance().getGame().getPlayerAmount(); i++) {
+        for (int i = 0; i < Wrapper.getInstance().getGame().getPlayerAmount(); i++) {
             labels[i].setVisible(true);
             textFields[i].setVisible(true);
             checkBoxes[i].setVisible(true);

@@ -1,4 +1,4 @@
-package de.uni_passau.se.memory.View;
+package de.uni_passau.se.memory.Controller;
 
 import de.uni_passau.se.memory.Model.Enums.CardSet;
 import de.uni_passau.se.memory.Model.Game;
@@ -8,17 +8,17 @@ import de.uni_passau.se.memory.Model.Game;
  * To allow the communication with the Gui-controllers.
  * The used pattern is the Singleton-Pattern, to generate only one game
  */
-public class DataDisplay {
+public class Wrapper {
     /**
      * The instance of the DataDisplay
      */
-    private static final DataDisplay INSTANCE = new DataDisplay();
+    private static final Wrapper INSTANCE = new Wrapper();
     private Game game;
 
     /**
      * Constructs the game
      */
-    private DataDisplay() {
+    private Wrapper() {
         this.game = new Game();
         game.getPlayingField().setCardSet(CardSet.PICTURES);
     }
@@ -28,7 +28,7 @@ public class DataDisplay {
      *
      * @return the Instance
      */
-    public static DataDisplay getInstance() {
+    public static Wrapper getInstance() {
         return INSTANCE;
     }
 

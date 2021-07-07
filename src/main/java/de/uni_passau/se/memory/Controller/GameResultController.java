@@ -1,4 +1,4 @@
-package de.uni_passau.se.memory.gui.ControllerPack;
+package de.uni_passau.se.memory.Controller;
 
 import javafx.event.ActionEvent;
 

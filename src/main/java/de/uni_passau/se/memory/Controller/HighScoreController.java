@@ -1,10 +1,9 @@
-package de.uni_passau.se.memory.gui.ControllerPack;
+package de.uni_passau.se.memory.Controller;
 
 import de.uni_passau.se.memory.Model.Database;
 import de.uni_passau.se.memory.gui.Window;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;

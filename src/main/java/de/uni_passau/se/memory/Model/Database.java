@@ -1,6 +1,6 @@
 package de.uni_passau.se.memory.Model;
 
-import de.uni_passau.se.memory.View.View;
+import de.uni_passau.se.memory.gui.View;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -45,8 +45,8 @@ public class Database {
      * Constructs a new database-object.
      */
     public Database() {
-        this.pathToProfiles = "src/main/resources/profiles.csv";
-        this.pathToHighScores = "src/main/resources/highScoreHistory.csv";
+        this.pathToProfiles = "src/main/resources/de/uni_passau/se/memory/Database/profiles.csv";
+        this.pathToHighScores = "src/main/resources/de/uni_passau/se/memory/Database/highScoreHistory.csv";
         this.playerProfiles = new ArrayList<>();
         this.highScoreList = new ArrayList<>();
     }

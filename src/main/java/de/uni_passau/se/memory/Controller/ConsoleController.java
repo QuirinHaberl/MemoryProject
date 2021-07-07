@@ -1,16 +1,15 @@
-package de.uni_passau.se.memory.gui;
+package de.uni_passau.se.memory.Controller;
 
 import de.uni_passau.se.memory.Model.*;
 import de.uni_passau.se.memory.Model.Enums.CardStatus;
 import de.uni_passau.se.memory.Model.Enums.GameStatus;
-import de.uni_passau.se.memory.View.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
+import de.uni_passau.se.memory.gui.View;
 import javafx.fxml.Initializable;
 
 import java.net.URL;
@@ -19,7 +18,7 @@ import java.util.ResourceBundle;
 /**
  * The controller of the MVC-architecture.
  */
-public class Controller implements Initializable {
+public class ConsoleController implements Initializable {
 
 
     @Override
@@ -43,9 +42,9 @@ public class Controller implements Initializable {
     private SinglePlayerMode singlePlayerMode;
 
     /**
-     * Constructs a new {@link Controller}.
+     * Constructs a new {@link ConsoleController}.
      */
-    public Controller() {
+    public ConsoleController() {
         this.game = Game.getInstance();
         this.menuStatus = MenuStatus.PLAYERMODE;
     }
@@ -203,8 +202,8 @@ public class Controller implements Initializable {
                 int counter = 1; //Number of choices
                 View.printPlayer(player.getName());
 
-                //This is only for the single player mode with the setting "play with lifes"
-                if (game.getPlayerList().getCount() == 1 && singlePlayerMode.equals(SinglePlayerMode.lifePOINTS)) {
+                //This is only for the single player mode with the setting "play with lives"
+                if (game.getPlayerList().getCount() == 1 && singlePlayerMode.equals(SinglePlayerMode.LIFEPOINTS)) {
                     View.printlifes(game.getPlayerList().getPlayer(0).getlifes());
                 }
 
@@ -297,9 +296,9 @@ public class Controller implements Initializable {
                                     //Reset streak for achievements
                                     player.getAchievements().resetPairCounterStreak();
 
-                                    //This is only for the single player mode with the setting "play with lifes"
+                                    //This is only for the single player mode with the setting "play with lives"
                                     if (game.getPlayerList().getCount() == 1
-                                            && singlePlayerMode.equals(SinglePlayerMode.lifePOINTS)) {
+                                            && singlePlayerMode.equals(SinglePlayerMode.LIFEPOINTS)) {
                                         game.getPlayerList().getPlayer(0).reducelifes();
 
                                         if (game.getPlayerList().getPlayer(0).getlifes() == 0) {
@@ -450,7 +449,7 @@ public class Controller implements Initializable {
             return false;
         }
         if (mode.equals("life")) {
-            singlePlayerMode = SinglePlayerMode.lifePOINTS;
+            singlePlayerMode = SinglePlayerMode.LIFEPOINTS;
             return true;
         } else {
             singlePlayerMode = SinglePlayerMode.TIME;

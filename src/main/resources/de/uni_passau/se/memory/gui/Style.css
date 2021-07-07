@@ -4,9 +4,14 @@
     src: url("VT323-Regular.ttf");
 }
 
-.text15{
+.text12{
     -fx-font-family: "VT323";
     -fx-font-size: 12;
+}
+
+.text15{
+    -fx-font-family: "VT323";
+    -fx-font-size: 15;
 }
 
 .text20{
