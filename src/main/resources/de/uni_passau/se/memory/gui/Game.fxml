@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<BorderPane stylesheets="@Style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uni_passau.se.memory.gui.ControllerPack.GameController">
+<BorderPane stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uni_passau.se.memory.gui.ControllerPack.GameController">
    <center>
       <VBox alignment="CENTER" prefHeight="650.0" prefWidth="1000.0" styleClass="GameBack" BorderPane.alignment="CENTER">
          <children>
@@ -20,9 +27,9 @@
    <top>
       <AnchorPane prefHeight="54.0" prefWidth="700.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
          <children>
-            <HBox prefHeight="66.0" prefWidth="700.0" spacing="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <HBox prefHeight="66.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <MenuBar prefWidth="400.0">
+                  <MenuBar prefHeight="43.0" prefWidth="350.0" styleClass="text20">
                     <menus>
                       <Menu mnemonicParsing="false" text="Menu">
                         <items>
@@ -42,10 +49,13 @@
                       </Menu>
                     </menus>
                   </MenuBar>
-                  <AnchorPane prefHeight="200.0" prefWidth="500.0" />
                   <AnchorPane prefHeight="200.0" prefWidth="500.0">
                      <children>
-                        <Label styleClass="text2" text="Label" textFill="WHITE" />
+                        <Label alignment="CENTER" prefHeight="34.0" prefWidth="500.0" styleClass="text25" text="Lives and Time" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children></AnchorPane>
+                  <AnchorPane prefHeight="200.0" prefWidth="500.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="34.0" prefWidth="500.0" styleClass="text15" text="Acchievements" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
                </children>
@@ -62,7 +72,7 @@
             <HBox>
                <children>
                   <AnchorPane fx:id="key1" prefHeight="200.0" prefWidth="500.0" styleClass="PointerPlayer" />
-                  <VBox alignment="CENTER_LEFT" prefWidth="500.0">
+                  <VBox alignment="CENTER_LEFT" prefWidth="500.0" styleClass="text25">
                      <children>
                         <Label fx:id="labelPlayer1" textFill="WHITE" />
                         <Label fx:id="labelScore1" text="Score" textFill="WHITE" />
@@ -73,7 +83,7 @@
             <HBox>
                <children>
                   <AnchorPane fx:id="key2" prefHeight="200.0" prefWidth="500.0" styleClass="PointerPlayer" />
-                  <VBox alignment="CENTER_LEFT" prefWidth="500.0">
+                  <VBox alignment="CENTER_LEFT" prefWidth="500.0" styleClass="text25">
                      <children>
                         <Label fx:id="labelPlayer2" textFill="WHITE" />
                         <Label fx:id="labelScore2" text="Score" textFill="WHITE" />
@@ -84,7 +94,7 @@
             <HBox>
                <children>
                   <AnchorPane fx:id="key3" prefHeight="200.0" prefWidth="500.0" styleClass="PointerPlayer" />
-                  <VBox alignment="CENTER_LEFT" prefWidth="500.0">
+                  <VBox alignment="CENTER_LEFT" prefWidth="500.0" styleClass="text25">
                      <children>
                         <Label fx:id="labelPlayer3" textFill="WHITE" />
                         <Label fx:id="labelScore3" text="Score" textFill="WHITE" />
@@ -95,7 +105,7 @@
             <HBox>
                <children>
                   <AnchorPane fx:id="key4" prefHeight="200.0" prefWidth="500.0" styleClass="PointerPlayer" />
-                  <VBox alignment="CENTER_LEFT" prefWidth="500.0">
+                  <VBox alignment="CENTER_LEFT" prefWidth="500.0" styleClass="text25">
                      <children>
                         <Label fx:id="labelPlayer4" textFill="WHITE" />
                         <Label fx:id="labelScore4" text="Score" textFill="WHITE" />

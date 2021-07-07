@@ -21,7 +21,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.media.AudioClip;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.nio.file.Paths;
@@ -139,7 +138,6 @@ public class GameController implements Initializable {
      * TODO Game muss auch geschlossen werden wenn im Menü --> Main Menu asgewählt wird
      */
     public void menu(ActionEvent actionEvent) {
-        //((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
         new Window("StartScreen.fxml");
     }
 
@@ -148,7 +146,6 @@ public class GameController implements Initializable {
      * @param actionEvent
      */
     public void TryAgainClicked (ActionEvent actionEvent){
-        ((Stage)(((Button)actionEvent.getSource()).getScene().getWindow())).close();
         new Window("Game.fxml");
     }
 

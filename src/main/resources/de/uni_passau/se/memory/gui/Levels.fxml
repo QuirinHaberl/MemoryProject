@@ -8,7 +8,7 @@
    <children>
       <AnchorPane prefHeight="93.0" prefWidth="600.0" styleClass="Banner">
          <children>
-            <Label alignment="CENTER" prefHeight="93.0" prefWidth="600.0" text="How many cards would &#10;you like to play with?" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <Label alignment="CENTER" prefHeight="93.0" prefWidth="600.0" styleClass="text30" text="How many cards would &#10;you like to play with?" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children>
       </AnchorPane>
       <VBox alignment="CENTER" layoutY="82.0" prefHeight="359.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="82.0">
