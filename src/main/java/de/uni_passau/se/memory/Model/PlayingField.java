@@ -72,6 +72,22 @@ public class PlayingField {
      */
     public void fillWithValues(CardValues[] cardValues) {
         int size = cardValues.length;
+
+        int counter = (int) Math.round(Math.random() * (size));
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j = j + 2) {
+                board[i][j] = new Card(cardValues[counter % size], globalCardSet);
+                board[i][j + 1] = new Card(cardValues[counter % size], globalCardSet);
+                counter++;
+            }
+        }
+    }
+
+    /**
+     * Fills the board with digits
+     */
+    public void fillWithValuesBackup(CardValues[] cardValues) {
+        int size = cardValues.length;
         int counter = 0;
         for (int i = 0; i < board.length / 2; i++) {
             for (int j = 0; j < board[0].length; j++) {
