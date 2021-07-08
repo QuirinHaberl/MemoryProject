@@ -14,12 +14,14 @@ public class Database {
     /**
      * Stores the path to highScoreHistory.csv.
      */
-    String pathToProfiles;
+    private static final String pathToProfiles =
+            "src/main/resources/de/uni_passau/se/memory/Database/profiles.csv";
 
     /**
      * Stores the path to highScoreHistory.csv.
      */
-    String pathToHighScores;
+    private static final String pathToHighScores =
+            "src/main/resources/de/uni_passau/se/memory/Database/highScoreHistory.csv";
 
     /**
      * Stores the {@code HighScoreHistory} in a list. At first
@@ -45,8 +47,6 @@ public class Database {
      * Constructs a new database-object.
      */
     public Database() {
-        this.pathToProfiles = "src/main/resources/de/uni_passau/se/memory/Database/profiles.csv";
-        this.pathToHighScores = "src/main/resources/de/uni_passau/se/memory/Database/highScoreHistory.csv";
         this.playerProfiles = new ArrayList<>();
         this.highScoreList = new ArrayList<>();
     }
@@ -92,7 +92,7 @@ public class Database {
         } catch (FileNotFoundException e) {
             View.error("File not found!");
         } catch (IOException e) {
-            View.error("Couldn't write to " + path);
+            View.error("Couldn't read from " + path);
         }
     }
 
@@ -140,7 +140,7 @@ public class Database {
         } catch (FileNotFoundException e) {
             View.error("File not found!");
         } catch (IOException e) {
-            View.error("Couldn't write to " + pathToHighScores);
+            View.error("Couldn't read from " + pathToHighScores);
         }
     }
 
@@ -150,7 +150,7 @@ public class Database {
      * @return all playerProfiles
      */
     public List<String[]> getPlayerProfiles() {
-        return playerProfiles;
+        return this.playerProfiles;
     }
 
     /**
@@ -159,7 +159,7 @@ public class Database {
      * @return all playerProfiles
      */
     public List<String[]> getHighScoreHistory() {
-        return highScoreList;
+        return this.highScoreList;
     }
 
     /**
@@ -169,11 +169,11 @@ public class Database {
      * @param winningPlayers of the current game.
      * @param highestScore   of the winning players.
      */
-    public void updateHighScoreHistory(String[] winningPlayers,
+    public void updateHighScoreHistory(List<String> winningPlayers,
                                        int highestScore) {
-        for (int i = winningPlayers.length - 1; i >= 0; i--) {
-            if (!updateHighScore(winningPlayers[i], highestScore)) {
-                addNewHighScore(winningPlayers[i], highestScore);
+        for (int i = winningPlayers.size() - 1; i >= 0; i--) {
+            if (!updateHighScore(winningPlayers.get(i), highestScore)) {
+                addNewHighScore(winningPlayers.get(i), highestScore);
             }
         }
     }
