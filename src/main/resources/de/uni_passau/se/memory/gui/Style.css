@@ -267,11 +267,6 @@
 -fx-background-size: 100% 100%;
 }
 
-.Key{
--fx-background-image: url("Images/Key.png");
--fx-background-size: 100% 100%;
-}
-
 .Fire{
 -fx-background-image: url("Images/Fire.png");
 -fx-background-size: 100% 100%;
