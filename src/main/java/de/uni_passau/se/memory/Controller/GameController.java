@@ -125,6 +125,12 @@ public class GameController {
     @FXML
     private HBox livesAndTime;
 
+    @FXML
+    private Button MainMenuButton;
+
+    @FXML
+    private Button TryAgainButton;
+
     /**
      * To store the first revealed card
      */
@@ -245,21 +251,29 @@ public class GameController {
     }
 
     /**
-     * The other actions
-     * TODO Game muss auch geschlossen werden wenn im Menü --> Main Menu asgewählt wird
+     * Calls mainMenu to enable the Window to be closed
      */
-    public void menu(ActionEvent actionEvent) {
+    public void menu() {
+        mainMenu();
+    }
 
+    /**
+     * closes the current window and opens the Start Screen
+     */
+    public void mainMenu (){
+        ((Stage)(MainMenuButton.getScene().getWindow())).close();
         new Window("StartScreen.fxml");
-
     }
 
     /**
      * TODO erneutes laden muss noch geschehen
-     *
-     * @param actionEvent
      */
-    public void TryAgainClicked(ActionEvent actionEvent) {
+    public void TryAgainClicked() {
+        tryAgainButtonClicked();
+    }
+
+    public void tryAgainButtonClicked (){
+        ((Stage)(TryAgainButton.getScene().getWindow())).close();
         new Window("Game.fxml");
     }
 
