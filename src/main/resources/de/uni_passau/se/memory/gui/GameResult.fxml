@@ -28,9 +28,9 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="5000.0" styleClass="ResultBack" text="Place" textAlignment="CENTER" textFill="WHITE" />
-            <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="5000.0" styleClass="ResultBack" text="Points" textFill="WHITE" GridPane.columnIndex="1" />
-            <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="5000.0" styleClass="ResultBack" text="Player Name" textFill="WHITE" GridPane.columnIndex="2" />
+            <Label fx:id="PlaceHeader" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="5000.0" styleClass="ResultBack" text="Place" textAlignment="CENTER" textFill="WHITE" />
+            <Label fx:id="PointsHeader" alignment="CENTER" contentDisplay="CENTER" prefWidth="5000.0" styleClass="ResultBack" text="Points" textFill="WHITE" GridPane.columnIndex="1" />
+            <Label fx:id="PlayerNameHeader" alignment="CENTER" contentDisplay="CENTER" prefWidth="5000.0" styleClass="ResultBack" text="Player Name" textFill="WHITE" GridPane.columnIndex="2" />
             <Label fx:id="score1" alignment="CENTER" contentDisplay="CENTER" layoutX="135.0" layoutY="35.0" prefWidth="5000.0" styleClass="ResultBack2" text="100" textFill="WHITE" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label fx:id="score2" alignment="CENTER" contentDisplay="CENTER" layoutX="135.0" layoutY="102.0" prefWidth="5000.0" styleClass="ResultBack2" text="70" textFill="WHITE" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label fx:id="score3" alignment="CENTER" contentDisplay="CENTER" layoutX="135.0" layoutY="169.0" prefWidth="5000.0" styleClass="ResultBack2" text="50" textFill="WHITE" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
