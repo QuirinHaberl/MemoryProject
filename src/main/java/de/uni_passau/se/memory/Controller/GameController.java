@@ -19,6 +19,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 
 import javafx.scene.media.AudioClip;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -555,6 +556,8 @@ public class GameController {
      */
     private void setTimer(Label timer) {
 
+        timer.setTextFill(Color.WHITE);
+        timer.setStyle("-fx-font-size: 20pt;");;
         timer.setPrefSize(120, 40);
         String css = Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Style.css").toUri().toString();
         timer.getStylesheets().add(css);
@@ -594,7 +597,7 @@ public class GameController {
             } else {
                 time--;
                 S = time + "";
-                timer.setText(S);
+                timer.setText("Time: " + S);
             }
 
         }
