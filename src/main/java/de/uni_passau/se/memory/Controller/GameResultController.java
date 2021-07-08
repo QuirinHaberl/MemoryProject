@@ -8,7 +8,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
+
+import java.nio.file.Paths;
 
 
 /**
@@ -95,6 +98,21 @@ public class GameResultController {
     private Label message;
 
     /**
+     * Game Over Image when loosing a game
+     */
+    @FXML
+    private AnchorPane GameOver;
+
+    @FXML
+    private Label PlaceHeader;
+
+    @FXML
+    private Label PointsHeader;
+
+    @FXML
+    private Label PlayerNameHeader;
+
+    /**
      * Shows the game results in a sorted list, that starts with the winning
      * player/s.
      */
@@ -107,6 +125,17 @@ public class GameResultController {
             int[] highScore =
                     game.getPlayerList().getHighestScore();
             message.setText(printGameSummary(winningPlayers, highScore[0]));
+        }
+        else{
+            GameOver.setVisible(true);
+            PlaceHeader.setVisible(false);
+            PointsHeader.setVisible(false);
+            PlayerNameHeader.setVisible(false);
+            first.setVisible(false);
+            score1.setVisible(false);
+            player1.setVisible(false);
+            AudioClip gameOver = new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/GameOver.wav").toUri().toString());
+            gameOver.play();
         }
     }
 
