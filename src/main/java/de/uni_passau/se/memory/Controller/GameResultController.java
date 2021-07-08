@@ -98,11 +98,8 @@ public class GameResultController {
     private Label message;
 
     /**
-     * Anchor pane for the game over image
+     * Game Over Image when loosing a game
      */
-    @FXML
-    private AnchorPane gameOver;
-
     @FXML
     private AnchorPane GameOver;
 
@@ -114,7 +111,6 @@ public class GameResultController {
 
     @FXML
     private Label PlayerNameHeader;
-
 
     /**
      * Shows the game results in a sorted list, that starts with the winning
@@ -131,8 +127,6 @@ public class GameResultController {
             message.setText(printGameSummary(winningPlayers, highScore[0]));
         }
         else{
-            message.setVisible(false);
-            gameOver.setVisible(true);
             GameOver.setVisible(true);
             PlaceHeader.setVisible(false);
             PointsHeader.setVisible(false);
