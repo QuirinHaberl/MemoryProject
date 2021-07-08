@@ -318,3 +318,13 @@
 -fx-background-image: url("Images/LifeEmptyHalf2.png");
 -fx-background-size: 100% 100%;
 }
+
+.LifeHalf{
+-fx-background-image: url("Images/LifeHalf.png");
+-fx-background-size: 100% 100%;
+}
+
+.LifeHalf2{
+-fx-background-image: url("Images/LifeHalf2.png");
+-fx-background-size: 100% 100%;
+}
