@@ -1,6 +1,5 @@
 package de.uni_passau.se.memory.Controller;
 
-import de.uni_passau.se.memory.Model.Database;
 import de.uni_passau.se.memory.Model.Game;
 import de.uni_passau.se.memory.gui.Window;
 import javafx.event.ActionEvent;
@@ -12,6 +11,7 @@ import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 
 import java.nio.file.Paths;
+import java.util.List;
 
 
 /**
@@ -117,16 +117,15 @@ public class GameResultController {
      * player/s.
      */
     @FXML
-    public void initialize () {
+    public void initialize() {
         setLabels();
         Game game = Wrapper.getInstance().getGame();
         if (game.isGameWon()) {
-                String[] winningPlayers = game.getPlayerList().winningPlayersToString();
-            int[] highScore =
+            List<String> winningPlayers = game.getPlayerList().winningPlayersToString();
+            int highScore =
                     game.getPlayerList().getHighestScore();
-            message.setText(printGameSummary(winningPlayers, highScore[0]));
-        }
-        else{
+            message.setText(printGameSummary(winningPlayers, highScore));
+        } else {
             GameOver.setVisible(true);
             PlaceHeader.setVisible(false);
             PointsHeader.setVisible(false);
@@ -157,7 +156,7 @@ public class GameResultController {
      */
     @FXML
     public void playAgain(ActionEvent actionEvent) {
-        ((Stage)(((Button)actionEvent.getSource()).getScene().getWindow())).close();
+        ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
         Wrapper.getInstance().getGame().getPlayerList().resetAllScores();
         new Window("Game.fxml");
     }
@@ -177,7 +176,7 @@ public class GameResultController {
             playerLabels[i].setVisible(true);
             playerLabels[i].setText(input[i]);
             scoreLabels[i].setVisible(true);
-            scoreLabels[i].setText(input[game.getPlayerList().getCount()+i]);
+            scoreLabels[i].setText(input[game.getPlayerList().getCount() + i]);
             icons[i].setVisible(true);
         }
     }
@@ -185,15 +184,15 @@ public class GameResultController {
     /**
      * Creates the game summary and returns it.
      *
-     * @param winningPlayers    of the current game
-     * @param highScore         the highest score a player reached
-     * @return                  the game summary
+     * @param winningPlayers of the current game
+     * @param highScore      the highest score a player reached
+     * @return the game summary
      */
-    private String printGameSummary(String[] winningPlayers, int highScore) {
-        if (winningPlayers.length > 1) {
+    private String printGameSummary(List<String> winningPlayers, int highScore) {
+        if (winningPlayers.size() > 1) {
             return "The game ended in a tie";
         } else {
-            return winningPlayers[0] + " won the game with a score of " + highScore;
+            return winningPlayers.get(0) + " won the game with a score of " + highScore;
         }
     }
 }
