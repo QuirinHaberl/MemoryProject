@@ -267,4 +267,10 @@ public class PlayerList {
         }
         return ranking;
     }
+
+    //TODO
+    public String[] getSorted() {
+        String[] players = new String[4];
+        return players;
+    }
 }

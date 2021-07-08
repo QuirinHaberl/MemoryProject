@@ -395,7 +395,7 @@ public class GameController {
 
         AudioClip unlock = new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Unlock.wav").toUri().toString());
         unlock.play();
-        checkIfWon();
+        checkIfWon(event);
 
 
         //Setzte Pointer auf nächsten
@@ -429,7 +429,7 @@ public class GameController {
     /**
      * Checks if a player has won the game.
      */
-    public void checkIfWon() {
+    public void checkIfWon(ActionEvent event) {
         if (game.pairCheck(firstRow, firstCol, secondRow, secondCol)) {
 
             checkAchievementsDuringGame();
@@ -437,12 +437,14 @@ public class GameController {
                 //TODO
                 AudioClip found = new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/GameWon.wav").toUri().toString());
                 found.play();
-                System.out.println("Spiel gewonnen!");
-                //new Window("GameResultController.fxml");
+                game.setGameWon(true);
 
                 checkAchievementsAfterGame();
 
                 game.storeProgress();
+
+                ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+                new Window("GameResult.fxml");
             }
         }
     }
