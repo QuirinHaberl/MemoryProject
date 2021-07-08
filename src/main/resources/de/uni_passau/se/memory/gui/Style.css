@@ -282,13 +282,35 @@
 -fx-background-size: 100% 100%;
 }
 
-.LifeHalf{
--fx-background-image: url("Images/LifeHalf.png");
+.LifeEmpty{
+-fx-background-image: url("Images/LifeEmpty.png");
 -fx-background-size: 100% 100%;
 }
 
-.LifeHalf2{
--fx-background-image: url("Images/LifeHalf2.png");
+.LifeFull{
+-fx-background-image: url("Images/LifeFull.png");
+-fx-background-size: 100% 100%;
+}
+
+.ResultBack{
+-fx-background-color: rgba(0,0,0,0.5);
+-fx-font-family: "VT323";
+-fx-font-size: 40;
+}
+
+.ResultBack2{
+-fx-background-color: rgba(0,0,0,0.5);
+-fx-font-family: "VT323";
+-fx-font-size: 25;
+}
+
+.LifeEmptyHalf{
+-fx-background-image: url("Images/LifeEmptyHalf.png");
+-fx-background-size: 100% 100%;
+}
+
+.LifeEmptyHalf2{
+-fx-background-image: url("Images/LifeEmptyHalf2.png");
 -fx-background-size: 100% 100%;
 }
 

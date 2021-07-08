@@ -195,10 +195,10 @@ public final class Game {
     }
 
     /**
-     * This is a inner class for the timer of a {@link Game} in the console.
+     * This is a inner class for the timer of a {@link Game}.
      * The default time is 120 seconds (2 minutes)
      */
-    public class CountDownConsole {
+    public class startCountDown {
         private int count = 120;
         int remainingTime = count;
 
@@ -212,9 +212,9 @@ public final class Game {
         }
 
         /**
-         * Initiates the countDown for the console.
+         * Initiates the countDown.
          */
-        public CountDownConsole() {
+        public startCountDown() {
             Timer timer = new Timer();
             TimerTask task = new TimerTask() {
 
@@ -238,7 +238,7 @@ public final class Game {
     /**
      * This is the associated attribute of type CountDown for the game.
      */
-    private CountDownConsole time;
+    private startCountDown time;
 
     /**
      * Creates a new {@code INSTANCE} of the {@link Game}.
@@ -534,7 +534,7 @@ public final class Game {
      * Starts the timer of the {@link Game}.
      */
     public void startTimer() {
-        this.time = new CountDownConsole();
+        this.time = new startCountDown();
     }
 
     /**
@@ -542,7 +542,7 @@ public final class Game {
      *
      * @return the time of the {@link Game}.
      */
-    public CountDownConsole getTime() {
+    public startCountDown getTime() {
         return time;
     }
 
