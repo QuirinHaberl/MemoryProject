@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane stylesheets="@Style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uni_passau.se.memory.Controller.GameController">
+<BorderPane stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uni_passau.se.memory.Controller.GameController">
    <center>
       <VBox alignment="CENTER" prefHeight="650.0" prefWidth="1000.0" styleClass="GameBack" BorderPane.alignment="CENTER">
          <children>
@@ -51,11 +51,11 @@
                   </MenuBar>
                   <AnchorPane prefHeight="200.0" prefWidth="500.0">
                      <children>
-                        <HBox fx:id="livesAndTime" prefHeight="34.0" prefWidth="500.0" />
+                        <HBox fx:id="livesAndTime" prefHeight="58.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children></AnchorPane>
                   <AnchorPane prefHeight="58.0" prefWidth="116.0">
                      <children>
-                        <Label fx:id="achievementLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="35.0" layoutY="-2.0" prefHeight="60.0" prefWidth="222.0" styleClass="text15" textAlignment="CENTER" textFill="WHITE" />
+                        <Label fx:id="achievementLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="35.0" layoutY="-2.0" prefHeight="58.0" prefWidth="257.0" styleClass="text15" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
                </children>

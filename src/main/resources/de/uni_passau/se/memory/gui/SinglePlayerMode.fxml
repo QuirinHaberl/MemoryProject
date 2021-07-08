@@ -6,22 +6,29 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="Background2" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uni_passau.se.memory.Controller.SinglePlayerModeController">
+<AnchorPane prefHeight="400.0" prefWidth="602.0" styleClass="Background2" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uni_passau.se.memory.Controller.SinglePlayerModeController">
     <children>
-        <Label layoutX="191.0" layoutY="116.0" styleClass="text20" stylesheets="@Style.css" text="Choose between playing" textFill="WHITE" />
-      <HBox layoutX="144.0" layoutY="200.0">
+      <AnchorPane prefHeight="87.0" prefWidth="600.0" styleClass="Banner" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-              <Button mnemonicParsing="false" onAction="#lives" styleClass="text15" stylesheets="@Style.css" text="with lives">
+              <Label alignment="CENTER" prefHeight="87.0" prefWidth="600.0" styleClass="text30" stylesheets="@Style.css" text="Choose between playing" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+         </children>
+      </AnchorPane>
+      <HBox alignment="CENTER" layoutX="144.0" layoutY="183.0" prefHeight="87.0" prefWidth="600.0" AnchorPane.bottomAnchor="130.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="183.0">
+         <children>
+              <Button mnemonicParsing="false" onAction="#lives" prefHeight="65.0" prefWidth="550.0" style="-fx-background-color: transparent;" styleClass="Banner" stylesheets="@Style.css" text="with lives">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
             </Button>
-              <Button mnemonicParsing="false" onAction="#time" styleClass="text15" stylesheets="@Style.css" text="against the time">
+              <Button mnemonicParsing="false" onAction="#time" prefHeight="65.0" prefWidth="550.0" style="-fx-background-color: transparent;" styleClass="Banner" stylesheets="@Style.css" text="against the&#10;time" textAlignment="CENTER">
                <HBox.margin>
                   <Insets left="120.0" />
                </HBox.margin>
             </Button>
          </children>
+         <padding>
+            <Insets left="5.0" right="5.0" />
+         </padding>
       </HBox>
     </children>
 </AnchorPane>
