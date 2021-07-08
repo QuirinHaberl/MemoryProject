@@ -103,8 +103,6 @@ public class GameResultController {
     @FXML
     private AnchorPane gameOver;
 
-     * Game Over Image when loosing a game
-     */
     @FXML
     private AnchorPane GameOver;
 
@@ -131,11 +129,10 @@ public class GameResultController {
             int[] highScore =
                     game.getPlayerList().getHighestScore();
             message.setText(printGameSummary(winningPlayers, highScore[0]));
-        } else {
-            message.setVisible(false);
-            gameOver.setVisible(true);
         }
         else{
+            message.setVisible(false);
+            gameOver.setVisible(true);
             GameOver.setVisible(true);
             PlaceHeader.setVisible(false);
             PointsHeader.setVisible(false);
