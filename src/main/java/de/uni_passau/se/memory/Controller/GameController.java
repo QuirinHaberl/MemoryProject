@@ -542,7 +542,7 @@ public class GameController {
         int id = game.getPlayerList().getPlayer(0).getlifes();
         if ((id % 2) == 0) {
             livesAndTime.getChildren().get(id/2).getStyleClass().removeAll(
-                    "LifeHalf2");
+                    "LifeEmptyHalf");
             livesAndTime.getChildren().get(id/2).getStyleClass().add(
                     "LifeEmpty");
         } else {
@@ -550,7 +550,7 @@ public class GameController {
                     "LifeFull");
             //TODO add LifeHalfFull
             livesAndTime.getChildren().get((id-1)/2).getStyleClass().add(
-                    "LifeHalf2");
+                    "LifeEmptyHalf");
         }
     }
 

@@ -308,3 +308,13 @@
 -fx-font-family: "VT323";
 -fx-font-size: 25;
 }
+
+.LifeEmptyHalf{
+-fx-background-image: url("Images/LifeEmptyHalf.png");
+-fx-background-size: 100% 100%;
+}
+
+.LifeEmptyHalf2{
+-fx-background-image: url("Images/LifeEmptyHalf2.png");
+-fx-background-size: 100% 100%;
+}
