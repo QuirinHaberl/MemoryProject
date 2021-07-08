@@ -7,25 +7,23 @@ import de.uni_passau.se.memory.Model.Enums.TurnStatus;
 import de.uni_passau.se.memory.Model.Game;
 import de.uni_passau.se.memory.Model.Player;
 import de.uni_passau.se.memory.gui.Window;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
 
-import javafx.scene.layout.HBox;
 import javafx.scene.media.AudioClip;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
-import java.net.URL;
 import java.nio.file.Paths;
-import java.util.ResourceBundle;
 
 /**
  * Controller of the game.
@@ -131,6 +129,7 @@ public class GameController {
     @FXML
     private Button TryAgainButton;
 
+
     /**
      * To store the first revealed card
      */
@@ -186,6 +185,8 @@ public class GameController {
      */
     int size = game.getPlayingField().getSize();
 
+    CountDownGUI countDown;
+
     public GameController() {
     }
 
@@ -200,8 +201,7 @@ public class GameController {
             if (game.getSinglePlayerMode().equals(SinglePlayerMode.LIFEPOINTS)) {
                 setLives();
             } else {
-                setTimer();
-                game.startTimer();
+                countDown = new CountDownGUI();
             }
         }
     }
@@ -228,10 +228,10 @@ public class GameController {
     /**
      * Filling the Stage with Objects
      *
-     * @param id    of the new button
-     * @param row   of position of the new button
-     * @param col   of position of the new button
-     * @return      the new button
+     * @param id  of the new button
+     * @param row of position of the new button
+     * @param col of position of the new button
+     * @return the new button
      */
     public Node newButton(String id, int row, int col) {
         Button button = new Button();
@@ -243,9 +243,6 @@ public class GameController {
         button.setCursor(new ImageCursor(image));
         button.setId(id);
 
-
-
-        //TODO das hier sieht nicht gut aus :c
         button.setOnAction(event -> buttonClicked(event, button, id, row, col));
         return button;
     }
@@ -260,8 +257,8 @@ public class GameController {
     /**
      * closes the current window and opens the Start Screen
      */
-    public void mainMenu (){
-        ((Stage)(MainMenuButton.getScene().getWindow())).close();
+    public void mainMenu() {
+        ((Stage) (MainMenuButton.getScene().getWindow())).close();
         new Window("StartScreen.fxml");
     }
 
@@ -272,8 +269,8 @@ public class GameController {
         tryAgainButtonClicked();
     }
 
-    public void tryAgainButtonClicked (){
-        ((Stage)(TryAgainButton.getScene().getWindow())).close();
+    public void tryAgainButtonClicked() {
+        ((Stage) (TryAgainButton.getScene().getWindow())).close();
         new Window("Game.fxml");
     }
 
@@ -316,11 +313,11 @@ public class GameController {
     /**
      * Opens a card and performs a turn.
      *
-     * @param event     when button clicked
-     * @param button    which is on action
-     * @param id        id of the current button
-     * @param row       row of the current button
-     * @param col       column of the current button
+     * @param event  when button clicked
+     * @param button which is on action
+     * @param id     id of the current button
+     * @param row    row of the current button
+     * @param col    column of the current button
      */
     public void buttonClicked(ActionEvent event, Button button, String id, int row, int col) {
         /*
@@ -328,14 +325,12 @@ public class GameController {
             setLives();
         }
          */
-
+        // This is only for the single player mode play with time
         if (game.getPlayerList().getCount() == 1 && game.getSinglePlayerMode().equals(SinglePlayerMode.TIME)) {
-            if (game.getTime() == null) {
+            if (countDown.getGUITime() == 0) {
                 game.setGameWon(false);
                 ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
                 new Window("GameResult.fxml");
-            } else {
-                //TODO timer aktuallieseren
             }
         }
 
@@ -370,10 +365,10 @@ public class GameController {
     /**
      * Performs a turn for a first revealed card.
      *
-     * @param button    which is on action
-     * @param id        id of the current button
-     * @param row       row of the current button
-     * @param col       column of the current button
+     * @param button which is on action
+     * @param id     id of the current button
+     * @param row    row of the current button
+     * @param col    column of the current button
      */
     public void executeIdle(Button button, String id, int row, int col) {
 
@@ -391,13 +386,15 @@ public class GameController {
         game.setTurnStatus(TurnStatus.ACTIVE);
     }
 
+    //test
+
     /**
      * Performs a turn for a second revealed card.
      *
-     * @param button    which is on action
-     * @param id        id of the current button
-     * @param row       row of the current button
-     * @param col       column of the current button
+     * @param button which is on action
+     * @param id     id of the current button
+     * @param row    row of the current button
+     * @param col    column of the current button
      */
     public void executeActive(Button button, String id, int row, int col,
                               ActionEvent event) {
@@ -508,19 +505,19 @@ public class GameController {
     /**
      * Visualizes the lives.
      */
-    private void setLives () {
+    private void setLives() {
         for (int i = 0; i < game.getBoard().length; i++) {
             livesAndTime.getChildren().add(newHeart(String.valueOf(i)));
             livesAndTime.getChildren().get(i).setVisible(true);
         }
-        game.getPlayerList().getPlayer(0).setlifes(game.getBoard().length * 2);
+        game.getPlayerList().getPlayer(1).setlifes(game.getBoard().length * 2);
     }
 
     /**
      * Creates a new heart.
      *
      * @param id of the new heart
-     * @return   the new heart
+     * @return the new heart
      */
     public Node newHeart(String id) {
         AnchorPane heart = new AnchorPane();
@@ -541,15 +538,15 @@ public class GameController {
     private void updateLives() {
         int id = game.getPlayerList().getPlayer(0).getlifes();
         if ((id % 2) == 0) {
-            livesAndTime.getChildren().get(id/2).getStyleClass().removeAll(
+            livesAndTime.getChildren().get(id / 2).getStyleClass().removeAll(
                     "LifeEmptyHalf");
-            livesAndTime.getChildren().get(id/2).getStyleClass().add(
+            livesAndTime.getChildren().get(id / 2).getStyleClass().add(
                     "LifeEmpty");
         } else {
-            livesAndTime.getChildren().get((id-1)/2).getStyleClass().removeAll(
+            livesAndTime.getChildren().get((id - 1) / 2).getStyleClass().removeAll(
                     "LifeFull");
             //TODO add LifeHalfFull
-            livesAndTime.getChildren().get((id-1)/2).getStyleClass().add(
+            livesAndTime.getChildren().get((id - 1) / 2).getStyleClass().add(
                     "LifeEmptyHalf");
         }
     }
@@ -557,8 +554,10 @@ public class GameController {
     /**
      * Visualizes the timer.
      */
-    private void setTimer () {
-        Label timer = new Label();
+    private void setTimer(Label timer) {
+
+        timer.setTextFill(Color.WHITE);
+        timer.setStyle("-fx-font-size: 20pt;");;
         timer.setPrefSize(120, 40);
         String css = Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Style.css").toUri().toString();
         timer.getStylesheets().add(css);
@@ -566,5 +565,50 @@ public class GameController {
         timer.setVisible(true);
         livesAndTime.getChildren().add(timer);
     }
-}
 
+    /**
+     * This is a inner class for the timer of a {@link Game} in the GUI.
+     * The default time is 120 seconds (2 minutes)
+     */
+    public class CountDownGUI extends Pane {
+
+        private Timeline animation;
+        private String S = "";
+        private int time = 120;
+
+        Label timer = new Label();
+
+        /**
+         * Initiates the countDown for the GUI.
+         */
+        public CountDownGUI() {
+            setTimer(timer);
+            animation = new Timeline(new KeyFrame(Duration.millis(1000), e -> setTimeLabel()));
+            animation.setCycleCount(Timeline.INDEFINITE);
+            animation.play();
+        }
+
+        /**
+         * Actualizes the time label after every second
+         */
+        public void setTimeLabel() {
+            if(time == 0) {
+                animation = null;
+            } else {
+                time--;
+                S = time + "";
+                timer.setText("Time: " + S);
+            }
+
+        }
+
+        /**
+         * Getter of the time of the GUI timer
+         * @return time
+         */
+        public int getGUITime() {
+            return time;
+        }
+
+    }
+}
