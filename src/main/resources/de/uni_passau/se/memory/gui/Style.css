@@ -267,11 +267,6 @@
 -fx-background-size: 100% 100%;
 }
 
-.Key{
--fx-background-image: url("Images/Key.png");
--fx-background-size: 100% 100%;
-}
-
 .Fire{
 -fx-background-image: url("Images/Fire.png");
 -fx-background-size: 100% 100%;
@@ -287,39 +282,12 @@
 -fx-background-size: 100% 100%;
 }
 
-.LifeEmpty{
--fx-background-image: url("Images/LifeEmpty.png");
+.LifeHalf{
+-fx-background-image: url("Images/LifeHalf.png");
 -fx-background-size: 100% 100%;
 }
 
-.LifeFull{
--fx-background-image: url("Images/LifeFull.png");
--fx-background-size: 100% 100%;
-}
-
-.ResultBack{
--fx-background-color: rgba(0,0,0,0.5);
--fx-font-family: "VT323";
--fx-font-size: 40;
-}
-
-.ResultBack2{
--fx-background-color: rgba(0,0,0,0.5);
--fx-font-family: "VT323";
--fx-font-size: 25;
-}
-
-.LifeEmptyHalf{
--fx-background-image: url("Images/LifeEmptyHalf.png");
--fx-background-size: 100% 100%;
-}
-
-.LifeEmptyHalf2{
--fx-background-image: url("Images/LifeEmptyHalf2.png");
--fx-background-size: 100% 100%;
-}
-
-.GameOver{
--fx-background-image: url("Images/GameOver.png");
+.LifeHalf2{
+-fx-background-image: url("Images/LifeHalf2.png");
 -fx-background-size: 100% 100%;
 }
