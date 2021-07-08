@@ -95,6 +95,12 @@ public class GameResultController {
     private Label message;
 
     /**
+     * Anchor pane for the game over image
+     */
+    @FXML
+    private AnchorPane gameOver;
+
+    /**
      * Shows the game results in a sorted list, that starts with the winning
      * player/s.
      */
@@ -107,6 +113,9 @@ public class GameResultController {
             int[] highScore =
                     game.getPlayerList().getHighestScore();
             message.setText(printGameSummary(winningPlayers, highScore[0]));
+        } else {
+            message.setVisible(false);
+            gameOver.setVisible(true);
         }
     }
 
