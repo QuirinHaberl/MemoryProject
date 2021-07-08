@@ -1,0 +1,30 @@
+Protokoll vom Zoommeeting am 07.07.2021
+Teilnehmende: Alle 
+Autor: Florian Muhrer
+
+
+TOP 1 Problembesprechung
+
+-Probleme beim laden der Spieler -->von Jan gelöst
+-Problem mit der Anzeige welcher Spieler an der Reihe ist-->von Quirin gelöst
+-Game results noch nicht korrekt funktionsfähig
+-Timeranzeige -->Problemlösung durch Isabella
+-Observerpatter, insbesondere Observable zu großer Aufwand--> wird nicht umgesetzt
+-GetWinningPlayer wird umgeschrieben
+-Spielerprofilausgabe in Konsole problematisch-->Zwischenlösung durch Jan
+-Problem bei Gewinnanzeige bei Gleichstand-->gelöst von Jan
+
+
+
+TOP 2 Weiteres Vorgehen
+
+-Neue shuffle-Methode durch Jan implementiert
+-Umgesetzt wird:
+    -GemeResult
+    -Pointer der auf Spieler (am Zug) zeigt
+    -Zeitspiel
+    -Lebensspiel
+-Bis Sonntag 11.07 soll gesamte GUI fertig sein
+-In Markdown Datei wird ebenfalls vermerkt welche funktionellen Unterscheidungen es im Vergleich zur Konsole gibt
+-Refactoring der Projekt-Struktur wurde durch Jan vorgenommen
+-Erste JUnit Tests werden von Daqian erstellt --> restlichen im weiteren Verlauf durch alle 
