@@ -270,7 +270,31 @@ public class PlayerList {
 
     //TODO
     public String[] getSorted() {
-        String[] players = new String[4];
-        return players;
+        String[] output = new String[count * 2];
+        String[] names = new String[count];
+        int[] scores = new int[count];
+        for (int i = 0; i < count; i++) {
+            names[i] = this.getPlayerName(i);
+            scores[i] = this.getPlayerScore(i);
+        }
+        for (int i = 1; i < count; i++) {
+            String currentName = names[i];
+            int currentScore = scores[i];
+
+            // Element is moved to the left until it is at the right position.
+            int j = i;
+            while (j > 0 && currentScore < scores[j - 1]) {
+                scores[j] = scores[j - 1];
+                names[j] = names[j - 1];
+                j--;
+            }
+            scores[j] = currentScore;
+            names[j] = currentName;
+        }
+        for (int i = 0; i < count; i++) {
+            output[i] = names[count-1-i];
+            output[count + i] = String.valueOf(scores[count-1-i]);
+        }
+        return output;
     }
 }

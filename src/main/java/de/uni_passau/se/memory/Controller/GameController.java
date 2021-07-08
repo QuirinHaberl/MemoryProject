@@ -323,9 +323,11 @@ public class GameController {
      * @param col       column of the current button
      */
     public void buttonClicked(ActionEvent event, Button button, String id, int row, int col) {
+        /*
         if (game.getPlayerList().getCount() == 1 && game.getSinglePlayerMode().equals(SinglePlayerMode.LIFEPOINTS)) {
             setLives();
         }
+         */
 
         if (game.getPlayerList().getCount() == 1 && game.getSinglePlayerMode().equals(SinglePlayerMode.TIME)) {
             if (game.getTime() == null) {
@@ -540,15 +542,15 @@ public class GameController {
         int id = game.getPlayerList().getPlayer(0).getlifes();
         if ((id % 2) == 0) {
             livesAndTime.getChildren().get(id/2).getStyleClass().removeAll(
-                    "LifeFull");
+                    "LifeHalf2");
             livesAndTime.getChildren().get(id/2).getStyleClass().add(
                     "LifeEmpty");
         } else {
-            livesAndTime.getChildren().get((id+1)/2).getStyleClass().removeAll(
+            livesAndTime.getChildren().get((id-1)/2).getStyleClass().removeAll(
                     "LifeFull");
             //TODO add LifeHalfFull
-            livesAndTime.getChildren().get((id+1)/2).getStyleClass().add(
-                    "LifeHalfFull");
+            livesAndTime.getChildren().get((id-1)/2).getStyleClass().add(
+                    "LifeHalf2");
         }
     }
 
