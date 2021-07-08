@@ -6,8 +6,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 
+import java.nio.file.Paths;
 import java.util.List;
 
 /**
@@ -173,6 +175,8 @@ public class HighScoreController {
     @FXML
     public void back(ActionEvent actionEvent) {
         ((Stage)(((Button)actionEvent.getSource()).getScene().getWindow())).close();
+        AudioClip click=new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Click.wav").toUri().toString());
+        click.play();
         new Window("StartScreen.fxml");
     }
 }
