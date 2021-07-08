@@ -1,5 +1,6 @@
 package de.uni_passau.se.memory.Model;
 
+import de.uni_passau.se.memory.Controller.SinglePlayerMode;
 import de.uni_passau.se.memory.Model.Enums.CardStatus;
 import de.uni_passau.se.memory.Model.Enums.GameStatus;
 import de.uni_passau.se.memory.Model.Enums.TurnStatus;
@@ -35,6 +36,10 @@ public final class Game {
     private final PlayerList playerList;
 
     private int playerAmount;
+
+    private SinglePlayerMode singlePlayerMode;
+
+    private boolean gameWon = false;
 
     /**
      * Stores player-profiles
@@ -555,5 +560,21 @@ public final class Game {
 
     public void setDatabase(Database database) {
         this.database = database;
+    }
+
+    public SinglePlayerMode getSinglePlayerMode() {
+        return singlePlayerMode;
+    }
+
+    public void setSinglePlayerMode(SinglePlayerMode singlePlayerMode) {
+        this.singlePlayerMode = singlePlayerMode;
+    }
+
+    public boolean isGameWon() {
+        return gameWon;
+    }
+
+    public void setGameWon(boolean gameWon) {
+        this.gameWon = gameWon;
     }
 }

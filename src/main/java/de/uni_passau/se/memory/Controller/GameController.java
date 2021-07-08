@@ -19,88 +19,202 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 
+import javafx.scene.layout.HBox;
 import javafx.scene.media.AudioClip;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
+/**
+ * Controller of the game.
+ */
 public class GameController {
 
     @FXML
     public Button start;
 
+    /**
+     * Label for achievements
+     */
     @FXML
     private Label achievementLabel;
 
+    /**
+     * AnchorPane to indicate that it is the first player's turn
+     */
     @FXML
     private AnchorPane key1;
 
+    /**
+     * Label for the first player's name
+     */
     @FXML
     private Label labelPlayer1;
 
+    /**
+     * Label for the first player's score
+     */
     @FXML
     private Label labelScore1;
 
+    /**
+     * AnchorPane to indicate that it is the second player's turn
+     */
     @FXML
     private AnchorPane key2;
 
+    /**
+     * Label for the second player's name
+     */
     @FXML
     private Label labelPlayer2;
 
+    /**
+     * Label for the second player's score
+     */
     @FXML
     private Label labelScore2;
 
+    /**
+     * AnchorPane to indicate that it is the third player's turn
+     */
     @FXML
     private AnchorPane key3;
 
+    /**
+     * Label for the third player's name
+     */
     @FXML
     private Label labelPlayer3;
 
+    /**
+     * Label for the third player's score
+     */
     @FXML
     private Label labelScore3;
 
+    /**
+     * AnchorPane to indicate that it is the fourth player's turn
+     */
     @FXML
     private AnchorPane key4;
 
+    /**
+     * Label for the fourth player's name
+     */
     @FXML
     private Label labelPlayer4;
 
+    /**
+     * Label for the fourth player's score
+     */
     @FXML
     private Label labelScore4;
 
+    /**
+     * Board to store all buttons of the cards
+     */
     @FXML
     private GridPane Board;
+
+    /**
+     * HBox to store lives or timer
+     */
+    @FXML
+    private HBox livesAndTime;
+
+    @FXML
+    private Button MainMenuButton;
+
+    @FXML
+    private Button TryAgainButton;
+
+    /**
+     * To store the first revealed card
+     */
     Object firstCard;
+
+    /**
+     * To store the second revealed card
+     */
     Object secondCard;
 
+    /**
+     * Button of the currently first revealed card
+     */
     private Button b1;
+
+    /**
+     * Button of the currently second revealed card
+     */
     private Button b2;
 
+    /**
+     * Indicator of the first cards row
+     */
     int firstRow;
+
+    /**
+     * Indicator of the first cards column
+     */
     int firstCol;
+
+    /**
+     * Indicator of the second cards row
+     */
     int secondRow;
+
+    /**
+     * Indicator of the second cards column
+     */
     int secondCol;
+
+    /**
+     * Stores the current game
+     */
     Game game = Wrapper.getInstance().getGame();
+
+    /**
+     * Stores the player whose turn it is
+     */
     Player activePlayer = game.getPlayerList().getFront();
+
+    /**
+     * Stores the size of the current {@link de.uni_passau.se.memory.Model.PlayingField}
+     */
     int size = game.getPlayingField().getSize();
 
     public GameController() {
     }
 
+    /**
+     * Shows the current {@link GameController}
+     */
     @FXML
     public void initialize() {
         setPlayerLabel();
         startClicked();
+        if (game.getPlayerAmount() == 1) {
+            if (game.getSinglePlayerMode().equals(SinglePlayerMode.LIFEPOINTS)) {
+                setLives();
+            } else {
+                setTimer();
+                game.startTimer();
+            }
+        }
     }
 
     /**
+     * Starts the game.
      * TODO check ob gebraucht
      */
     public void startClicked() {
         int size = game.getPlayingField().getSize();
         game.getPlayingField().fillWithCards();
 
+        // Filling the Board with Buttons for every card
         for (int row = 0; row < size; row++) {
             Board.getColumnConstraints().add(new ColumnConstraints(100));
             for (int col = 0; col < size; col++) {
@@ -113,6 +227,11 @@ public class GameController {
 
     /**
      * Filling the Stage with Objects
+     *
+     * @param id    of the new button
+     * @param row   of position of the new button
+     * @param col   of position of the new button
+     * @return      the new button
      */
     public Node newButton(String id, int row, int col) {
         Button button = new Button();
@@ -132,21 +251,29 @@ public class GameController {
     }
 
     /**
-     * The other actions
-     * TODO Game muss auch geschlossen werden wenn im Menü --> Main Menu asgewählt wird
+     * Calls mainMenu to enable the Window to be closed
      */
-    public void menu(ActionEvent actionEvent) {
+    public void menu() {
+        mainMenu();
+    }
 
+    /**
+     * closes the current window and opens the Start Screen
+     */
+    public void mainMenu (){
+        ((Stage)(MainMenuButton.getScene().getWindow())).close();
         new Window("StartScreen.fxml");
-
     }
 
     /**
      * TODO erneutes laden muss noch geschehen
-     *
-     * @param actionEvent
      */
-    public void TryAgainClicked(ActionEvent actionEvent) {
+    public void TryAgainClicked() {
+        tryAgainButtonClicked();
+    }
+
+    public void tryAgainButtonClicked (){
+        ((Stage)(TryAgainButton.getScene().getWindow())).close();
         new Window("Game.fxml");
     }
 
@@ -158,32 +285,27 @@ public class GameController {
         new Window("Rules.fxml");
     }
 
+    /**
+     * Makes the information about the current players visible.
+     */
     public void setPlayerLabel() {
         Label[] playerLabels = {labelPlayer1, labelPlayer2,
                 labelPlayer3, labelPlayer4};
         Label[] scoreLabels = {labelScore1, labelScore2,
                 labelScore3, labelScore4};
-        AnchorPane[] keyAnchorPanes = {key1, key2,
-                key3, key4};
-
-        //TODO Man könnte die auch default invisible setzten
-        //@Quirin du kannst die AnchorPanes gerne hier löschen, wenn du was anderes vor hast.
-
-        for (int i = 0; i < scoreLabels.length; i++) {
-            scoreLabels[i].setVisible(false);
-            keyAnchorPanes[i].setVisible(false);
-        }
 
         for (int i = 0; i < game.
                 getPlayerAmount(); i++) {
             playerLabels[i].setText(game.getPlayerList().getPlayer(i).getName());
             scoreLabels[i].setVisible(true);
             scoreLabels[i].setText("Score: " + game.getPlayerList().getPlayer(i).getScore());
-            keyAnchorPanes[i].setVisible(true);
         }
+        key1.setVisible(true);
     }
 
-
+    /**
+     * Updates the scores of all players of the current game.
+     */
     public void updateAllScores() {
         Label[] scoreLabels = {labelScore1, labelScore2, labelScore3, labelScore4};
         for (int i = 0; i < game.getPlayerAmount(); i++) {
@@ -191,7 +313,31 @@ public class GameController {
         }
     }
 
+    /**
+     * Opens a card and performs a turn.
+     *
+     * @param event     when button clicked
+     * @param button    which is on action
+     * @param id        id of the current button
+     * @param row       row of the current button
+     * @param col       column of the current button
+     */
     public void buttonClicked(ActionEvent event, Button button, String id, int row, int col) {
+        /*
+        if (game.getPlayerList().getCount() == 1 && game.getSinglePlayerMode().equals(SinglePlayerMode.LIFEPOINTS)) {
+            setLives();
+        }
+         */
+
+        if (game.getPlayerList().getCount() == 1 && game.getSinglePlayerMode().equals(SinglePlayerMode.TIME)) {
+            if (game.getTime() == null) {
+                game.setGameWon(false);
+                ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+                new Window("GameResult.fxml");
+            } else {
+                //TODO timer aktuallieseren
+            }
+        }
 
         //Implementation of the game phases
         switch (game.getTurnStatus()) {
@@ -216,11 +362,19 @@ public class GameController {
                         secondCardStatus.equals(CardStatus.AlREADYOPEN)) {
                     break;
                 }
-                executeActive(button, id, row, col);
+                executeActive(button, id, row, col, event);
                 break;
         }
     }
 
+    /**
+     * Performs a turn for a first revealed card.
+     *
+     * @param button    which is on action
+     * @param id        id of the current button
+     * @param row       row of the current button
+     * @param col       column of the current button
+     */
     public void executeIdle(Button button, String id, int row, int col) {
 
         closeCards();
@@ -237,7 +391,16 @@ public class GameController {
         game.setTurnStatus(TurnStatus.ACTIVE);
     }
 
-    public void executeActive(Button button, String id, int row, int col) {
+    /**
+     * Performs a turn for a second revealed card.
+     *
+     * @param button    which is on action
+     * @param id        id of the current button
+     * @param row       row of the current button
+     * @param col       column of the current button
+     */
+    public void executeActive(Button button, String id, int row, int col,
+                              ActionEvent event) {
 
         b2 = button;
 
@@ -248,7 +411,7 @@ public class GameController {
 
         AudioClip unlock = new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Unlock.wav").toUri().toString());
         unlock.play();
-        checkIfWon();
+        checkIfWon(event);
 
 
         //Setzte Pointer auf nächsten
@@ -265,11 +428,24 @@ public class GameController {
         } else {
             activePlayer.getAchievements().resetPairCounterStreak();
             activePlayer = activePlayer.getNext();
+            if (game.getPlayerList().getCount() == 1
+                    && game.getSinglePlayerMode().equals(SinglePlayerMode.LIFEPOINTS)) {
+                game.getPlayerList().getPlayer(0).reducelifes();
+                updateLives();
+                if (game.getPlayerList().getPlayer(0).getlifes() == 0) {
+                    game.setGameWon(false);
+                    ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+                    new Window("GameResult.fxml");
+                }
+            }
         }
 
     }
 
-    public void checkIfWon() {
+    /**
+     * Checks if a player has won the game.
+     */
+    public void checkIfWon(ActionEvent event) {
         if (game.pairCheck(firstRow, firstCol, secondRow, secondCol)) {
 
             checkAchievementsDuringGame();
@@ -277,16 +453,21 @@ public class GameController {
                 //TODO
                 AudioClip found = new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/GameWon.wav").toUri().toString());
                 found.play();
-                System.out.println("Spiel gewonnen!");
-                //new Window("GameResultController.fxml");
+                game.setGameWon(true);
 
                 checkAchievementsAfterGame();
 
                 game.storeProgress();
+
+                ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+                new Window("GameResult.fxml");
             }
         }
     }
 
+    /**
+     * Checks achievements for the current player during the game.
+     */
     public void checkAchievementsDuringGame() {
         String achievement = game.checkForAchievements(activePlayer);
         if (!achievement.isEmpty()) {
@@ -297,6 +478,9 @@ public class GameController {
         }
     }
 
+    /**
+     * Checks achievements for all players after game.
+     */
     public void checkAchievementsAfterGame() {
         String achievement = game.checkForAchievements(game.getPlayerList());
         if (!achievement.isEmpty()) {
@@ -307,6 +491,9 @@ public class GameController {
         }
     }
 
+    /**
+     * Closes the two opened cards.
+     */
     public void closeCards() {
         try {
             b1.getStyleClass().clear();
@@ -316,6 +503,68 @@ public class GameController {
         } catch (NullPointerException e) {
             //Die Buttons wurden noch nicht geklickt und sind deswegen leer.
         }
+    }
+
+    /**
+     * Visualizes the lives.
+     */
+    private void setLives () {
+        for (int i = 0; i < game.getBoard().length; i++) {
+            livesAndTime.getChildren().add(newHeart(String.valueOf(i)));
+            livesAndTime.getChildren().get(i).setVisible(true);
+        }
+        game.getPlayerList().getPlayer(0).setlifes(game.getBoard().length * 2);
+    }
+
+    /**
+     * Creates a new heart.
+     *
+     * @param id of the new heart
+     * @return   the new heart
+     */
+    public Node newHeart(String id) {
+        AnchorPane heart = new AnchorPane();
+        heart.setPrefSize(40, 40);
+        String css = Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Style.css").toUri().toString();
+        heart.getStylesheets().add(css);
+        heart.getStyleClass().add("LifeFull");
+        //Image image = new Image(Paths.get("src/main/resources/de/uni_passau"
+        //+ "/se/memory/gui/Images/Cursor.png").toUri().toString());
+        heart.setId(id);
+
+        return heart;
+    }
+
+    /**
+     * Updates the lives.
+     */
+    private void updateLives() {
+        int id = game.getPlayerList().getPlayer(0).getlifes();
+        if ((id % 2) == 0) {
+            livesAndTime.getChildren().get(id/2).getStyleClass().removeAll(
+                    "LifeEmptyHalf");
+            livesAndTime.getChildren().get(id/2).getStyleClass().add(
+                    "LifeEmpty");
+        } else {
+            livesAndTime.getChildren().get((id-1)/2).getStyleClass().removeAll(
+                    "LifeFull");
+            //TODO add LifeHalfFull
+            livesAndTime.getChildren().get((id-1)/2).getStyleClass().add(
+                    "LifeEmptyHalf");
+        }
+    }
+
+    /**
+     * Visualizes the timer.
+     */
+    private void setTimer () {
+        Label timer = new Label();
+        timer.setPrefSize(120, 40);
+        String css = Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Style.css").toUri().toString();
+        timer.getStylesheets().add(css);
+        timer.getStyleClass().add("text15");
+        timer.setVisible(true);
+        livesAndTime.getChildren().add(timer);
     }
 }
 
