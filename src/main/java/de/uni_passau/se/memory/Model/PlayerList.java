@@ -176,23 +176,27 @@ public class PlayerList {
      *
      * @return highest {@code score} and how many players reached this score
      */
-    public int[] getHighestScore() {
-        int num = 0; //counts how many players have reached the highest score
-        int highestScore = front.getScore();
+    public int getHighestScore() {
+        int highestScore = 0;
 
-        for (int i = 1; i < count; i++) {
+        for (int i = 0; i < count; i++) {
             if (getPlayerScore(i) > highestScore) {
                 highestScore = getPlayerScore(i);
             }
         }
+        return highestScore;
+    }
 
-        for (int j = 0; j < count; j++) {
-            if (getPlayerScore(j) == highestScore) {
-                num = num + 1;
+    public int getCountOfWinningPlayers() {
+        int playersWithHighestScore = 0;
+        int highestScore = getHighestScore();
+
+        for (int i = 1; i < count; i++) {
+            if (getPlayerScore(i) == highestScore) {
+                playersWithHighestScore = playersWithHighestScore + 1;
             }
         }
-
-        return (new int[]{highestScore, num});
+        return playersWithHighestScore;
     }
 
     /**
@@ -200,22 +204,15 @@ public class PlayerList {
      *
      * @return list of all {@link Player} who have the highest {@code score}
      */
-    public String[] winningPlayersToString() {
-        int num = getHighestScore()[1]; // num of players who reached the highest score
-        int highestScore = getHighestScore()[0];
-        List<String> workaround = new ArrayList<>();
+    public List<String> winningPlayersToString() {
+        int highestScore = getHighestScore();
+        List<String> winningPlayers = new ArrayList<>();
 
 
-        for (int i = 0; i < getCount(); i++) {
+        for (int i = 0; i < count; i++) {
             if (getPlayerScore(i) == highestScore) {
-                workaround.add(getPlayerName(i));
+                winningPlayers.add(getPlayerName(i));
             }
-        }
-
-        //TODO Dirty Workaround
-        String[] winningPlayers = new String[workaround.size()];
-        for (int i = 0; i < workaround.size(); i++) {
-            winningPlayers[i] = workaround.get(i);
         }
 
         return winningPlayers;
@@ -292,8 +289,8 @@ public class PlayerList {
             names[j] = currentName;
         }
         for (int i = 0; i < count; i++) {
-            output[i] = names[count-1-i];
-            output[count + i] = String.valueOf(scores[count-1-i]);
+            output[i] = names[count - 1 - i];
+            output[count + i] = String.valueOf(scores[count - 1 - i]);
         }
         return output;
     }
