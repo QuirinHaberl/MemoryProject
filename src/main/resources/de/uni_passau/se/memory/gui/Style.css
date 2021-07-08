@@ -318,3 +318,8 @@
 -fx-background-image: url("Images/LifeEmptyHalf2.png");
 -fx-background-size: 100% 100%;
 }
+
+.GameOver{
+-fx-background-image: url("Images/GameOver.png");
+-fx-background-size: 100% 100%;
+}
