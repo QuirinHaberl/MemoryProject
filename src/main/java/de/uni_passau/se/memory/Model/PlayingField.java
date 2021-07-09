@@ -19,10 +19,6 @@ public class PlayingField {
      */
     private static Card[][] board;
 
-    int height;
-
-    int width;
-
     /**
      * Stores the used {@link CardSet}.
      */
@@ -144,17 +140,6 @@ public class PlayingField {
     }
 
     /**
-     * The Constructor creates a new {@link PlayingField} and fills the board with {@link Card}'s.
-     *
-     * @param size specifies the size of an array squared
-     */
-    public PlayingField(int size) {
-        this.height = size;
-        this.width = size;
-        board = new Card[height][height];
-    }
-
-    /**
      * Gets the cardSet
      *
      * @return a cardSet
@@ -170,41 +155,5 @@ public class PlayingField {
      */
     public int getSize() {
         return board.length;
-    }
-
-    /**
-     * Sets the height.
-     *
-     * @param height to be used.
-     */
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    /**
-     * Gets the width
-     *
-     * @return width
-     */
-    public int getWidth() {
-        return width;
-    }
-
-    /**
-     * Sets the width.
-     *
-     * @param width to be used.
-     */
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    /**
-     * Setter of the{@code board}
-     *
-     * @param cards New {@code board}.
-     */
-    public static void setBoard(Card[][] cards) {
-        board = cards;
     }
 }

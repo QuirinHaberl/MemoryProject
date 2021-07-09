@@ -38,6 +38,8 @@ public class Database {
 
     /**
      * Stores the progress of all playerProfiles and the HighScoreHistory.
+     *
+     * @param game contains the progress to be stored.
      */
     public void storeProgress(Game game) {
         game.playerList.saveProfile(this.getPlayerProfiles());

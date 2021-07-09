@@ -332,7 +332,7 @@ public class GameController {
     public void buttonClicked(ActionEvent event, Button button, String id, int row, int col) {
 
         // This is only for the single player mode play with time
-        if (game.getPlayerList().getCount() == 1 && game.getSinglePlayerMode().equals(SinglePlayerMode.TIME)) {
+        if (game.getPlayerList().size() == 1 && game.getSinglePlayerMode().equals(SinglePlayerMode.TIME)) {
             if (countDown.getGUITime() == 0) {
                 game.setGameResult(false);
 
@@ -436,11 +436,11 @@ public class GameController {
         } else {
             activePlayer.getAchievements().setPairCounterStreak(0);
             activePlayer = activePlayer.getNext();
-            if (game.getPlayerList().getCount() == 1
+            if (game.getPlayerList().size() == 1
                     && game.getSinglePlayerMode().equals(SinglePlayerMode.LIFEPOINTS)) {
-                game.getPlayerList().getPlayer(0).reducelifes();
+                game.getPlayerList().getPlayer(0).reduceLives();
                 updateLives();
-                if (game.getPlayerList().getPlayer(0).getlifes() == 0) {
+                if (game.getPlayerList().getPlayer(0).getLives() == 0) {
                     game.setGameResult(false);
 
                     ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
@@ -521,7 +521,7 @@ public class GameController {
             livesAndTime.getChildren().add(newHeart(String.valueOf(i)));
             livesAndTime.getChildren().get(i).setVisible(true);
         }
-        game.getPlayerList().getPlayer(1).setlifes(game.getBoard().length * 2);
+        game.getPlayerList().getPlayer(1).setLives(game.getBoard().length * 2);
     }
 
     /**
@@ -547,7 +547,7 @@ public class GameController {
      * Updates the lives.
      */
     private void updateLives() {
-        int id = game.getPlayerList().getPlayer(0).getlifes();
+        int id = game.getPlayerList().getPlayer(0).getLives();
         if ((id % 2) == 0) {
             livesAndTime.getChildren().get(id / 2).getStyleClass().removeAll(
                     "LifeEmptyHalf");
@@ -628,7 +628,7 @@ public class GameController {
          * Pauses the timer
          */
         public void pauseTimer() {
-            if (game.getPlayerList().getCount() == 1 &&
+            if (game.getPlayerList().size() == 1 &&
                     game.getSinglePlayerMode().equals(SinglePlayerMode.TIME)) {
                 animation.pause();
             }  else return;

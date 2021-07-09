@@ -206,7 +206,6 @@ public final class Game {
 
     /**
      * Checks whether two given cards have the same cardStatus.
-     * Ensures Demeter's Law.
      *
      * @param firstStatus  to be checked
      * @param secondStatus to be checked
@@ -218,7 +217,6 @@ public final class Game {
 
     /**
      * Sets a cardStatus.
-     * Ensures Demeter's Law.
      *
      * @param card       card to be altered
      * @param cardStatus to be set
@@ -268,7 +266,6 @@ public final class Game {
 
     /**
      * Gets the cardValue of a given card.
-     * Ensures Demeter's Law.
      *
      * @param card whose value is returned
      * @return the cards value
@@ -279,7 +276,6 @@ public final class Game {
 
     /**
      * Gets the cardStatus of a given card.
-     * Ensures Demeter's Law.
      *
      * @param card whose status is returned
      * @return the cardStatus
@@ -489,18 +485,25 @@ public final class Game {
      * Increments the number of gamesPlayed on every player.
      */
     public void updateGamesPlayed() {
-        for (int i = 0; i < playerList.getCount(); i++) {
+        for (int i = 0; i < playerList.size(); i++) {
             updateGamesPlayed(playerList.getPlayer(i));
         }
     }
 
     /**
      * Increments the number of won games.
+     *
+     * @param player whose gamesWon is incremented
      */
     public void updateGamesWon(Player player) {
         player.updateGamesWon();
     }
 
+    /**
+     * Increments the number of gamesPlayed.
+     *
+     * @param player whose gamesPlayed is incremented
+     */
     public void updateGamesPlayed(Player player) {
         player.updateGamesPlayed();
     }
@@ -531,7 +534,6 @@ public final class Game {
 
     /**
      * Updates the pariCounter of a player.
-     * Ensures Demeter's Law.
      *
      * @param player whose counter is updated
      */
@@ -542,7 +544,6 @@ public final class Game {
     /**
      * Checks whether player has earned a new achievement.
      * pairTotal is checked.
-     * Ensures Demeter's Law.
      *
      * @param player to be checked.
      */
@@ -553,7 +554,6 @@ public final class Game {
     /**
      * Checks whether player has earned a new achievement.
      * pairStreak is checked.
-     * Ensures Demeter's Law.
      *
      * @param player to be checked.
      */
@@ -563,8 +563,17 @@ public final class Game {
 
     /**
      * Checks whether player has earned a new achievement.
+     * gamesWon is checked.
+     *
+     * @param player to be checked.
+     */
+    public void checkPlayerGamesWon(Player player) {
+        player.checkGamesWon();
+    }
+
+    /**
+     * Checks whether player has earned a new achievement.
      * highScore is checked.
-     * Ensures Demeter's Law.
      *
      * @param player to be checked.
      */
@@ -582,7 +591,7 @@ public final class Game {
         String currentAchievement = "";
         Player player;
 
-        for (int i = 0; i < players.getCount(); i++) {
+        for (int i = 0; i < players.size(); i++) {
             int highestScore = players.getHighestScore();
             player = players.getPlayer(i);
 
@@ -590,6 +599,7 @@ public final class Game {
             if (players.getPlayerScore(i) == highestScore && !checkForDraw(players)) {
                 updateGamesWon(player);
                 updateGamesWon(player);
+                checkPlayerGamesWon(player);
 
                 //If a player has earned a new achievement
                 if (!(getPlayerAchievement(player).isEmpty())) {
@@ -607,7 +617,6 @@ public final class Game {
 
     /**
      * Gets a current achievement of a player.
-     * Ensures Demeter's Law.
      *
      * @param player whose achievement is returned
      * @return the achievement of a player
@@ -618,7 +627,6 @@ public final class Game {
 
     /**
      * Gets the name of a player.
-     * Ensures Demeter's Law.
      *
      * @param player whose name is returned
      * @return the name of a player
@@ -629,7 +637,6 @@ public final class Game {
 
     /**
      * Clears a players current achievement.
-     * Ensures Demeter's Law.
      *
      * @param player whose achievement is cleared
      */
