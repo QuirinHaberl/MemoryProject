@@ -176,7 +176,6 @@ public class Player {
 
     /**
      * Gets the highScore of a player.
-     * Ensures Demeter's Law.
      *
      * @return highScore of a player
      */
@@ -186,7 +185,6 @@ public class Player {
 
     /**
      * Gets the amount of won games.
-     * Ensures Demeter's Law.
      *
      * @return amount of won games.
      */
@@ -196,7 +194,6 @@ public class Player {
 
     /**
      * Gets the amount of played games.
-     * Ensures Demeter's Law.
      *
      * @return amount of played games.
      */
@@ -206,7 +203,6 @@ public class Player {
 
     /**
      * Sets the highScore.
-     * Ensures Demeter's Law.
      *
      * @param highScore to be set
      */
@@ -216,7 +212,6 @@ public class Player {
 
     /**
      * Sets the amount of won games.
-     * Ensures Demeter's Law.
      *
      * @param gamesWon to be set.
      */
@@ -226,7 +221,6 @@ public class Player {
 
     /**
      * Sets the amount of played games.
-     * Ensures Demeter's Law.
      *
      * @param gamesPlayed to bes set
      */
@@ -236,7 +230,6 @@ public class Player {
 
     /**
      * Increments played games by one.
-     * Ensures Demeter's Law.
      */
     public void updateGamesPlayed() {
         achievements.updateGamesPlayed();
@@ -244,7 +237,6 @@ public class Player {
 
     /**
      * Increments won games by one.
-     * Ensures Demeter's Law.
      */
     public void updateGamesWon() {
         achievements.updateGamesWon();
@@ -252,7 +244,6 @@ public class Player {
 
     /**
      * Gets the last earned achievement.
-     * Ensures Demeter's Law.
      *
      * @return the last achievement earned
      */
@@ -263,7 +254,6 @@ public class Player {
 
     /**
      * Clears the current achievement.
-     * Ensures Demeter's Law.
      */
     public void clearCurrentAchievement() {
         achievements.clearCurrentAchievement();
@@ -271,7 +261,6 @@ public class Player {
 
     /**
      * Increments both pairCounters.
-     * Ensures Demeter's Law.
      */
     public void updatePairCounters() {
         achievements.updatePairCounters();
@@ -280,7 +269,6 @@ public class Player {
     /**
      * Checks whether a new achievement was earned.
      * Checks pairCounterTotal.
-     * Ensures Demeter's Law.
      */
     public void checkFoundPairsTotal() {
         achievements.checkFoundPairsTotal();
@@ -289,7 +277,6 @@ public class Player {
     /**
      * Checks whether a new achievement was earned.
      * Checks pairCounterStreak.
-     * Ensures Demeter's Law.
      */
     public void checkFoundPairsStreak() {
         achievements.checkFoundPairsStreak();
@@ -298,7 +285,6 @@ public class Player {
     /**
      * Checks whether a new achievement was earned.
      * Checks highScore.
-     * Ensures Demeter's Law.
      */
     public void checkHighScore() {
         achievements.checkHighScore();
@@ -307,7 +293,6 @@ public class Player {
     /**
      * Checks whether a new achievement was earned.
      * Checks gamesWon.
-     * Ensures Demeter's Law.
      */
     public void checkGamesWon() {
         achievements.checkGamesWon();
