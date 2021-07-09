@@ -332,7 +332,7 @@ public class GameController {
     public void buttonClicked(ActionEvent event, Button button, String id, int row, int col) {
 
         // This is only for the single player mode play with time
-        if (game.getPlayerList().getCount() == 1 && game.getSinglePlayerMode().equals(SinglePlayerMode.TIME)) {
+        if (game.getPlayerList().size() == 1 && game.getSinglePlayerMode().equals(SinglePlayerMode.TIME)) {
             if (countDown.getGUITime() == 0) {
                 game.setGameResult(false);
 
@@ -436,7 +436,7 @@ public class GameController {
         } else {
             activePlayer.getAchievements().setPairCounterStreak(0);
             activePlayer = activePlayer.getNext();
-            if (game.getPlayerList().getCount() == 1
+            if (game.getPlayerList().size() == 1
                     && game.getSinglePlayerMode().equals(SinglePlayerMode.LIFEPOINTS)) {
                 game.getPlayerList().getPlayer(0).reduceLives();
                 updateLives();
@@ -628,7 +628,7 @@ public class GameController {
          * Pauses the timer
          */
         public void pauseTimer() {
-            if (game.getPlayerList().getCount() == 1 &&
+            if (game.getPlayerList().size() == 1 &&
                     game.getSinglePlayerMode().equals(SinglePlayerMode.TIME)) {
                 animation.pause();
             }  else return;

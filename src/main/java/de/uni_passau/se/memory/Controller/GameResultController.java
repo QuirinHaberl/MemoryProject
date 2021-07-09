@@ -182,7 +182,7 @@ public class GameResultController {
             playerLabels[i].setVisible(true);
             playerLabels[i].setText(input[i]);
             scoreLabels[i].setVisible(true);
-            scoreLabels[i].setText(input[game.getPlayerList().getCount() + i]);
+            scoreLabels[i].setText(input[game.getPlayerList().size() + i]);
             icons[i].setVisible(true);
         }
     }
