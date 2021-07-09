@@ -24,7 +24,6 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.nio.file.Paths;
-import java.util.ArrayList;
 
 /**
  * Controller of the game.
@@ -329,7 +328,7 @@ public class GameController {
         // This is only for the single player mode play with time
         if (game.getPlayerList().getCount() == 1 && game.getSinglePlayerMode().equals(SinglePlayerMode.TIME)) {
             if (countDown.getGUITime() == 0) {
-                game.setGameWon(false);
+                game.setGameResult(false);
 
                 ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
                 new Window("GameResult.fxml");
@@ -430,7 +429,7 @@ public class GameController {
                 game.getPlayerList().getPlayer(0).reducelifes();
                 updateLives();
                 if (game.getPlayerList().getPlayer(0).getlifes() == 0) {
-                    game.setGameWon(false);
+                    game.setGameResult(false);
 
                     ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
                     new Window("GameResult.fxml");
@@ -452,7 +451,7 @@ public class GameController {
                 //TODO
                 AudioClip found = new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/GameWon.wav").toUri().toString());
                 found.play();
-                game.setGameWon(true);
+                game.setGameResult(true);
 
                 checkAchievementsAfterGame();
 

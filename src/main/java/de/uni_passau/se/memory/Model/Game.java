@@ -83,6 +83,7 @@ public final class Game {
      * playerId;playerName;highScore;gamesPlayed;gamesWon
      *
      * @param playerProfiles to be used
+     * @param usesProfiles specifies which player wants to use a profile
      */
     public void useProfile(List<String[]> playerProfiles, List<Boolean> usesProfiles) {
         boolean hasProfile;
@@ -131,6 +132,7 @@ public final class Game {
      * Checks weather a {@link Player} has earned a new achievement
      *
      * @param player who is being checked
+     * @return a players last achievement
      */
     public String checkForAchievementsInGame(Player player) {
         String currentAchievement = "";
@@ -154,6 +156,7 @@ public final class Game {
      * Checks weather multiple players have earned an achievement.
      *
      * @param players who are being checked
+     * @return a players last achievement
      */
     public String checkForAchievementsAfterGame(PlayerList players) {
         String currentAchievement = "";
@@ -526,6 +529,11 @@ public final class Game {
         }
     }
 
+    /**
+     * Adds a given player.
+     *
+     * @param playerName to be added
+     */
     public void addPlayer(String playerName) {
         playerList.addPlayer(playerName);
     }
@@ -556,38 +564,72 @@ public final class Game {
         return time;
     }
 
+    /**
+     * Gets the playerAmount.
+     *
+     * @return the playerAmount
+     */
     public int getPlayerAmount() {
         return playerAmount;
     }
 
+    /**
+     * Sets the playerAmount.
+     *
+     * @param playerAmount to be set.
+     */
     public void setPlayerAmount(int playerAmount) {
         this.playerAmount = playerAmount;
     }
 
+    /**
+     * Gets the database in use.
+     *
+     * @return the database of a game
+     */
     public Database getDatabase() {
         return database;
     }
 
-    public void setDatabase(Database database) {
-        this.database = database;
-    }
-
+    /**
+     * Gets the chosen singlePlayerMode.
+     *
+     * @return the chosen SinglePlayerMode
+     */
     public SinglePlayerMode getSinglePlayerMode() {
         return singlePlayerMode;
     }
 
+    /**
+     * Sets the singlePlayerMode.
+     *
+     * @param singlePlayerMode to be set
+     */
     public void setSinglePlayerMode(SinglePlayerMode singlePlayerMode) {
         this.singlePlayerMode = singlePlayerMode;
     }
 
+    /**
+     * Returns whether a game is won.
+     *
+     * @return status of the game
+     */
     public boolean isGameWon() {
         return gameWon;
     }
 
-    public void setGameWon(boolean gameWon) {
-        this.gameWon = gameWon;
+    /**
+     * Sets whether a game is won.
+     *
+     * @param gameResult of a game
+     */
+    public void setGameResult(boolean gameResult) {
+        this.gameWon = gameResult;
     }
 
+    /**
+     * Increments the number of gamesPlayed on every player.
+     */
     public void updateGamesPlayed() {
         for (int i = 0; i < playerList.getCount(); i++) {
             playerList.getPlayer(i).getAchievements().updateGamesPlayed();

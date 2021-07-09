@@ -60,17 +60,27 @@ public class Database {
         return Database.InstanceHolder.INSTANCE;
     }
 
+    /**
+     * Loads all playerProfiles from pathToPlayerProfiles.
+     */
     public void loadPlayerProfiles() {
         loadFromFile(pathToProfiles, playerProfiles);
     }
 
+    /**
+     * Loads the highScoreHistory from pathToHighScoreHistory.
+     */
     public void loadHighScoreHistory() {
         loadFromFile(pathToHighScores, highScoreList);
     }
 
     /**
+     *
      * Loads the {@code HighScoreHistory} from the highScoreHistory.csv file
      * and stores it in the {@code highScoreList}.
+     *
+     * @param path to the file to be loaded
+     * @param list specifies playerProfiles or highScoreHistory
      */
     public void loadFromFile(String path, List<String[]> list) {
         try {

@@ -187,6 +187,11 @@ public class PlayerList {
         return highestScore;
     }
 
+    /**
+     * Gets the number of players with the highest score.
+     *
+     * @return how many player have the highest score
+     */
     public int getCountOfWinningPlayers() {
         int playersWithHighestScore = 0;
         int highestScore = getHighestScore();
