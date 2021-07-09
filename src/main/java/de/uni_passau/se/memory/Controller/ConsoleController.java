@@ -265,7 +265,7 @@ public class ConsoleController implements Initializable {
                                     player.getFoundCards().add(game.getPlayingField().getBoard()[secondRow][secondCol]);
                                     //Check if a player has a new achievement
                                     game.checkForAchievementsInGame(player);
-                                    if (game.areAllCardsOpen()) {
+                                    if (game.areAllCardsFound()) {
                                         View.printAllPairsFound();
                                         View.printBoard(game.getPlayingField());
                                         List<String> winningPlayers = game.getPlayerList().winningPlayersToString();

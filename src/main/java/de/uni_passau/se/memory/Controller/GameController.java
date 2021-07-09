@@ -448,7 +448,7 @@ public class GameController {
         if (game.pairCheck(firstRow, firstCol, secondRow, secondCol)) {
 
             checkAchievementsDuringGame();
-            if (game.areAllCardsOpen()) {
+            if (game.areAllCardsFound()) {
                 //TODO
                 AudioClip found = new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/GameWon.wav").toUri().toString());
                 found.play();
