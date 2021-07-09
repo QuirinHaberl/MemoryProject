@@ -130,6 +130,7 @@ public class ConsoleController implements Initializable {
                         }
                     }
                     game.addPlayers(playerAmount, playerNames);
+                    game.getDatabase().resetPlayerProfiles();
                     game.getDatabase().loadPlayerProfiles();
                     ArrayList<Boolean> workaround = new ArrayList<Boolean>();
                     for (int i = 0; i < playerAmount; i++) {

@@ -34,7 +34,7 @@ public class Database {
      * A profile has the following structure:
      * playerId;player1;highScore;gamePlayed;gamesWon
      */
-    private final List<String[]> playerProfiles;
+    private List<String[]> playerProfiles;
 
     /**
      * Creates a new {@code INSTANCE} of the {@link Database}.
@@ -151,6 +151,13 @@ public class Database {
      */
     public List<String[]> getPlayerProfiles() {
         return this.playerProfiles;
+    }
+
+    /**
+     *
+     */
+    public void resetPlayerProfiles() {
+        playerProfiles = new ArrayList<>();
     }
 
     /**

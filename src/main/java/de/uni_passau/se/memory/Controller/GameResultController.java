@@ -120,6 +120,10 @@ public class GameResultController {
     public void initialize() {
         setLabels();
         Game game = Wrapper.getInstance().getGame();
+
+        game.updateGamesPlayed();
+        game.storeProgress();
+
         if (game.isGameWon()) {
             List<String> winningPlayers = game.getPlayerList().winningPlayersToString();
             int highScore =

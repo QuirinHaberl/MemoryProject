@@ -33,7 +33,7 @@ public final class Game {
     /**
      * Stores a {@link Player} in the {@link PlayerList}.
      */
-    private final PlayerList playerList;
+    private PlayerList playerList;
 
     private int playerAmount;
 
@@ -324,6 +324,13 @@ public final class Game {
      */
     public PlayerList getPlayerList() {
         return playerList;
+    }
+
+    /**
+     * Gets the {@code playerList}.
+     */
+    public void resetPlayerList() {
+        this.playerList = new PlayerList();
     }
 
     /**
