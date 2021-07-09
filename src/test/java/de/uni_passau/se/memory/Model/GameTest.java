@@ -6,8 +6,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -208,7 +206,7 @@ class GameTest {
 
         game.returnToMenu(players);
 
-        assertEquals(0, game.getPlayerList().getCount());
+        assertEquals(0, game.getPlayerList().size());
         assertEquals(GameStatus.MENU, game.getGameStatus());
         assertEquals(TurnStatus.IDLE, game.getTurnStatus());
 
@@ -256,7 +254,7 @@ class GameTest {
 
         game.addPlayers(3, players);
 
-        assertEquals(3,game.getPlayerList().getCount(),"Player number is not right!");
+        assertEquals(3,game.getPlayerList().size(),"Player number is not right!");
         assertEquals("Frodo",game.getPlayerList().getPlayer(0).getName(), "Name of First Player is wrong");
         assertEquals("Sam",game.getPlayerList().getPlayer(1).getName(), "Name of Second Player is wrong");
         assertEquals("Gandalf",game.getPlayerList().getPlayer(2).getName(), "Name of Third Player is wrong");
@@ -269,7 +267,7 @@ class GameTest {
         game.addPlayer("Frodo");
 
 
-        assertEquals(1,game.getPlayerList().getCount());
+        assertEquals(1,game.getPlayerList().size());
         assertEquals("Frodo", game.getPlayerList().getPlayer(0).getName());
     }
 
