@@ -561,6 +561,10 @@ public final class Game {
         player.checkFoundPairsStreak();
     }
 
+    public void checkPlayerGamesWon(Player player){
+        player.checkGamesWon();
+    }
+
     /**
      * Checks whether player has earned a new achievement.
      * highScore is checked.
@@ -590,6 +594,7 @@ public final class Game {
             if (players.getPlayerScore(i) == highestScore && !checkForDraw(players)) {
                 updateGamesWon(player);
                 updateGamesWon(player);
+                checkPlayerGamesWon(player);
 
                 //If a player has earned a new achievement
                 if (!(getPlayerAchievement(player).isEmpty())) {
