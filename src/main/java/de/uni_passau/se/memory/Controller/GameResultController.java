@@ -121,13 +121,15 @@ public class GameResultController {
         setLabels();
         Game game = Wrapper.getInstance().getGame();
 
+        List<String> winningPlayers = game.getPlayerList().winningPlayersToString();
+        int highScore =
+                game.getPlayerList().getHighestScore();
+
+        game.getDatabase().updateHighScoreHistory(winningPlayers, highScore);
         game.updateGamesPlayed();
         game.database.storeProgress(game);
 
         if (game.isGameWon()) {
-            List<String> winningPlayers = game.getPlayerList().winningPlayersToString();
-            int highScore =
-                    game.getPlayerList().getHighestScore();
             message.setText(printGameSummary(winningPlayers, highScore));
         } else {
             GameOver.setVisible(true);

@@ -259,7 +259,7 @@ public class GameController {
     }
 
     /**
-     * closes the current window and opens the Start Screen
+     * Closes the current window and opens the Start Screen
      */
     public void mainMenu() {
         ((Stage) (MainMenuButton.getScene().getWindow())).close();
@@ -282,8 +282,13 @@ public class GameController {
         System.exit(0);
     }
 
+    /**
+     * Opens the Rules and pauses the time if there is one.
+     */
     public void help(ActionEvent actionEvent) {
-        countDown.pauseTimer();
+        if (game.getSinglePlayerMode().equals(SinglePlayerMode.TIME)) {
+            countDown.pauseTimer();
+        }
         new Window("Rules.fxml");
     }
 
