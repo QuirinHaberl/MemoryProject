@@ -91,7 +91,7 @@ public class NameSelectionController implements Initializable {
         }
         game.getDatabase().resetPlayerProfiles();
         game.getDatabase().loadPlayerProfiles();
-        game.useProfile(game.getDatabase().getPlayerProfiles(), profileUser);
+        game.playerList.useProfile(game.getDatabase().getPlayerProfiles(), profileUser);
     }
 
     @Override

@@ -299,4 +299,102 @@ public class PlayerList {
         }
         return output;
     }
+
+    /**
+     * Loads all existing profiles for the current players.
+     * A playerProfile has the following structure:
+     * playerId;playerName;highScore;gamesPlayed;gamesWon
+     *
+     * @param playerProfiles to be used
+     */
+    public void saveProfile(List<String[]> playerProfiles) {
+        Player player;
+        for (String[] playerProfile : playerProfiles) {
+            for (int j = 0; j < getCount(); j++) {
+                player = getPlayer(j);
+                if (playerProfile[0].equals(getPlayerName(player)) && !(
+                        getPlayerName(player).equals("Player1")
+                                || getPlayerName(player).equals("Player2")
+                                || getPlayerName(player).equals("Player3")
+                                || getPlayerName(player).equals("Player4")
+                )) {
+                    playerProfile[0] = getPlayerName(player) + "";
+                    playerProfile[1] = getPlayerHighScore(player) + "";
+                    playerProfile[2] = getPlayerGamesPlayed(player) + "";
+                    playerProfile[3] = getPlayerGamesWon(player) + "";
+                    break;
+                }
+            }
+        }
+    }
+
+    public int getPlayerGamesPlayed(Player player) {
+        return player.getGamesPlayed();
+    }
+
+    public int getPlayerGamesWon(Player player) {
+        return player.getGamesWon();
+    }
+
+    public int getPlayerHighScore(Player player) {
+        return player.getHighScore();
+    }
+
+    public String getPlayerName(Player player) {
+        return player.getName();
+    }
+
+    /**
+     * Loads all existing profiles for the current players.
+     * A playerProfile has the following structure:
+     * playerId;playerName;highScore;gamesPlayed;gamesWon
+     *
+     * @param playerProfiles to be used
+     * @param usesProfiles   specifies which player wants to use a profile
+     */
+    public void useProfile(List<String[]> playerProfiles, List<Boolean> usesProfiles) {
+        boolean hasProfile;
+        Player player;
+        for (int i = 0; i < getCount(); i++) {
+            player = getPlayer(i);
+
+            if (usesProfiles.get(i)) {
+                hasProfile = false;
+                int j;
+                for (j = 0; j < playerProfiles.size(); j++) {
+                    if (getPlayerName(player).
+                            equals(playerProfiles.get(j)[0])) {
+                        hasProfile = true;
+                        break;
+                    }
+
+                }
+                if (hasProfile) {
+                    setPlayerHighScore(player, Integer.parseInt(playerProfiles.get(j)[1]));
+                    setPlayerGamesPlayed(player, Integer.parseInt(playerProfiles.get(j)[2]));
+                    setPlayerGamesWon(player, Integer.parseInt(playerProfiles.get(j)[3]));
+                } else {
+                    String[] newProfile = new String[]{
+                            getPlayerName(player),
+                            getPlayerHighScore(player) + "",
+                            getPlayerGamesPlayed(player) + "",
+                            getPlayerGamesWon(player) + ""
+                    };
+                    playerProfiles.add(newProfile);
+                }
+            }
+        }
+    }
+
+    public void setPlayerGamesPlayed(Player player, int gamesPlayed) {
+        player.setGamesPlayed(gamesPlayed);
+    }
+
+    public void setPlayerGamesWon(Player player, int gamesWon) {
+        player.setGamesWon(gamesWon);
+    }
+
+    public void setPlayerHighScore(Player player, int highScore) {
+        player.setHighScore(highScore);
+    }
 }

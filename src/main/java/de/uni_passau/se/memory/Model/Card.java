@@ -41,7 +41,7 @@ public class Card {
      *
      * @return the value of a {@link Card}.
      */
-    public Object getValue() {
+    public CardValues getValue() {
         return value;
     }
 
