@@ -84,28 +84,6 @@ public class PlayingField {
     }
 
     /**
-     * Fills the board with digits
-     */
-    public void fillWithValuesBackup(CardValues[] cardValues) {
-        int size = cardValues.length;
-        int counter = 0;
-        for (int i = 0; i < board.length / 2; i++) {
-            for (int j = 0; j < board[0].length; j++) {
-                board[i][j] =
-                        new Card(cardValues[counter % size], globalCardSet);
-                counter++;
-            }
-        }
-        counter = 0;
-        for (int i = getBoard().length / 2; i < board.length; i++) {
-            for (int j = 0; j < board[0].length; j++) {
-                board[i][j] = new Card(cardValues[counter % size], globalCardSet);
-                counter++;
-            }
-        }
-    }
-
-    /**
      * Shuffles {@link Card} elements of {@code board}.
      */
     public void shuffleBoard() {
