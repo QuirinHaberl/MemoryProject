@@ -154,18 +154,43 @@ class PlayerListTest {
 
     @Test
     void getPlayerName() {
+        playerList.addPlayer("A");
+        playerList.addPlayer("B");
+        playerList.addPlayer("C");
 
+        assertEquals("A",playerList.getPlayerName(0),"the name is not 'A'!");
+        assertEquals("B",playerList.getPlayerName(1),"the name is not 'B'!");
+        assertEquals("C",playerList.getPlayerName(2),"the name is not 'C'!");
     }
 
     @Test
     void getPlayerScore() {
+        playerList.addPlayer("A");
+        playerList.addPlayer("B");
+        playerList.addPlayer("C");
+
+        playerList.getPlayer(0).setScore(0);
+        playerList.getPlayer(1).setScore(1);
+        playerList.getPlayer(2).setScore(2);
+
+        assertEquals(0,playerList.getPlayer(0).getScore(),"this score should be 0!");
+        assertEquals(1,playerList.getPlayer(1).getScore(),"this score should be 1!");
+        assertEquals(2,playerList.getPlayer(2).getScore(),"this score should be 2!");
     }
 
     @Test
     void getRanking() {
+        playerList.addPlayer("A");
+        playerList.addPlayer("B");
+        playerList.addPlayer("C");
+
+        playerList.getPlayer(0).setScore(0);
+        playerList.getPlayer(1).setScore(1);
+        playerList.getPlayer(2).setScore(2);
+
+        assertEquals(3,playerList.getRanking("A"),"the ranking of A should be 3!");
+        assertEquals(2,playerList.getRanking("B"),"the ranking of A should be 2!");
+        assertEquals(1,playerList.getRanking("C"),"the ranking of A should be 1!");
     }
 
-    @Test
-    void getSorted(){
-    }
 }
