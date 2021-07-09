@@ -24,6 +24,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 /**
  * Controller of the game.
@@ -197,7 +198,6 @@ public class GameController {
     public void initialize() {
         setPlayerLabel();
         startClicked();
-        game.resetPlayerScores();
         if (game.getPlayerAmount() == 1) {
             if (game.getSinglePlayerMode().equals(SinglePlayerMode.LIFEPOINTS)) {
                 setLives();
@@ -331,9 +331,6 @@ public class GameController {
             if (countDown.getGUITime() == 0) {
                 game.setGameWon(false);
 
-                game.updateGamesPlayed();
-                game.storeProgress();
-
                 ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
                 new Window("GameResult.fxml");
             }
@@ -435,8 +432,6 @@ public class GameController {
                 if (game.getPlayerList().getPlayer(0).getlifes() == 0) {
                     game.setGameWon(false);
 
-                    game.updateGamesPlayed();
-                    game.storeProgress();
                     ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
                     new Window("GameResult.fxml");
                 }
@@ -459,9 +454,7 @@ public class GameController {
                 found.play();
                 game.setGameWon(true);
 
-                game.updateGamesPlayed();
                 checkAchievementsAfterGame();
-                game.storeProgress();
 
                 ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
                 new Window("GameResult.fxml");
