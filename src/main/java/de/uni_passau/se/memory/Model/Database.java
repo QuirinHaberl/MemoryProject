@@ -37,6 +37,15 @@ public class Database {
     private List<String[]> playerProfiles;
 
     /**
+     * Stores the progress of all playerProfiles and the HighScoreHistory.
+     */
+    public void storeProgress(Game game) {
+        game.playerList.saveProfile(this.getPlayerProfiles());
+        storePlayerProfiles();
+        storeHighScoreHistory();
+    }
+
+    /**
      * Creates a new {@code INSTANCE} of the {@link Database}.
      */
     private static class InstanceHolder {
@@ -75,7 +84,6 @@ public class Database {
     }
 
     /**
-     *
      * Loads the {@code HighScoreHistory} from the highScoreHistory.csv file
      * and stores it in the {@code highScoreList}.
      *
