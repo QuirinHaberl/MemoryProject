@@ -371,6 +371,12 @@ public final class Game {
      * @return the current {@link CardStatus} of a {@link Card}
      */
     public CardStatus revealSecondCard(int secondRow, int secondCol) {
+
+        //If first Card is not uncovered, dont open second
+        if(turnStatus != TurnStatus.ACTIVE){
+            return CardStatus.CLOSED;
+        }
+
         Card secondCard = getCard(secondRow, secondCol);
         if (secondCard.getCardStatus().equals(CardStatus.OPEN)) {
             secondCard.setCardStatus(CardStatus.AlREADYOPEN);
@@ -409,7 +415,7 @@ public final class Game {
      *
      * @return whether all cards are open or not.
      */
-    public boolean areAllCardsOpen() {
+    public boolean areAllCardsFound() {
         for (int row = 0; row < playingField.getBoard().length; ++row) {
             for (int col = 0; col < playingField.getBoard()[row].length; ++col) {
                 if (!(getCard(row, col).getCardStatus().equals(CardStatus.FOUND))) {
