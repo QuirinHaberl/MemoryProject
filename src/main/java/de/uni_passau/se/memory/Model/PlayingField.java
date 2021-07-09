@@ -69,6 +69,8 @@ public class PlayingField {
 
     /**
      * Fills the board with digits
+     *
+     * @param cardValues which are filled into the playingField.
      */
     public void fillWithValues(CardValues[] cardValues) {
         int size = cardValues.length;
