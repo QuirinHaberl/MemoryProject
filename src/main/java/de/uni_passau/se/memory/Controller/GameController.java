@@ -438,9 +438,9 @@ public class GameController {
             activePlayer = activePlayer.getNext();
             if (game.getPlayerList().getCount() == 1
                     && game.getSinglePlayerMode().equals(SinglePlayerMode.LIFEPOINTS)) {
-                game.getPlayerList().getPlayer(0).reducelifes();
+                game.getPlayerList().getPlayer(0).reduceLives();
                 updateLives();
-                if (game.getPlayerList().getPlayer(0).getlifes() == 0) {
+                if (game.getPlayerList().getPlayer(0).getLives() == 0) {
                     game.setGameResult(false);
 
                     ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
@@ -521,7 +521,7 @@ public class GameController {
             livesAndTime.getChildren().add(newHeart(String.valueOf(i)));
             livesAndTime.getChildren().get(i).setVisible(true);
         }
-        game.getPlayerList().getPlayer(1).setlifes(game.getBoard().length * 2);
+        game.getPlayerList().getPlayer(1).setLives(game.getBoard().length * 2);
     }
 
     /**
@@ -547,7 +547,7 @@ public class GameController {
      * Updates the lives.
      */
     private void updateLives() {
-        int id = game.getPlayerList().getPlayer(0).getlifes();
+        int id = game.getPlayerList().getPlayer(0).getLives();
         if ((id % 2) == 0) {
             livesAndTime.getChildren().get(id / 2).getStyleClass().removeAll(
                     "LifeEmptyHalf");

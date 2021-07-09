@@ -206,7 +206,7 @@ public class ConsoleController implements Initializable {
 
                 //This is only for the single player mode with the setting "play with lives"
                 if (game.getPlayerList().getCount() == 1 && singlePlayerMode.equals(SinglePlayerMode.LIFEPOINTS)) {
-                    View.printlifes(game.getPlayerList().getPlayer(0).getlifes());
+                    View.printlifes(game.getPlayerList().getPlayer(0).getLives());
                 }
 
                 //This is only for the single player mode with the setting "play on time"
@@ -301,16 +301,16 @@ public class ConsoleController implements Initializable {
                                     //This is only for the single player mode with the setting "play with lives"
                                     if (game.getPlayerList().getCount() == 1
                                             && singlePlayerMode.equals(SinglePlayerMode.LIFEPOINTS)) {
-                                        game.getPlayerList().getPlayer(0).reducelifes();
+                                        game.getPlayerList().getPlayer(0).reduceLives();
 
-                                        if (game.getPlayerList().getPlayer(0).getlifes() == 0) {
+                                        if (game.getPlayerList().getPlayer(0).getLives() == 0) {
                                             View.printLoserMessage();
                                             boolean exit = true;
                                             while (exit) {
                                                 View.printMemory();
                                                 String choice = bufferedReader.readLine().trim();
                                                 exit = handleInputsAfterGame(choice, player);
-                                                game.getPlayerList().getPlayer(0).setlifes(5);
+                                                game.getPlayerList().getPlayer(0).setLives(5);
                                             }
                                         }
                                     }
