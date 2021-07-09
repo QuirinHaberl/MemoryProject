@@ -321,11 +321,7 @@ public class GameController {
      * @param col    column of the current button
      */
     public void buttonClicked(ActionEvent event, Button button, String id, int row, int col) {
-        /*
-        if (game.getPlayerList().getCount() == 1 && game.getSinglePlayerMode().equals(SinglePlayerMode.LIFEPOINTS)) {
-            setLives();
-        }
-         */
+
         // This is only for the single player mode play with time
         if (game.getPlayerList().getCount() == 1 && game.getSinglePlayerMode().equals(SinglePlayerMode.TIME)) {
             if (countDown.getGUITime() == 0) {
@@ -335,6 +331,9 @@ public class GameController {
                 new Window("GameResult.fxml");
             }
         }
+
+        //
+        updatePointer();
 
         //Implementation of the game phases
         switch (game.getTurnStatus()) {
@@ -609,6 +608,23 @@ public class GameController {
          */
         public int getGUITime() {
             return time;
+        }
+    }
+
+    /**
+     * Updates the player pointers.
+     */
+    private void updatePointer() {
+        Label[] playerLabels = {labelPlayer1, labelPlayer2,
+                labelPlayer3, labelPlayer4};
+        AnchorPane[] keyAnchorPanes = {key1, key2,
+                key3, key4};
+        for (int i = 0; i < game.getPlayerAmount(); i++) {
+            if(playerLabels[i].getText().equals(activePlayer.getName())) {
+                keyAnchorPanes[i].setVisible(true);
+            } else {
+                keyAnchorPanes[i].setVisible(false);
+            }
         }
     }
 }
