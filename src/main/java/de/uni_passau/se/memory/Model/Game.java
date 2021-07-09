@@ -99,7 +99,6 @@ public final class Game {
 
                 }
                 if (hasProfile) {
-                    getPlayerList().getPlayer(i).setName(playerProfiles.get(j)[0]);
                     getPlayerList().getPlayer(i).getAchievements().
                             setHighScore(Integer.parseInt(playerProfiles.get(j)[1]));
                     getPlayerList().getPlayer(i).getAchievements().
@@ -123,9 +122,9 @@ public final class Game {
      * Stores the progress of all playerProfiles and the HighScoreHistory.
      */
     public void storeProgress() {
-        getDatabase().storeHighScoreHistory();
         saveProfile(getDatabase().getPlayerProfiles());
         getDatabase().storePlayerProfiles();
+        getDatabase().storeHighScoreHistory();
     }
 
     /**
@@ -133,18 +132,22 @@ public final class Game {
      *
      * @param player who is being checked
      */
-    public String checkForAchievements(Player player) {
+    public String checkForAchievementsInGame(Player player) {
+        String currentAchievement = "";
+
         player.getAchievements().updatePairCounters();
         player.getAchievements().checkFoundPairsTotal();
         player.getAchievements().checkFoundPairsStreak();
         player.getAchievements().checkHighScore();
+
+        //If a new achievement was earned
         if (!(player.getAchievements().getCurrentAchievements().isEmpty())) {
             View.printAchievement(player.getAchievements().getCurrentAchievements(), player);
-            String currentAchievement = player.getAchievements().getCurrentAchievements();
+            currentAchievement = player.getAchievements().getCurrentAchievements();
             player.getAchievements().clearCurrentAchievement();
             return currentAchievement;
         }
-        return "";
+        return currentAchievement;
     }
 
     /**
@@ -152,46 +155,50 @@ public final class Game {
      *
      * @param players who are being checked
      */
-    public String checkForAchievements(PlayerList players) {
+    public String checkForAchievementsAfterGame(PlayerList players) {
         String currentAchievement = "";
 
-        if (checkForDraw(players)) {
+        for (int i = 0; i < players.getCount(); i++) {
+            int highestScore = players.getHighestScore();
 
-            int highestScore = players.getHighestScore()[0];
-            for (int i = 0; i < players.getCount(); i++) {
-                players.getPlayer(i).getAchievements().updateGamesPlayed();
+            //If a player has won a game
+            if (players.getPlayerScore(i) == highestScore && !checkForDraw(players)) {
+                players.getPlayer(i).getAchievements().updateGamesWon();
+                players.getPlayer(i).getAchievements().checkGamesWon();
 
-                //If a player has won a game
-                if (players.getPlayerScore(i) == highestScore) {
-                    players.getPlayer(i).getAchievements().updateGamesWon();
-                    players.getPlayer(i).getAchievements().checkGamesWon();
-
-                    //If a player has earned a new achievement
-                    if (!(players.getPlayer(i).getAchievements().getCurrentAchievements().isEmpty())) {
-                        View.printAchievement(players.getPlayer(i).getAchievements().getCurrentAchievements(), players.getPlayer(i));
-                        currentAchievement = currentAchievement +
-                                players.getPlayer(i).getName() + " has earned:\n" +
-                                players.getPlayer(i).getAchievements().getCurrentAchievements() + "\n";
-                        players.getPlayer(i).getAchievements().clearCurrentAchievement();
-                        break;
-                    }
+                //If a player has earned a new achievement
+                if (!(players.getPlayer(i).getAchievements().getCurrentAchievements().isEmpty())) {
+                    View.printAchievement(players.getPlayer(i).getAchievements().getCurrentAchievements(), players.getPlayer(i));
+                    currentAchievement = currentAchievement +
+                            players.getPlayer(i).getName() + " has earned:\n" +
+                            players.getPlayer(i).getAchievements().getCurrentAchievements() + "\n";
+                    players.getPlayer(i).getAchievements().clearCurrentAchievement();
+                    break;
                 }
             }
-            return currentAchievement;
-        } else {
-            return "This game was a draw!";
         }
+        return currentAchievement;
     }
 
+    /**
+     * Checks whether multiple players have the same score.
+     *
+     * @param players of whom the scores shall be reviewed
+     * @return Checks whether a game was a draw (ture) or not (false)
+     */
     public boolean checkForDraw(PlayerList players) {
-        int highestScore = players.getHighestScore()[0];
-        int playersWithHighestScore = 0;
-        for (int i = 0; i < players.getCount(); i++) {
-            if (players.getPlayer(i).getScore() == highestScore) {
-                playersWithHighestScore++;
-            }
+        return players.getCountOfWinningPlayers() > 1;
+    }
+
+    /**
+     * Resets current scores to start a fresh game.
+     */
+    public void resetPlayerScores() {
+        for (int i = 0; i < getPlayerAmount(); i++) {
+            getPlayerList().getPlayer(i).setScore(0);
+            getPlayerList().getPlayer(i).getAchievements().setPairCounterTotal(0);
+            getPlayerList().getPlayer(i).getAchievements().setPairCounterStreak(0);
         }
-        return playersWithHighestScore == 1;
     }
 
     /**
@@ -466,12 +473,8 @@ public final class Game {
      * Update the gameSum of every player
      */
     public void quitGame() {
-        for (int i = 0; i < this.getPlayerList().getCount(); i++) {
-            this.getPlayerList().getPlayer(i).getAchievements().updateGamesPlayed();
-        }
         setGameStatus(GameStatus.END);
     }
-
 
     /**
      * Resets the {@link Game} and restarts it.
@@ -576,5 +579,11 @@ public final class Game {
 
     public void setGameWon(boolean gameWon) {
         this.gameWon = gameWon;
+    }
+
+    public void updateGamesPlayed() {
+        for (int i = 0; i < playerList.getCount(); i++) {
+            playerList.getPlayer(i).getAchievements().updateGamesPlayed();
+        }
     }
 }

@@ -36,7 +36,13 @@ public enum CardValues {
     TWENTYTHREE( "23", "W",  "Card_RedGem"),
     TWENTYFOUR(  "24", "X",  "Card_RedPotion"),
     TWENTYFIVE(  "25", "Y",  "Card_Ring"),
-    TWENTYSIX(   "26", "Z",  "C");
+    TWENTYSIX(   "26", "Z",  "Card_Shield1"),
+    TWENTYSEVE(  "27", "a",  "Card_Shield2"),
+    TWENTYEIGHT( "28", "b",  "Card_Skull"),
+    TWENTYNINE(  "29", "c",  "Card_Sword"),
+    THIRTY(      "30", "d",  "Card_Trident"),
+    THIRTYONE(   "31", "e",  "Card_Trophy"),
+    THIRYTWO(    "32", "f",  "Card_Wand");
 
 
     private final String digit;

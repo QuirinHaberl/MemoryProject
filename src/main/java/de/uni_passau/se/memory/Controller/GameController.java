@@ -197,6 +197,7 @@ public class GameController {
     public void initialize() {
         setPlayerLabel();
         startClicked();
+        game.resetPlayerScores();
         if (game.getPlayerAmount() == 1) {
             if (game.getSinglePlayerMode().equals(SinglePlayerMode.LIFEPOINTS)) {
                 setLives();
@@ -329,6 +330,10 @@ public class GameController {
         if (game.getPlayerList().getCount() == 1 && game.getSinglePlayerMode().equals(SinglePlayerMode.TIME)) {
             if (countDown.getGUITime() == 0) {
                 game.setGameWon(false);
+
+                game.updateGamesPlayed();
+                game.storeProgress();
+
                 ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
                 new Window("GameResult.fxml");
             }
@@ -408,8 +413,6 @@ public class GameController {
 
         AudioClip unlock = new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Unlock.wav").toUri().toString());
         unlock.play();
-        checkIfWon(event);
-
 
         //Setzte Pointer auf nächsten
         game.setTurnStatus(TurnStatus.IDLE);
@@ -423,7 +426,7 @@ public class GameController {
             b1.setVisible(false);
             b2.setVisible(false);
         } else {
-            activePlayer.getAchievements().resetPairCounterStreak();
+            activePlayer.getAchievements().setPairCounterStreak(0);
             activePlayer = activePlayer.getNext();
             if (game.getPlayerList().getCount() == 1
                     && game.getSinglePlayerMode().equals(SinglePlayerMode.LIFEPOINTS)) {
@@ -431,11 +434,15 @@ public class GameController {
                 updateLives();
                 if (game.getPlayerList().getPlayer(0).getlifes() == 0) {
                     game.setGameWon(false);
+
+                    game.updateGamesPlayed();
+                    game.storeProgress();
                     ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
                     new Window("GameResult.fxml");
                 }
             }
         }
+        checkIfWon(event);
 
     }
 
@@ -452,8 +459,8 @@ public class GameController {
                 found.play();
                 game.setGameWon(true);
 
+                game.updateGamesPlayed();
                 checkAchievementsAfterGame();
-
                 game.storeProgress();
 
                 ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
@@ -466,7 +473,7 @@ public class GameController {
      * Checks achievements for the current player during the game.
      */
     public void checkAchievementsDuringGame() {
-        String achievement = game.checkForAchievements(activePlayer);
+        String achievement = game.checkForAchievementsInGame(activePlayer);
         if (!achievement.isEmpty()) {
             achievementLabel.setStyle("-fx-font-size: 15pt;");
             achievementLabel.setText(activePlayer.getName() + " has earned:\n" + achievement);
@@ -479,7 +486,7 @@ public class GameController {
      * Checks achievements for all players after game.
      */
     public void checkAchievementsAfterGame() {
-        String achievement = game.checkForAchievements(game.getPlayerList());
+        String achievement = game.checkForAchievementsAfterGame(game.getPlayerList());
         if (!achievement.isEmpty()) {
             achievementLabel.setStyle("-fx-font-size: 15pt;");
             achievementLabel.setText(achievement);
@@ -566,6 +573,7 @@ public class GameController {
         livesAndTime.getChildren().add(timer);
     }
 
+
     /**
      * This is a inner class for the timer of a {@link Game} in the GUI.
      * The default time is 120 seconds (2 minutes)
@@ -574,7 +582,7 @@ public class GameController {
 
         private Timeline animation;
         private String S = "";
-        private int time = 120;
+        private int time = 10;
 
         Label timer = new Label();
 
@@ -609,6 +617,5 @@ public class GameController {
         public int getGUITime() {
             return time;
         }
-
     }
 }

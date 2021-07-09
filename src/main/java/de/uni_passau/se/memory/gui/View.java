@@ -3,6 +3,8 @@ package de.uni_passau.se.memory.gui;
 import de.uni_passau.se.memory.Model.*;
 import de.uni_passau.se.memory.Model.Enums.CardStatus;
 
+import java.util.List;
+
 /**
  * This class represents the view of the MVC-architecture.
  */
@@ -338,7 +340,7 @@ public final class View {
      * @param winningPlayers of the current game
      * @param highestScore   the highest score a player reached
      */
-    public static void printGameSummary(String[] winningPlayers, int highestScore) {
+    public static void printGameSummary(List<String> winningPlayers, int highestScore) {
         printWinningPlayers(winningPlayers);
         System.out.print(" won the game with a score of ");
         System.out.println(highestScore);
@@ -370,12 +372,12 @@ public final class View {
      *
      * @param winningPlayers the highest score a player reached
      */
-    public static void printWinningPlayers(String[] winningPlayers) {
-        for (int i = 0; i < winningPlayers.length; i++) {
-            if (i != winningPlayers.length - 1) {
-                System.out.print(winningPlayers[i] + " and ");
+    public static void printWinningPlayers(List<String> winningPlayers) {
+        for (int i = 0; i < winningPlayers.size(); i++) {
+            if (i != winningPlayers.size() - 1) {
+                System.out.print(winningPlayers.get(i) + " and ");
             } else {
-                System.out.print(winningPlayers[i]);
+                System.out.print(winningPlayers.get(i));
             }
         }
     }

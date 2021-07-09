@@ -7,6 +7,7 @@ import de.uni_passau.se.memory.Model.Enums.GameStatus;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import de.uni_passau.se.memory.gui.View;
@@ -262,20 +263,20 @@ public class ConsoleController implements Initializable {
                                     player.updateScore();
                                     player.getFoundCards().add(game.getPlayingField().getBoard()[secondRow][secondCol]);
                                     //Check if a player has a new achievement
-                                    game.checkForAchievements(player);
+                                    game.checkForAchievementsInGame(player);
                                     if (game.areAllCardsOpen()) {
                                         View.printAllPairsFound();
                                         View.printBoard(game.getPlayingField());
-                                        String[] winningPlayers = game.getPlayerList().winningPlayersToString();
-                                        int[] highScore =
+                                        List<String> winningPlayers = game.getPlayerList().winningPlayersToString();
+                                        int highScore =
                                                 game.getPlayerList().getHighestScore();
 
                                         //Check if a player has a new achievement
-                                        game.checkForAchievements(game.getPlayerList());
+                                        game.checkForAchievementsAfterGame(game.getPlayerList());
                                         View.printGameSummary(winningPlayers,
-                                                highScore[0]);
+                                                highScore);
 
-                                        game.getDatabase().updateHighScoreHistory(winningPlayers, highScore[0]);
+                                        game.getDatabase().updateHighScoreHistory(winningPlayers, highScore);
 
                                         boolean exit = true;
                                         while (exit) {
@@ -294,7 +295,7 @@ public class ConsoleController implements Initializable {
                                     counter = counter + 1;
 
                                     //Reset streak for achievements
-                                    player.getAchievements().resetPairCounterStreak();
+                                    player.getAchievements().setPairCounterStreak(0);
 
                                     //This is only for the single player mode with the setting "play with lives"
                                     if (game.getPlayerList().getCount() == 1
@@ -519,6 +520,7 @@ public class ConsoleController implements Initializable {
                 saveBreak = true;
             }
             case "quit", "q" -> {
+                game.updateGamesPlayed();
                 game.storeProgress();
                 game.quitGame();
                 saveBreak = true;
@@ -572,6 +574,7 @@ public class ConsoleController implements Initializable {
                 return false;
             }
             case "quit", "q" -> {
+                game.updateGamesPlayed();
                 game.storeProgress();
                 game.quitGame();
                 return false;
@@ -583,6 +586,4 @@ public class ConsoleController implements Initializable {
             }
         }
     }
-
-
 }

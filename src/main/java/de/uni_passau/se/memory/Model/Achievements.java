@@ -44,10 +44,21 @@ public class Achievements {
     }
 
     /**
-     * Resets the streak of found pairs.
+     * Sets {@code pairCounterTotal}.
+     *
+     * @param pairCounterTotal to be set
      */
-    public void resetPairCounterStreak() {
-        this.pairCounterStreak = 0;
+    public void setPairCounterTotal(int pairCounterTotal) {
+        this.pairCounterTotal = pairCounterTotal;
+    }
+
+    /**
+     * Sets {@code pairCounterStreak}.
+     *
+     * @param pairCounterStreak to be set
+     */
+    public void setPairCounterStreak(int pairCounterStreak) {
+        this.pairCounterStreak = pairCounterStreak;
     }
 
     /**

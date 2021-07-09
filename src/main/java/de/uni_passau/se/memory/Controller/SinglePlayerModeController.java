@@ -19,6 +19,7 @@ public class SinglePlayerModeController {
      * @param actionEvent when button clicked
      */
     public void lives(ActionEvent actionEvent) {
+        Wrapper.getInstance().getGame().setPlayerAmount(1);
         Wrapper.getInstance().getGame().setSinglePlayerMode(SinglePlayerMode.LIFEPOINTS);
         ((Stage)(((Button)actionEvent.getSource()).getScene().getWindow())).close();
         AudioClip click=new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Click.wav").toUri().toString());
@@ -32,6 +33,7 @@ public class SinglePlayerModeController {
      * @param actionEvent when button clicked
      */
     public void time(ActionEvent actionEvent) {
+        Wrapper.getInstance().getGame().setPlayerAmount(1);
         Wrapper.getInstance().getGame().setSinglePlayerMode(SinglePlayerMode.TIME);
         ((Stage)(((Button)actionEvent.getSource()).getScene().getWindow())).close();
         AudioClip click=new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Click.wav").toUri().toString());
