@@ -60,9 +60,9 @@ public enum CardValues {
     /**
      * Constructs a new digit.
      *
-     * @param digit
-     * @param letter
-     * @param picture
+     * @param digit for a Console game with digits
+     * @param letter for a Console game with letters
+     * @param picture for a GUI game
      */
     CardValues(String digit, String letter, String picture) {
         this.digit = digit;
