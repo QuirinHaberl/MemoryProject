@@ -117,7 +117,7 @@ public class Player {
     /**
      * Increments the {@code score} by 1.
      */
-    public void updateScore () { // +1
+    public void updateScore() { // +1
         this.score++;
     }
 
@@ -128,24 +128,6 @@ public class Player {
      */
     public void setName(String name) {
         this.name = name;
-    }
-
-    /**
-     * Sets the next {@link Player}.
-     *
-     * @param next {@link Player}
-     */
-    public void setNext(Player next) {
-        this.next = next;
-    }
-
-    /**
-     * Sets the last {@link Player}.
-     *
-     * @param rear of the {@link Player}
-     */
-    public void setRear(Player rear) {
-        this.rear = rear;
     }
 
     /**
@@ -191,5 +173,61 @@ public class Player {
         return (this.name + ", highest score: " +
                 this.achievements.getHighScore() + ", " + " has played " +
                 this.achievements.getGamesPlayed() + " times.");
+    }
+
+    public int getHighScore() {
+        return achievements.getHighScore();
+    }
+
+    public int getGamesWon() {
+        return achievements.getGamesWon();
+    }
+
+    public int getGamesPlayed() {
+        return achievements.getGamesPlayed();
+    }
+
+    public void setHighScore(int highScore) {
+        achievements.setHighScore(highScore);
+    }
+
+    public void setGamesWon(int gamesWon) {
+        achievements.setGamesWon(gamesWon);
+    }
+
+    public void setGamesPlayed(int gamesPlayed) {
+        achievements.setGamesPlayed(gamesPlayed);
+    }
+
+    public void updateGamesPlayed() {
+        achievements.updateGamesPlayed();
+    }
+
+    public void updateGamesWon() {
+        achievements.updateGamesWon();
+    }
+
+    public String getCurrentAchievement() {
+        return achievements.getCurrentAchievements();
+    }
+
+    public void clearCurrentAchievement() {
+        achievements.clearCurrentAchievement();
+    }
+
+    public void updatePairCounters() {
+        achievements.updatePairCounters();
+    }
+
+    public void checkFoundPairsTotal() {
+        achievements.checkFoundPairsTotal();
+    }
+
+    public void checkFoundPairsStreak() {
+        achievements.checkFoundPairsStreak();
+    }
+
+    public void checkHighScore() {
+        achievements.checkHighScore();
     }
 }

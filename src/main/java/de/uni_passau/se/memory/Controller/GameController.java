@@ -7,6 +7,7 @@ import de.uni_passau.se.memory.Model.Enums.TurnStatus;
 import de.uni_passau.se.memory.Model.Game;
 import de.uni_passau.se.memory.Model.Player;
 import de.uni_passau.se.memory.gui.Window;
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -201,7 +202,11 @@ public class GameController {
             if (game.getSinglePlayerMode().equals(SinglePlayerMode.LIFEPOINTS)) {
                 setLives();
             } else {
-                countDown = new CountDownGUI();
+                if(size == 4) {
+                    countDown = new CountDownGUI(120);
+                } else if (size == 6){
+                    countDown = new CountDownGUI(240);
+                } else countDown = new CountDownGUI(360);
             }
         }
     }
@@ -211,7 +216,6 @@ public class GameController {
      * TODO check ob gebraucht
      */
     public void startClicked() {
-        int size = game.getPlayingField().getSize();
         game.getPlayingField().fillWithCards();
 
         // Filling the Board with Buttons for every card
@@ -279,6 +283,7 @@ public class GameController {
     }
 
     public void help(ActionEvent actionEvent) {
+        countDown.pauseTimer();
         new Window("Rules.fxml");
     }
 
@@ -328,6 +333,9 @@ public class GameController {
 
                 ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
                 new Window("GameResult.fxml");
+            }
+            if(countDown.animation.getStatus().equals(Animation.Status.PAUSED)) {
+                countDown.animation.play();
             }
         }
 
@@ -573,14 +581,16 @@ public class GameController {
 
         private Timeline animation;
         private String S = "";
-        private int time = 10;
+        private int time;
+
 
         Label timer = new Label();
 
         /**
          * Initiates the countDown for the GUI.
          */
-        public CountDownGUI() {
+        public CountDownGUI(int time) {
+            this.time = time;
             setTimer(timer);
             animation = new Timeline(new KeyFrame(Duration.millis(1000), e -> setTimeLabel()));
             animation.setCycleCount(Timeline.INDEFINITE);
@@ -608,7 +618,19 @@ public class GameController {
         public int getGUITime() {
             return time;
         }
+
+        /**
+         * Pauses the timer
+         */
+        public void pauseTimer() {
+            if (game.getPlayerList().getCount() == 1 &&
+                    game.getSinglePlayerMode().equals(SinglePlayerMode.TIME)) {
+                animation.pause();
+            }  else return;
+        }
     }
+
+
 
     /**
      * Updates the player pointers.

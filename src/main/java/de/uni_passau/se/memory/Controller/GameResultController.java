@@ -122,7 +122,7 @@ public class GameResultController {
         Game game = Wrapper.getInstance().getGame();
 
         game.updateGamesPlayed();
-        game.storeProgress();
+        game.database.storeProgress(game);
 
         if (game.isGameWon()) {
             List<String> winningPlayers = game.getPlayerList().winningPlayersToString();
