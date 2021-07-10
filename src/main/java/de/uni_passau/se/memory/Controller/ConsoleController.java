@@ -25,27 +25,27 @@ public class ConsoleController {
     /**
      * Stores the row of the first selected card.
      */
-    int firstRow = 0;
+    private int firstRow = 0;
 
     /**
      * Stores the column of the first selected card.
      */
-    int firstCol = 0;
+    private int firstCol = 0;
 
     /**
      * Stores the row of the second selected card.
      */
-    int secondRow = 0;
+    private int secondRow = 0;
 
     /**
      * Stores the column of the second selected card.
      */
-    int secondCol = 0;
+    private int secondCol = 0;
 
     /**
      * Stores whether a player found a pair.
      */
-    boolean isStillPlaying;
+    private boolean isStillPlaying;
 
     /**
      * Stores the current {@link MenuStatus}.
@@ -72,7 +72,8 @@ public class ConsoleController {
      * @param bufferedReader provides a connection to the console
      * @throws IOException on input error
      */
-    public void execute(BufferedReader bufferedReader) throws IOException {
+    public void execute(final BufferedReader bufferedReader)
+            throws IOException {
 
         //Printing the description of a memory game
         View.printDefault();
@@ -82,6 +83,7 @@ public class ConsoleController {
             switch (game.getGameStatus()) {
                 case MENU -> executeMenu(bufferedReader);
                 case RUNNING -> executeRunning(bufferedReader);
+                default -> throw new UnknownError();
             }
         }
     }
@@ -94,10 +96,6 @@ public class ConsoleController {
      * @throws IOException on input error
      */
     public void executeMenu(BufferedReader bufferedReader) throws IOException {
-        //Controls whether the player mode has already been selected
-        boolean noProblemOccurred = true;
-
-        game.setPlayerAmount(0);
 
         while (game.getGameStatus().equals(GameStatus.MENU)) {
 
@@ -105,23 +103,15 @@ public class ConsoleController {
 
                 //Is used to determine the number of players
                 // and to set (if needed) the single player mode.
-                case PLAYERMODE -> {
-                    noProblemOccurred = selectPlayerMode(noProblemOccurred, bufferedReader);
-                }
+                case PLAYERMODE -> selectPlayerMode(bufferedReader);
 
                 //Used to set the names of all players.
-                case PLAYERNAMES -> {
-                    noProblemOccurred = selectPlayerNames(noProblemOccurred, bufferedReader);
-                }
+                case PLAYERNAMES -> selectPlayerNames(bufferedReader);
 
                 //Used to select the board size.
-                case BOARDSIZE -> {
-                    noProblemOccurred = selectBoardSize(noProblemOccurred, bufferedReader);
-                }
+                case BOARDSIZE -> selectBoardSize(bufferedReader);
                 //Used to select the card set.
-                case CARDSET -> {
-                    selectCardSet(noProblemOccurred, bufferedReader);
-                }
+                case CARDSET -> selectCardSet(bufferedReader);
             }
         }
     }
@@ -129,49 +119,32 @@ public class ConsoleController {
     /**
      * Selects the boardSize.
      *
-     * @param noProblemOccurred dictates the procedure
-     * @param bufferedReader    provides a connection to the console
-     * @return whether a problem occurred
+     * @param bufferedReader provides a connection to the console
      * @throws IOException on input error
      */
-    public boolean selectBoardSize(boolean noProblemOccurred,
-                                   BufferedReader bufferedReader) throws IOException {
-
-        if (noProblemOccurred) {
-            View.printSelectBoardSize();
-        }
+    public void selectBoardSize(BufferedReader bufferedReader) throws IOException {
+        View.printSelectBoardSize();
         View.printMemory();
         int size = game.getPlayingField().selectBoardSize(bufferedReader.readLine().trim());
         if (size != 0) {
             game.getPlayingField().setBoard(size);
             menuStatus = MenuStatus.CARDSET;
-            noProblemOccurred = true;
-        } else {
-            noProblemOccurred = false;
         }
-        return noProblemOccurred;
     }
 
     /**
      * Selects a cardSet depending on user input.
      *
-     * @param noProblemOccurred dictates the procedure
-     * @param bufferedReader    provides a connection to the console
-     * @return whether a problem occurred
+     * @param bufferedReader provides a connection to the console
      * @throws IOException on input error
      */
-    public boolean selectCardSet(boolean noProblemOccurred,
-                                 BufferedReader bufferedReader) throws IOException {
-
-        if (noProblemOccurred) {
-            View.printSelectCardSet();
-        }
+    public void selectCardSet(BufferedReader bufferedReader) throws IOException {
+        View.printSelectCardSet();
         View.printMemory();
         if (game.getPlayingField().
                 selectCardSet(bufferedReader.readLine().trim())) {
             game.getPlayingField().fillWithCards();
             menuStatus = MenuStatus.PLAYERMODE;
-            noProblemOccurred = true;
             game.setGameStatus(GameStatus.RUNNING);
             View.printBoard(game.getPlayingField());
 
@@ -179,18 +152,14 @@ public class ConsoleController {
             if (game.getPlayerList().size() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
                 game.startTimer();
             }
-
-        } else {
-            noProblemOccurred = false;
         }
-
         updateCurrentDataBase(game.getDatabase());
-
-        return noProblemOccurred;
     }
 
     /**
      * Updates the dataBase.
+     *
+     * @param database to be used.
      */
     public void updateCurrentDataBase(Database database) {
         database.updateDataBase(game.getPlayerAmount(), game.getPlayerList());
@@ -199,13 +168,12 @@ public class ConsoleController {
     /**
      * Selects playerNames depending on user input.
      *
-     * @param noProblemOccurred dictates the procedure
-     * @param bufferedReader    provides a connection to the console
-     * @return whether a problem occurred
+     * @param bufferedReader provides a connection to the console
      * @throws IOException on input error
      */
-    public boolean selectPlayerNames(boolean noProblemOccurred, BufferedReader bufferedReader) throws IOException {
+    public void selectPlayerNames(BufferedReader bufferedReader) throws IOException {
         String[] playerNames = new String[game.getPlayerAmount()];
+        boolean noProblemOccurred = true;
         for (int i = 0; i < game.getPlayerAmount(); i++) {
             if (noProblemOccurred) {
                 View.printPlayerNameRequest(i + 1);
@@ -221,45 +189,36 @@ public class ConsoleController {
         }
         game.addPlayers(game.getPlayerAmount(), playerNames);
         menuStatus = MenuStatus.BOARDSIZE;
-
-        return noProblemOccurred;
     }
 
     /**
      * Selects playerMode depending on user input.
      *
-     * @param noProblemOccurred dictates the procedure
-     * @param bufferedReader    provides a connection to the console
-     * @return whether a problem occurred
+     * @param bufferedReader provides a connection to the console
      * @throws IOException on input error
      */
-    public boolean selectPlayerMode(boolean noProblemOccurred,
-                                    BufferedReader bufferedReader) throws IOException {
-        if (noProblemOccurred) {
-            View.printSelectPlayerAmount();
-        }
+    public void selectPlayerMode(BufferedReader bufferedReader) throws IOException {
+        View.printSelectPlayerAmount();
+
         View.printMemory();
         String input = bufferedReader.readLine().trim();
 
         if (getPlayerMode(input) > 1) {
             game.setPlayerAmount(Integer.parseInt(input));
             menuStatus = MenuStatus.PLAYERNAMES;
-            noProblemOccurred = true;
 
         } else if (getPlayerMode(input) == 1) {
             View.printSinglePlayerModeSettings();
             View.printMemory();
-
+            boolean noProblemOccurred;
             do {
                 String mode = bufferedReader.readLine().trim();
-                noProblemOccurred = handleSinglePlayerModeSettings(mode);
+                noProblemOccurred =
+                        handleSinglePlayerModeSettings(mode);
             } while (!noProblemOccurred);
             game.setPlayerAmount(Integer.parseInt(input));
             menuStatus = MenuStatus.PLAYERNAMES;
-        } else {
-            noProblemOccurred = false;
         }
-        return noProblemOccurred;
     }
 
     /**
@@ -298,7 +257,8 @@ public class ConsoleController {
      *
      * @param player         who is currently playing
      * @param input          command the player used
-     * @param bufferedReader provides a connection to the console.
+     * @param bufferedReader provides a connection to the console
+     * @throws IOException on input error
      */
     public void executePlayerTurn(Player player, String input, BufferedReader bufferedReader) throws IOException {
 
@@ -327,11 +287,10 @@ public class ConsoleController {
     /**
      * Executes the second choice of a player.
      *
-     * @param tokens         used to validate the input
-     * @param player         who is currently playing
-     * @param bufferedReader
-     * @return
-     * @throws IOException
+     * @param tokens used to validate the input
+     * @param player who is currently playing
+     * @param bufferedReader provides a connection to the console
+     * @throws IOException on input error
      */
     public void executeActive(String[] tokens, Player player,
                               BufferedReader bufferedReader) throws IOException {
@@ -354,9 +313,11 @@ public class ConsoleController {
     }
 
     /**
-     * @param player
-     * @param bufferedReader
-     * @throws IOException
+     * Checks if a Pair is found.
+     *
+     * @param player         who is currently playing
+     * @param bufferedReader provides a connection to the console
+     * @throws IOException on input error
      */
     public void checkIfPairIsFound(Player player,
                                    BufferedReader bufferedReader) throws IOException {
@@ -367,7 +328,7 @@ public class ConsoleController {
 
             //Check if a player has a new achievement
             game.checkForAchievementsInGame(player);
-            checkGameWon(player, bufferedReader);
+            checkGameWon(bufferedReader);
             firstCol = firstRow = secondRow =
                     secondCol = Integer.MIN_VALUE;
 
@@ -389,7 +350,7 @@ public class ConsoleController {
                     while (exit) {
                         View.printMemory();
                         String choice = bufferedReader.readLine().trim();
-                        exit = handleInputsAfterGame(choice, player);
+                        exit = handleInputsAfterGame(choice);
                         game.getPlayerList().getPlayer(0).setLives(5);
                     }
                 }
@@ -398,11 +359,12 @@ public class ConsoleController {
     }
 
     /**
-     * @param player
-     * @param bufferedReader
-     * @throws IOException
+     * Checks whether a game is won.
+     *
+     * @param bufferedReader provides a connection to the console
+     * @throws IOException on input error
      */
-    public void checkGameWon(Player player, BufferedReader bufferedReader) throws IOException {
+    public void checkGameWon(BufferedReader bufferedReader) throws IOException {
         if (game.areAllCardsFound()) {
             View.printAllPairsFound();
             View.printBoard(game.getPlayingField());
@@ -420,7 +382,7 @@ public class ConsoleController {
                 View.printMemory();
                 String choice = bufferedReader.readLine().trim();
 
-                exit = handleInputsAfterGame(choice, player);
+                exit = handleInputsAfterGame(choice);
             }
 
         } else {
@@ -429,6 +391,11 @@ public class ConsoleController {
         }
     }
 
+    /**
+     * Execute the first phase of a turn.
+     *
+     * @param tokens to validate the input
+     */
     public void executeIdle(String[] tokens) {
         if (correctInput(tokens)) {
             firstRow = Integer.parseInt(tokens[0]);
@@ -444,7 +411,7 @@ public class ConsoleController {
     }
 
     /**
-     *
+     * Checks if the singlePlayerMode is used.
      */
     public void checkForSinglePlayer() {
         //This is only for the single player mode with the setting "play with lives"
@@ -590,9 +557,7 @@ public class ConsoleController {
      */
     public void handleInputsDuringGame(String input) {
         switch (input.toLowerCase()) {
-            case "help", "h" -> {
-                View.printHelp();
-            }
+            case "help", "h" -> View.printHelp();
             case "rules", "ru" -> {
                 if (game.getPlayerList().size() > 1) {
                     View.printDescriptionMultiplayer();
@@ -600,18 +565,10 @@ public class ConsoleController {
                     View.printDescriptionSinglePlayer();
                 }
             }
-            case "allrules", "ar" -> {
-                View.printDescriptionComplete();
-            }
-            case "found", "f" -> {
-                View.printDiscardPile(game.getPlayerList());
-            }
-            case "cheat" -> {
-                View.cheat(game.getPlayingField());
-            }
-            case "score", "s" -> {
-                View.printScore(game.getPlayerList());
-            }
+            case "allRules", "ar" -> View.printDescriptionComplete();
+            case "found", "f" -> View.printDiscardPile(game.getPlayerList());
+            case "cheat" -> View.cheat(game.getPlayingField());
+            case "score", "s" -> View.printScore(game.getPlayerList());
             case "menu", "m" -> {
                 game.database.storeProgress(game.getPlayerList());
                 game.returnToMenu(game.getPlayerList());
@@ -635,9 +592,7 @@ public class ConsoleController {
                 game.database.storeProgress(game.getPlayerList());
                 game.quitGame();
             }
-            case "show", "sp" -> {
-                showPlayer();
-            }
+            case "show", "sp" -> showPlayer();
         }
     }
 
@@ -659,11 +614,10 @@ public class ConsoleController {
     /**
      * Handles the read inputs during a game and passes on the choices.
      *
-     * @param input  is the command which should be handled.
-     * @param player the affected player
+     * @param input is the command which should be handled.
      * @return the exit value
      */
-    public boolean handleInputsAfterGame(String input, Player player) {
+    public boolean handleInputsAfterGame(String input) {
         switch (input.toLowerCase()) {
             case "menu", "m" -> {
                 game.database.storeProgress(game.getPlayerList());
