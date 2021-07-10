@@ -28,7 +28,8 @@ public final class View {
         for (int row = 0; row < playingField.getBoard().length; row++) {
             line = new StringBuilder(line + "\n" + row + " ");
             for (int col = 0; col < playingField.getBoard()[row].length; col++) {
-                if (playingField.getBoard()[row][col].getCardStatus().equals(CardStatus.OPEN)) {
+                if (playingField.getBoard()[row][col].getCardStatus().equals(CardStatus.OPEN) ||
+                        playingField.getBoard()[row][col].getCardStatus().equals(CardStatus.AlREADYOPEN)) {
                     line.append(playingField.getBoard()[row][col].visualizeCard()).append(" ");
                 } else if (playingField.getBoard()[row][col].getCardStatus().equals(CardStatus.CLOSED)) {
                     line.append("X ");
