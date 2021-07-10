@@ -61,7 +61,8 @@ public class NameSelectionController implements Initializable {
 
     /**
      * Initializes the Labels
-     * @param location of the label
+     *
+     * @param location  of the label
      * @param resources of the label
      */
     @Override
@@ -117,6 +118,7 @@ public class NameSelectionController implements Initializable {
 
     /**
      * Minimizes the Window
+     *
      * @param event when minimize button clicked
      */
     @FXML
@@ -134,6 +136,7 @@ public class NameSelectionController implements Initializable {
 
     /**
      * Button ok is clicked
+     *
      * @param actionEvent when button clicked
      */
     public void ok(ActionEvent actionEvent) {
@@ -141,7 +144,7 @@ public class NameSelectionController implements Initializable {
         addPlayers();
 
         ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
-        AudioClip click=new AudioClip(Paths.get(
+        AudioClip click = new AudioClip(Paths.get(
                 "src/main/resources/de/uni_passau/se/memory/gui/Sound/Click.wav").toUri().toString());
         click.play();
         new Window("Levels.fxml");

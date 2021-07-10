@@ -1,7 +1,10 @@
 package de.uni_passau.se.memory.gui;
 
-import de.uni_passau.se.memory.Model.*;
+import de.uni_passau.se.memory.Model.Card;
 import de.uni_passau.se.memory.Model.Enums.CardStatus;
+import de.uni_passau.se.memory.Model.Player;
+import de.uni_passau.se.memory.Model.PlayerList;
+import de.uni_passau.se.memory.Model.PlayingField;
 
 import java.util.List;
 

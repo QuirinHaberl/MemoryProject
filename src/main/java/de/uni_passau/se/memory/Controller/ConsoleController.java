@@ -287,8 +287,8 @@ public class ConsoleController {
     /**
      * Executes the second choice of a player.
      *
-     * @param tokens used to validate the input
-     * @param player who is currently playing
+     * @param tokens         used to validate the input
+     * @param player         who is currently playing
      * @param bufferedReader provides a connection to the console
      * @throws IOException on input error
      */

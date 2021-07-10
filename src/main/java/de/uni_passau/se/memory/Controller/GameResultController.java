@@ -175,6 +175,7 @@ public class GameResultController {
 
     /**
      * Minimizes the Window
+     *
      * @param event when minimize button clicked
      */
     @FXML

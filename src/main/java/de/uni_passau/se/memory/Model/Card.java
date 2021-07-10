@@ -27,7 +27,7 @@ public class Card {
     /**
      * Constructs a new {@link Card}.
      *
-     * @param value value uses the enumerations of {@link CardValues}
+     * @param value   value uses the enumerations of {@link CardValues}
      * @param cardSet to be used
      */
     public Card(CardValues value, CardSet cardSet) {

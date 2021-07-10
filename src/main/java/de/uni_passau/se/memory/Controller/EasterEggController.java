@@ -12,6 +12,7 @@ public class EasterEggController {
 
     /**
      * Closes the window
+     *
      * @param event when close button clicked
      */
     @FXML
