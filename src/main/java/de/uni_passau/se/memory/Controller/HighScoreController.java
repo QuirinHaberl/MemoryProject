@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 
@@ -136,6 +137,33 @@ public class HighScoreController {
      */
     @FXML
     private Label score10;
+
+    /**
+     * Closes the stage
+     * @param event when close button clicked
+     */
+    @FXML
+    void CloseStage(MouseEvent event) {
+        System.exit(0);
+    }
+
+    /**
+     * Minimizes the Window
+     * @param event when minimize button clicked
+     */
+    @FXML
+    void MinimizeStage(MouseEvent event) {
+        ((Stage) (((Button) event.getSource()).getScene().getWindow())).setIconified(true);
+    }
+
+    /**
+     * Opens a surprise
+     * @param event when logo ist clicked
+     */
+    @FXML
+    void eeClicked(ActionEvent event) {
+        new Window("EasterEgg.fxml");
+    }
 
     /**
      * Shows the current {@code HighScoreHistory}.
