@@ -56,7 +56,7 @@ public final class Game {
     private CountDownConsole time;
 
     /**
-     * Stores player-profiles
+     * Stores playerProfiles
      */
     public Database database;
 
@@ -491,21 +491,21 @@ public final class Game {
     }
 
     /**
-     * Increments the number of won games.
-     *
-     * @param player whose gamesWon is incremented
-     */
-    public void updateGamesWon(Player player) {
-        player.updateGamesWon();
-    }
-
-    /**
      * Increments the number of gamesPlayed.
      *
      * @param player whose gamesPlayed is incremented
      */
     public void updateGamesPlayed(Player player) {
         player.updateGamesPlayed();
+    }
+
+    /**
+     * Increments the number of won games.
+     *
+     * @param player whose gamesWon is incremented
+     */
+    public void updateGamesWon(Player player) {
+        player.updateGamesWon();
     }
 
     /**
@@ -596,8 +596,7 @@ public final class Game {
             player = players.getPlayer(i);
 
             //If a player has won a game
-            if (players.getPlayerScore(i) == highestScore && !checkForDraw(players)) {
-                updateGamesWon(player);
+            if (players.getScoreAtPosition(i) == highestScore && !checkForDraw(players)) {
                 updateGamesWon(player);
                 checkPlayerGamesWon(player);
 
@@ -656,7 +655,7 @@ public final class Game {
      * The default time is 120 seconds (2 minutes)
      */
     public class CountDownConsole {
-        private int count = 120;
+        int count = 120;
         int remainingTime = count;
 
         /**

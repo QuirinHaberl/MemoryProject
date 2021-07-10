@@ -1,6 +1,8 @@
 package de.uni_passau.se.memory.Model;
 
 import de.uni_passau.se.memory.gui.View;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.TextField;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -32,17 +34,19 @@ public class Database {
     /**
      * Stores all playerProfiles
      * A profile has the following structure:
-     * playerId;player1;highScore;gamePlayed;gamesWon
+     * playerName;highScore;gamePlayed;gamesWon
      */
     private List<String[]> playerProfiles;
+
+    private List<Boolean> usesProfiles;
 
     /**
      * Stores the progress of all playerProfiles and the HighScoreHistory.
      *
-     * @param game contains the progress to be stored.
+     * @param playerList contains the progress to be stored.
      */
-    public void storeProgress(Game game) {
-        game.playerList.saveProfile(this.getPlayerProfiles());
+    public void storeProgress(PlayerList playerList) {
+        saveProfile(playerList);
         storePlayerProfiles();
         storeHighScoreHistory();
     }
@@ -55,7 +59,7 @@ public class Database {
     }
 
     /**
-     * Constructs a new database-object.
+     * Constructs a new database.
      */
     public Database() {
         this.playerProfiles = new ArrayList<>();
@@ -69,6 +73,86 @@ public class Database {
      */
     public static Database getInstance() {
         return Database.InstanceHolder.INSTANCE;
+    }
+
+    /**
+     * Loads all existing profiles for the current players.
+     * A playerProfile has the following structure:
+     * playerName;highScore;gamesPlayed;gamesWon
+     *
+     * @param playerList to be used
+     */
+    public void useProfile(PlayerList playerList) {
+        boolean hasProfile;
+        Player player;
+
+        for (int i = 0; i < playerList.size(); i++) {
+            player = playerList.getPlayer(i);
+
+            if (usesProfiles.get(i)) {
+                hasProfile = false;
+                int j = 0;
+
+                while (j < playerProfiles.size()) {
+                    if (playerList.getPlayerName(player).equals(playerProfiles.get(j)[0])) {
+                        hasProfile = true;
+                        break;
+                    }
+                    j++;
+                }
+
+                if (hasProfile) {
+                    loadPlayerProfile(player, playerProfiles.get(j));
+                } else {
+                    createPlayerProfile(player);
+                }
+            }
+        }
+    }
+
+    /**
+     * Sets which player wants to use a profile in usesProfiles.
+     *
+     * @param checkBoxes contains if a player wants to use a profile
+     * @param textFields contains if a player uses default profiles
+     */
+    public void setUsesProfiles(CheckBox[] checkBoxes, TextField[] textFields){
+        usesProfiles = new ArrayList<>();
+        for (int i = 0; i < checkBoxes.length; i++) {
+            if (textFields[i].getText().isEmpty()) {
+                usesProfiles.add(false);
+            }
+            else {
+                usesProfiles.add(checkBoxes[i].isSelected());
+            }
+        }
+    }
+
+    /**
+     * Loads the profile from playerProfile to a player.
+     *
+     * @param player to be updated
+     * @param playerProfile to be used
+     */
+    public void loadPlayerProfile(Player player, String[] playerProfile){
+        player.setHighScore(Integer.parseInt(playerProfile[1]));
+        player.setGamesPlayed(Integer.parseInt(playerProfile[2]));
+        player.setGamesWon(Integer.parseInt(playerProfile[3]));
+    }
+
+    /**
+     * Creates a new profile for a player.
+     *
+     * @param player for which a profile is generated
+     */
+    public void createPlayerProfile(Player player){
+        String[] newProfile = new String[] {
+                player.getName(),
+                player.getHighScore() + "",
+                player.getGamesPlayed() + "",
+                player.getGamesWon() + ""
+        };
+        playerProfiles.add(newProfile);
     }
 
     /**
@@ -117,9 +201,40 @@ public class Database {
     }
 
     /**
+     * Loads all existing profiles for the current players.
+     * A playerProfile has the following structure:
+     * playerName;highScore;gamesPlayed;gamesWon
+     *
+     * @param playerList to be used
+     */
+    public void saveProfile(PlayerList playerList) {
+        Player player;
+        String name;
+        for (String[] playerProfile : playerProfiles) {
+            for (int j = 0; j < playerList.size(); j++) {
+                player = playerList.getPlayer(j);
+                name = player.getName();
+
+                if (playerProfile[0].equals(playerList.getPlayerName(player))) {
+                    switch(name){
+                        case "Player1", "Player2", "Player3", "Player4":
+                            break;
+                        default:
+                            playerProfile[0] = playerList.getPlayerName(player) + "";
+                            playerProfile[1] = playerList.getPlayerHighScore(player) + "";
+                            playerProfile[2] = playerList.getPlayerGamesPlayed(player) + "";
+                            playerProfile[3] = playerList.getPlayerGamesWon(player) + "";
+                            break;
+                    }
+                }
+            }
+        }
+    }
+
+    /**
      * Stores all updated playerProfiles in profiles.csv.
      * A profile has the following structure:
-     * playerId;player1;highScore;gamePlayed;gamesWon
+     * playerName;highScore;gamePlayed;gamesWon
      */
     public void storePlayerProfiles() {
         try {
@@ -165,16 +280,7 @@ public class Database {
     }
 
     /**
-     * Gets all playerProfiles
-     *
-     * @return all playerProfiles
-     */
-    public List<String[]> getPlayerProfiles() {
-        return this.playerProfiles;
-    }
-
-    /**
-     *
+     * Resets a playerProfile to a empty ArrayList.
      */
     public void resetPlayerProfiles() {
         playerProfiles = new ArrayList<>();
