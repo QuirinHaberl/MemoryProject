@@ -519,19 +519,17 @@ public class GameController {
             achievementLabel.setFont(defaultFont);
             achievementLabel.setText(activePlayer.getName() + " has earned:\n" + achievement);
             //automatic text size adjustment
-            achievementLabel.textProperty().addListener((observable, oldValue, newValue)->{
-                Text tmpText = new Text(newValue);
-                tmpText.setFont(defaultFont);
-                double textHeight = tmpText.getLayoutBounds().getHeight();
-                //check if text height is smaller than maximum height allowed
-                if (textHeight <= MAX_TEXT_HEIGHT) {
-                    achievementLabel.setFont(defaultFont);
-                } else {
-                    //calculate new font size if too big
-                    double newFontSize = defaultFontSize * MAX_TEXT_HEIGHT / textHeight;
-                    achievementLabel.setFont(Font.font(defaultFont.getFamily(), newFontSize));
-                }
-            });
+            Text tmpText = new Text(achievementLabel.getText());
+            tmpText.setFont(defaultFont);
+            double textHeight = tmpText.getLayoutBounds().getHeight();
+            //check if text height is smaller than maximum height allowed
+            if (textHeight <= MAX_TEXT_HEIGHT) {
+                achievementLabel.setFont(defaultFont);
+            } else {
+                //calculate new font size if too big
+                double newFontSize = defaultFontSize * MAX_TEXT_HEIGHT / textHeight;
+                achievementLabel.setFont(Font.font(defaultFont.getFamily(), newFontSize));
+            }
             AudioClip unlock = new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Achievement.wav").toUri().toString());
             unlock.play();
         }
