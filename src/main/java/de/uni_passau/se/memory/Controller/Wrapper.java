@@ -2,6 +2,7 @@ package de.uni_passau.se.memory.Controller;
 
 import de.uni_passau.se.memory.Model.Enums.CardSet;
 import de.uni_passau.se.memory.Model.Game;
+import de.uni_passau.se.memory.Model.PlayingField;
 
 /**
  * Wrapper for the Model of the memory game.
@@ -20,7 +21,7 @@ public class Wrapper {
      */
     private Wrapper() {
         this.game = new Game();
-        game.getPlayingField().setCardSet(CardSet.PICTURES);
+        setPlayingFieldCardSet(game.getPlayingField(), CardSet.PICTURES);
     }
 
     /**
@@ -48,5 +49,16 @@ public class Wrapper {
      */
     public void setGame(Game game) {
         this.game = game;
+    }
+
+    /**
+     * Sets a globalCardSet in playingField.
+     *
+     * @param playingField whose cardSet is set
+     * @param cardSet to be set
+     */
+    public void setPlayingFieldCardSet(PlayingField playingField,
+                                       CardSet cardSet){
+        playingField.setCardSet(cardSet);
     }
 }

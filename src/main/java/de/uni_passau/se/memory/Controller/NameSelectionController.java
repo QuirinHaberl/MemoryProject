@@ -126,6 +126,7 @@ public class NameSelectionController implements Initializable {
             checkBoxes[i].setVisible(false);
             textFields[i].setText("");
         }
+
         for (int i = 0; i < Wrapper.getInstance().getGame().getPlayerAmount(); i++) {
             labels[i].setVisible(true);
             textFields[i].setVisible(true);

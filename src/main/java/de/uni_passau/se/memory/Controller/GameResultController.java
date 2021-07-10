@@ -155,7 +155,7 @@ public class GameResultController {
 
         game.getDatabase().updateHighScoreHistory(winningPlayers, highScore);
         game.updateGamesPlayed();
-        game.database.storeProgress(game.getPlayerList());
+        game.getDatabase().storeProgress(game.getPlayerList());
 
         if (game.isGameWon()) {
             message.setText(printGameSummary(winningPlayers, highScore));
@@ -200,7 +200,7 @@ public class GameResultController {
      */
     private void setLabels() {
         Game game = Wrapper.getInstance().getGame();
-        String[] input = Wrapper.getInstance().getGame().getPlayerList().getSorted();
+        String[] input = Wrapper.getInstance().getGame().getPlayerList().getSortedPlayerList();
 
         Label[] playerLabels = {player1, player2, player3, player4};
         Label[] scoreLabels = {score1, score2, score3, score4};
