@@ -20,13 +20,13 @@ public final class Game {
      */
     private final PlayingField playingField;
     /**
-     * Stores a {@link Player} in the {@link PlayerList}.
-     */
-    private PlayerList playerList;
-    /**
      * Stores playerProfiles
      */
     private final Database database;
+    /**
+     * Stores a {@link Player} in the {@link PlayerList}.
+     */
+    private PlayerList playerList;
     /**
      * Stores the current {@link TurnStatus}.
      */

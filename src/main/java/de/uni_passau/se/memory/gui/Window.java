@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class Window extends Stage {
 
@@ -17,16 +18,17 @@ public class Window extends Stage {
         stage = this;
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource(path));
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(path)));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+        assert root != null;
         Scene scene = new Scene(root);
 
         stage.setTitle("MEMORY");
         stage.initStyle(StageStyle.UNDECORATED);
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("Images/Card.png")));
+        stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("Images/Card.png"))));
         stage.setScene(scene);
         stage.show();
     }

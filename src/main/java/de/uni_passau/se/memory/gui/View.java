@@ -78,13 +78,46 @@ public final class View {
         StringBuilder str = new StringBuilder();
         str.append("[");
         for (int i = 0; i < players.size(); i++) {
-            str.append(players.getPlayer(i).getName()).append(": ");
-            for (int j = 0; j < players.getPlayer(i).getFoundCards().size(); j++) {
-                str.append(players.getPlayer(i).getFoundCards().get(j).visualizeCard()).append(" ");
+            String playerName = getPlayerName(players.getPlayer(i));
+            str.append(playerName).append(
+                    ":" +
+                            " ");
+            for (int j = 0; j < getFoundCardSize(getFoundCards(players.getPlayer(i))); j++) {
+                str.append(getFoundCards(players.getPlayer(i)).get(j).visualizeCard()).append(" ");
             }
             str.append("\n");
         }
         System.out.println(str.append("]"));
+    }
+
+    /**
+     * Gets the size of the foundCardList.
+     *
+     * @param cardsList whose size is requested
+     * @return the size of cardsList
+     */
+    public static int getFoundCardSize(List<Card> cardsList) {
+        return cardsList.size();
+    }
+
+    /**
+     * Gets the foundCards of a given player.
+     *
+     * @param player whose foundCards are requested
+     * @return the foundCards of a player
+     */
+    public static List<Card> getFoundCards(Player player) {
+        return player.getFoundCards();
+    }
+
+    /**
+     * Get the name of a player.
+     *
+     * @param player whose name is requested
+     * @return the name of a player
+     */
+    public static String getPlayerName(Player player) {
+        return player.getName();
     }
 
     /**
@@ -200,7 +233,7 @@ public final class View {
                 All possible commands are:\s
                     help:       Shows a list of possible commands\s
                     rules:      Shows the rules of the game\s
-                    allrules:   Shows the complete rule set of the game\s
+                    allRules:   Shows the complete rule set of the game\s
                     found:      Shows the cards every player has found\s
                     score:      Shows the scores of all players\s
                     
@@ -223,8 +256,8 @@ public final class View {
         String[] playerNames = new String[players.size()];
         int[] scores = new int[players.size()];
         for (int i = 0; i < players.size(); i++) {
-            playerNames[i] = players.getPlayer(i).getName();
-            scores[i] = players.getPlayer(i).getScore();
+            playerNames[i] = getPlayerName(players.getPlayer(i));
+            scores[i] = getPlayerScore(players.getPlayer(i));
         }
         //Insertion sort
         for (int i = 1; i < scores.length; i++) {
@@ -237,6 +270,17 @@ public final class View {
                     + scores[i] + "]");
         }
     }
+
+    /**
+     * Get the score of a given player.
+     *
+     * @param player whose score ist requested
+     * @return the score of a player
+     */
+    public static int getPlayerScore(Player player) {
+        return player.getScore();
+    }
+
 
     /**
      * Prints a specified error-massage.
@@ -384,16 +428,17 @@ public final class View {
      */
     public static void printSinglePlayerModeSettings() {
         System.out.println("You choose the Single-Player-Mode." +
-                "To play with lifes please enter 'life' else enter 'time' to play against time.");
+                "To play with lives please enter 'life' else enter 'time' to " +
+                "play against time.");
     }
 
     /**
-     * Prints the number of lifes a player has
+     * Prints the number of lives a player has
      *
-     * @param lifes of the player
+     * @param lives of the player
      */
-    public static void printlifes(int lifes) {
-        System.out.println("<3 lifes: " + lifes);
+    public static void printLives(int lives) {
+        System.out.println("<3 lives: " + lives);
     }
 
     /**
@@ -414,15 +459,5 @@ public final class View {
     public static void printAchievement(String specification, Player player) {
         System.out.println("\n" + player.getName() + " has new achievements: ");
         System.out.println(specification);
-    }
-
-    /**
-     * Prints to ask if the player wants to use playerProfiles.
-     *
-     * @param player to be asked.
-     */
-    public static void printUsingProfiles(String player) {
-        System.out.println(player + ", do you want to use profiles? " +
-                "Type 'yes' or 'no'.");
     }
 }

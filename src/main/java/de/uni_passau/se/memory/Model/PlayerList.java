@@ -110,9 +110,13 @@ public class PlayerList {
         }
         Player current = front;
         for (int i = 0; i < position; i++) {
-            current = current.getNext();
+            current = getNextPlayer(current);
         }
         return current;
+    }
+
+    public Player getNextPlayer(Player player) {
+        return player.getNext();
     }
 
     /**
@@ -138,8 +142,18 @@ public class PlayerList {
      */
     public void resetAllScores() {
         for (int i = 0; i < size; i++) {
-            getPlayer(i).setScore(0);
+            setPlayerScore(getPlayer(i), 0);
         }
+    }
+
+    /**
+     * Sets the score of a given player.
+     *
+     * @param player whose score is set
+     * @param score  to be set
+     */
+    public void setPlayerScore(Player player, int score) {
+        player.setScore(score);
     }
 
     /**
@@ -199,7 +213,7 @@ public class PlayerList {
      * @return the name of a {@link Player}
      */
     public String getPlayerName(int position) {
-        return getPlayer(position).getName();
+        return getPlayerName(getPlayer(position));
     }
 
     /**
