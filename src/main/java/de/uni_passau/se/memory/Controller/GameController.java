@@ -50,7 +50,7 @@ public class GameController {
      * Max height of achievementLabel
      * Font settings for the label
      */
-    private final double MAX_TEXT_HEIGHT = 60;
+    private final double MAX_TEXT_HEIGHT = 55;
     private final double defaultFontSize = 18;
     private final Font defaultFont = Font.font("VT323",defaultFontSize);
 
