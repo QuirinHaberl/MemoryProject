@@ -1,15 +1,17 @@
 package de.uni_passau.se.memory.Controller;
 
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-public class RulesController {
+/**
+ * Controller of the Easter Egg
+ */
+public class EasterEggController {
+
     /**
-     * Closes the Window
-     *
+     * Closes the window
      * @param event when close button clicked
      */
     @FXML
@@ -17,4 +19,3 @@ public class RulesController {
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
     }
 }
-

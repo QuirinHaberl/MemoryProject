@@ -6,36 +6,77 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="602.0" styleClass="Background2" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uni_passau.se.memory.Controller.SinglePlayerModeController">
-    <children>
-      <AnchorPane prefHeight="87.0" prefWidth="600.0" styleClass="Banner" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+<VBox stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uni_passau.se.memory.Controller.SinglePlayerModeController">
+   <children>
+      <AnchorPane prefHeight="29.0" prefWidth="600.0" style="-fx-background-color: black;">
          <children>
-              <Label alignment="CENTER" prefHeight="87.0" prefWidth="600.0" styleClass="text30" stylesheets="@Style.css" text="Choose between playing" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <Label layoutX="29.0" layoutY="3.0" prefHeight="23.0" prefWidth="96.0" styleClass="text15" text="TEAM-19 MEMORY" textFill="WHITE" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="475.0" AnchorPane.topAnchor="3.0">
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+            <Button layoutX="571.0" layoutY="2.0" mnemonicParsing="false" onMouseClicked="#CloseStage" prefHeight="6.0" prefWidth="24.0" styleClass="closebtn" text="X" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button layoutX="547.0" layoutY="2.0" mnemonicParsing="false" onMouseClicked="#MinimizeStage" prefHeight="23.0" prefWidth="24.0" styleClass="minimizebtn" text="_" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="EasterEgg" layoutY="-3.0" mnemonicParsing="false" onAction="#eeClicked" prefHeight="29.0" prefWidth="32.0" styleClass="Card">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
          </children>
       </AnchorPane>
-      <HBox alignment="CENTER" layoutX="144.0" layoutY="183.0" prefHeight="87.0" prefWidth="600.0" AnchorPane.bottomAnchor="130.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="183.0">
-         <children>
-              <Button mnemonicParsing="false" onAction="#lives" prefHeight="65.0" prefWidth="550.0" style="-fx-background-color: transparent;" styleClass="Banner" stylesheets="@Style.css" text="with lives">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-              <Button mnemonicParsing="false" onAction="#time" prefHeight="65.0" prefWidth="550.0" style="-fx-background-color: transparent;" styleClass="Banner" stylesheets="@Style.css" text="against the&#10;time" textAlignment="CENTER">
-               <HBox.margin>
-                  <Insets left="120.0" />
-               </HBox.margin>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-         </children>
-         <padding>
-            <Insets left="5.0" right="5.0" />
-         </padding>
-      </HBox>
-    </children>
-</AnchorPane>
+      <AnchorPane prefHeight="400.0" prefWidth="602.0" styleClass="Background2" stylesheets="@Style.css">
+          <children>
+            <AnchorPane layoutX="91.0" layoutY="156.0" prefHeight="55.0" prefWidth="61.0" styleClass="LifeFull" />
+            <AnchorPane layoutX="447.0" layoutY="156.0" prefHeight="55.0" prefWidth="61.0" styleClass="Clock" />
+            <AnchorPane prefHeight="87.0" prefWidth="600.0" styleClass="Banner" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+               <children>
+                    <Label alignment="CENTER" prefHeight="87.0" prefWidth="600.0" styleClass="text30" stylesheets="@Style.css" text="Choose between playing" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <HBox alignment="CENTER" layoutX="144.0" layoutY="183.0" prefHeight="87.0" prefWidth="600.0" AnchorPane.bottomAnchor="130.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="183.0">
+               <children>
+                    <Button mnemonicParsing="false" onAction="#lives" prefHeight="65.0" prefWidth="550.0" style="-fx-background-color: transparent;" styleClass="Banner" stylesheets="@Style.css" text="with lives">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </Button>
+                    <Button mnemonicParsing="false" onAction="#time" prefHeight="65.0" prefWidth="550.0" style="-fx-background-color: transparent;" styleClass="Banner" stylesheets="@Style.css" text="against the&#10;time" textAlignment="CENTER">
+                     <HBox.margin>
+                        <Insets left="120.0" />
+                     </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets left="5.0" right="5.0" />
+               </padding>
+            </HBox>
+          </children>
+      </AnchorPane>
+   </children>
+</VBox>

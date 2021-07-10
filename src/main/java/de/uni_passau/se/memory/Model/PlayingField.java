@@ -121,18 +121,16 @@ public class PlayingField {
     }
 
     /**
-     * Sets the field-size to be used
+     * Sets the field-size to be used.
      *
      * @param input passed size for the {@code field}
      * @return the selected size of the {@code field}
      */
     public int selectBoardSize(String input) {
-        if (input.length() == 1) {
-            if (input.matches("\\d")) {
-                int size = Integer.parseInt(input);
-                if (size <= 8 && size % 2 == 0 && size != 0) {
-                    return size;
-                }
+        if (input.length() == 1 && input.matches("\\d")) {
+            int size = Integer.parseInt(input);
+            if (size <= 8 && size % 2 == 0 && size != 0) {
+            return size;
             }
         }
         View.error("You can't select this size.");

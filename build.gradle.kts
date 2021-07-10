@@ -14,7 +14,7 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.1")
     run { // JavaFX dependencies
         val group = "org.openjfx"
-        val version = "15.0.1"
+        val version = "16"
         val fxModules = arrayListOf("javafx-base", "javafx-graphics", "javafx-controls", "javafx-fxml", "javafx-media")
 
         val osName = System.getProperty("os.name")

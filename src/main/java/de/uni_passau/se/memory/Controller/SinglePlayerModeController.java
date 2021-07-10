@@ -2,7 +2,9 @@ package de.uni_passau.se.memory.Controller;
 
 import de.uni_passau.se.memory.gui.Window;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 
@@ -40,4 +42,31 @@ public class SinglePlayerModeController {
         click.play();
         new Window("NameSelection.fxml");
     }
+
+    /**
+     * Closes the stage
+     */
+    @FXML
+    void CloseStage() {
+        System.exit(0);
+    }
+
+    /**
+     * Minimizes the Window
+     * @param event when minimize button clicked
+     */
+    @FXML
+    void MinimizeStage(MouseEvent event) {
+        ((Stage) (((Button) event.getSource()).getScene().getWindow())).setIconified(true);
+    }
+
+    /**
+     * Opens a surprise
+     */
+    @FXML
+    void eeClicked() {
+        new Window("EasterEgg.fxml");
+    }
+
+
 }

@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 
@@ -18,122 +19,82 @@ import java.util.List;
 public class HighScoreController {
 
     /**
-     * Label for the first player
+     * Labels for the first player
      */
     @FXML
     private Label name1;
-
-    /**
-     * Label for the high score of the first player
-     */
     @FXML
     private Label score1;
 
     /**
-     * Label for the second player
+     * Labels for the second player
      */
     @FXML
     private Label name2;
-
-    /**
-     * Label for the high score of the second player
-     */
     @FXML
     private Label score2;
 
     /**
-     * Label for the third player
+     * Labels for the third player
      */
     @FXML
     private Label name3;
-
-    /**
-     * Label for the high score of the third player
-     */
     @FXML
     private Label score3;
 
     /**
-     * Label for the fourth player
+     * Labels for the fourth player
      */
     @FXML
     private Label name4;
-
-    /**
-     * Label for the high score of the fourth player
-     */
     @FXML
     private Label score4;
 
     /**
-     * Label for the fifth player
+     * Labels for the fifth player
      */
     @FXML
     private Label name5;
-
-    /**
-     * Label for the high score of the fifth player
-     */
     @FXML
     private Label score5;
 
     /**
-     * Label for the sixth player
+     * Labels for the sixth player
      */
     @FXML
     private Label name6;
-
-    /**
-     * Label for the high score of the sixth player
-     */
     @FXML
     private Label score6;
 
     /**
-     * Label for the seventh player
+     * Labels for the seventh player
      */
     @FXML
     private Label name7;
-
-    /**
-     * Label for the high score of the seventh player
-     */
     @FXML
     private Label score7;
 
     /**
-     * Label for the eighth player
+     * Labels for the eighth player
      */
     @FXML
     private Label name8;
-
-    /**
-     * Label for the high score of the eighth player
-     */
     @FXML
     private Label score8;
 
     /**
-     * Label for the ninth player
+     * Labels for the ninth player
      */
     @FXML
     private Label name9;
-
-    /**
-     * Label for the high score of the ninth player
-     */
     @FXML
     private Label score9;
 
     /**
-     * Label for the tenth player
+     * Labels for the tenth player
      */
     @FXML
     private Label name10;
-
-    /**
-     * Label for the high score of the tenth player
-     */
     @FXML
     private Label score10;
 
@@ -153,6 +114,31 @@ public class HighScoreController {
             names[i].setText(highScoreList.get(i)[0]);
             scores[i].setText(highScoreList.get(i)[1]);
         }
+    }
+
+    /**
+     * Closes the stage
+     */
+    @FXML
+    void CloseStage() {
+        System.exit(0);
+    }
+
+    /**
+     * Minimizes the Window
+     * @param event when minimize button clicked
+     */
+    @FXML
+    void MinimizeStage(MouseEvent event) {
+        ((Stage) (((Button) event.getSource()).getScene().getWindow())).setIconified(true);
+    }
+
+    /**
+     * Opens a surprise
+     */
+    @FXML
+    void eeClicked() {
+        new Window("EasterEgg.fxml");
     }
 
     /**

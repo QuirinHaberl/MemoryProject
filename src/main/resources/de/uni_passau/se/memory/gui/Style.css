@@ -4,6 +4,22 @@
     src: url("VT323-Regular.ttf");
 }
 
+.closebtn{
+-fx-background-color: transparent;
+}
+
+.closebtn:hover{
+-fx-background-color: #E81132;
+}
+
+.minimizebtn{
+-fx-background-color: transparent;
+}
+
+.minimizebtn:hover{
+-fx-background-color: #b8b2b2;
+}
+
 .text12{
     -fx-font-family: "VT323";
     -fx-font-size: 12;
@@ -27,12 +43,15 @@
 .text30 {
     -fx-font-family: "VT323";
     -fx-font-size: 30;
-
 }
 
 .text40 {
     -fx-font-family: "VT323";
     -fx-font-size: 40;
+}
+
+.textAchievments {
+    -fx-font-family: "VT323";
 }
 
 .GameBack{
@@ -47,6 +66,11 @@
 
 .Card{
  -fx-background-image: url("Images/Card.png");
+ -fx-background-size: 100% 100%;
+}
+
+.CardOpen{
+ -fx-background-image: url("Images/CardOpen.png");
  -fx-background-size: 100% 100%;
 }
 
@@ -331,5 +355,15 @@
 
 .GameOver{
 -fx-background-image: url("Images/GameOver.png");
+-fx-background-size: 100% 100%;
+}
+
+.EE{
+-fx-background-image: url("Images/EE.png");
+-fx-background-size: 100% 100%;
+}
+
+.Clock{
+-fx-background-image: url("Images/Clock.png");
 -fx-background-size: 100% 100%;
 }
