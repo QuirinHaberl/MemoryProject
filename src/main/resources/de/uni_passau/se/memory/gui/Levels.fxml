@@ -1,76 +1,140 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="441.0" prefWidth="600.0" styleClass="Background2" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uni_passau.se.memory.gui.ControllerPack.LevelsController">
-   <children>
-      <AnchorPane prefHeight="93.0" prefWidth="600.0" styleClass="Banner">
-         <children>
-            <Label alignment="CENTER" prefHeight="93.0" prefWidth="600.0" text="How many crads would &#10;you like to play with?" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-         </children>
-      </AnchorPane>
-      <VBox alignment="CENTER" layoutY="82.0" prefHeight="359.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="82.0">
-         <children>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="5000.0">
-                     <children>
-                        <Button mnemonicParsing="false" onAction="#level1" prefWidth="200.0" style="-fx-background-color: transparent;" styleClass="Banner" text="Level 1">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="5000.0">
-                     <children>
-                        <Label alignment="CENTER" prefHeight="88.0" prefWidth="180.0" styleClass="Paper2" text="4 Cards&#10;Easy" textAlignment="CENTER" />
-                     </children>
-                  </HBox>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" layoutX="10.0" layoutY="110.0" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="5000.0">
-                     <children>
-                        <Button mnemonicParsing="false" onAction="#level2" prefWidth="200.0" style="-fx-background-color: transparent;" styleClass="Banner" text="Level 2">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="5000.0">
-                     <children>
-                        <Label alignment="CENTER" prefHeight="91.0" prefWidth="180.0" styleClass="Paper2" text="16 Cards&#10;Medium&#10;&#10;" textAlignment="CENTER" />
-                     </children>
-                  </HBox>
-               </children>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="210.0" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="5000.0">
-                     <children>
-                        <Button mnemonicParsing="false" onAction="#level3" prefWidth="200.0" style="-fx-background-color: transparent;" styleClass="Banner" text="Level 3">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="5000.0">
-                     <children>
-                        <Label alignment="CENTER" prefHeight="91.0" prefWidth="180.0" styleClass="Paper2" text="64 Cards&#10;Hard" textAlignment="CENTER" />
-                     </children>
-                  </HBox>
-               </children>
-            </HBox>
-         </children>
-      </VBox>
-   </children>
-</AnchorPane>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.layout.*?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8.0.171"
+      fx:controller="de.uni_passau.se.memory.Controller.LevelsController">
+    <children>
+        <AnchorPane prefHeight="29.0" prefWidth="600.0" style="-fx-background-color: black;">
+            <children>
+                <Label layoutX="29.0" layoutY="3.0" prefHeight="23.0" prefWidth="96.0" styleClass="text15"
+                       text="TEAM-19 MEMORY" textFill="WHITE" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="29.0"
+                       AnchorPane.rightAnchor="475.0" AnchorPane.topAnchor="3.0">
+                    <padding>
+                        <Insets left="10.0"/>
+                    </padding>
+                </Label>
+                <Button layoutX="571.0" layoutY="2.0" mnemonicParsing="false" onMouseClicked="#CloseStage"
+                        prefHeight="6.0" prefWidth="24.0" styleClass="closebtn" text="X" textFill="WHITE">
+                    <cursor>
+                        <Cursor fx:constant="HAND"/>
+                    </cursor>
+                </Button>
+                <Button layoutX="547.0" layoutY="2.0" mnemonicParsing="false" onMouseClicked="#MinimizeStage"
+                        prefHeight="23.0" prefWidth="24.0" styleClass="minimizebtn" text="_" textFill="WHITE">
+                    <cursor>
+                        <Cursor fx:constant="HAND"/>
+                    </cursor>
+                </Button>
+                <Button fx:id="EasterEgg" layoutY="-3.0" mnemonicParsing="false" onAction="#eeClicked" prefHeight="29.0"
+                        prefWidth="32.0" styleClass="Card">
+                    <cursor>
+                        <Cursor fx:constant="HAND"/>
+                    </cursor>
+                </Button>
+            </children>
+        </AnchorPane>
+        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                    prefHeight="441.0" prefWidth="600.0" styleClass="Background2" stylesheets="@Style.css">
+            <children>
+                <AnchorPane prefHeight="93.0" prefWidth="600.0" styleClass="Banner">
+                    <children>
+                        <Label alignment="CENTER" prefHeight="93.0" prefWidth="600.0" styleClass="text30"
+                               text="How many cards would &#10;you like to play with?" textFill="WHITE"
+                               AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                               AnchorPane.topAnchor="0.0">
+                            <padding>
+                                <Insets top="10.0"/>
+                            </padding>
+                        </Label>
+                    </children>
+                </AnchorPane>
+                <VBox alignment="CENTER" layoutY="82.0" prefHeight="359.0" prefWidth="600.0"
+                      AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                      AnchorPane.topAnchor="82.0">
+                    <children>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                            <children>
+                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="5000.0">
+                                    <children>
+                                        <Button mnemonicParsing="false" onAction="#level1" prefWidth="200.0"
+                                                style="-fx-background-color: transparent;" styleClass="Banner"
+                                                text="Level 1">
+                                            <cursor>
+                                                <Cursor fx:constant="HAND"/>
+                                            </cursor>
+                                            <HBox.margin>
+                                                <Insets/>
+                                            </HBox.margin>
+                                        </Button>
+                                    </children>
+                                </HBox>
+                                <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0"
+                                      prefWidth="5000.0">
+                                    <children>
+                                        <Label alignment="CENTER" prefHeight="88.0" prefWidth="180.0"
+                                               styleClass="Paper2" text="16 Cards&#10;Easy" textAlignment="CENTER"/>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER" layoutX="10.0" layoutY="110.0" prefHeight="100.0" prefWidth="200.0">
+                            <children>
+                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="5000.0">
+                                    <children>
+                                        <Button mnemonicParsing="false" onAction="#level2" prefWidth="200.0"
+                                                style="-fx-background-color: transparent;" styleClass="Banner"
+                                                text="Level 2">
+                                            <cursor>
+                                                <Cursor fx:constant="HAND"/>
+                                            </cursor>
+                                            <HBox.margin>
+                                                <Insets/>
+                                            </HBox.margin>
+                                        </Button>
+                                    </children>
+                                </HBox>
+                                <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0"
+                                      prefWidth="5000.0">
+                                    <children>
+                                        <Label alignment="CENTER" prefHeight="91.0" prefWidth="180.0"
+                                               styleClass="Paper2" text="36 Cards&#10;Medium&#10;&#10;"
+                                               textAlignment="CENTER"/>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="210.0" prefHeight="100.0" prefWidth="200.0">
+                            <children>
+                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="5000.0">
+                                    <children>
+                                        <Button mnemonicParsing="false" onAction="#level3" prefWidth="200.0"
+                                                style="-fx-background-color: transparent;" styleClass="Banner"
+                                                text="Level 3">
+                                            <cursor>
+                                                <Cursor fx:constant="HAND"/>
+                                            </cursor>
+                                            <HBox.margin>
+                                                <Insets/>
+                                            </HBox.margin>
+                                        </Button>
+                                    </children>
+                                </HBox>
+                                <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0"
+                                      prefWidth="5000.0">
+                                    <children>
+                                        <Label alignment="CENTER" prefHeight="91.0" prefWidth="180.0"
+                                               styleClass="Paper2" text="64 Cards&#10;Hard" textAlignment="CENTER"/>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </children>
+        </AnchorPane>
+    </children>
+</VBox>

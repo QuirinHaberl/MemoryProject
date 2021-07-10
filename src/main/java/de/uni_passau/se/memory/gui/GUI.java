@@ -4,8 +4,9 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.paint.Color;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
@@ -14,6 +15,16 @@ import java.io.IOException;
  * The GUI of this program.
  */
 public class GUI extends Application {
+
+    /**
+     * The Main-methode of the GUI.
+     *
+     * @param args not in use
+     */
+    public static void main(String[] args) {
+
+        launch();
+    }
 
     /**
      * Starts the gui.
@@ -28,17 +39,9 @@ public class GUI extends Application {
 
         Scene scene = new Scene(root);
         stage.setTitle("MEMORY");
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("Images/Card.png")));
         stage.setScene(scene);
         stage.show();
-    }
-
-    /**
-     * The Main-methode of the GUI.
-     *
-     * @param args not in use
-     */
-    public static void main(String[] args) {
-
-        launch();
     }
 }

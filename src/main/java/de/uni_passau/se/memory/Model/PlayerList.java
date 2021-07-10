@@ -1,5 +1,8 @@
 package de.uni_passau.se.memory.Model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * This class implements a {@link PlayerList}.
  */
@@ -17,7 +20,7 @@ public class PlayerList {
     /**
      * Stores the amount of players.
      */
-    private int count;
+    private int size;
 
     /**
      * Constructs a new {@link PlayerList}.
@@ -25,7 +28,30 @@ public class PlayerList {
     public PlayerList() {
         this.front = null;
         this.rear = null;
-        count = 0;
+        size = 0;
+    }
+
+    /**
+     * Helper for the getSortedPlayerList()-method.
+     *
+     * @param names        of the players
+     * @param scores       of the players
+     * @param i            incrementer passed by sort()
+     * @param currentName  of current player
+     * @param currentScore of current player
+     */
+    public static void sortingHelper(
+            String[] names, int[] scores, int i, String currentName, int currentScore) {
+        int j = i;
+
+        // Element is moved to the left until it is at the right position.
+        while (j > 0 && currentScore < scores[j - 1]) {
+            scores[j] = scores[j - 1];
+            names[j] = names[j - 1];
+            j--;
+        }
+        scores[j] = currentScore;
+        names[j] = currentName;
     }
 
     /**
@@ -33,10 +59,9 @@ public class PlayerList {
      *
      * @return count
      */
-    public int getCount() {
-        return count;
+    public int size() {
+        return size;
     }
-
 
     /**
      * Adds a {@link Player} to the {@link PlayerList}.
@@ -61,39 +86,7 @@ public class PlayerList {
             player.rear = p;
             rear = player;
         }
-        count++;
-    }
-
-    /**
-     * Deletes a {@link Player}.
-     *
-     * @param position of the {@link Player} that is being deleted
-     */
-    public void deletePlayer(int position) {
-
-        if (position == 0) {
-            if (count == 1) {
-                front = null;
-                rear = null;
-            } else {
-                front = front.next;
-            }
-            count--;
-        } else if (position == count - 1) {
-            Player current = getPlayer(count - 2);
-            current.next = null;
-            rear = current;
-            count--;
-        } else {
-            Player current = front;
-            for (int i = 0; i < position - 1; i++) {
-                current = current.next;
-            }
-            Player temp = current.next;
-            current.next = temp.next;
-            temp.next = null;
-            count--;
-        }
+        size++;
     }
 
     /**
@@ -102,7 +95,7 @@ public class PlayerList {
     public void deleteAllPlayers() {
         this.front = null;
         this.rear = null;
-        count = 0;
+        size = 0;
     }
 
     /**
@@ -144,28 +137,9 @@ public class PlayerList {
      * Resets all {@code score}'s of {@link Player}'s.
      */
     public void resetAllScores() {
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < size; i++) {
             getPlayer(i).setScore(0);
         }
-    }
-
-    /**
-     * Gets the position of a {@link Player}.
-     *
-     * @param player the current {@link Player}
-     * @return the position
-     */
-    public int getPlayerPosition(Player player) {
-        Player current = front;
-        int position = 0;
-        for (int i = 0; i < count; i++) {
-            if (current == player) {
-                break;
-            }
-            current = current.next;
-            position++;
-        }
-        return position;
     }
 
     /**
@@ -173,23 +147,32 @@ public class PlayerList {
      *
      * @return highest {@code score} and how many players reached this score
      */
-    public int[] getHighestScore() {
-        int num = 0; //counts how many players have reached the highest score
-        int highestScore = front.getScore();
+    public int getHighestScore() {
+        int highestScore = 0;
 
-        for (int i = 1; i < count; i++) {
-            if (getPlayerScore(i) > highestScore) {
-                highestScore = getPlayerScore(i);
+        for (int i = 0; i < size; i++) {
+            if (getScoreAtPosition(i) > highestScore) {
+                highestScore = getScoreAtPosition(i);
             }
         }
+        return highestScore;
+    }
 
-        for (int j = 0; j < count; j++) {
-            if (getPlayerScore(j) == highestScore) {
-                num = num + 1;
+    /**
+     * Gets the number of players with the highest score.
+     *
+     * @return how many player have the highest score
+     */
+    public int getCountOfWinningPlayers() {
+        int playersWithHighestScore = 0;
+        int highestScore = getHighestScore();
+
+        for (int i = 1; i < size; i++) {
+            if (getScoreAtPosition(i) == highestScore) {
+                playersWithHighestScore = playersWithHighestScore + 1;
             }
         }
-
-        return (new int[]{highestScore, num});
+        return playersWithHighestScore;
     }
 
     /**
@@ -197,30 +180,20 @@ public class PlayerList {
      *
      * @return list of all {@link Player} who have the highest {@code score}
      */
-    public String[] winningPlayersToString() {
-        int num = getHighestScore()[1]; // num of players who reached the highest score
-        int highestScore = getHighestScore()[0];
-        String[] winningPlayers = new String[num];
+    public List<String> winningPlayersToString() {
+        int highestScore = getHighestScore();
+        List<String> winningPlayers = new ArrayList<>();
 
-        for (int i = 0; i < getCount(); i++) {
-            if (getPlayerScore(i) == highestScore) {
-                winningPlayers[i] = getPlayerName(i);
+        for (int i = 0; i < size; i++) {
+            if (getScoreAtPosition(i) == highestScore) {
+                winningPlayers.add(getPlayerName(i));
             }
         }
         return winningPlayers;
     }
 
     /**
-     * Increments the {@code score} a a selected {@link Player}.
-     *
-     * @param position of the {@link Player}
-     */
-    public void updatePlayerScore(int position) {
-        this.getPlayer(position).addScore();
-    }
-
-    /**
-     * Get the name of a {@link Player}.
+     * Gets the name of a {@link Player}.
      *
      * @param position of a Player
      * @return the name of a {@link Player}
@@ -229,31 +202,90 @@ public class PlayerList {
         return getPlayer(position).getName();
     }
 
-
     /**
-     * Gets the {@code score} of a selected {@link Player}.
+     * Gets the {@code score} of player at selected position.
      *
      * @param position of a {@link Player}
      * @return the {@code score} of a {@link Player}
      */
-    public int getPlayerScore(int position) {
-        return getPlayer(position).getScore();
+    public int getScoreAtPosition(int position) {
+        Player player = getPlayer(position);
+        return getPlayerScore(player);
     }
 
     /**
-     * Gets the ranking of all {@link Player}'s.
+     * Gets the score of a player.
      *
-     * @param name of the Player
-     * @return the ranking of the Player
+     * @param player whose score is requested
+     * @return the score of a player
      */
-    public int getRanking(String name) {
-        //this.sort();
-        int ranking = 0;
-        for (int i = 0; i < count; i++) {
-            if (name.equals(this.getPlayer(i).getName())) {
-                ranking = count - i;
-            }
+    public int getPlayerScore(Player player) {
+        return player.getScore();
+    }
+
+    /**
+     * Sorts the playerList.
+     *
+     * @return a sorted playerList
+     */
+    public String[] getSortedPlayerList() {
+        String[] output = new String[size * 2];
+        String[] names = new String[size];
+        int[] scores = new int[size];
+        for (int i = 0; i < size; i++) {
+            names[i] = this.getPlayerName(i);
+            scores[i] = this.getScoreAtPosition(i);
         }
-        return ranking;
+        for (int i = 1; i < size; i++) {
+            String currentName = names[i];
+            int currentScore = scores[i];
+
+            sortingHelper(names, scores, i, currentName, currentScore);
+        }
+        for (int i = 0; i < size; i++) {
+            output[i] = names[size - 1 - i];
+            output[size + i] = String.valueOf(scores[size - 1 - i]);
+        }
+        return output;
+    }
+
+    /**
+     * Gets the amount of gamesPlayed.
+     *
+     * @param player whose gamesPlayed are requested
+     * @return amount of gamesPlayed
+     */
+    public int getPlayerGamesPlayed(Player player) {
+        return player.getGamesPlayed();
+    }
+
+    /**
+     * Gets the amount of gamesWon.
+     *
+     * @param player whose gamesWon are requested
+     * @return amount of gamesWon
+     */
+    public int getPlayerGamesWon(Player player) {
+        return player.getGamesWon();
+    }
+
+    /**
+     * Gets the highScore of a player.
+     *
+     * @param player whose highScore is requested
+     * @return highScore of a player
+     */
+    public int getPlayerHighScore(Player player) {
+        return player.getHighScore();
+    }
+
+    /**
+     * Gets the name of a player.
+     *
+     * @param player whose name is requested
+     * @return the name of a player
+     */
+    public String getPlayerName(Player player) {
+        return player.getName();
     }
 }
