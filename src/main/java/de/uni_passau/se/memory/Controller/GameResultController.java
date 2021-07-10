@@ -16,7 +16,7 @@ import java.util.List;
 
 
 /**
- * Controller of the game result
+ * Controller of the GUI - game result
  */
 public class GameResultController {
 
@@ -27,14 +27,10 @@ public class GameResultController {
     private AnchorPane first;
 
     /**
-     * Label for the first player's name
+     * Labels for the first player
      */
     @FXML
     private Label player1;
-
-    /**
-     * Label for the first player's score
-     */
     @FXML
     private Label score1;
 
@@ -45,14 +41,10 @@ public class GameResultController {
     private AnchorPane second;
 
     /**
-     * Label for the second player's name
+     * Labels for the second player
      */
     @FXML
     private Label player2;
-
-    /**
-     * Label for the second player's score
-     */
     @FXML
     private Label score2;
 
@@ -63,14 +55,10 @@ public class GameResultController {
     private AnchorPane third;
 
     /**
-     * Label for the third player's name
+     * Labels for the third player
      */
     @FXML
     private Label player3;
-
-    /**
-     * Label for the third player's score
-     */
     @FXML
     private Label score3;
 
@@ -81,14 +69,10 @@ public class GameResultController {
     private AnchorPane fourth;
 
     /**
-     * Label for the fourth player's name
+     * Labels for the fourth player
      */
     @FXML
     private Label player4;
-
-    /**
-     * Label for the fourth player's score
-     */
     @FXML
     private Label score4;
 
@@ -104,41 +88,15 @@ public class GameResultController {
     @FXML
     private AnchorPane GameOver;
 
+    /**
+     * Labels for the header
+     */
     @FXML
     private Label PlaceHeader;
-
     @FXML
     private Label PointsHeader;
-
     @FXML
     private Label PlayerNameHeader;
-
-    /**
-     * Closes the stage
-     * @param event when close button clicked
-     */
-    @FXML
-    void CloseStage(MouseEvent event) {
-        System.exit(0);
-    }
-
-    /**
-     * Minimizes the Window
-     * @param event when minimize button clicked
-     */
-    @FXML
-    void MinimizeStage(MouseEvent event) {
-        ((Stage) (((Button) event.getSource()).getScene().getWindow())).setIconified(true);
-    }
-
-    /**
-     * Opens a surprise
-     * @param event when logo ist clicked
-     */
-    @FXML
-    void eeClicked(ActionEvent event) {
-        new Window("EasterEgg.fxml");
-    }
 
     /**
      * Shows the game results in a sorted list, that starts with the winning
@@ -170,29 +128,6 @@ public class GameResultController {
             AudioClip gameOver = new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/GameOver.wav").toUri().toString());
             gameOver.play();
         }
-    }
-
-    /**
-     * Brings you back to main menu.
-     *
-     * @param actionEvent when button clicked
-     */
-    @FXML
-    public void menu(ActionEvent actionEvent) {
-        ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
-        new Window("StartScreen.fxml");
-    }
-
-    /**
-     * Restarts the current game.
-     *
-     * @param actionEvent when button clicked
-     */
-    @FXML
-    public void playAgain(ActionEvent actionEvent) {
-        ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
-        Wrapper.getInstance().getGame().getPlayerList().resetAllScores();
-        new Window("Game.fxml");
     }
 
     /**
@@ -229,4 +164,54 @@ public class GameResultController {
             return winningPlayers.get(0) + " won the game with a score of " + highScore;
         }
     }
+
+    /**
+     * Closes the stage
+     */
+    @FXML
+    void CloseStage() {
+        System.exit(0);
+    }
+
+    /**
+     * Minimizes the Window
+     * @param event when minimize button clicked
+     */
+    @FXML
+    void MinimizeStage(MouseEvent event) {
+        ((Stage) (((Button) event.getSource()).getScene().getWindow())).setIconified(true);
+    }
+
+    /**
+     * Opens a surprise
+     */
+    @FXML
+    void eeClicked() {
+        new Window("EasterEgg.fxml");
+    }
+
+
+    /**
+     * Button back to main menu.
+     *
+     * @param actionEvent when button clicked
+     */
+    @FXML
+    public void menu(ActionEvent actionEvent) {
+        ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
+        new Window("StartScreen.fxml");
+    }
+
+    /**
+     * Restarts the current game.
+     *
+     * @param actionEvent when button clicked
+     */
+    @FXML
+    public void playAgain(ActionEvent actionEvent) {
+        ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
+        Wrapper.getInstance().getGame().getPlayerList().resetAllScores();
+        new Window("Game.fxml");
+    }
+
 }

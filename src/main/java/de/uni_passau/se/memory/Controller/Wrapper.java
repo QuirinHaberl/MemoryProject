@@ -11,7 +11,7 @@ import de.uni_passau.se.memory.Model.PlayingField;
  */
 public class Wrapper {
     /**
-     * The instance of the DataDisplay
+     * The instance of the Wrapper
      */
     private static final Wrapper INSTANCE = new Wrapper();
     private Game game;

@@ -16,33 +16,6 @@ import java.nio.file.Paths;
 public class SinglePlayerModeController {
 
     /**
-     * Closes the stage
-     * @param event when close button clicked
-     */
-    @FXML
-    void CloseStage(MouseEvent event) {
-        System.exit(0);
-    }
-
-    /**
-     * Minimizes the Window
-     * @param event when minimize button clicked
-     */
-    @FXML
-    void MinimizeStage(MouseEvent event) {
-        ((Stage) (((Button) event.getSource()).getScene().getWindow())).setIconified(true);
-    }
-
-    /**
-     * Opens a surprise
-     * @param event when logo ist clicked
-     */
-    @FXML
-    void eeClicked(ActionEvent event) {
-        new Window("EasterEgg.fxml");
-    }
-
-    /**
      * Sets SinglePlayerMode to lifePOINTS
      *
      * @param actionEvent when button clicked
@@ -69,4 +42,31 @@ public class SinglePlayerModeController {
         click.play();
         new Window("NameSelection.fxml");
     }
+
+    /**
+     * Closes the stage
+     */
+    @FXML
+    void CloseStage() {
+        System.exit(0);
+    }
+
+    /**
+     * Minimizes the Window
+     * @param event when minimize button clicked
+     */
+    @FXML
+    void MinimizeStage(MouseEvent event) {
+        ((Stage) (((Button) event.getSource()).getScene().getWindow())).setIconified(true);
+    }
+
+    /**
+     * Opens a surprise
+     */
+    @FXML
+    void eeClicked() {
+        new Window("EasterEgg.fxml");
+    }
+
+
 }
