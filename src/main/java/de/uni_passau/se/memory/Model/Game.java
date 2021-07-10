@@ -22,11 +22,11 @@ public final class Game {
     /**
      * Stores a {@link Player} in the {@link PlayerList}.
      */
-    public PlayerList playerList;
+    private PlayerList playerList;
     /**
      * Stores playerProfiles
      */
-    public Database database;
+    private final Database database;
     /**
      * Stores the current {@link TurnStatus}.
      */
@@ -338,8 +338,6 @@ public final class Game {
      * Resets the {@link Game} and restarts it.
      *
      * @param players list of all players
-     * @return the rear {@link Player} of the {@link PlayerList}, so that
-     * the next turn is started with the first {@link Player}
      */
     public void resetGame(PlayerList players) {
         setTurnStatus(TurnStatus.IDLE);
@@ -352,16 +350,13 @@ public final class Game {
      * Restarts the {@link Game} with repositioned cards.
      *
      * @param players list of all players
-     * @return the rear {@link Player} of the {@link PlayerList}, so that
-     * the next turn is started with the first {@link Player}
      */
-    public Player restartGame(PlayerList players) {
+    public void restartGame(PlayerList players) {
         setTurnStatus(TurnStatus.IDLE);
         closeAllCards();
         playingField.shuffleBoard();
         players.resetAllScores();
         View.printBoard(playingField);
-        return players.getRear();
     }
 
     /**
