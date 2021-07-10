@@ -34,7 +34,7 @@ public enum CardValues {
     TWENTYONE(   "21", "U",  "Card_Mushroom"),
     TWENTYTWO(   "22", "V",  "Card_PinkGem"),
     TWENTYTHREE( "23", "W",  "Card_RedGem"),
-    TWENTYFOUR(  "24", "X",  "Card_RedPotion"),
+    TWENTYFOUR(  "24", "#",  "Card_RedPotion"),
     TWENTYFIVE(  "25", "Y",  "Card_Ring"),
     TWENTYSIX(   "26", "Z",  "Card_Shield1"),
     TWENTYSEVE(  "27", "a",  "Card_Shield2"),

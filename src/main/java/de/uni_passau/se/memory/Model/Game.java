@@ -172,7 +172,7 @@ public final class Game {
      */
     public CardStatus revealFirstCard(int firstRow, int firstCol) {
         Card firstCard = getCard(firstRow, firstCol);
-        if (isSameCardStatus(getCardStatus(firstCard), CardStatus.CLOSED)) {
+        if (hasSameCardStatus(getCardStatus(firstCard), CardStatus.CLOSED)) {
             setCardStatus(firstCard, CardStatus.OPEN);
             setTurnStatus(TurnStatus.ACTIVE);
         }
@@ -195,9 +195,11 @@ public final class Game {
         }
 
         Card secondCard = getCard(secondRow, secondCol);
-        if (isSameCardStatus(getCardStatus(secondCard), CardStatus.OPEN)) {
+
+        if (hasSameCardStatus(getCardStatus(secondCard), CardStatus.OPEN)) {
             setCardStatus(secondCard, CardStatus.AlREADYOPEN);
-        } else if (isSameCardStatus(getCardStatus(secondCard), CardStatus.CLOSED)) {
+
+        } else if (hasSameCardStatus(getCardStatus(secondCard), CardStatus.CLOSED)) {
             setCardStatus(secondCard, CardStatus.OPEN);
             setTurnStatus(TurnStatus.IDLE);
         }
@@ -211,7 +213,7 @@ public final class Game {
      * @param secondStatus to be checked
      * @return whether both cards have the same status
      */
-    public boolean isSameCardStatus(CardStatus firstStatus, CardStatus secondStatus) {
+    public boolean hasSameCardStatus(CardStatus firstStatus, CardStatus secondStatus) {
         return firstStatus.equals(secondStatus);
     }
 
@@ -347,12 +349,11 @@ public final class Game {
      * @return the rear {@link Player} of the {@link PlayerList}, so that
      * the next turn is started with the first {@link Player}
      */
-    public Player resetGame(PlayerList players) {
+    public void resetGame(PlayerList players) {
         setTurnStatus(TurnStatus.IDLE);
         closeAllCards();
         players.resetAllScores();
         View.printBoard(getPlayingField());
-        return players.getRear();
     }
 
     /**
