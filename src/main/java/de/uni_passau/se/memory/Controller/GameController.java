@@ -385,9 +385,6 @@ public class GameController {
             }
         }
 
-        //
-        updatePointer();
-
         //Implementation of the game phases
         switch (game.getTurnStatus()) {
 
@@ -477,6 +474,7 @@ public class GameController {
         } else {
             activePlayer.getAchievements().setPairCounterStreak(0);
             activePlayer = activePlayer.getNext();
+            updatePointer();
             if (game.getPlayerList().size() == 1
                     && game.getSinglePlayerMode().equals(SinglePlayerMode.LIFEPOINTS)) {
                 game.getPlayerList().getPlayer(0).reduceLives();
