@@ -347,12 +347,11 @@ public final class Game {
      * @return the rear {@link Player} of the {@link PlayerList}, so that
      * the next turn is started with the first {@link Player}
      */
-    public Player resetGame(PlayerList players) {
+    public void resetGame(PlayerList players) {
         setTurnStatus(TurnStatus.IDLE);
         closeAllCards();
         players.resetAllScores();
         View.printBoard(getPlayingField());
-        return players.getRear();
     }
 
     /**

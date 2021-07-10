@@ -129,6 +129,31 @@ public class Database {
     }
 
     /**
+     * Updates the dataBase for a new game.
+     *
+     * @param playerAmount number of players
+     * @param playerList of all existing players
+     */
+    public void updateDataBase(int playerAmount, PlayerList playerList){
+        resetPlayerProfiles();
+        loadPlayerProfiles();
+        setUsesProfileOnEveryPlayer(playerAmount);
+        useProfile(playerList);
+    }
+
+    /**
+     * Sets profiles for every player.
+     *
+     * @param playerAmount is the amount for players to use profiles
+     */
+    public void setUsesProfileOnEveryPlayer(int playerAmount){
+        usesProfiles = new ArrayList<>();
+        for (int i = 0; i < playerAmount; i++) {
+            usesProfiles.add(true);
+        }
+    }
+
+    /**
      * Loads the profile from playerProfile to a player.
      *
      * @param player to be updated
