@@ -55,10 +55,10 @@ public class Wrapper {
      * Sets a globalCardSet in playingField.
      *
      * @param playingField whose cardSet is set
-     * @param cardSet to be set
+     * @param cardSet      to be set
      */
     public void setPlayingFieldCardSet(PlayingField playingField,
-                                       CardSet cardSet){
+                                       CardSet cardSet) {
         playingField.setCardSet(cardSet);
     }
 }

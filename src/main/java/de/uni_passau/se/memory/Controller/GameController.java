@@ -19,7 +19,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -35,59 +34,49 @@ import java.nio.file.Paths;
 public class GameController {
 
 
-    /**
-     * Board to store all buttons of the cards
-     */
-    @FXML
-    private GridPane Board;
-
+    private final double defaultFontSize = 18;
+    private final Font defaultFont = Font.font("VT323", defaultFontSize);
     /**
      * Stores the current game
      */
     Game game = Wrapper.getInstance().getGame();
-
     /**
      * Stores the size of the current board
      */
     int size = game.getPlayingField().getSize();
-
     /**
      * Stores the active player
      */
     Player activePlayer = game.getPlayerList().getFront();
-
     /**
      * To store the revealed cards
      */
     Object firstCard;
     Object secondCard;
-
-    /**
-     * Button of the currently revealed cards
-     */
-    private Button b1;
-    private Button b2;
-
     /**
      * Indicator of the first card
      */
     int firstRow;
     int firstCol;
-
     /**
      * Indicator of the second card
      */
     int secondRow;
     int secondCol;
-
     /**
      * The countDown for the play with time
      */
     CountDownGUI countDown;
-
-    private final double defaultFontSize = 18;
-    private final Font defaultFont = Font.font("VT323",defaultFontSize);
-
+    /**
+     * Board to store all buttons of the cards
+     */
+    @FXML
+    private GridPane Board;
+    /**
+     * Button of the currently revealed cards
+     */
+    private Button b1;
+    private Button b2;
     /**
      * Label for achievements
      */
@@ -205,82 +194,11 @@ public class GameController {
             if (game.getSinglePlayerMode().equals(SinglePlayerMode.LIFEPOINTS)) {
                 setLives();
             } else {
-                if(size == 4) {
+                if (size == 4) {
                     countDown = new CountDownGUI(120);
-                } else if (size == 6){
+                } else if (size == 6) {
                     countDown = new CountDownGUI(240);
                 } else countDown = new CountDownGUI(360);
-            }
-        }
-    }
-
-    /**
-     * This is a inner class for the timer of a {@link Game} in the GUI.
-     * The default time is 120 seconds (2 minutes)
-     */
-    public class CountDownGUI extends Pane {
-
-        private Timeline animation;
-        private int time;
-
-
-        Label timer = new Label();
-
-        /**
-         * Initiates the countDown for the GUI.
-         */
-        public CountDownGUI(int time) {
-            this.time = time;
-            setTimer(timer);
-            animation = new Timeline(new KeyFrame(Duration.millis(1000), e -> setTimeLabel()));
-            animation.setCycleCount(Timeline.INDEFINITE);
-            animation.play();
-        }
-
-        /**
-         * Actualizes the time label after every second
-         */
-        public void setTimeLabel() {
-            if(time == 0) {
-                animation = null;
-            } else {
-                time--;
-                String s = time + "";
-                timer.setText("Time: " + s);
-            }
-
-        }
-
-        /**
-         * Visualizes the timer.
-         */
-        private void setTimer(Label timer) {
-
-            timer.setTextFill(Color.WHITE);
-            timer.setStyle("-fx-font-size: 20pt;");
-            timer.setPrefSize(120, 40);
-            String css = Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Style.css").toUri().toString();
-            timer.getStylesheets().add(css);
-            timer.getStyleClass().add("text15");
-            timer.setVisible(true);
-            livesAndTime.getChildren().add(timer);
-        }
-
-        /**
-         * Getter of the time of the GUI timer
-         * @return time
-         */
-        public int getGUITime() {
-            return time;
-        }
-
-        /**
-         * Pauses the timer
-         */
-        public void pauseTimer() {
-            if (game.getPlayerList().size() == 1 &&
-                    game.getSinglePlayerMode().equals(SinglePlayerMode.TIME)) {
-                animation.pause();
             }
         }
     }
@@ -331,6 +249,7 @@ public class GameController {
                     "LifeEmptyHalf");
         }
     }
+
     /**
      * Sets the player label in GUI
      */
@@ -348,7 +267,6 @@ public class GameController {
         }
         key1.setVisible(true);
     }
-
 
     /**
      * Performs a turn for a first revealed card.
@@ -372,8 +290,6 @@ public class GameController {
 
         game.setTurnStatus(TurnStatus.ACTIVE);
     }
-
-    //test
 
     /**
      * Performs a turn for a second revealed card.
@@ -424,6 +340,8 @@ public class GameController {
 
     }
 
+    //test
+
     /**
      * Updates the scores of all players of the current game.
      */
@@ -473,7 +391,7 @@ public class GameController {
                 ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
                 new Window("GameResult.fxml");
             }
-            if(countDown.animation.getStatus().equals(Animation.Status.PAUSED)) {
+            if (countDown.animation.getStatus().equals(Animation.Status.PAUSED)) {
                 countDown.animation.play();
             }
         }
@@ -585,6 +503,7 @@ public class GameController {
 
     /**
      * Minimizes the Window
+     *
      * @param event when minimize button clicked
      */
     @FXML
@@ -599,7 +518,6 @@ public class GameController {
     void eeClicked() {
         new Window("EasterEgg.fxml");
     }
-
 
     /**
      * Calls mainMenu to enable the Window to be closed
@@ -643,5 +561,75 @@ public class GameController {
             countDown.pauseTimer();
         }
         new Window("Rules.fxml");
+    }
+
+    /**
+     * This is a inner class for the timer of a {@link Game} in the GUI.
+     * The default time is 120 seconds (2 minutes)
+     */
+    public class CountDownGUI extends Pane {
+
+        Label timer = new Label();
+        private Timeline animation;
+        private int time;
+
+        /**
+         * Initiates the countDown for the GUI.
+         */
+        public CountDownGUI(int time) {
+            this.time = time;
+            setTimer(timer);
+            animation = new Timeline(new KeyFrame(Duration.millis(1000), e -> setTimeLabel()));
+            animation.setCycleCount(Timeline.INDEFINITE);
+            animation.play();
+        }
+
+        /**
+         * Actualizes the time label after every second
+         */
+        public void setTimeLabel() {
+            if (time == 0) {
+                animation = null;
+            } else {
+                time--;
+                String s = time + "";
+                timer.setText("Time: " + s);
+            }
+
+        }
+
+        /**
+         * Visualizes the timer.
+         */
+        private void setTimer(Label timer) {
+
+            timer.setTextFill(Color.WHITE);
+            timer.setStyle("-fx-font-size: 20pt;");
+            timer.setPrefSize(120, 40);
+            String css = Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Style.css").toUri().toString();
+            timer.getStylesheets().add(css);
+            timer.getStyleClass().add("text15");
+            timer.setVisible(true);
+            livesAndTime.getChildren().add(timer);
+        }
+
+        /**
+         * Getter of the time of the GUI timer
+         *
+         * @return time
+         */
+        public int getGUITime() {
+            return time;
+        }
+
+        /**
+         * Pauses the timer
+         */
+        public void pauseTimer() {
+            if (game.getPlayerList().size() == 1 &&
+                    game.getSinglePlayerMode().equals(SinglePlayerMode.TIME)) {
+                animation.pause();
+            }
+        }
     }
 }

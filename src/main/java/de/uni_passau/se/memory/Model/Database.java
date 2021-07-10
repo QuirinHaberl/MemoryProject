@@ -41,24 +41,6 @@ public class Database {
     private List<Boolean> usesProfiles;
 
     /**
-     * Stores the progress of all playerProfiles and the HighScoreHistory.
-     *
-     * @param playerList contains the progress to be stored.
-     */
-    public void storeProgress(PlayerList playerList) {
-        saveProfile(playerList);
-        storePlayerProfiles();
-        storeHighScoreHistory();
-    }
-
-    /**
-     * Creates a new {@code INSTANCE} of the {@link Database}.
-     */
-    private static class InstanceHolder {
-        private static final Database INSTANCE = new Database();
-    }
-
-    /**
      * Constructs a new database.
      */
     public Database() {
@@ -73,6 +55,17 @@ public class Database {
      */
     public static Database getInstance() {
         return Database.InstanceHolder.INSTANCE;
+    }
+
+    /**
+     * Stores the progress of all playerProfiles and the HighScoreHistory.
+     *
+     * @param playerList contains the progress to be stored.
+     */
+    public void storeProgress(PlayerList playerList) {
+        saveProfile(playerList);
+        storePlayerProfiles();
+        storeHighScoreHistory();
     }
 
     /**
@@ -116,13 +109,12 @@ public class Database {
      * @param checkBoxes contains if a player wants to use a profile
      * @param textFields contains if a player uses default profiles
      */
-    public void setUsesProfiles(CheckBox[] checkBoxes, TextField[] textFields){
+    public void setUsesProfiles(CheckBox[] checkBoxes, TextField[] textFields) {
         usesProfiles = new ArrayList<>();
         for (int i = 0; i < checkBoxes.length; i++) {
             if (textFields[i].getText().isEmpty()) {
                 usesProfiles.add(false);
-            }
-            else {
+            } else {
                 usesProfiles.add(checkBoxes[i].isSelected());
             }
         }
@@ -132,9 +124,9 @@ public class Database {
      * Updates the dataBase for a new game.
      *
      * @param playerAmount number of players
-     * @param playerList of all existing players
+     * @param playerList   of all existing players
      */
-    public void updateDataBase(int playerAmount, PlayerList playerList){
+    public void updateDataBase(int playerAmount, PlayerList playerList) {
         resetPlayerProfiles();
         loadPlayerProfiles();
         setUsesProfileOnEveryPlayer(playerAmount);
@@ -146,7 +138,7 @@ public class Database {
      *
      * @param playerAmount is the amount for players to use profiles
      */
-    public void setUsesProfileOnEveryPlayer(int playerAmount){
+    public void setUsesProfileOnEveryPlayer(int playerAmount) {
         usesProfiles = new ArrayList<>();
         for (int i = 0; i < playerAmount; i++) {
             usesProfiles.add(true);
@@ -156,10 +148,10 @@ public class Database {
     /**
      * Loads the profile from playerProfile to a player.
      *
-     * @param player to be updated
+     * @param player        to be updated
      * @param playerProfile to be used
      */
-    public void loadPlayerProfile(Player player, String[] playerProfile){
+    public void loadPlayerProfile(Player player, String[] playerProfile) {
         player.setHighScore(Integer.parseInt(playerProfile[1]));
         player.setGamesPlayed(Integer.parseInt(playerProfile[2]));
         player.setGamesWon(Integer.parseInt(playerProfile[3]));
@@ -170,8 +162,8 @@ public class Database {
      *
      * @param player for which a profile is generated
      */
-    public void createPlayerProfile(Player player){
-        String[] newProfile = new String[] {
+    public void createPlayerProfile(Player player) {
+        String[] newProfile = new String[]{
                 player.getName(),
                 player.getHighScore() + "",
                 player.getGamesPlayed() + "",
@@ -241,7 +233,7 @@ public class Database {
                 name = player.getName();
 
                 if (playerProfile[0].equals(playerList.getPlayerName(player))) {
-                    switch(name){
+                    switch (name) {
                         case "Player1", "Player2", "Player3", "Player4":
                             break;
                         default:
@@ -384,5 +376,12 @@ public class Database {
                 }
             }
         }
+    }
+
+    /**
+     * Creates a new {@code INSTANCE} of the {@link Database}.
+     */
+    private static class InstanceHolder {
+        private static final Database INSTANCE = new Database();
     }
 }

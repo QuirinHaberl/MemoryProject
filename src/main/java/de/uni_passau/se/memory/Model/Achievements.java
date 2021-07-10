@@ -53,30 +53,12 @@ public class Achievements {
     }
 
     /**
-     * Sets a new highScore
-     *
-     * @param highScore to be set
-     */
-    public void setHighScore(int highScore) {
-        this.highScore = highScore;
-    }
-
-    /**
      * Gets the number of won games.
      *
      * @return the number of won games.
      */
     public int getGamesWon() {
         return gamesWon;
-    }
-
-    /**
-     * Gets the personal highScore.
-     *
-     * @return the the personal highScore
-     */
-    public int getHighScore() {
-        return highScore;
     }
 
     /**
@@ -89,6 +71,24 @@ public class Achievements {
     }
 
     /**
+     * Gets the personal highScore.
+     *
+     * @return the the personal highScore
+     */
+    public int getHighScore() {
+        return highScore;
+    }
+
+    /**
+     * Sets a new highScore
+     *
+     * @param highScore to be set
+     */
+    public void setHighScore(int highScore) {
+        this.highScore = highScore;
+    }
+
+    /**
      * Gets the current achievement-massage.
      *
      * @return the current achievement-massage
@@ -98,21 +98,21 @@ public class Achievements {
     }
 
     /**
-     * Sets a new gameSum
-     *
-     * @param gamesPlayed to be set
-     */
-    public void setGamesPlayed(int gamesPlayed) {
-        this.gamesPlayed = gamesPlayed;
-    }
-
-    /**
      * Gets the number of games played.
      *
      * @return the number of games played
      */
     public int getGamesPlayed() {
         return this.gamesPlayed;
+    }
+
+    /**
+     * Sets a new gameSum
+     *
+     * @param gamesPlayed to be set
+     */
+    public void setGamesPlayed(int gamesPlayed) {
+        this.gamesPlayed = gamesPlayed;
     }
 
     /**

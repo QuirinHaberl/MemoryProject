@@ -102,7 +102,7 @@ public class HighScoreController {
      * Shows the current {@code HighScoreHistory}.
      */
     @FXML
-    public void initialize () {
+    public void initialize() {
         Database highScoreHistory = Database.getInstance();
         highScoreHistory.loadHighScoreHistory();
         List<String[]> highScoreList = highScoreHistory.getHighScoreHistory();
@@ -126,6 +126,7 @@ public class HighScoreController {
 
     /**
      * Minimizes the Window
+     *
      * @param event when minimize button clicked
      */
     @FXML
@@ -148,8 +149,8 @@ public class HighScoreController {
      */
     @FXML
     public void back(ActionEvent actionEvent) {
-        ((Stage)(((Button)actionEvent.getSource()).getScene().getWindow())).close();
-        AudioClip click=new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Click.wav").toUri().toString());
+        ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
+        AudioClip click = new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Click.wav").toUri().toString());
         click.play();
         new Window("StartScreen.fxml");
     }

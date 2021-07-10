@@ -23,8 +23,8 @@ public class SinglePlayerModeController {
     public void lives(ActionEvent actionEvent) {
         Wrapper.getInstance().getGame().setPlayerAmount(1);
         Wrapper.getInstance().getGame().setSinglePlayerMode(SinglePlayerMode.LIFEPOINTS);
-        ((Stage)(((Button)actionEvent.getSource()).getScene().getWindow())).close();
-        AudioClip click=new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Click.wav").toUri().toString());
+        ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
+        AudioClip click = new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Click.wav").toUri().toString());
         click.play();
         new Window("NameSelection.fxml");
     }
@@ -37,8 +37,8 @@ public class SinglePlayerModeController {
     public void time(ActionEvent actionEvent) {
         Wrapper.getInstance().getGame().setPlayerAmount(1);
         Wrapper.getInstance().getGame().setSinglePlayerMode(SinglePlayerMode.TIME);
-        ((Stage)(((Button)actionEvent.getSource()).getScene().getWindow())).close();
-        AudioClip click=new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Click.wav").toUri().toString());
+        ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
+        AudioClip click = new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Click.wav").toUri().toString());
         click.play();
         new Window("NameSelection.fxml");
     }
@@ -53,6 +53,7 @@ public class SinglePlayerModeController {
 
     /**
      * Minimizes the Window
+     *
      * @param event when minimize button clicked
      */
     @FXML

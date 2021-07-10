@@ -31,15 +31,6 @@ public class PlayingField {
     }
 
     /**
-     * Sets the size of a {@code board}.
-     *
-     * @param size to be used.
-     */
-    public void setBoard(int size) {
-        board = new Card[size][size];
-    }
-
-    /**
      * @return the {@code board}
      */
     public Card[][] getBoard() {
@@ -47,12 +38,12 @@ public class PlayingField {
     }
 
     /**
-     * Sets the current {@link CardSet}
+     * Sets the size of a {@code board}.
      *
-     * @param cardSet to be used
+     * @param size to be used.
      */
-    public void setCardSet(CardSet cardSet) {
-        this.globalCardSet = cardSet;
+    public void setBoard(int size) {
+        board = new Card[size][size];
     }
 
     /**
@@ -130,7 +121,7 @@ public class PlayingField {
         if (input.length() == 1 && input.matches("\\d")) {
             int size = Integer.parseInt(input);
             if (size <= 8 && size % 2 == 0 && size != 0) {
-            return size;
+                return size;
             }
         }
         View.error("You can't select this size.");
@@ -144,6 +135,15 @@ public class PlayingField {
      */
     public CardSet getCardSet() {
         return globalCardSet;
+    }
+
+    /**
+     * Sets the current {@link CardSet}
+     *
+     * @param cardSet to be used
+     */
+    public void setCardSet(CardSet cardSet) {
+        this.globalCardSet = cardSet;
     }
 
     /**

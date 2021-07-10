@@ -1,6 +1,7 @@
 package de.uni_passau.se.memory.Model;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class implements {@link Player} of the {@link Game}.
@@ -8,40 +9,34 @@ import java.util.*;
 public class Player {
 
     /**
+     * Stores the achievements of a {@link Player}
+     */
+    private final Achievements achievements = new Achievements();
+    /**
+     * Stores the next {@link Player}.
+     */
+    Player next;
+    /**
+     * Stores the last {@link Player}.
+     */
+    Player rear;
+    /**
+     * Stores all {@link Card}'s a {@link Player} has found.
+     */
+    List<Card> foundCards;
+    /**
      * Stores the name of a {@link Player}.
      */
     private String name;
-
     /**
      * Stores the score of a {@link Player}.
      */
     private int score;
-
     /**
      * Stores the lives of a {@link Player}.
      * The default number of lives is 5.
      */
     private int lives = 5;
-
-    /**
-     * Stores the achievements of a {@link Player}
-     */
-    private final Achievements achievements = new Achievements();
-
-    /**
-     * Stores the next {@link Player}.
-     */
-    Player next;
-
-    /**
-     * Stores the last {@link Player}.
-     */
-    Player rear;
-
-    /**
-     * Stores all {@link Card}'s a {@link Player} has found.
-     */
-    List<Card> foundCards;
 
     /**
      * Constructs a new {@link Player}.
@@ -66,6 +61,15 @@ public class Player {
      */
     public String getName() {
         return name;
+    }
+
+    /**
+     * Sets the name for a {@link Player}.
+     *
+     * @param name of a player
+     */
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
@@ -121,15 +125,6 @@ public class Player {
     }
 
     /**
-     * Sets the name for a {@link Player}.
-     *
-     * @param name of a player
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
      * Gets the lives of a {@link Player}.
      *
      * @return the lives of a {@link Player}.
@@ -139,19 +134,19 @@ public class Player {
     }
 
     /**
-     * Reduces the lives of a {@link Player}.
-     */
-    public void reduceLives() {
-        this.lives = lives - 1;
-    }
-
-    /**
      * Sets the lives of a {@link Player}.
      *
      * @param lives of a {@link Player}.
      */
     public void setLives(int lives) {
         this.lives = lives;
+    }
+
+    /**
+     * Reduces the lives of a {@link Player}.
+     */
+    public void reduceLives() {
+        this.lives = lives - 1;
     }
 
     /**
@@ -184,24 +179,6 @@ public class Player {
     }
 
     /**
-     * Gets the amount of won games.
-     *
-     * @return amount of won games.
-     */
-    public int getGamesWon() {
-        return achievements.getGamesWon();
-    }
-
-    /**
-     * Gets the amount of played games.
-     *
-     * @return amount of played games.
-     */
-    public int getGamesPlayed() {
-        return achievements.getGamesPlayed();
-    }
-
-    /**
      * Sets the highScore.
      *
      * @param highScore to be set
@@ -211,12 +188,30 @@ public class Player {
     }
 
     /**
+     * Gets the amount of won games.
+     *
+     * @return amount of won games.
+     */
+    public int getGamesWon() {
+        return achievements.getGamesWon();
+    }
+
+    /**
      * Sets the amount of won games.
      *
      * @param gamesWon to be set.
      */
     public void setGamesWon(int gamesWon) {
         achievements.setGamesWon(gamesWon);
+    }
+
+    /**
+     * Gets the amount of played games.
+     *
+     * @return amount of played games.
+     */
+    public int getGamesPlayed() {
+        return achievements.getGamesPlayed();
     }
 
     /**

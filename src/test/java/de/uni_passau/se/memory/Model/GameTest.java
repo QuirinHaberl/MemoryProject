@@ -54,12 +54,12 @@ class GameTest {
         //set Achievements with Reflections
         Field currAch = Achievements.class.getDeclaredField("currentAchievements");
         currAch.setAccessible(true);
-        currAch.set(game.getPlayerList().getPlayer(0).getAchievements(),"test123");
+        currAch.set(game.getPlayerList().getPlayer(0).getAchievements(), "test123");
 
 
         String ach = game.checkForAchievementsInGame(game.getPlayerList().getPlayer(0));
 
-        assertEquals("test123",ach);
+        assertEquals("test123", ach);
 
     }
 
@@ -70,53 +70,53 @@ class GameTest {
 
     @Test
     void revealFirstCard_LegalPos() {
-        game.revealFirstCard(0,0);
+        game.revealFirstCard(0, 0);
 
-        assertEquals(CardStatus.OPEN,game.getCard(0,0).getCardStatus());
+        assertEquals(CardStatus.OPEN, game.getCard(0, 0).getCardStatus());
     }
 
     @Test
     void revealFirstCard_IllegalPos() {
 
-       assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
-           game.revealFirstCard(-1,0);
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
+            game.revealFirstCard(-1, 0);
         });
     }
 
 
     @Test
     void revealSecondCard_BeforeFirst_DoNothing() {
-        game.revealSecondCard(1,2);
-        assertEquals(CardStatus.CLOSED,game.getCard(1,2).getCardStatus());
+        game.revealSecondCard(1, 2);
+        assertEquals(CardStatus.CLOSED, game.getCard(1, 2).getCardStatus());
     }
 
     @Test
     void revealSecondCard_OpenSameAsFirst() {
-        game.revealFirstCard(0,0);
-        game.revealSecondCard(0,0);
-        assertEquals(CardStatus.AlREADYOPEN, game.getCard(0,0).getCardStatus());
+        game.revealFirstCard(0, 0);
+        game.revealSecondCard(0, 0);
+        assertEquals(CardStatus.AlREADYOPEN, game.getCard(0, 0).getCardStatus());
     }
 
     @Test
     void revealSecondCard_RightOrder() {
-        game.revealFirstCard(0,0);
-        game.revealSecondCard(1,2);
-        assertEquals(CardStatus.OPEN,game.getCard(0,0).getCardStatus());
-        assertEquals(CardStatus.OPEN,game.getCard(1,2).getCardStatus());
+        game.revealFirstCard(0, 0);
+        game.revealSecondCard(1, 2);
+        assertEquals(CardStatus.OPEN, game.getCard(0, 0).getCardStatus());
+        assertEquals(CardStatus.OPEN, game.getCard(1, 2).getCardStatus());
 
     }
 
     @Test
     void pairCheck_AssumeTrue() throws NoSuchFieldException, IllegalAccessException {
 
-        CardValues value = (CardValues) game.getCard(0,0).getValue();
+        CardValues value = game.getCard(0, 0).getValue();
 
         for (int row = 0; row < game.getBoard().length; row++) {
             for (int col = 0; col < game.getBoard().length; col++) {
-                    if(row != 0 && col != 0 && (value == game.getCard(row,col).getValue())) {
-                        assertTrue(game.pairCheck(0,0,row,col), "Cards should match");
-                        break;
-                    }
+                if (row != 0 && col != 0 && (value == game.getCard(row, col).getValue())) {
+                    assertTrue(game.pairCheck(0, 0, row, col), "Cards should match");
+                    break;
+                }
             }
         }
     }
@@ -124,12 +124,12 @@ class GameTest {
     @Test
     void pairCheck_AssumeFalse() throws NoSuchFieldException, IllegalAccessException {
 
-        CardValues value = (CardValues) game.getCard(0,0).getValue();
+        CardValues value = game.getCard(0, 0).getValue();
 
         for (int row = 0; row < game.getBoard().length; row++) {
             for (int col = 0; col < game.getBoard().length; col++) {
-                if(row != 0 && col != 0 && (value != game.getCard(row,col).getValue())) {
-                    assertFalse(game.pairCheck(0,0,row,col),"Cards should't match");
+                if (row != 0 && col != 0 && (value != game.getCard(row, col).getValue())) {
+                    assertFalse(game.pairCheck(0, 0, row, col), "Cards should't match");
                     break;
                 }
             }
@@ -156,26 +156,26 @@ class GameTest {
     @Test
     void removeCards() {
 
-        game.getCard(1,1).setCardStatus(CardStatus.OPEN);
+        game.getCard(1, 1).setCardStatus(CardStatus.OPEN);
 
 
-        game.removeCards(1,1,1,2);
+        game.removeCards(1, 1, 1, 2);
 
-        assertEquals(CardStatus.FOUND,game.getCard(1,1).getCardStatus());
-        assertEquals(CardStatus.FOUND,game.getCard(1,2).getCardStatus());
+        assertEquals(CardStatus.FOUND, game.getCard(1, 1).getCardStatus());
+        assertEquals(CardStatus.FOUND, game.getCard(1, 2).getCardStatus());
 
     }
 
     @Test
     void closeCards() {
 
-        game.revealFirstCard(1,1);
-        game.revealSecondCard(1,2);
+        game.revealFirstCard(1, 1);
+        game.revealSecondCard(1, 2);
 
-        game.closeCards(1,1,1,2);
+        game.closeCards(1, 1, 1, 2);
 
-        assertEquals(CardStatus.CLOSED,game.getCard(1,1).getCardStatus());
-        assertEquals(CardStatus.CLOSED,game.getCard(1,2).getCardStatus());
+        assertEquals(CardStatus.CLOSED, game.getCard(1, 1).getCardStatus());
+        assertEquals(CardStatus.CLOSED, game.getCard(1, 2).getCardStatus());
 
     }
 
@@ -183,13 +183,13 @@ class GameTest {
     void closeAllCards() {
 
         //Open a Card
-        game.revealFirstCard(0,0);
+        game.revealFirstCard(0, 0);
 
         game.closeAllCards();
 
         for (int row = 0; row < game.getBoard().length; row++) {
             for (int col = 0; col < game.getBoard().length; col++) {
-                assertEquals(CardStatus.CLOSED, game.getCard(row,col).getCardStatus());
+                assertEquals(CardStatus.CLOSED, game.getCard(row, col).getCardStatus());
             }
         }
 
@@ -216,12 +216,12 @@ class GameTest {
     @Test
     void quitGame() {
         game.quitGame();
-        assertEquals(GameStatus.END,game.getGameStatus());
+        assertEquals(GameStatus.END, game.getGameStatus());
     }
 
     @Test
     void resetGame() {
-        String[] players = new String[] {"Frodo", "Sam", "Gandalf"};
+        String[] players = new String[]{"Frodo", "Sam", "Gandalf"};
 
         PlayerList playersList = new PlayerList();
         playersList.addPlayer(players[0]);
@@ -233,11 +233,11 @@ class GameTest {
 
         game.resetGame(playersList);
 
-        assertEquals(TurnStatus.IDLE,game.getTurnStatus());
+        assertEquals(TurnStatus.IDLE, game.getTurnStatus());
         closeAllCards(); // other Test
-        assertEquals(0,game.getPlayerList().getPlayer(0).getScore());
-        assertEquals(0,game.getPlayerList().getPlayer(1).getScore());
-        assertEquals(0,game.getPlayerList().getPlayer(2).getScore());
+        assertEquals(0, game.getPlayerList().getPlayer(0).getScore());
+        assertEquals(0, game.getPlayerList().getPlayer(1).getScore());
+        assertEquals(0, game.getPlayerList().getPlayer(2).getScore());
 
 
     }
@@ -250,14 +250,14 @@ class GameTest {
     @Test
     void addPlayers() {
 
-        String[] players = new String[] {"Frodo", "Sam", "Gandalf"};
+        String[] players = new String[]{"Frodo", "Sam", "Gandalf"};
 
         game.addPlayers(3, players);
 
-        assertEquals(3,game.getPlayerList().size(),"Player number is not right!");
-        assertEquals("Frodo",game.getPlayerList().getPlayer(0).getName(), "Name of First Player is wrong");
-        assertEquals("Sam",game.getPlayerList().getPlayer(1).getName(), "Name of Second Player is wrong");
-        assertEquals("Gandalf",game.getPlayerList().getPlayer(2).getName(), "Name of Third Player is wrong");
+        assertEquals(3, game.getPlayerList().size(), "Player number is not right!");
+        assertEquals("Frodo", game.getPlayerList().getPlayer(0).getName(), "Name of First Player is wrong");
+        assertEquals("Sam", game.getPlayerList().getPlayer(1).getName(), "Name of Second Player is wrong");
+        assertEquals("Gandalf", game.getPlayerList().getPlayer(2).getName(), "Name of Third Player is wrong");
 
 
     }
@@ -267,7 +267,7 @@ class GameTest {
         game.addPlayer("Frodo");
 
 
-        assertEquals(1,game.getPlayerList().size());
+        assertEquals(1, game.getPlayerList().size());
         assertEquals("Frodo", game.getPlayerList().getPlayer(0).getName());
     }
 

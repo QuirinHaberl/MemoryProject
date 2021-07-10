@@ -16,49 +16,41 @@ import java.util.TimerTask;
 public final class Game {
 
     /**
-     * Stores the current {@link TurnStatus}.
-     */
-    private TurnStatus turnStatus;
-
-    /**
-     * Stores the current {@link GameStatus}.
-     */
-    private GameStatus gameStatus;
-
-    /**
      * Stores the current {@link PlayingField}.
      */
     private final PlayingField playingField;
-
     /**
      * Stores a {@link Player} in the {@link PlayerList}.
      */
     public PlayerList playerList;
-
-    /**
-     * Stores the amount of players.
-     */
-    private int playerAmount;
-
-    /**
-     * Stores the selected singlePlayerMode.
-     */
-    private SinglePlayerMode singlePlayerMode;
-
-    /**
-     * Stores the gameResult.
-     */
-    private boolean gameWon = false;
-
-    /**
-     * This is the associated attribute of type CountDown for the game.
-     */
-    private CountDownConsole time;
-
     /**
      * Stores playerProfiles
      */
     public Database database;
+    /**
+     * Stores the current {@link TurnStatus}.
+     */
+    private TurnStatus turnStatus;
+    /**
+     * Stores the current {@link GameStatus}.
+     */
+    private GameStatus gameStatus;
+    /**
+     * Stores the amount of players.
+     */
+    private int playerAmount;
+    /**
+     * Stores the selected singlePlayerMode.
+     */
+    private SinglePlayerMode singlePlayerMode;
+    /**
+     * Stores the gameResult.
+     */
+    private boolean gameWon = false;
+    /**
+     * This is the associated attribute of type CountDown for the game.
+     */
+    private CountDownConsole time;
 
     /**
      * The constructor initiates the {@link Game}, the turn and creates a new {@link PlayingField}
@@ -128,6 +120,15 @@ public final class Game {
     }
 
     /**
+     * Sets the {@link GameStatus}.
+     *
+     * @param gameStatus sets the {@link GameStatus}
+     */
+    public void setGameStatus(GameStatus gameStatus) {
+        this.gameStatus = gameStatus;
+    }
+
+    /**
      * Gets the {@code playerList}.
      *
      * @return the current {@code playerList}
@@ -141,15 +142,6 @@ public final class Game {
      */
     public void resetPlayerList() {
         this.playerList = new PlayerList();
-    }
-
-    /**
-     * Sets the {@link GameStatus}.
-     *
-     * @param gameStatus sets the {@link GameStatus}
-     */
-    public void setGameStatus(GameStatus gameStatus) {
-        this.gameStatus = gameStatus;
     }
 
     /**
@@ -660,15 +652,6 @@ public final class Game {
         int remainingTime = count;
 
         /**
-         * Gets the {@code remainingTime} of a {@link Game}.
-         *
-         * @return the {@code remainingTime}
-         */
-        public int getCount() {
-            return remainingTime;
-        }
-
-        /**
          * Initiates the countDown for the console.
          */
         public CountDownConsole() {
@@ -689,6 +672,15 @@ public final class Game {
                 }
             };
             timer.schedule(task, 0, 1000);
+        }
+
+        /**
+         * Gets the {@code remainingTime} of a {@link Game}.
+         *
+         * @return the {@code remainingTime}
+         */
+        public int getCount() {
+            return remainingTime;
         }
     }
 }
