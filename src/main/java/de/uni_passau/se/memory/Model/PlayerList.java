@@ -152,7 +152,6 @@ public class PlayerList {
         winningPlayers.add(getPlayerName(i));
       }
     }
-
     return winningPlayers;
   }
 
