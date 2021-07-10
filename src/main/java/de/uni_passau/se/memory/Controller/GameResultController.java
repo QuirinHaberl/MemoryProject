@@ -148,10 +148,16 @@ public class GameResultController {
     public void initialize() {
         setLabels();
         Game game = Wrapper.getInstance().getGame();
+
+        List<String> winningPlayers = game.getPlayerList().winningPlayersToString();
+        int highScore =
+                game.getPlayerList().getHighestScore();
+
+        game.getDatabase().updateHighScoreHistory(winningPlayers, highScore);
+        game.updateGamesPlayed();
+        game.database.storeProgress(game);
+
         if (game.isGameWon()) {
-            List<String> winningPlayers = game.getPlayerList().winningPlayersToString();
-            int highScore =
-                    game.getPlayerList().getHighestScore();
             message.setText(printGameSummary(winningPlayers, highScore));
         } else {
             GameOver.setVisible(true);
@@ -204,7 +210,7 @@ public class GameResultController {
             playerLabels[i].setVisible(true);
             playerLabels[i].setText(input[i]);
             scoreLabels[i].setVisible(true);
-            scoreLabels[i].setText(input[game.getPlayerList().getCount() + i]);
+            scoreLabels[i].setText(input[game.getPlayerList().size() + i]);
             icons[i].setVisible(true);
         }
     }

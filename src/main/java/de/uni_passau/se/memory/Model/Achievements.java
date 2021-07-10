@@ -44,15 +44,6 @@ public class Achievements {
     }
 
     /**
-     * Sets {@code pairCounterTotal}.
-     *
-     * @param pairCounterTotal to be set
-     */
-    public void setPairCounterTotal(int pairCounterTotal) {
-        this.pairCounterTotal = pairCounterTotal;
-    }
-
-    /**
      * Sets {@code pairCounterStreak}.
      *
      * @param pairCounterStreak to be set

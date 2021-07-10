@@ -20,7 +20,7 @@ public class PlayerList {
     /**
      * Stores the amount of players.
      */
-    private int count;
+    private int size;
 
     /**
      * Constructs a new {@link PlayerList}.
@@ -28,7 +28,7 @@ public class PlayerList {
     public PlayerList() {
         this.front = null;
         this.rear = null;
-        count = 0;
+        size = 0;
     }
 
     /**
@@ -36,8 +36,8 @@ public class PlayerList {
      *
      * @return count
      */
-    public int getCount() {
-        return count;
+    public int size() {
+        return size;
     }
 
 
@@ -64,39 +64,7 @@ public class PlayerList {
             player.rear = p;
             rear = player;
         }
-        count++;
-    }
-
-    /**
-     * Deletes a {@link Player}.
-     *
-     * @param position of the {@link Player} that is being deleted
-     */
-    public void deletePlayer(int position) {
-
-        if (position == 0) {
-            if (count == 1) {
-                front = null;
-                rear = null;
-            } else {
-                front = front.next;
-            }
-            count--;
-        } else if (position == count - 1) {
-            Player current = getPlayer(count - 2);
-            current.next = null;
-            rear = current;
-            count--;
-        } else {
-            Player current = front;
-            for (int i = 0; i < position - 1; i++) {
-                current = current.next;
-            }
-            Player temp = current.next;
-            current.next = temp.next;
-            temp.next = null;
-            count--;
-        }
+        size++;
     }
 
     /**
@@ -105,7 +73,7 @@ public class PlayerList {
     public void deleteAllPlayers() {
         this.front = null;
         this.rear = null;
-        count = 0;
+        size = 0;
     }
 
     /**
@@ -147,28 +115,9 @@ public class PlayerList {
      * Resets all {@code score}'s of {@link Player}'s.
      */
     public void resetAllScores() {
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < size; i++) {
             getPlayer(i).setScore(0);
         }
-    }
-
-    /**
-     * Gets the position of a {@link Player}.
-     *
-     * @param player the current {@link Player}
-     * @return the position
-     */
-    public int getPlayerPosition(Player player) {
-        Player current = front;
-        int position = 0;
-        for (int i = 0; i < count; i++) {
-            if (current == player) {
-                break;
-            }
-            current = current.next;
-            position++;
-        }
-        return position;
     }
 
     /**
@@ -179,7 +128,7 @@ public class PlayerList {
     public int getHighestScore() {
         int highestScore = 0;
 
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < size; i++) {
             if (getPlayerScore(i) > highestScore) {
                 highestScore = getPlayerScore(i);
             }
@@ -187,11 +136,16 @@ public class PlayerList {
         return highestScore;
     }
 
+    /**
+     * Gets the number of players with the highest score.
+     *
+     * @return how many player have the highest score
+     */
     public int getCountOfWinningPlayers() {
         int playersWithHighestScore = 0;
         int highestScore = getHighestScore();
 
-        for (int i = 1; i < count; i++) {
+        for (int i = 1; i < size; i++) {
             if (getPlayerScore(i) == highestScore) {
                 playersWithHighestScore = playersWithHighestScore + 1;
             }
@@ -209,7 +163,7 @@ public class PlayerList {
         List<String> winningPlayers = new ArrayList<>();
 
 
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < size; i++) {
             if (getPlayerScore(i) == highestScore) {
                 winningPlayers.add(getPlayerName(i));
             }
@@ -219,16 +173,7 @@ public class PlayerList {
     }
 
     /**
-     * Increments the {@code score} a a selected {@link Player}.
-     *
-     * @param position of the {@link Player}
-     */
-    public void updatePlayerScore(int position) {
-        this.getPlayer(position).updateScore();
-    }
-
-    /**
-     * Get the name of a {@link Player}.
+     * Gets the name of a {@link Player}.
      *
      * @param position of a Player
      * @return the name of a {@link Player}
@@ -236,7 +181,6 @@ public class PlayerList {
     public String getPlayerName(int position) {
         return getPlayer(position).getName();
     }
-
 
     /**
      * Gets the {@code score} of a selected {@link Player}.
@@ -249,49 +193,195 @@ public class PlayerList {
     }
 
     /**
-     * Gets the ranking of all {@link Player}'s.
+     * Sorts the playerList.
      *
-     * @param name of the Player
-     * @return the ranking of the Player
+     * @return a sorted playerList
      */
-    public int getRanking(String name) {
-        //this.sort();
-        int ranking = 0;
-        for (int i = 0; i < count; i++) {
-            if (name.equals(this.getPlayer(i).getName())) {
-                ranking = count - i;
-            }
-        }
-        return ranking;
-    }
-
-    //TODO
     public String[] getSorted() {
-        String[] output = new String[count * 2];
-        String[] names = new String[count];
-        int[] scores = new int[count];
-        for (int i = 0; i < count; i++) {
+        String[] output = new String[size * 2];
+        String[] names = new String[size];
+        int[] scores = new int[size];
+        for (int i = 0; i < size; i++) {
             names[i] = this.getPlayerName(i);
             scores[i] = this.getPlayerScore(i);
         }
-        for (int i = 1; i < count; i++) {
+        for (int i = 1; i < size; i++) {
             String currentName = names[i];
             int currentScore = scores[i];
 
-            // Element is moved to the left until it is at the right position.
-            int j = i;
-            while (j > 0 && currentScore < scores[j - 1]) {
-                scores[j] = scores[j - 1];
-                names[j] = names[j - 1];
-                j--;
-            }
-            scores[j] = currentScore;
-            names[j] = currentName;
+            helper(names, scores, i, currentName, currentScore);
         }
-        for (int i = 0; i < count; i++) {
-            output[i] = names[count - 1 - i];
-            output[count + i] = String.valueOf(scores[count - 1 - i]);
+        for (int i = 0; i < size; i++) {
+            output[i] = names[size - 1 - i];
+            output[size + i] = String.valueOf(scores[size - 1 - i]);
         }
         return output;
+    }
+
+    /**
+     * Helper for sort().
+     *
+     * @param names        of the players
+     * @param scores       of the players
+     * @param i            incrementer passed by sort()
+     * @param currentName  of current player
+     * @param currentScore of current player
+     */
+    public static void helper(String[] names, int[] scores, int i,
+                              String currentName, int currentScore) {
+        int j = i;
+        //TODO Ich habe am Code nichts geändert, nur diese Passage automatisch extrahieren lassen.
+        // Element is moved to the left until it is at the right position.
+        while (j > 0 && currentScore < scores[j - 1]) {
+            scores[j] = scores[j - 1];
+            names[j] = names[j - 1];
+            j--;
+        }
+        scores[j] = currentScore;
+        names[j] = currentName;
+    }
+
+    /**
+     * Loads all existing profiles for the current players.
+     * A playerProfile has the following structure:
+     * playerId;playerName;highScore;gamesPlayed;gamesWon
+     *
+     * @param playerProfiles to be used
+     */
+    public void saveProfile(List<String[]> playerProfiles) {
+        Player player;
+        for (String[] playerProfile : playerProfiles) {
+            for (int j = 0; j < size(); j++) {
+                player = getPlayer(j);
+                if (playerProfile[0].equals(getPlayerName(player)) && !(
+                        getPlayerName(player).equals("Player1")
+                                || getPlayerName(player).equals("Player2")
+                                || getPlayerName(player).equals("Player3")
+                                || getPlayerName(player).equals("Player4")
+                )) {
+                    playerProfile[0] = getPlayerName(player) + "";
+                    playerProfile[1] = getPlayerHighScore(player) + "";
+                    playerProfile[2] = getPlayerGamesPlayed(player) + "";
+                    playerProfile[3] = getPlayerGamesWon(player) + "";
+                    break;
+                }
+            }
+        }
+    }
+
+    /**
+     * Loads all existing profiles for the current players.
+     * A playerProfile has the following structure:
+     * playerId;playerName;highScore;gamesPlayed;gamesWon
+     *
+     * @param playerProfiles to be used
+     * @param usesProfiles   specifies which player wants to use a profile
+     */
+    public void useProfile(List<String[]> playerProfiles, List<Boolean> usesProfiles) {
+        boolean hasProfile;
+        Player player;
+        for (int i = 0; i < size(); i++) {
+            player = getPlayer(i);
+
+            if (usesProfiles.get(i)) {
+                hasProfile = false;
+                int j;
+                for (j = 0; j < playerProfiles.size(); j++) {
+                    if (getPlayerName(player).
+                            equals(playerProfiles.get(j)[0])) {
+                        hasProfile = true;
+                        break;
+                    }
+
+                }
+                if (hasProfile) {
+                    setPlayerHighScore(player, Integer.parseInt(playerProfiles.get(j)[1]));
+                    setPlayerGamesPlayed(player, Integer.parseInt(playerProfiles.get(j)[2]));
+                    setPlayerGamesWon(player, Integer.parseInt(playerProfiles.get(j)[3]));
+                } else {
+                    String[] newProfile = new String[]{
+                            getPlayerName(player),
+                            getPlayerHighScore(player) + "",
+                            getPlayerGamesPlayed(player) + "",
+                            getPlayerGamesWon(player) + ""
+                    };
+                    playerProfiles.add(newProfile);
+                }
+            }
+        }
+    }
+
+    /**
+     * Gets the amount of gamesPlayed.
+     * Ensures Demeter's Law.
+     *
+     * @param player whose gamesPlayed are requested
+     * @return amount of gamesPlayed
+     */
+    public int getPlayerGamesPlayed(Player player) {
+        return player.getGamesPlayed();
+    }
+
+    /**
+     * Gets the amount of gamesWon.
+     * Ensures Demeter's Law.
+     *
+     * @param player whose gamesWon are requested
+     * @return amount of gamesWon
+     */
+    public int getPlayerGamesWon(Player player) {
+        return player.getGamesWon();
+    }
+
+    /**
+     * Gets the highScore of a player.
+     * Ensures Demeter's Law.
+     *
+     * @param player whose highScore is requested
+     * @return highScore of a player
+     */
+    public int getPlayerHighScore(Player player) {
+        return player.getHighScore();
+    }
+
+    /**
+     * Gets the name of a player.
+     * Ensures Demeter's Law.
+     *
+     * @param player whose name is requested
+     * @return the name of a player
+     */
+    public String getPlayerName(Player player) {
+        return player.getName();
+    }
+
+    /**
+     * Sets the amount of gamesPlayed.
+     *
+     * @param player      whose amount of gamesPlayed is set
+     * @param gamesPlayed amount of gamesPlayed
+     */
+    public void setPlayerGamesPlayed(Player player, int gamesPlayed) {
+        player.setGamesPlayed(gamesPlayed);
+    }
+
+    /**
+     * Sets the amount of gamesWon.
+     *
+     * @param player   whose amount of gamesWon is set
+     * @param gamesWon amount of gamesWon
+     */
+    public void setPlayerGamesWon(Player player, int gamesWon) {
+        player.setGamesWon(gamesWon);
+    }
+
+    /**
+     * Sets the highScore of a player.
+     *
+     * @param player    whose highScore is set
+     * @param highScore of a player
+     */
+    public void setPlayerHighScore(Player player, int highScore) {
+        player.setHighScore(highScore);
     }
 }

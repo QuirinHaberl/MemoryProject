@@ -173,26 +173,14 @@ public class HighScoreController {
         Database highScoreHistory = Database.getInstance();
         highScoreHistory.loadHighScoreHistory();
         List<String[]> highScoreList = highScoreHistory.getHighScoreHistory();
-        name1.setText(highScoreList.get(0)[0]);
-        score1.setText(highScoreList.get(0)[1]);
-        name2.setText(highScoreList.get(1)[0]);
-        score2.setText(highScoreList.get(1)[1]);
-        name3.setText(highScoreList.get(2)[0]);
-        score3.setText(highScoreList.get(2)[1]);
-        name4.setText(highScoreList.get(3)[0]);
-        score4.setText(highScoreList.get(3)[1]);
-        name5.setText(highScoreList.get(4)[0]);
-        score5.setText(highScoreList.get(4)[1]);
-        name6.setText(highScoreList.get(5)[0]);
-        score6.setText(highScoreList.get(5)[1]);
-        name7.setText(highScoreList.get(6)[0]);
-        score7.setText(highScoreList.get(6)[1]);
-        name8.setText(highScoreList.get(7)[0]);
-        score8.setText(highScoreList.get(7)[1]);
-        name9.setText(highScoreList.get(8)[0]);
-        score9.setText(highScoreList.get(8)[1]);
-        name10.setText(highScoreList.get(9)[0]);
-        score10.setText(highScoreList.get(9)[1]);
+
+        Label[] names = {name1, name2, name3, name4, name5, name6, name7, name8, name9, name10};
+        Label[] scores = {score1, score2, score3, score4, score5, score6, score7, score8, score9, score10};
+
+        for (int i = 0; i < names.length; i++) {
+            names[i].setText(highScoreList.get(i)[0]);
+            scores[i].setText(highScoreList.get(i)[1]);
+        }
     }
 
     /**

@@ -96,6 +96,7 @@ public class NameSelectionController implements Initializable {
 
     public void addPlayers() {
         Game game = Wrapper.getInstance().getGame();
+        game.resetPlayerList();
         TextField[] textFields = {player1Input, player2Input, player3Input, player4Input};
         CheckBox[] checkBoxes = {checkPlayer1, checkPlayer2, checkPlayer3, checkPlayer4};
         int playerAmount = game.getPlayerAmount();
@@ -116,8 +117,9 @@ public class NameSelectionController implements Initializable {
                 profileUser.add(checkBoxes[i].isSelected());
             }
         }
+        game.getDatabase().resetPlayerProfiles();
         game.getDatabase().loadPlayerProfiles();
-        game.useProfile(game.getDatabase().getPlayerProfiles(), profileUser);
+        game.playerList.useProfile(game.getDatabase().getPlayerProfiles(), profileUser);
     }
 
     @Override

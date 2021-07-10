@@ -1,5 +1,6 @@
 package de.uni_passau.se.memory.Controller;
 
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
@@ -14,4 +15,3 @@ public class RulesController {
     void CloseWindow(MouseEvent event) {
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
     }
-}

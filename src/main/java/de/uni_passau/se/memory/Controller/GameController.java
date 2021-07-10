@@ -7,6 +7,7 @@ import de.uni_passau.se.memory.Model.Enums.TurnStatus;
 import de.uni_passau.se.memory.Model.Game;
 import de.uni_passau.se.memory.Model.Player;
 import de.uni_passau.se.memory.gui.Window;
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -238,12 +239,15 @@ public class GameController {
     public void initialize() {
         setPlayerLabel();
         startClicked();
-        game.resetPlayerScores();
         if (game.getPlayerAmount() == 1) {
             if (game.getSinglePlayerMode().equals(SinglePlayerMode.LIFEPOINTS)) {
                 setLives();
             } else {
-                countDown = new CountDownGUI();
+                if(size == 4) {
+                    countDown = new CountDownGUI(120);
+                } else if (size == 6){
+                    countDown = new CountDownGUI(240);
+                } else countDown = new CountDownGUI(360);
             }
         }
     }
@@ -253,7 +257,6 @@ public class GameController {
      * TODO check ob gebraucht
      */
     public void startClicked() {
-        int size = game.getPlayingField().getSize();
         game.getPlayingField().fillWithCards();
 
         // Filling the Board with Buttons for every card
@@ -297,7 +300,7 @@ public class GameController {
     }
 
     /**
-     * closes the current window and opens the Start Screen
+     * Closes the current window and opens the Start Screen
      */
     public void mainMenu() {
         ((Stage) (MainMenuButton.getScene().getWindow())).close();
@@ -320,7 +323,13 @@ public class GameController {
         System.exit(0);
     }
 
+    /**
+     * Opens the Rules and pauses the time if there is one.
+     */
     public void help(ActionEvent actionEvent) {
+        if (game.getSinglePlayerMode().equals(SinglePlayerMode.TIME)) {
+            countDown.pauseTimer();
+        }
         new Window("Rules.fxml");
     }
 
@@ -362,23 +371,22 @@ public class GameController {
      * @param col    column of the current button
      */
     public void buttonClicked(ActionEvent event, Button button, String id, int row, int col) {
-        /*
-        if (game.getPlayerList().getCount() == 1 && game.getSinglePlayerMode().equals(SinglePlayerMode.LIFEPOINTS)) {
-            setLives();
-        }
-         */
-        // This is only for the single player mode play with time
-        if (game.getPlayerList().getCount() == 1 && game.getSinglePlayerMode().equals(SinglePlayerMode.TIME)) {
-            if (countDown.getGUITime() == 0) {
-                game.setGameWon(false);
 
-                game.updateGamesPlayed();
-                game.storeProgress();
+        // This is only for the single player mode play with time
+        if (game.getPlayerList().size() == 1 && game.getSinglePlayerMode().equals(SinglePlayerMode.TIME)) {
+            if (countDown.getGUITime() == 0) {
+                game.setGameResult(false);
 
                 ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
                 new Window("GameResult.fxml");
             }
+            if(countDown.animation.getStatus().equals(Animation.Status.PAUSED)) {
+                countDown.animation.play();
+            }
         }
+
+        //
+        updatePointer();
 
         //Implementation of the game phases
         switch (game.getTurnStatus()) {
@@ -469,15 +477,13 @@ public class GameController {
         } else {
             activePlayer.getAchievements().setPairCounterStreak(0);
             activePlayer = activePlayer.getNext();
-            if (game.getPlayerList().getCount() == 1
+            if (game.getPlayerList().size() == 1
                     && game.getSinglePlayerMode().equals(SinglePlayerMode.LIFEPOINTS)) {
-                game.getPlayerList().getPlayer(0).reducelifes();
+                game.getPlayerList().getPlayer(0).reduceLives();
                 updateLives();
-                if (game.getPlayerList().getPlayer(0).getlifes() == 0) {
-                    game.setGameWon(false);
+                if (game.getPlayerList().getPlayer(0).getLives() == 0) {
+                    game.setGameResult(false);
 
-                    game.updateGamesPlayed();
-                    game.storeProgress();
                     ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
                     new Window("GameResult.fxml");
                 }
@@ -494,15 +500,13 @@ public class GameController {
         if (game.pairCheck(firstRow, firstCol, secondRow, secondCol)) {
 
             checkAchievementsDuringGame();
-            if (game.areAllCardsOpen()) {
+            if (game.areAllCardsFound()) {
                 //TODO
                 AudioClip found = new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/GameWon.wav").toUri().toString());
                 found.play();
-                game.setGameWon(true);
+                game.setGameResult(true);
 
-                game.updateGamesPlayed();
                 checkAchievementsAfterGame();
-                game.storeProgress();
 
                 ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
                 new Window("GameResult.fxml");
@@ -570,7 +574,7 @@ public class GameController {
             livesAndTime.getChildren().add(newHeart(String.valueOf(i)));
             livesAndTime.getChildren().get(i).setVisible(true);
         }
-        game.getPlayerList().getPlayer(1).setlifes(game.getBoard().length * 2);
+        game.getPlayerList().getPlayer(1).setLives(game.getBoard().length * 2);
     }
 
     /**
@@ -596,7 +600,7 @@ public class GameController {
      * Updates the lives.
      */
     private void updateLives() {
-        int id = game.getPlayerList().getPlayer(0).getlifes();
+        int id = game.getPlayerList().getPlayer(0).getLives();
         if ((id % 2) == 0) {
             livesAndTime.getChildren().get(id / 2).getStyleClass().removeAll(
                     "LifeEmptyHalf");
@@ -635,14 +639,16 @@ public class GameController {
 
         private Timeline animation;
         private String S = "";
-        private int time = 10;
+        private int time;
+
 
         Label timer = new Label();
 
         /**
          * Initiates the countDown for the GUI.
          */
-        public CountDownGUI() {
+        public CountDownGUI(int time) {
+            this.time = time;
             setTimer(timer);
             animation = new Timeline(new KeyFrame(Duration.millis(1000), e -> setTimeLabel()));
             animation.setCycleCount(Timeline.INDEFINITE);
@@ -669,6 +675,35 @@ public class GameController {
          */
         public int getGUITime() {
             return time;
+        }
+
+        /**
+         * Pauses the timer
+         */
+        public void pauseTimer() {
+            if (game.getPlayerList().size() == 1 &&
+                    game.getSinglePlayerMode().equals(SinglePlayerMode.TIME)) {
+                animation.pause();
+            }  else return;
+        }
+    }
+
+
+
+    /**
+     * Updates the player pointers.
+     */
+    private void updatePointer() {
+        Label[] playerLabels = {labelPlayer1, labelPlayer2,
+                labelPlayer3, labelPlayer4};
+        AnchorPane[] keyAnchorPanes = {key1, key2,
+                key3, key4};
+        for (int i = 0; i < game.getPlayerAmount(); i++) {
+            if(playerLabels[i].getText().equals(activePlayer.getName())) {
+                keyAnchorPanes[i].setVisible(true);
+            } else {
+                keyAnchorPanes[i].setVisible(false);
+            }
         }
     }
 }

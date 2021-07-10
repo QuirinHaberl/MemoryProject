@@ -18,10 +18,10 @@ public class Player {
     private int score;
 
     /**
-     * Stores the lifes of a {@link Player}.
-     * The default number of lifes is 5.
+     * Stores the lives of a {@link Player}.
+     * The default number of lives is 5.
      */
-    private int lifes = 5;
+    private int lives = 5;
 
     /**
      * Stores the achievements of a {@link Player}
@@ -52,7 +52,6 @@ public class Player {
      * @param rear  the last @link Player}
      */
     public Player(String name, int score, Player next, Player rear) {
-        //this.playerId = UUID.randomUUID().toString();
         this.name = name;
         this.score = score;
         this.next = next;
@@ -117,7 +116,7 @@ public class Player {
     /**
      * Increments the {@code score} by 1.
      */
-    public void updateScore () { // +1
+    public void updateScore() { // +1
         this.score++;
     }
 
@@ -131,46 +130,28 @@ public class Player {
     }
 
     /**
-     * Sets the next {@link Player}.
+     * Gets the lives of a {@link Player}.
      *
-     * @param next {@link Player}
+     * @return the lives of a {@link Player}.
      */
-    public void setNext(Player next) {
-        this.next = next;
+    public int getLives() {
+        return lives;
     }
 
     /**
-     * Sets the last {@link Player}.
-     *
-     * @param rear of the {@link Player}
+     * Reduces the lives of a {@link Player}.
      */
-    public void setRear(Player rear) {
-        this.rear = rear;
+    public void reduceLives() {
+        this.lives = lives - 1;
     }
 
     /**
-     * Gets the lifes of a {@link Player}.
+     * Sets the lives of a {@link Player}.
      *
-     * @return the lifes of a {@link Player}.
+     * @param lives of a {@link Player}.
      */
-    public int getlifes() {
-        return lifes;
-    }
-
-    /**
-     * Reduces the lifes of a {@link Player}.
-     */
-    public void reducelifes() {
-        this.lifes = lifes - 1;
-    }
-
-    /**
-     * Sets the lifes of a {@link Player}.
-     *
-     * @param lifes of a {@link Player}.
-     */
-    public void setlifes(int lifes) {
-        this.lifes = lifes;
+    public void setLives(int lives) {
+        this.lives = lives;
     }
 
     /**
@@ -191,5 +172,129 @@ public class Player {
         return (this.name + ", highest score: " +
                 this.achievements.getHighScore() + ", " + " has played " +
                 this.achievements.getGamesPlayed() + " times.");
+    }
+
+    /**
+     * Gets the highScore of a player.
+     *
+     * @return highScore of a player
+     */
+    public int getHighScore() {
+        return achievements.getHighScore();
+    }
+
+    /**
+     * Gets the amount of won games.
+     *
+     * @return amount of won games.
+     */
+    public int getGamesWon() {
+        return achievements.getGamesWon();
+    }
+
+    /**
+     * Gets the amount of played games.
+     *
+     * @return amount of played games.
+     */
+    public int getGamesPlayed() {
+        return achievements.getGamesPlayed();
+    }
+
+    /**
+     * Sets the highScore.
+     *
+     * @param highScore to be set
+     */
+    public void setHighScore(int highScore) {
+        achievements.setHighScore(highScore);
+    }
+
+    /**
+     * Sets the amount of won games.
+     *
+     * @param gamesWon to be set.
+     */
+    public void setGamesWon(int gamesWon) {
+        achievements.setGamesWon(gamesWon);
+    }
+
+    /**
+     * Sets the amount of played games.
+     *
+     * @param gamesPlayed to bes set
+     */
+    public void setGamesPlayed(int gamesPlayed) {
+        achievements.setGamesPlayed(gamesPlayed);
+    }
+
+    /**
+     * Increments played games by one.
+     */
+    public void updateGamesPlayed() {
+        achievements.updateGamesPlayed();
+    }
+
+    /**
+     * Increments won games by one.
+     */
+    public void updateGamesWon() {
+        achievements.updateGamesWon();
+    }
+
+    /**
+     * Gets the last earned achievement.
+     *
+     * @return the last achievement earned
+     */
+    public String getCurrentAchievement() {
+        return achievements.getCurrentAchievements();
+    }
+
+
+    /**
+     * Clears the current achievement.
+     */
+    public void clearCurrentAchievement() {
+        achievements.clearCurrentAchievement();
+    }
+
+    /**
+     * Increments both pairCounters.
+     */
+    public void updatePairCounters() {
+        achievements.updatePairCounters();
+    }
+
+    /**
+     * Checks whether a new achievement was earned.
+     * Checks pairCounterTotal.
+     */
+    public void checkFoundPairsTotal() {
+        achievements.checkFoundPairsTotal();
+    }
+
+    /**
+     * Checks whether a new achievement was earned.
+     * Checks pairCounterStreak.
+     */
+    public void checkFoundPairsStreak() {
+        achievements.checkFoundPairsStreak();
+    }
+
+    /**
+     * Checks whether a new achievement was earned.
+     * Checks highScore.
+     */
+    public void checkHighScore() {
+        achievements.checkHighScore();
+    }
+
+    /**
+     * Checks whether a new achievement was earned.
+     * Checks gamesWon.
+     */
+    public void checkGamesWon() {
+        achievements.checkGamesWon();
     }
 }
