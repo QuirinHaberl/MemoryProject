@@ -10,10 +10,18 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * Class to build a new window.
+ */
 public class Window extends Stage {
 
     Stage stage;
 
+    /**
+     * Build a new window.
+     *
+     * @param path to the window to be built
+     */
     public Window(String path) {
         stage = this;
         Parent root = null;

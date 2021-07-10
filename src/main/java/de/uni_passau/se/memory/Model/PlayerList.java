@@ -115,6 +115,12 @@ public class PlayerList {
         return current;
     }
 
+    /**
+     * Gets the next player.
+     *
+     * @param player whose successor is requested
+     * @return the successor of a given player
+     */
     public Player getNextPlayer(Player player) {
         return player.getNext();
     }

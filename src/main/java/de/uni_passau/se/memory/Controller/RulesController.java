@@ -6,6 +6,9 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+/**
+ * Controller for the Rules-window.
+ */
 public class RulesController {
     /**
      * Closes the Window
