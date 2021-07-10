@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 
@@ -55,6 +56,33 @@ public class NameSelectionController implements Initializable {
 
     @FXML
     private CheckBox checkPlayer4;
+
+    /**
+     * Closes the stage
+     * @param event when close button clicked
+     */
+    @FXML
+    void CloseStage(MouseEvent event) {
+        System.exit(0);
+    }
+
+    /**
+     * Minimizes the Window
+     * @param event when minimize button clicked
+     */
+    @FXML
+    void MinimizeStage(MouseEvent event) {
+        ((Stage) (((Button) event.getSource()).getScene().getWindow())).setIconified(true);
+    }
+
+    /**
+     * Opens a surprise
+     * @param event when logo ist clicked
+     */
+    @FXML
+    void eeClicked(ActionEvent event) {
+        new Window("EasterEgg.fxml");
+    }
 
     public void ok(ActionEvent actionEvent) {
 

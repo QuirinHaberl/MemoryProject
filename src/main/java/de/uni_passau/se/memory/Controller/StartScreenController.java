@@ -4,6 +4,7 @@ import de.uni_passau.se.memory.gui.Window;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 
@@ -13,6 +14,33 @@ import java.nio.file.Paths;
  * Controller of the start screen window.
  */
 public class StartScreenController {
+
+    /**
+     * Closes the stage
+     * @param event when close button clicked
+     */
+    @FXML
+    void CloseStage(MouseEvent event) {
+        System.exit(0);
+    }
+
+    /**
+     * Minimizes the Window
+     * @param event when minimize button clicked
+     */
+    @FXML
+    void MinimizeStage(MouseEvent event) {
+        ((Stage) (((Button) event.getSource()).getScene().getWindow())).setIconified(true);
+    }
+
+    /**
+     * Opens a surprise
+     * @param event when logo ist clicked
+     */
+    @FXML
+    void eeClicked(ActionEvent event) {
+        new Window("EasterEgg.fxml");
+    }
 
     /**
      * Constructs a new game instance

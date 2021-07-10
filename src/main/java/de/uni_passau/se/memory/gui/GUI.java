@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
@@ -29,6 +30,8 @@ public class GUI extends Application {
 
         Scene scene = new Scene(root);
         stage.setTitle("MEMORY");
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("Images/Card.png")));
         stage.setScene(scene);
         stage.show();
     }

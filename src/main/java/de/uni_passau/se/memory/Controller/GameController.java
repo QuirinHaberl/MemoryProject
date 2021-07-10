@@ -12,15 +12,20 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -39,6 +44,15 @@ public class GameController {
      */
     @FXML
     private Label achievementLabel;
+
+    /**
+     * Constants needed to adjust the font size in achievementLabel
+     * Max height of achievementLabel
+     * Font settings for the label
+     */
+    private final double MAX_TEXT_HEIGHT = 55;
+    private final double defaultFontSize = 18;
+    private final Font defaultFont = Font.font("VT323",defaultFontSize);
 
     /**
      * AnchorPane to indicate that it is the first player's turn
@@ -189,6 +203,33 @@ public class GameController {
     CountDownGUI countDown;
 
     public GameController() {
+    }
+
+    /**
+     * Closes the stage
+     * @param event when close button clicked
+     */
+    @FXML
+    void CloseStage(MouseEvent event) {
+        System.exit(0);
+    }
+
+    /**
+     * Minimizes the Window
+     * @param event when minimize button clicked
+     */
+    @FXML
+    void MinimizeStage(MouseEvent event) {
+        ((Stage) (((Button) event.getSource()).getScene().getWindow())).setIconified(true);
+    }
+
+    /**
+     * Opens a surprise
+     * @param event when logo ist clicked
+     */
+    @FXML
+    void eeClicked(ActionEvent event) {
+        new Window("EasterEgg.fxml");
     }
 
     /**
@@ -479,8 +520,20 @@ public class GameController {
     public void checkAchievementsDuringGame() {
         String achievement = game.checkForAchievementsInGame(activePlayer);
         if (!achievement.isEmpty()) {
-            achievementLabel.setStyle("-fx-font-size: 15pt;");
+            achievementLabel.setFont(defaultFont);
             achievementLabel.setText(activePlayer.getName() + " has earned:\n" + achievement);
+            //automatic text size adjustment
+            Text tmpText = new Text(achievementLabel.getText());
+            tmpText.setFont(defaultFont);
+            double textHeight = tmpText.getLayoutBounds().getHeight();
+            //check if text height is smaller than maximum height allowed
+            if (textHeight <= MAX_TEXT_HEIGHT) {
+                achievementLabel.setFont(defaultFont);
+            } else {
+                //calculate new font size if too big
+                double newFontSize = defaultFontSize * MAX_TEXT_HEIGHT / textHeight;
+                achievementLabel.setFont(Font.font(defaultFont.getFamily(), newFontSize));
+            }
             AudioClip unlock = new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Achievement.wav").toUri().toString());
             unlock.play();
         }
