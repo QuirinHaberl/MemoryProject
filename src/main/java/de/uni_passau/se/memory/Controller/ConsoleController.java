@@ -132,11 +132,8 @@ public class ConsoleController implements Initializable {
                     game.addPlayers(playerAmount, playerNames);
                     game.getDatabase().resetPlayerProfiles();
                     game.getDatabase().loadPlayerProfiles();
-                    ArrayList<Boolean> workaround = new ArrayList<Boolean>();
-                    for (int i = 0; i < playerAmount; i++) {
-                        workaround.add(true);
-                    }
-                    game.playerList.useProfile(game.getDatabase().getPlayerProfiles(), workaround);
+
+                    game.database.useProfile(game.getPlayerList());
                     menuStatus = MenuStatus.BOARDSIZE;
                 }
 
@@ -500,12 +497,12 @@ public class ConsoleController implements Initializable {
                 saveBreak = true;
             }
             case "menu", "m" -> {
-                game.database.storeProgress(game);
+                game.database.storeProgress(game.getPlayerList());
                 game.returnToMenu(game.getPlayerList());
                 saveBreak = true;
             }
             case "reset", "r" -> {
-                game.database.storeProgress(game);
+                game.database.storeProgress(game.getPlayerList());
                 player = game.resetGame(game.getPlayerList());
                 if (game.getPlayerList().size() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
                     game.startTimer();
@@ -513,7 +510,7 @@ public class ConsoleController implements Initializable {
                 saveBreak = true;
             }
             case "restart", "rs" -> {
-                game.database.storeProgress(game);
+                game.database.storeProgress(game.getPlayerList());
                 player = game.restartGame(game.getPlayerList());
                 if (game.getPlayerList().size() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
                     game.startTimer();
@@ -522,7 +519,7 @@ public class ConsoleController implements Initializable {
             }
             case "quit", "q" -> {
                 game.updateGamesPlayed();
-                game.database.storeProgress(game);
+                game.database.storeProgress(game.getPlayerList());
                 game.quitGame();
                 saveBreak = true;
             }
@@ -554,12 +551,12 @@ public class ConsoleController implements Initializable {
     public boolean handleInputsAfterGame(String input, Player player) {
         switch (input.toLowerCase()) {
             case "menu", "m" -> {
-                game.database.storeProgress(game);
+                game.database.storeProgress(game.getPlayerList());
                 game.returnToMenu(game.getPlayerList());
                 return false;
             }
             case "reset", "r" -> {
-                game.database.storeProgress(game);
+                game.database.storeProgress(game.getPlayerList());
                 player = game.resetGame(game.getPlayerList());
                 if (game.getPlayerList().size() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
                     game.startTimer();
@@ -567,7 +564,7 @@ public class ConsoleController implements Initializable {
                 return false;
             }
             case "restart", "rs" -> {
-                game.database.storeProgress(game);
+                game.database.storeProgress(game.getPlayerList());
                 player = game.restartGame(game.getPlayerList());
                 if (game.getPlayerList().size() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
                     game.startTimer();
@@ -576,7 +573,7 @@ public class ConsoleController implements Initializable {
             }
             case "quit", "q" -> {
                 game.updateGamesPlayed();
-                game.database.storeProgress(game);
+                game.database.storeProgress(game.getPlayerList());
                 game.quitGame();
                 return false;
             }

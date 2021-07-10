@@ -7,14 +7,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class PlayerTest {
 
     @Test
-    void getPlayerId() {
-    }
-
-    @Test
-    void setPlayerId() {
-    }
-
-    @Test
     void getName() {
     }
 

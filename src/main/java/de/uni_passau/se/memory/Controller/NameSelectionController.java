@@ -79,19 +79,10 @@ public class NameSelectionController implements Initializable {
                 game.addPlayer(textFields[i].getText());
             }
         }
-
-        List<Boolean> profileUser = new ArrayList<>();
-        for (int i = 0; i < checkBoxes.length; i++) {
-            if (textFields[i].getText().isEmpty()) {
-                profileUser.add(false);
-            }
-            else {
-                profileUser.add(checkBoxes[i].isSelected());
-            }
-        }
+        game.getDatabase().setUsesProfiles(checkBoxes, textFields);
         game.getDatabase().resetPlayerProfiles();
         game.getDatabase().loadPlayerProfiles();
-        game.playerList.useProfile(game.getDatabase().getPlayerProfiles(), profileUser);
+        game.getDatabase().useProfile(game.getPlayerList());
     }
 
     @Override

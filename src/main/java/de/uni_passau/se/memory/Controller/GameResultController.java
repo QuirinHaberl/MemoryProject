@@ -127,7 +127,7 @@ public class GameResultController {
 
         game.getDatabase().updateHighScoreHistory(winningPlayers, highScore);
         game.updateGamesPlayed();
-        game.database.storeProgress(game);
+        game.database.storeProgress(game.getPlayerList());
 
         if (game.isGameWon()) {
             message.setText(printGameSummary(winningPlayers, highScore));
