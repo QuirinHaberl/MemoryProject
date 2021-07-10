@@ -58,7 +58,6 @@ public class Card {
         } else if (cardSet.equals(CardSet.PICTURES)) {
             return value.getPicture();
         } else {
-            //TODO Oder lieber Exception?
             return null;
         }
     }

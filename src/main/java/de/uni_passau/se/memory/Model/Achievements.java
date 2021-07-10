@@ -196,7 +196,7 @@ public class Achievements {
     }
 
     /**
-     * Checks whether a highScore was hit and generates a achievement.
+     * Checks whether a highScore was earned and generates a achievement.
      */
     public void checkHighScore() {
         if (pairCounterTotal > getHighScore()) {

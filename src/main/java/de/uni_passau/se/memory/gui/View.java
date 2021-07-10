@@ -226,7 +226,7 @@ public final class View {
         for (int i = 1; i < scores.length; i++) {
             int currentElement = scores[i];
             String currentName = playerNames[i];
-            PlayerList.helper(playerNames, scores, i, currentName, currentElement);
+            PlayerList.sortingHelper(playerNames, scores, i, currentName, currentElement);
         }
         for (int i = 0; i < players.size(); i++) {
             System.out.println("[" + playerNames[i] + ": "

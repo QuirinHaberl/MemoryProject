@@ -192,7 +192,7 @@ public class PlayerList {
    *
    * @return a sorted playerList
    */
-  public String[] getSorted() {
+  public String[] getSortedPlayerList() {
     String[] output = new String[size * 2];
     String[] names = new String[size];
     int[] scores = new int[size];
@@ -204,7 +204,7 @@ public class PlayerList {
       String currentName = names[i];
       int currentScore = scores[i];
 
-      helper(names, scores, i, currentName, currentScore);
+      sortingHelper(names, scores, i, currentName, currentScore);
     }
     for (int i = 0; i < size; i++) {
       output[i] = names[size - 1 - i];
@@ -214,7 +214,7 @@ public class PlayerList {
   }
 
   /**
-   * Helper for sort().
+   * Helper for the getSortedPlayerList()-method.
    *
    * @param names of the players
    * @param scores of the players
@@ -222,11 +222,9 @@ public class PlayerList {
    * @param currentName of current player
    * @param currentScore of current player
    */
-  public static void helper(
+  public static void sortingHelper(
       String[] names, int[] scores, int i, String currentName, int currentScore) {
     int j = i;
-    // TODO Ich habe am Code nichts geändert, nur diese Passage automatisch extrahieren lassen,
-    // um die IntelliJ Warnmeldung zu beheben -Jan
 
     // Element is moved to the left until it is at the right position.
     while (j > 0 && currentScore < scores[j - 1]) {
@@ -239,7 +237,7 @@ public class PlayerList {
   }
 
   /**
-   * Gets the amount of gamesPlayed. Ensures Demeter's Law.
+   * Gets the amount of gamesPlayed.
    *
    * @param player whose gamesPlayed are requested
    * @return amount of gamesPlayed
@@ -249,7 +247,7 @@ public class PlayerList {
   }
 
   /**
-   * Gets the amount of gamesWon. Ensures Demeter's Law.
+   * Gets the amount of gamesWon.
    *
    * @param player whose gamesWon are requested
    * @return amount of gamesWon
@@ -259,7 +257,7 @@ public class PlayerList {
   }
 
   /**
-   * Gets the highScore of a player. Ensures Demeter's Law.
+   * Gets the highScore of a player.
    *
    * @param player whose highScore is requested
    * @return highScore of a player
@@ -269,7 +267,7 @@ public class PlayerList {
   }
 
   /**
-   * Gets the name of a player. Ensures Demeter's Law.
+   * Gets the name of a player.
    *
    * @param player whose name is requested
    * @return the name of a player

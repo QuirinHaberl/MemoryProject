@@ -59,7 +59,7 @@ public class Database {
     }
 
     /**
-     * Constructs a new database-object.
+     * Constructs a new database.
      */
     public Database() {
         this.playerProfiles = new ArrayList<>();
@@ -76,8 +76,9 @@ public class Database {
     }
 
     /**
-     * Loads all existing profiles for the current players. A playerProfile has the following
-     * structure: playerName;highScore;gamesPlayed;gamesWon
+     * Loads all existing profiles for the current players.
+     * A playerProfile has the following structure:
+     * playerName;highScore;gamesPlayed;gamesWon
      *
      * @param playerList to be used
      */
@@ -127,12 +128,23 @@ public class Database {
         }
     }
 
+    /**
+     * Loads the profile from playerProfile to a player.
+     *
+     * @param player to be updated
+     * @param playerProfile to be used
+     */
     public void loadPlayerProfile(Player player, String[] playerProfile){
         player.setHighScore(Integer.parseInt(playerProfile[1]));
         player.setGamesPlayed(Integer.parseInt(playerProfile[2]));
         player.setGamesWon(Integer.parseInt(playerProfile[3]));
     }
 
+    /**
+     * Creates a new profile for a player.
+     *
+     * @param player for which a profile is generated
+     */
     public void createPlayerProfile(Player player){
         String[] newProfile = new String[] {
                 player.getName(),
@@ -205,7 +217,6 @@ public class Database {
 
                 if (playerProfile[0].equals(playerList.getPlayerName(player))) {
                     switch(name){
-                        //TODO mit if{}-ist das hier zu lang. Aber geht das noch schöner? -Jan
                         case "Player1", "Player2", "Player3", "Player4":
                             break;
                         default:
@@ -269,7 +280,7 @@ public class Database {
     }
 
     /**
-     *
+     * Resets a playerProfile to a empty ArrayList.
      */
     public void resetPlayerProfiles() {
         playerProfiles = new ArrayList<>();
