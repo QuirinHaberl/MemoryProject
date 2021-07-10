@@ -11,11 +11,13 @@ import static org.junit.jupiter.api.Assertions.*;
 class PlayerListTest {
 
 
+    private Database database;
     private PlayerList playerList;
 
     @BeforeEach
     public void setUp() throws Exception{
        playerList = new PlayerList();
+       database = new Database();
     }
 
     @Test
@@ -30,22 +32,9 @@ class PlayerListTest {
         assertEquals("A",playerList.getPlayer(0).getName(),"the Player name is not 'A'!");
         assertEquals("B",playerList.getPlayer(1).getName(),"the Player name is not 'B'!");
         assertEquals("C",playerList.getPlayer(2).getName(),"the Player name is not 'C'!");
-        assertEquals(3,playerList.getCount(),"this PlayerList is null!");
+        assertEquals(3,playerList.size(),"this PlayerList is null!");
     }
 
-    @Test
-    void deletePlayer() {
-        playerList.addPlayer("A");
-        playerList.addPlayer("B");
-        playerList.addPlayer("C");
-
-        playerList.deletePlayer(0);
-        assertEquals("B",playerList.getPlayer(0).getName(),"the Player name is not 'B'!");
-        assertEquals("B",playerList.getFront().getName(),"the Player name is not 'B'!");
-
-        playerList.deletePlayer(1);
-        assertEquals("B",playerList.getRear().getName(),"the Player name is not 'C'!");
-    }
 
     @Test
     void deleteAllPlayers() {
@@ -57,7 +46,7 @@ class PlayerListTest {
 
         assertEquals(null,playerList.getFront(),"this PlayerList is not null!");
         assertEquals(null,playerList.getRear(),"this PlayerList is not null!");
-        assertEquals(0,playerList.getCount(),"this PlayerList is not null!");
+        assertEquals(0,playerList.size(),"this PlayerList is not null!");
     }
 
     @Test
@@ -90,18 +79,18 @@ class PlayerListTest {
     }
 
     @Test
-    void getPlayerPosition() {
+    void getCountOfWinningPlayers(){
         playerList.addPlayer("A");
         playerList.addPlayer("B");
         playerList.addPlayer("C");
+        playerList.addPlayer("D");
 
-        Player A = playerList.getPlayer(0);
-        Player B = playerList.getPlayer(1);
-        Player C = playerList.getPlayer(2);
+        playerList.getPlayer(0).setScore(0);
+        playerList.getPlayer(1).setScore(10);
+        playerList.getPlayer(2).setScore(2);
+        playerList.getPlayer(3).setScore(10);
 
-        assertEquals(0,playerList.getPlayerPosition(A),"the position of this Player is not 0!");
-        assertEquals(1,playerList.getPlayerPosition(B),"the position of this Player is not 1!");
-        assertEquals(2,playerList.getPlayerPosition(C),"the position of this Player is not 2!");
+        assertEquals(2,playerList.getCountOfWinningPlayers(),"the winningPlayers should be 2!");
     }
 
     @Test
@@ -134,25 +123,6 @@ class PlayerListTest {
     }
 
     @Test
-    void updatePlayerScore() {
-        playerList.addPlayer("A");
-        playerList.addPlayer("B");
-        playerList.addPlayer("C");
-
-        playerList.getPlayer(0).setScore(0);
-        playerList.getPlayer(1).setScore(1);
-        playerList.getPlayer(2).setScore(2);
-
-        playerList.updatePlayerScore(0);
-        playerList.updatePlayerScore(1);
-        playerList.updatePlayerScore(2);
-
-        assertEquals(1,playerList.getPlayer(0).getScore(),"this score is not updated!");
-        assertEquals(2,playerList.getPlayer(1).getScore(),"this score is not updated!");
-        assertEquals(3,playerList.getPlayer(2).getScore(),"this score is not updated!");
-    }
-
-    @Test
     void getPlayerName() {
         playerList.addPlayer("A");
         playerList.addPlayer("B");
@@ -176,21 +146,6 @@ class PlayerListTest {
         assertEquals(0,playerList.getPlayer(0).getScore(),"this score should be 0!");
         assertEquals(1,playerList.getPlayer(1).getScore(),"this score should be 1!");
         assertEquals(2,playerList.getPlayer(2).getScore(),"this score should be 2!");
-    }
-
-    @Test
-    void getRanking() {
-        playerList.addPlayer("A");
-        playerList.addPlayer("B");
-        playerList.addPlayer("C");
-
-        playerList.getPlayer(0).setScore(0);
-        playerList.getPlayer(1).setScore(1);
-        playerList.getPlayer(2).setScore(2);
-
-        assertEquals(3,playerList.getRanking("A"),"the ranking of A should be 3!");
-        assertEquals(2,playerList.getRanking("B"),"the ranking of A should be 2!");
-        assertEquals(1,playerList.getRanking("C"),"the ranking of A should be 1!");
     }
 
 }

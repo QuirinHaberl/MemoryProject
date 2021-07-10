@@ -34,7 +34,18 @@ public class Database {
      * A profile has the following structure:
      * playerId;player1;highScore;gamePlayed;gamesWon
      */
-    private final List<String[]> playerProfiles;
+    private List<String[]> playerProfiles;
+
+    /**
+     * Stores the progress of all playerProfiles and the HighScoreHistory.
+     *
+     * @param game contains the progress to be stored.
+     */
+    public void storeProgress(Game game) {
+        game.playerList.saveProfile(this.getPlayerProfiles());
+        storePlayerProfiles();
+        storeHighScoreHistory();
+    }
 
     /**
      * Creates a new {@code INSTANCE} of the {@link Database}.
@@ -60,10 +71,16 @@ public class Database {
         return Database.InstanceHolder.INSTANCE;
     }
 
+    /**
+     * Loads all playerProfiles from pathToPlayerProfiles.
+     */
     public void loadPlayerProfiles() {
         loadFromFile(pathToProfiles, playerProfiles);
     }
 
+    /**
+     * Loads the highScoreHistory from pathToHighScoreHistory.
+     */
     public void loadHighScoreHistory() {
         loadFromFile(pathToHighScores, highScoreList);
     }
@@ -71,6 +88,9 @@ public class Database {
     /**
      * Loads the {@code HighScoreHistory} from the highScoreHistory.csv file
      * and stores it in the {@code highScoreList}.
+     *
+     * @param path to the file to be loaded
+     * @param list specifies playerProfiles or highScoreHistory
      */
     public void loadFromFile(String path, List<String[]> list) {
         try {
@@ -151,6 +171,13 @@ public class Database {
      */
     public List<String[]> getPlayerProfiles() {
         return this.playerProfiles;
+    }
+
+    /**
+     *
+     */
+    public void resetPlayerProfiles() {
+        playerProfiles = new ArrayList<>();
     }
 
     /**

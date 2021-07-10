@@ -130,12 +130,13 @@ public class ConsoleController implements Initializable {
                         }
                     }
                     game.addPlayers(playerAmount, playerNames);
+                    game.getDatabase().resetPlayerProfiles();
                     game.getDatabase().loadPlayerProfiles();
                     ArrayList<Boolean> workaround = new ArrayList<Boolean>();
                     for (int i = 0; i < playerAmount; i++) {
                         workaround.add(true);
                     }
-                    game.useProfile(game.getDatabase().getPlayerProfiles(), workaround);
+                    game.playerList.useProfile(game.getDatabase().getPlayerProfiles(), workaround);
                     menuStatus = MenuStatus.BOARDSIZE;
                 }
 
@@ -170,7 +171,7 @@ public class ConsoleController implements Initializable {
                         View.printBoard(game.getPlayingField());
 
                         //This is only for the single player mode with the setting "play on time"
-                        if (game.getPlayerList().getCount() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
+                        if (game.getPlayerList().size() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
                             game.startTimer();
                         }
 
@@ -204,12 +205,12 @@ public class ConsoleController implements Initializable {
                 View.printPlayer(player.getName());
 
                 //This is only for the single player mode with the setting "play with lives"
-                if (game.getPlayerList().getCount() == 1 && singlePlayerMode.equals(SinglePlayerMode.LIFEPOINTS)) {
-                    View.printlifes(game.getPlayerList().getPlayer(0).getlifes());
+                if (game.getPlayerList().size() == 1 && singlePlayerMode.equals(SinglePlayerMode.LIFEPOINTS)) {
+                    View.printlifes(game.getPlayerList().getPlayer(0).getLives());
                 }
 
                 //This is only for the single player mode with the setting "play on time"
-                if (game.getPlayerList().getCount() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
+                if (game.getPlayerList().size() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
                     if (game.getTime() == null) {
                         View.printLoserMessage();
                     } else {
@@ -264,7 +265,7 @@ public class ConsoleController implements Initializable {
                                     player.getFoundCards().add(game.getPlayingField().getBoard()[secondRow][secondCol]);
                                     //Check if a player has a new achievement
                                     game.checkForAchievementsInGame(player);
-                                    if (game.areAllCardsOpen()) {
+                                    if (game.areAllCardsFound()) {
                                         View.printAllPairsFound();
                                         View.printBoard(game.getPlayingField());
                                         List<String> winningPlayers = game.getPlayerList().winningPlayersToString();
@@ -298,18 +299,18 @@ public class ConsoleController implements Initializable {
                                     player.getAchievements().setPairCounterStreak(0);
 
                                     //This is only for the single player mode with the setting "play with lives"
-                                    if (game.getPlayerList().getCount() == 1
+                                    if (game.getPlayerList().size() == 1
                                             && singlePlayerMode.equals(SinglePlayerMode.LIFEPOINTS)) {
-                                        game.getPlayerList().getPlayer(0).reducelifes();
+                                        game.getPlayerList().getPlayer(0).reduceLives();
 
-                                        if (game.getPlayerList().getPlayer(0).getlifes() == 0) {
+                                        if (game.getPlayerList().getPlayer(0).getLives() == 0) {
                                             View.printLoserMessage();
                                             boolean exit = true;
                                             while (exit) {
                                                 View.printMemory();
                                                 String choice = bufferedReader.readLine().trim();
                                                 exit = handleInputsAfterGame(choice, player);
-                                                game.getPlayerList().getPlayer(0).setlifes(5);
+                                                game.getPlayerList().getPlayer(0).setLives(5);
                                             }
                                         }
                                     }
@@ -475,7 +476,7 @@ public class ConsoleController implements Initializable {
                 saveBreak = true;
             }
             case "rules", "ru" -> {
-                if (game.getPlayerList().getCount() > 1) {
+                if (game.getPlayerList().size() > 1) {
                     View.printDescriptionMultiplayer();
                 } else {
                     View.printDescriptionSinglePlayer();
@@ -499,29 +500,29 @@ public class ConsoleController implements Initializable {
                 saveBreak = true;
             }
             case "menu", "m" -> {
-                game.storeProgress();
+                game.database.storeProgress(game);
                 game.returnToMenu(game.getPlayerList());
                 saveBreak = true;
             }
             case "reset", "r" -> {
-                game.storeProgress();
+                game.database.storeProgress(game);
                 player = game.resetGame(game.getPlayerList());
-                if (game.getPlayerList().getCount() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
+                if (game.getPlayerList().size() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
                     game.startTimer();
                 }
                 saveBreak = true;
             }
             case "restart", "rs" -> {
-                game.storeProgress();
+                game.database.storeProgress(game);
                 player = game.restartGame(game.getPlayerList());
-                if (game.getPlayerList().getCount() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
+                if (game.getPlayerList().size() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
                     game.startTimer();
                 }
                 saveBreak = true;
             }
             case "quit", "q" -> {
                 game.updateGamesPlayed();
-                game.storeProgress();
+                game.database.storeProgress(game);
                 game.quitGame();
                 saveBreak = true;
             }
@@ -529,7 +530,7 @@ public class ConsoleController implements Initializable {
                 Scanner sc = new Scanner(System.in);  // wenn der spieler momentan nicht im Spiel aber in profiles.csv ist, kann man nicht schauen.
                 System.out.println("input the name of player in this current game whom you want to know:");
                 String name = sc.next();
-                for (int i = 0; i < game.getPlayerList().getCount(); i++) {
+                for (int i = 0; i < game.getPlayerList().size(); i++) {
                     if (name.equals(game.getPlayerList().getPlayer(i).getName())) {
                         System.out.println("the achievement of " + name + "is: ");
                         System.out.println(game.getPlayerList().getPlayer(i).playerProfileToString());
@@ -553,29 +554,29 @@ public class ConsoleController implements Initializable {
     public boolean handleInputsAfterGame(String input, Player player) {
         switch (input.toLowerCase()) {
             case "menu", "m" -> {
-                game.storeProgress();
+                game.database.storeProgress(game);
                 game.returnToMenu(game.getPlayerList());
                 return false;
             }
             case "reset", "r" -> {
-                game.storeProgress();
+                game.database.storeProgress(game);
                 player = game.resetGame(game.getPlayerList());
-                if (game.getPlayerList().getCount() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
+                if (game.getPlayerList().size() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
                     game.startTimer();
                 }
                 return false;
             }
             case "restart", "rs" -> {
-                game.storeProgress();
+                game.database.storeProgress(game);
                 player = game.restartGame(game.getPlayerList());
-                if (game.getPlayerList().getCount() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
+                if (game.getPlayerList().size() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
                     game.startTimer();
                 }
                 return false;
             }
             case "quit", "q" -> {
                 game.updateGamesPlayed();
-                game.storeProgress();
+                game.database.storeProgress(game);
                 game.quitGame();
                 return false;
             }

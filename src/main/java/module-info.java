@@ -1,3 +1,6 @@
+/**
+ * Contains the module-info.
+ */
 module de.uni_passau.se.memory.gui {
     requires javafx.controls;
     requires javafx.fxml;

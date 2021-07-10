@@ -27,7 +27,8 @@ public class Card {
     /**
      * Constructs a new {@link Card}.
      *
-     * @param value uses the enumerations of {@link CardValues}
+     * @param value value uses the enumerations of {@link CardValues}
+     * @param cardSet to be used
      */
     public Card(CardValues value, CardSet cardSet) {
         this.value = value;
@@ -40,7 +41,7 @@ public class Card {
      *
      * @return the value of a {@link Card}.
      */
-    public Object getValue() {
+    public CardValues getValue() {
         return value;
     }
 
@@ -79,10 +80,20 @@ public class Card {
         this.cardStatus = cardStatus;
     }
 
+    /**
+     * Gets the current cardSet.
+     *
+     * @return the current cardSet
+     */
     public CardSet getCardSet() {
         return cardSet;
     }
 
+    /**
+     * Sets a cardSet.
+     *
+     * @param cardSet to be set.
+     */
     public void setCardSet(CardSet cardSet) {
         this.cardSet = cardSet;
     }

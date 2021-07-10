@@ -18,5 +18,5 @@ public enum CardSet {
     /**
      * This {@link CardSet} uses pictures.
      */
-    PICTURES;
+    PICTURES
 }

@@ -73,7 +73,7 @@ public final class View {
     public static void printDiscardPile(PlayerList players) {
         StringBuilder str = new StringBuilder();
         str.append("[");
-        for (int i = 0; i < players.getCount(); i++) {
+        for (int i = 0; i < players.size(); i++) {
             str.append(players.getPlayer(i).getName()).append(": ");
             for (int j = 0; j < players.getPlayer(i).getFoundCards().size(); j++) {
                 str.append(players.getPlayer(i).getFoundCards().get(j).visualizeCard()).append(" ");
@@ -216,9 +216,9 @@ public final class View {
      * @param players list of all players
      */
     public static void printScore(PlayerList players) {
-        String[] playerNames = new String[players.getCount()];
-        int[] scores = new int[players.getCount()];
-        for (int i = 0; i < players.getCount(); i++) {
+        String[] playerNames = new String[players.size()];
+        int[] scores = new int[players.size()];
+        for (int i = 0; i < players.size(); i++) {
             playerNames[i] = players.getPlayer(i).getName();
             scores[i] = players.getPlayer(i).getScore();
         }
@@ -226,16 +226,9 @@ public final class View {
         for (int i = 1; i < scores.length; i++) {
             int currentElement = scores[i];
             String currentName = playerNames[i];
-            int j = i;
-            while (j > 0 && currentElement < scores[j - 1]) {
-                scores[j] = scores[j - 1];
-                playerNames[j] = playerNames[j - 1];
-                j--;
-            }
-            scores[j] = currentElement;
-            playerNames[j] = currentName;
+            PlayerList.helper(playerNames, scores, i, currentName, currentElement);
         }
-        for (int i = 0; i < players.getCount(); i++) {
+        for (int i = 0; i < players.size(); i++) {
             System.out.println("[" + playerNames[i] + ": "
                     + scores[i] + "]");
         }
