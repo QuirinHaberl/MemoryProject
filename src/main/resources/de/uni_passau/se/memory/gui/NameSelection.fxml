@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-
 <VBox stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uni_passau.se.memory.Controller.NameSelectionController">
    <children>
       <AnchorPane prefHeight="29.0" prefWidth="600.0" style="-fx-background-color: black;">
@@ -49,36 +48,36 @@
                   </Label>
                </children>
             </AnchorPane>
-            <CheckBox fx:id="checkPlayer1" layoutX="146.0" layoutY="185.0" mnemonicParsing="false" />
-            <TextField fx:id="player1Input" layoutX="200.0" layoutY="187.0" minWidth="200.0" style="-fx-border-color: black;">
+            <CheckBox fx:id="checkPlayer1" layoutX="146.0" layoutY="185.0" mnemonicParsing="false" visible="false" />
+            <TextField fx:id="player1Input" layoutX="200.0" layoutY="187.0" minWidth="200.0" style="-fx-border-color: black;" visible="false">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor>
             </TextField>
-            <Label fx:id="nameLabel1" layoutX="28.0" layoutY="182.0" styleClass="text25" text="Player1:" textFill="WHITE" />
-            <CheckBox fx:id="checkPlayer2" layoutX="146.0" layoutY="217.0" mnemonicParsing="false" />
+            <Label fx:id="nameLabel1" layoutX="28.0" layoutY="182.0" styleClass="text25" text="Player1:" textFill="WHITE" visible="false" />
+            <CheckBox fx:id="checkPlayer2" layoutX="146.0" layoutY="217.0" mnemonicParsing="false" visible="false" />
       
-            <TextField fx:id="player2Input" layoutX="200.0" layoutY="219.0" minWidth="200.0" style="-fx-border-color: black;">
+            <TextField fx:id="player2Input" layoutX="200.0" layoutY="219.0" minWidth="200.0" style="-fx-border-color: black;" visible="false">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor>
             </TextField>
-            <Label fx:id="nameLabel2" layoutX="28.0" layoutY="214.0" styleClass="text25" text="Player2:" textFill="WHITE" />
-            <CheckBox fx:id="checkPlayer3" layoutX="146.0" layoutY="249.0" mnemonicParsing="false" />
+            <Label fx:id="nameLabel2" layoutX="28.0" layoutY="214.0" styleClass="text25" text="Player2:" textFill="WHITE" visible="false" />
+            <CheckBox fx:id="checkPlayer3" layoutX="146.0" layoutY="249.0" mnemonicParsing="false" visible="false" />
       
-            <TextField fx:id="player3Input" layoutX="200.0" layoutY="251.0" minWidth="200.0" style="-fx-border-color: black;">
+            <TextField fx:id="player3Input" layoutX="200.0" layoutY="251.0" minWidth="200.0" style="-fx-border-color: black;" visible="false">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor>
             </TextField>
-            <Label fx:id="nameLabel3" layoutX="28.0" layoutY="246.0" styleClass="text25" text="Player3:" textFill="WHITE" />
-            <CheckBox fx:id="checkPlayer4" layoutX="146.0" layoutY="282.0" mnemonicParsing="false" />
-            <TextField fx:id="player4Input" layoutX="200.0" layoutY="283.0" minWidth="200.0" style="-fx-border-color: black;">
+            <Label fx:id="nameLabel3" layoutX="28.0" layoutY="246.0" styleClass="text25" text="Player3:" textFill="WHITE" visible="false" />
+            <CheckBox fx:id="checkPlayer4" layoutX="146.0" layoutY="282.0" mnemonicParsing="false" visible="false" />
+            <TextField fx:id="player4Input" layoutX="200.0" layoutY="283.0" minWidth="200.0" style="-fx-border-color: black;" visible="false">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor>
             </TextField>
-            <Label fx:id="nameLabel4" layoutX="28.0" layoutY="278.0" styleClass="text25" text="Player4:" textFill="WHITE" />
+            <Label fx:id="nameLabel4" layoutX="28.0" layoutY="278.0" styleClass="text25" text="Player4:" textFill="WHITE" visible="false" />
             <Button defaultButton="true" layoutX="336.0" layoutY="334.0" mnemonicParsing="false" onAction="#ok" style="-fx-background-color: black;" styleClass="text20" text="Confirm your choice" textFill="WHITE">
       
                <cursor>
