@@ -16,11 +16,39 @@ import java.nio.file.Paths;
 public class StartScreenController {
 
     /**
-     * Closes the stage
-     * @param event when close button clicked
+     * Sets player mode on single player mode and forwards to the next window.
+     *
+     * @param actionEvent when button clicked
      */
     @FXML
-    void CloseStage(MouseEvent event) {
+    public void singlePlayer(ActionEvent actionEvent) {
+        Wrapper.getInstance().getGame().setPlayerAmount(1);
+        ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
+        AudioClip click=new AudioClip(Paths.get(
+                "src/main/resources/de/uni_passau/se/memory/gui/Sound/Click.wav").toUri().toString());
+        click.play();
+        new Window("SinglePlayerMode.fxml");
+    }
+
+    /**
+     * Sets player mode on multi player mode and forwards to the next window.
+     *
+     * @param actionEvent when button clicked
+     */
+    @FXML
+    public void multiPlayer(ActionEvent actionEvent) {
+        ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
+        AudioClip click=new AudioClip(Paths.get(
+                "src/main/resources/de/uni_passau/se/memory/gui/Sound/Click.wav").toUri().toString());
+        click.play();
+        new Window("NumberOfPlayers.fxml");
+    }
+
+    /**
+     * Closes the stage
+     */
+    @FXML
+    void CloseStage() {
         System.exit(0);
     }
 
@@ -35,45 +63,10 @@ public class StartScreenController {
 
     /**
      * Opens a surprise
-     * @param event when logo ist clicked
      */
     @FXML
-    void eeClicked(ActionEvent event) {
+    void eeClicked() {
         new Window("EasterEgg.fxml");
-    }
-
-    /**
-     * Constructs a new game instance
-     */
-    public StartScreenController() {
-        Wrapper.getInstance().getGame();
-    }
-
-    /**
-     * Sets player mode on single player mode and forwards to the next window.
-     *
-     * @param actionEvent when button clicked
-     */
-    @FXML
-    public void singlePlayer(ActionEvent actionEvent) {
-        Wrapper.getInstance().getGame().setPlayerAmount(1);
-        ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
-        AudioClip click=new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Click.wav").toUri().toString());
-        click.play();
-        new Window("SinglePlayerMode.fxml");
-    }
-
-    /**
-     * Sets player mode on multi player mode and forwards to the next window.
-     *
-     * @param actionEvent when button clicked
-     */
-    @FXML
-    public void multiPlayer(ActionEvent actionEvent) {
-        ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
-        AudioClip click=new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Click.wav").toUri().toString());
-        click.play();
-        new Window("NumberOfPlayers.fxml");
     }
 
     /**
@@ -84,7 +77,8 @@ public class StartScreenController {
     @FXML
     public void highscore(ActionEvent actionEvent) {
         ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
-        AudioClip click=new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Click.wav").toUri().toString());
+        AudioClip click=new AudioClip(Paths.get(
+                "src/main/resources/de/uni_passau/se/memory/gui/Sound/Click.wav").toUri().toString());
         click.play();
         new Window("HighScore.fxml");
     }
@@ -92,9 +86,8 @@ public class StartScreenController {
     /**
      * Quits the whole game.
      *
-     * @param actionEvent when button clicked
      */
-    public void quit(ActionEvent actionEvent) {
+    public void quit() {
         System.exit(0);
     }
 }

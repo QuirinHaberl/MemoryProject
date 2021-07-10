@@ -95,7 +95,7 @@ public class GameController {
     private Label achievementLabel;
 
     /**
-     * Indicates is the first player
+     * Indicates of the first player
      */
     @FXML
     private AnchorPane key1;
@@ -105,7 +105,7 @@ public class GameController {
     private Label labelScore1;
 
     /**
-     * Indicates is the second player
+     * Indicates of the second player
      */
     @FXML
     private AnchorPane key2;
@@ -115,7 +115,7 @@ public class GameController {
     private Label labelScore2;
 
     /**
-     * Indicates is the third player
+     * Indicates of the third player
      */
     @FXML
     private AnchorPane key3;
@@ -125,7 +125,7 @@ public class GameController {
     private Label labelScore3;
 
     /**
-     * Indicates is the fourth player
+     * Indicates of the fourth player
      */
     @FXML
     private AnchorPane key4;
@@ -153,12 +153,6 @@ public class GameController {
     @FXML
     private Button TryAgainButton;
 
-
-    /**
-     * Constructor of the Game-Controller
-     */
-    public GameController() {
-    }
 
     /**
      * Filling the Stage with Objects
