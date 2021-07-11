@@ -570,18 +570,18 @@ public class ConsoleController {
             case "cheat" -> View.cheat(game.getPlayingField());
             case "score", "s" -> View.printScore(game.getPlayerList());
             case "menu", "m" -> {
-                game.database.storeProgress(game.getPlayerList());
+                game.getDatabase().storeProgress(game.getPlayerList());
                 game.returnToMenu(game.getPlayerList());
             }
             case "reset", "r" -> {
-                game.database.storeProgress(game.getPlayerList());
+                game.getDatabase().storeProgress(game.getPlayerList());
                 game.resetGame(game.getPlayerList());
                 if (game.getPlayerList().size() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
                     game.startTimer();
                 }
             }
             case "restart", "rs" -> {
-                game.database.storeProgress(game.getPlayerList());
+                game.getDatabase().storeProgress(game.getPlayerList());
                 game.restartGame(game.getPlayerList());
                 if (game.getPlayerList().size() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
                     game.startTimer();
@@ -589,7 +589,7 @@ public class ConsoleController {
             }
             case "quit", "q" -> {
                 game.updateGamesPlayed();
-                game.database.storeProgress(game.getPlayerList());
+                game.getDatabase().storeProgress(game.getPlayerList());
                 game.quitGame();
             }
             case "show", "sp" -> showPlayer();
@@ -620,12 +620,12 @@ public class ConsoleController {
     public boolean handleInputsAfterGame(String input) {
         switch (input.toLowerCase()) {
             case "menu", "m" -> {
-                game.database.storeProgress(game.getPlayerList());
+                game.getDatabase().storeProgress(game.getPlayerList());
                 game.returnToMenu(game.getPlayerList());
                 return false;
             }
             case "reset", "r" -> {
-                game.database.storeProgress(game.getPlayerList());
+                game.getDatabase().storeProgress(game.getPlayerList());
                 game.resetGame(game.getPlayerList());
                 if (game.getPlayerList().size() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
                     game.startTimer();
@@ -633,7 +633,7 @@ public class ConsoleController {
                 return false;
             }
             case "restart", "rs" -> {
-                game.database.storeProgress(game.getPlayerList());
+                game.getDatabase().storeProgress(game.getPlayerList());
                 game.restartGame(game.getPlayerList());
                 if (game.getPlayerList().size() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
                     game.startTimer();
@@ -642,7 +642,7 @@ public class ConsoleController {
             }
             case "quit", "q" -> {
                 game.updateGamesPlayed();
-                game.database.storeProgress(game.getPlayerList());
+                game.getDatabase().storeProgress(game.getPlayerList());
                 game.quitGame();
                 return false;
             }

@@ -73,17 +73,17 @@ public class PlayerList {
         if (front == null) {
             front = player;
             rear = player;
-            player.next = player;
-            player.rear = player;
+            player.setNext(player);
+            player.setRear(player);
         } else {
-            Player p = front;
-            while (p.next != front) {
-                p = p.next;
+            Player lastPlayer = front;
+            while (lastPlayer.getNext() != front) {
+                lastPlayer = lastPlayer.getNext();
             }
-            p.next = player;
-            player.next = front;
-            front.rear = player;
-            player.rear = p;
+            lastPlayer.setNext(player);
+            player.setNext(front);
+            front.setRear(player);
+            player.setRear(lastPlayer);
             rear = player;
         }
         size++;
