@@ -5,6 +5,7 @@ import de.uni_passau.se.memory.Model.Enums.CardStatus;
 import de.uni_passau.se.memory.Model.Enums.GameStatus;
 import de.uni_passau.se.memory.Model.Game;
 import de.uni_passau.se.memory.Model.Player;
+import de.uni_passau.se.memory.Model.PlayingField;
 import de.uni_passau.se.memory.gui.View;
 
 import java.io.BufferedReader;
@@ -125,11 +126,33 @@ public class ConsoleController {
     public void selectBoardSize(BufferedReader bufferedReader) throws IOException {
         View.printSelectBoardSize();
         View.printMemory();
-        int size = game.getPlayingField().selectBoardSize(bufferedReader.readLine().trim());
+        int size = validatePlayingFieldBoardSize(game.getPlayingField(), bufferedReader.readLine().trim());
         if (size != 0) {
-            game.getPlayingField().setBoard(size);
+            setPlayingFieldBordSize(game.getPlayingField(), size);
             menuStatus = MenuStatus.CARDSET;
         }
+    }
+
+    /**
+     * Sets the size of a given playingField.
+     *
+     * @param playingField whose size is set
+     * @param size         to be set
+     */
+    public void setPlayingFieldBordSize(PlayingField playingField, int size) {
+        playingField.setBoard(size);
+    }
+
+    /**
+     * Validates a given size for playingField.
+     *
+     * @param playingField is given to validate the size
+     * @param size         to validated
+     * @return validated size
+     */
+    public int validatePlayingFieldBoardSize(PlayingField playingField,
+                                             String size) {
+        return playingField.selectBoardSize(size);
     }
 
     /**
@@ -141,19 +164,51 @@ public class ConsoleController {
     public void selectCardSet(BufferedReader bufferedReader) throws IOException {
         View.printSelectCardSet();
         View.printMemory();
-        if (game.getPlayingField().
-                selectCardSet(bufferedReader.readLine().trim())) {
-            game.getPlayingField().fillWithCards();
+        if (validatePlayingFieldCardSet(game.getPlayingField(),
+                bufferedReader.readLine().trim())) {
+            fillPlayingFieldWithCards(game.getPlayingField());
             menuStatus = MenuStatus.PLAYERMODE;
             game.setGameStatus(GameStatus.RUNNING);
             View.printBoard(game.getPlayingField());
 
             //This is only for the single player mode with the setting "play on time"
-            if (game.getPlayerList().size() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
+            if (getPlayingFieldSize(game.getPlayingField()) == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
                 game.startTimer();
             }
         }
         updateCurrentDataBase(game.getDatabase());
+    }
+
+
+    /**
+     * Gets the size of a given playingField.
+     *
+     * @param playingField whose size is requested
+     * @return the size of a playingField
+     */
+    public int getPlayingFieldSize(PlayingField playingField) {
+        return playingField.getSize();
+    }
+
+    /**
+     * Fill a playingFiled with cards.
+     *
+     * @param playingField to be filled
+     */
+    public void fillPlayingFieldWithCards(PlayingField playingField) {
+        playingField.fillWithCards();
+    }
+
+    /**
+     * Validate a given cardSet.
+     *
+     * @param playingField whose cardSet is validated
+     * @param cardSet      to be validated
+     * @return validated cardSet
+     */
+    public boolean validatePlayingFieldCardSet(PlayingField playingField,
+                                               String cardSet) {
+        return playingField.selectCardSet(cardSet);
     }
 
     /**
@@ -241,9 +296,9 @@ public class ConsoleController {
                 View.printMemory();
                 String input = bufferedReader.readLine().trim();
 
-                handleInputsDuringGame(input);
-
-                executePlayerTurn(player, input, bufferedReader);
+                if (handleInputsDuringGame(input)) {
+                    executePlayerTurn(player, input, bufferedReader);
+                }
 
                 if (isStillPlaying) {
                     player = player.getRear();
@@ -305,7 +360,7 @@ public class ConsoleController {
                 View.printAlreadyFound();
             } else if (secondCardStatus.equals(CardStatus.AlREADYOPEN)) {
                 View.printSelectedTwice();
-                game.setCardStatus(game.getCard(secondRow, secondCol), CardStatus.OPEN);
+                game.setCardStatus(game.playingField.getCard(secondRow, secondCol), CardStatus.OPEN);
             } else {
                 checkIfPairIsFound(player, bufferedReader);
             }
@@ -416,7 +471,7 @@ public class ConsoleController {
     public void checkForSinglePlayer() {
         //This is only for the single player mode with the setting "play with lives"
         if (game.getPlayerList().size() == 1 && singlePlayerMode.equals(SinglePlayerMode.LIFEPOINTS)) {
-            View.printlifes(game.getPlayerList().getPlayer(0).getLives());
+            View.printLives(game.getPlayerList().getPlayer(0).getLives());
         }
 
         //This is only for the single player mode with the setting "play on time"
@@ -554,8 +609,9 @@ public class ConsoleController {
      * Handles the read inputs during a game and passes on the choices
      *
      * @param input is the command which should be handled.
+     * @return false if the game player used a command but the game continues
      */
-    public void handleInputsDuringGame(String input) {
+    public boolean handleInputsDuringGame(String input) {
         switch (input.toLowerCase()) {
             case "help", "h" -> View.printHelp();
             case "rules", "ru" -> {
@@ -566,22 +622,28 @@ public class ConsoleController {
                 }
             }
             case "allRules", "ar" -> View.printDescriptionComplete();
-            case "found", "f" -> View.printDiscardPile(game.getPlayerList());
-            case "cheat" -> View.cheat(game.getPlayingField());
+            case "found", "f" -> {
+                View.printDiscardPile(game.getPlayerList().foundCardsToString());
+                return false;
+            }
+            case "cheat" -> {
+                View.cheat(game.getPlayingField());
+                return false;
+            }
             case "score", "s" -> View.printScore(game.getPlayerList());
             case "menu", "m" -> {
-                game.database.storeProgress(game.getPlayerList());
+                game.getDatabase().storeProgress(game.getPlayerList());
                 game.returnToMenu(game.getPlayerList());
             }
             case "reset", "r" -> {
-                game.database.storeProgress(game.getPlayerList());
+                game.getDatabase().storeProgress(game.getPlayerList());
                 game.resetGame(game.getPlayerList());
                 if (game.getPlayerList().size() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
                     game.startTimer();
                 }
             }
             case "restart", "rs" -> {
-                game.database.storeProgress(game.getPlayerList());
+                game.getDatabase().storeProgress(game.getPlayerList());
                 game.restartGame(game.getPlayerList());
                 if (game.getPlayerList().size() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
                     game.startTimer();
@@ -589,11 +651,12 @@ public class ConsoleController {
             }
             case "quit", "q" -> {
                 game.updateGamesPlayed();
-                game.database.storeProgress(game.getPlayerList());
+                game.getDatabase().storeProgress(game.getPlayerList());
                 game.quitGame();
             }
             case "show", "sp" -> showPlayer();
         }
+        return true;
     }
 
     /**
@@ -620,12 +683,12 @@ public class ConsoleController {
     public boolean handleInputsAfterGame(String input) {
         switch (input.toLowerCase()) {
             case "menu", "m" -> {
-                game.database.storeProgress(game.getPlayerList());
+                game.getDatabase().storeProgress(game.getPlayerList());
                 game.returnToMenu(game.getPlayerList());
                 return false;
             }
             case "reset", "r" -> {
-                game.database.storeProgress(game.getPlayerList());
+                game.getDatabase().storeProgress(game.getPlayerList());
                 game.resetGame(game.getPlayerList());
                 if (game.getPlayerList().size() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
                     game.startTimer();
@@ -633,7 +696,7 @@ public class ConsoleController {
                 return false;
             }
             case "restart", "rs" -> {
-                game.database.storeProgress(game.getPlayerList());
+                game.getDatabase().storeProgress(game.getPlayerList());
                 game.restartGame(game.getPlayerList());
                 if (game.getPlayerList().size() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
                     game.startTimer();
@@ -642,7 +705,7 @@ public class ConsoleController {
             }
             case "quit", "q" -> {
                 game.updateGamesPlayed();
-                game.database.storeProgress(game.getPlayerList());
+                game.getDatabase().storeProgress(game.getPlayerList());
                 game.quitGame();
                 return false;
             }

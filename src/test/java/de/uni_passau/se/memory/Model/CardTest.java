@@ -10,10 +10,9 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class CardTest {
 
-    private Card card;
-
     private final CardValues cardValues = CardValues.ONE;
     private final CardSet cardSet = CardSet.LETTERS;
+    private Card card;
 
     @BeforeEach
     public void setUp() throws Exception {

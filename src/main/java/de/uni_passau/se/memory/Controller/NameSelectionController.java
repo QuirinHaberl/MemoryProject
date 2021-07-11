@@ -1,6 +1,8 @@
 package de.uni_passau.se.memory.Controller;
 
+import de.uni_passau.se.memory.Model.Database;
 import de.uni_passau.se.memory.Model.Game;
+import de.uni_passau.se.memory.Model.PlayerList;
 import de.uni_passau.se.memory.gui.Window;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,10 +19,13 @@ import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for nameSelection.
+ */
 public class NameSelectionController implements Initializable {
 
     /**
-     * the first player attributes
+     * The first player attributes.
      */
     @FXML
     private TextField player1Input;
@@ -30,7 +35,7 @@ public class NameSelectionController implements Initializable {
     private CheckBox checkPlayer1;
 
     /**
-     * the second player attributes
+     * The second player attributes.
      */
     @FXML
     private TextField player2Input;
@@ -40,7 +45,7 @@ public class NameSelectionController implements Initializable {
     private CheckBox checkPlayer2;
 
     /**
-     * the third player attributes
+     * The third player attributes.
      */
     @FXML
     private TextField player3Input;
@@ -50,7 +55,7 @@ public class NameSelectionController implements Initializable {
     private CheckBox checkPlayer3;
 
     /**
-     * the fourth player attributes
+     * The fourth player attributes.
      */
     @FXML
     private TextField player4Input;
@@ -60,7 +65,7 @@ public class NameSelectionController implements Initializable {
     private CheckBox checkPlayer4;
 
     /**
-     * Initializes the Labels
+     * Initializes the Labels.
      *
      * @param location  of the label
      * @param resources of the label
@@ -71,41 +76,133 @@ public class NameSelectionController implements Initializable {
         TextField[] textFields = {player1Input, player2Input, player3Input, player4Input};
         CheckBox[] checkBoxes = {checkPlayer1, checkPlayer2, checkPlayer3, checkPlayer4};
 
-        //TODO Man könnte die Labels default auf invisible setzen
-        for (int i = 0; i < labels.length; i++) {
-            labels[i].setVisible(false);
-            textFields[i].setVisible(false);
-            checkBoxes[i].setVisible(false);
-            textFields[i].setText("");
-        }
-
-        for (int i = 0; i < Wrapper.getInstance().getGame().getPlayerAmount(); i++) {
+        for (int i = 0; i < getGamePlayerAmount(getGame(Wrapper.getInstance())); i++) {
             labels[i].setVisible(true);
             textFields[i].setVisible(true);
             checkBoxes[i].setVisible(true);
         }
     }
 
+
     /**
-     * adds a Player to the playerList in the Model-Game
+     * Adds a Player to the playerList in the Model-Game.
      */
     public void addPlayers() {
-        Game game = Wrapper.getInstance().getGame();
-        game.resetPlayerList();
+        Game game = getGame(Wrapper.getInstance());
+        resetGamePlayerList(game);
         TextField[] textFields = {player1Input, player2Input, player3Input, player4Input};
         CheckBox[] checkBoxes = {checkPlayer1, checkPlayer2, checkPlayer3, checkPlayer4};
-        int playerAmount = game.getPlayerAmount();
+        int playerAmount = getGamePlayerAmount(game);
         for (int i = 0; i < playerAmount; i++) {
             if (textFields[i].getText().isEmpty()) {
-                game.addPlayer("Player" + (i + 1));
+                addPlayerToGame(game, "Player" + (i + 1));
             } else {
-                game.addPlayer(textFields[i].getText());
+                addPlayerToGame(game, textFields[i].getText());
             }
         }
-        game.getDatabase().setUsesProfiles(checkBoxes, textFields);
-        game.getDatabase().resetPlayerProfiles();
-        game.getDatabase().loadPlayerProfiles();
-        game.getDatabase().useProfile(game.getPlayerList());
+        setGameProfiles(getGameDatabase(game), checkBoxes, textFields);
+        resetGameProfiles(getGameDatabase(game));
+        loadGameProfiles(getGameDatabase(game));
+        useGameProfile(getGameDatabase(game), getGamePlayerList(game));
+    }
+
+    /**
+     * Gets the playerList of a game.
+     *
+     * @param game whose playerList is requested
+     * @return the playerList
+     */
+    public PlayerList getGamePlayerList(Game game) {
+        return game.getPlayerList();
+    }
+
+    /**
+     * The playerProfiles of all players in a given playerList are loaded.
+     *
+     * @param database   contains the playerProfiles
+     * @param playerList contains the players
+     */
+    public void useGameProfile(Database database, PlayerList playerList) {
+        database.useProfile(playerList);
+    }
+
+    /**
+     * Loads playerProfiles from profiles.csv
+     *
+     * @param database which stores the playerProfiles
+     */
+    public void loadGameProfiles(Database database) {
+        database.loadPlayerProfiles();
+    }
+
+    /**
+     * Resets the playerProfiles in a given database.
+     *
+     * @param database contains the playerProfiles to be reset
+     */
+    public void resetGameProfiles(Database database) {
+        database.resetPlayerProfiles();
+    }
+
+    /**
+     * Gets the database of a given game.
+     *
+     * @param game contains the database
+     * @return the requested database
+     */
+    public Database getGameDatabase(Game game) {
+        return game.getDatabase();
+    }
+
+    /**
+     * Sets the which player wants to use a profile.
+     *
+     * @param database   containing the profiles
+     * @param checkBoxes contains the which player wants to use a profile
+     * @param textFields contains whether a player is a default player
+     */
+    public void setGameProfiles(Database database, CheckBox[] checkBoxes,
+                                TextField[] textFields) {
+        database.setUsesProfiles(checkBoxes, textFields);
+    }
+
+    /**
+     * Adds a player the given game.
+     *
+     * @param game in which a player is added.
+     * @param name of the player to be added.
+     */
+    public void addPlayerToGame(Game game, String name) {
+        game.addPlayer(name);
+    }
+
+    /**
+     * Gets the amount of player of a given game.
+     *
+     * @param game containing the amount of players
+     * @return the playerAmount
+     */
+    public int getGamePlayerAmount(Game game) {
+        return game.getPlayerAmount();
+    }
+
+    /**
+     * Resets the playerList of a game.
+     *
+     * @param game whose playerList to be reset
+     */
+    public void resetGamePlayerList(Game game) {
+        game.resetPlayerList();
+    }
+
+    /**
+     * Gets a game of a given wrapper.
+     *
+     * @param wrapper containing a game
+     * @return the requested game
+     */
+    public Game getGame(Wrapper wrapper) {
+        return wrapper.getGame();
     }
 
     /**

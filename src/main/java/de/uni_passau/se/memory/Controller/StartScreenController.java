@@ -1,5 +1,6 @@
 package de.uni_passau.se.memory.Controller;
 
+import de.uni_passau.se.memory.Model.Game;
 import de.uni_passau.se.memory.gui.Window;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,12 +23,32 @@ public class StartScreenController {
      */
     @FXML
     public void singlePlayer(ActionEvent actionEvent) {
-        Wrapper.getInstance().getGame().setPlayerAmount(1);
+        setGamePlayerAmount(getGame(Wrapper.getInstance()), 1);
         ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
         AudioClip click = new AudioClip(Paths.get(
                 "src/main/resources/de/uni_passau/se/memory/gui/Sound/Click.wav").toUri().toString());
         click.play();
         new Window("SinglePlayerMode.fxml");
+    }
+
+    /**
+     * Sets the playerAmount of a game.
+     *
+     * @param game         whose playerAmount is set
+     * @param playerAmount to be set
+     */
+    public void setGamePlayerAmount(Game game, int playerAmount) {
+        game.setPlayerAmount(playerAmount);
+    }
+
+    /**
+     * Gets the current game.
+     *
+     * @param wrapper contains the current game
+     * @return the requested game
+     */
+    public Game getGame(Wrapper wrapper) {
+        return wrapper.getGame();
     }
 
     /**

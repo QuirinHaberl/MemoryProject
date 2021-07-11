@@ -73,17 +73,17 @@ public class PlayerList {
         if (front == null) {
             front = player;
             rear = player;
-            player.next = player;
-            player.rear = player;
+            setNextPlayer(player, player);
+            setRearPlayer(player, player);
         } else {
-            Player p = front;
-            while (p.next != front) {
-                p = p.next;
+            Player lastPlayer = front;
+            while (getNextPlayer(lastPlayer) != front) {
+                lastPlayer = getNextPlayer(lastPlayer);
             }
-            p.next = player;
-            player.next = front;
-            front.rear = player;
-            player.rear = p;
+            setNextPlayer(lastPlayer, player);
+            setNextPlayer(player, front);
+            front.setRear(player);
+            setRearPlayer(player, lastPlayer);
             rear = player;
         }
         size++;
@@ -110,9 +110,40 @@ public class PlayerList {
         }
         Player current = front;
         for (int i = 0; i < position; i++) {
-            current = current.getNext();
+            current = getNextPlayer(current);
         }
         return current;
+    }
+
+    /**
+     * Gets the next player in relation of a given player.
+     * Gets the next player.
+     *
+     * @param player whose successor is requested
+     * @return the successor of a given player
+     */
+    public Player getNextPlayer(Player player) {
+        return player.getNext();
+    }
+
+    /**
+     * Sets the next player in relation of a given player.
+     *
+     * @param player whose successor is set
+     * @param next successor to be set
+     */
+    public void setNextPlayer(Player player, Player next) {
+        player.setNext(next);
+    }
+
+    /**
+     * Sets the previous player in relation of a given player.
+     *
+     * @param player whose predecessor is set
+     * @param rear predecessor to be set
+     */
+    public void setRearPlayer(Player player, Player rear) {
+        player.setRear(rear);
     }
 
     /**
@@ -137,9 +168,20 @@ public class PlayerList {
      * Resets all {@code score}'s of {@link Player}'s.
      */
     public void resetAllScores() {
+        int resetScore = 0;
         for (int i = 0; i < size; i++) {
-            getPlayer(i).setScore(0);
+            setPlayerScore(getPlayer(i), resetScore);
         }
+    }
+
+    /**
+     * Sets the score of a given player.
+     *
+     * @param player whose score is set
+     * @param score  to be set
+     */
+    public void setPlayerScore(Player player, int score) {
+        player.setScore(score);
     }
 
     /**
@@ -199,7 +241,7 @@ public class PlayerList {
      * @return the name of a {@link Player}
      */
     public String getPlayerName(int position) {
-        return getPlayer(position).getName();
+        return getPlayerName(getPlayer(position));
     }
 
     /**
@@ -287,5 +329,42 @@ public class PlayerList {
      */
     public String getPlayerName(Player player) {
         return player.getName();
+    }
+
+    /**
+     * Generates a string containing the players and their found cards.
+     *
+     * @return all players with their found cards
+     */
+    public String foundCardsToString() {
+        StringBuilder str = new StringBuilder();
+        for (int i = 0; i < this.size(); i++) {
+            str.append(this.getPlayerName(getPlayer(i))).append(":" + " ");
+            for (int j = 0; j < this.getPlayerFoundCards(getPlayer(i)).size(); j++) {
+                str.append(visualizeFoundCard(this.getPlayerFoundCards(getPlayer(i)).get(j))).append(" ");
+            }
+            str.append("\n");
+        }
+        return str.toString();
+    }
+
+    /**
+     * Visualises a given card by returning its value
+     *
+     * @param card to be visualized
+     * @return the value of a card as a string
+     */
+    public String visualizeFoundCard(Card card) {
+        return card.visualizeCard();
+    }
+
+    /**
+     * Gets the foundCards of a given player.
+     *
+     * @param player whose found cards are requested
+     * @return found cards of the selected player
+     */
+    public List<Card> getPlayerFoundCards(Player player) {
+        return player.getFoundCards();
     }
 }

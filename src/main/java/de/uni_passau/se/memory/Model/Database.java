@@ -230,7 +230,8 @@ public class Database {
         for (String[] playerProfile : playerProfiles) {
             for (int j = 0; j < playerList.size(); j++) {
                 player = playerList.getPlayer(j);
-                name = player.getName();
+
+                name = getPlayerName(player);
 
                 if (playerProfile[0].equals(playerList.getPlayerName(player))) {
                     switch (name) {
@@ -246,6 +247,16 @@ public class Database {
                 }
             }
         }
+    }
+
+    /**
+     * Gets the name of a given player.
+     *
+     * @param player whose name is requested
+     * @return the name of a player
+     */
+    public String getPlayerName(Player player) {
+        return player.getName();
     }
 
     /**

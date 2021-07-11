@@ -6,6 +6,7 @@ import de.uni_passau.se.memory.Model.Enums.GameStatus;
 import de.uni_passau.se.memory.Model.Enums.TurnStatus;
 import de.uni_passau.se.memory.Model.Game;
 import de.uni_passau.se.memory.Model.Player;
+import de.uni_passau.se.memory.Model.PlayerList;
 import de.uni_passau.se.memory.gui.Window;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -33,19 +34,21 @@ import java.nio.file.Paths;
  */
 public class GameController {
 
-
+    /**
+     * //TODO
+     */
     private final double defaultFontSize = 18;
     private final Font defaultFont = Font.font("VT323", defaultFontSize);
     /**
-     * Stores the current game
+     * Stores the current game.
      */
     Game game = Wrapper.getInstance().getGame();
     /**
-     * Stores the size of the current board
+     * Stores the size of the current board.
      */
     int size = game.getPlayingField().getSize();
     /**
-     * Stores the active player
+     * Stores the active player.
      */
     Player activePlayer = game.getPlayerList().getFront();
     /**
@@ -123,7 +126,6 @@ public class GameController {
     @FXML
     private Label labelScore4;
 
-
     /**
      * HBox to store lives or the time
      */
@@ -141,7 +143,6 @@ public class GameController {
      */
     @FXML
     private Button TryAgainButton;
-
 
     /**
      * Filling the Stage with Objects
@@ -280,7 +281,7 @@ public class GameController {
         closeCards();
 
         b1 = button;
-        firstCard = game.getCard(row, col).getValue();
+        firstCard = game.playingField.getCard(row, col).getValue();
 
         b1.getStyleClass().removeAll("Card");
         b1.getStyleClass().add(((CardValues) firstCard).getPicture());
@@ -295,13 +296,14 @@ public class GameController {
      * Performs a turn for a second revealed card.
      *
      * @param button which is on action
+     * @param event
      */
     public void executeActive(Button button,
                               ActionEvent event) {
 
         b2 = button;
 
-        secondCard = game.getCard(secondRow, secondCol).getValue();
+        secondCard = game.playingField.getCard(secondRow, secondCol).getValue();
 
         b2.getStyleClass().removeAll("Card");
         b2.getStyleClass().add(((CardValues) secondCard).getPicture());
@@ -374,6 +376,16 @@ public class GameController {
     }
 
     /**
+     *
+     *
+     //TODO
+     * @param playerList
+     * @return
+     */
+    public int getPlayerListSize(PlayerList playerList){
+        return playerList.size();
+    }
+    /**
      * Opens a card and performs a turn.
      *
      * @param event  when button clicked
@@ -384,7 +396,7 @@ public class GameController {
     public void buttonClicked(ActionEvent event, Button button, int row, int col) {
 
         // This is only for the single player mode play with time
-        if (game.getPlayerList().size() == 1 && game.getSinglePlayerMode().equals(SinglePlayerMode.TIME)) {
+        if (getPlayerListSize(game.getPlayerList()) == 1 && game.getSinglePlayerMode().equals(SinglePlayerMode.TIME)) {
             if (countDown.getGUITime() == 0) {
                 game.setGameResult(false);
 

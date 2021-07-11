@@ -72,7 +72,7 @@ class GameTest {
     void revealFirstCard_LegalPos() {
         game.revealFirstCard(0, 0);
 
-        assertEquals(CardStatus.OPEN, game.getCard(0, 0).getCardStatus());
+        assertEquals(CardStatus.OPEN, game.playingField.getCard(0, 0).getCardStatus());
     }
 
     @Test
@@ -87,33 +87,33 @@ class GameTest {
     @Test
     void revealSecondCard_BeforeFirst_DoNothing() {
         game.revealSecondCard(1, 2);
-        assertEquals(CardStatus.CLOSED, game.getCard(1, 2).getCardStatus());
+        assertEquals(CardStatus.CLOSED, game.playingField.getCard(1, 2).getCardStatus());
     }
 
     @Test
     void revealSecondCard_OpenSameAsFirst() {
         game.revealFirstCard(0, 0);
         game.revealSecondCard(0, 0);
-        assertEquals(CardStatus.AlREADYOPEN, game.getCard(0, 0).getCardStatus());
+        assertEquals(CardStatus.AlREADYOPEN, game.playingField.getCard(0, 0).getCardStatus());
     }
 
     @Test
     void revealSecondCard_RightOrder() {
         game.revealFirstCard(0, 0);
         game.revealSecondCard(1, 2);
-        assertEquals(CardStatus.OPEN, game.getCard(0, 0).getCardStatus());
-        assertEquals(CardStatus.OPEN, game.getCard(1, 2).getCardStatus());
+        assertEquals(CardStatus.OPEN, game.playingField.getCard(0, 0).getCardStatus());
+        assertEquals(CardStatus.OPEN, game.playingField.getCard(1, 2).getCardStatus());
 
     }
 
     @Test
     void pairCheck_AssumeTrue() throws NoSuchFieldException, IllegalAccessException {
 
-        CardValues value = game.getCard(0, 0).getValue();
+        CardValues value = game.playingField.getCard(0, 0).getValue();
 
         for (int row = 0; row < game.getBoard().length; row++) {
             for (int col = 0; col < game.getBoard().length; col++) {
-                if (row != 0 && col != 0 && (value == game.getCard(row, col).getValue())) {
+                if (row != 0 && col != 0 && (value == game.playingField.getCard(row, col).getValue())) {
                     assertTrue(game.pairCheck(0, 0, row, col), "Cards should match");
                     break;
                 }
@@ -124,11 +124,11 @@ class GameTest {
     @Test
     void pairCheck_AssumeFalse() throws NoSuchFieldException, IllegalAccessException {
 
-        CardValues value = game.getCard(0, 0).getValue();
+        CardValues value = game.playingField.getCard(0, 0).getValue();
 
         for (int row = 0; row < game.getBoard().length; row++) {
             for (int col = 0; col < game.getBoard().length; col++) {
-                if (row != 0 && col != 0 && (value != game.getCard(row, col).getValue())) {
+                if (row != 0 && col != 0 && (value != game.playingField.getCard(row, col).getValue())) {
                     assertFalse(game.pairCheck(0, 0, row, col), "Cards should't match");
                     break;
                 }
@@ -146,7 +146,7 @@ class GameTest {
 
         for (int row = 0; row < game.getBoard().length; row++) {
             for (int col = 0; col < game.getBoard().length; col++) {
-                game.getCard(row, col).setCardStatus(CardStatus.FOUND);
+                game.playingField.getCard(row, col).setCardStatus(CardStatus.FOUND);
             }
         }
         assertTrue(game.areAllCardsFound());
@@ -156,13 +156,13 @@ class GameTest {
     @Test
     void removeCards() {
 
-        game.getCard(1, 1).setCardStatus(CardStatus.OPEN);
+        game.playingField.getCard(1, 1).setCardStatus(CardStatus.OPEN);
 
 
         game.removeCards(1, 1, 1, 2);
 
-        assertEquals(CardStatus.FOUND, game.getCard(1, 1).getCardStatus());
-        assertEquals(CardStatus.FOUND, game.getCard(1, 2).getCardStatus());
+        assertEquals(CardStatus.FOUND, game.playingField.getCard(1, 1).getCardStatus());
+        assertEquals(CardStatus.FOUND, game.playingField.getCard(1, 2).getCardStatus());
 
     }
 
@@ -174,8 +174,8 @@ class GameTest {
 
         game.closeCards(1, 1, 1, 2);
 
-        assertEquals(CardStatus.CLOSED, game.getCard(1, 1).getCardStatus());
-        assertEquals(CardStatus.CLOSED, game.getCard(1, 2).getCardStatus());
+        assertEquals(CardStatus.CLOSED, game.playingField.getCard(1, 1).getCardStatus());
+        assertEquals(CardStatus.CLOSED, game.playingField.getCard(1, 2).getCardStatus());
 
     }
 
@@ -189,7 +189,7 @@ class GameTest {
 
         for (int row = 0; row < game.getBoard().length; row++) {
             for (int col = 0; col < game.getBoard().length; col++) {
-                assertEquals(CardStatus.CLOSED, game.getCard(row, col).getCardStatus());
+                assertEquals(CardStatus.CLOSED, game.playingField.getCard(row, col).getCardStatus());
             }
         }
 

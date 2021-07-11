@@ -15,15 +15,15 @@ public class Player {
     /**
      * Stores the next {@link Player}.
      */
-    Player next;
+    private Player next;
     /**
      * Stores the last {@link Player}.
      */
-    Player rear;
+    private Player rear;
     /**
      * Stores all {@link Card}'s a {@link Player} has found.
      */
-    List<Card> foundCards;
+    private final List<Card> foundCards;
     /**
      * Stores the name of a {@link Player}.
      */
@@ -291,5 +291,23 @@ public class Player {
      */
     public void checkGamesWon() {
         achievements.checkGamesWon();
+    }
+
+    /**
+     * Sets the next player.
+     *
+     * @param next to be set
+     */
+    public void setNext(Player next) {
+        this.next = next;
+    }
+
+    /**
+     * Sets the previous player.
+     *
+     * @param rear to be set
+     */
+    public void setRear(Player rear) {
+        this.rear = rear;
     }
 }
