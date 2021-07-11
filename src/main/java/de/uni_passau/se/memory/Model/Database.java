@@ -230,7 +230,7 @@ public class Database {
         for (String[] playerProfile : playerProfiles) {
             for (int j = 0; j < playerList.size(); j++) {
                 player = playerList.getPlayer(j);
-                name = player.getName();
+                name = playerList.getPlayerName(player);
 
                 if (playerProfile[0].equals(playerList.getPlayerName(player))) {
                     switch (name) {

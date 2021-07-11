@@ -241,9 +241,9 @@ public class ConsoleController {
                 View.printMemory();
                 String input = bufferedReader.readLine().trim();
 
-                handleInputsDuringGame(input);
-
-                executePlayerTurn(player, input, bufferedReader);
+                if (handleInputsDuringGame(input)) {
+                    executePlayerTurn(player, input, bufferedReader);
+                }
 
                 if (isStillPlaying) {
                     player = player.getRear();
@@ -305,7 +305,7 @@ public class ConsoleController {
                 View.printAlreadyFound();
             } else if (secondCardStatus.equals(CardStatus.AlREADYOPEN)) {
                 View.printSelectedTwice();
-                game.setCardStatus(game.getCard(secondRow, secondCol), CardStatus.OPEN);
+                game.setCardStatus(game.playingField.getCard(secondRow, secondCol), CardStatus.OPEN);
             } else {
                 checkIfPairIsFound(player, bufferedReader);
             }
@@ -554,8 +554,9 @@ public class ConsoleController {
      * Handles the read inputs during a game and passes on the choices
      *
      * @param input is the command which should be handled.
+     * @return false if the game player used a command but the game continues
      */
-    public void handleInputsDuringGame(String input) {
+    public boolean handleInputsDuringGame(String input) {
         switch (input.toLowerCase()) {
             case "help", "h" -> View.printHelp();
             case "rules", "ru" -> {
@@ -566,8 +567,14 @@ public class ConsoleController {
                 }
             }
             case "allRules", "ar" -> View.printDescriptionComplete();
-            case "found", "f" -> View.printDiscardPile(game.getPlayerList());
-            case "cheat" -> View.cheat(game.getPlayingField());
+            case "found", "f" -> {
+                View.printDiscardPile(game.getPlayerList().foundCardsToString());
+                return false;
+            }
+            case "cheat" -> {
+                View.cheat(game.getPlayingField());
+                return false;
+            }
             case "score", "s" -> View.printScore(game.getPlayerList());
             case "menu", "m" -> {
                 game.getDatabase().storeProgress(game.getPlayerList());
@@ -594,6 +601,7 @@ public class ConsoleController {
             }
             case "show", "sp" -> showPlayer();
         }
+        return true;
     }
 
     /**

@@ -23,7 +23,7 @@ public class Player {
     /**
      * Stores all {@link Card}'s a {@link Player} has found.
      */
-    private List<Card> foundCards;
+    private final List<Card> foundCards;
     /**
      * Stores the name of a {@link Player}.
      */
@@ -293,15 +293,21 @@ public class Player {
         achievements.checkGamesWon();
     }
 
+    /**
+     * Sets the next player.
+     *
+     * @param next to be set
+     */
     public void setNext(Player next) {
         this.next = next;
     }
 
+    /**
+     * Sets the previous player.
+     *
+     * @param rear to be set
+     */
     public void setRear(Player rear) {
         this.rear = rear;
-    }
-
-    public void setFoundCards(List<Card> foundCards) {
-        this.foundCards = foundCards;
     }
 }

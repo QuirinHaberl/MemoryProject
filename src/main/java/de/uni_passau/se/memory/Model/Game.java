@@ -18,7 +18,7 @@ public final class Game {
     /**
      * Stores the current {@link PlayingField}.
      */
-    private final PlayingField playingField;
+    public final PlayingField playingField;
     /**
      * Stores a {@link Player} in the {@link PlayerList}.
      */
@@ -145,17 +145,6 @@ public final class Game {
     }
 
     /**
-     * Gets a specified {@link Card}.
-     *
-     * @param row of the selected card
-     * @param col of the selected card
-     * @return the selected card
-     */
-    public Card getCard(int row, int col) {
-        return playingField.getBoard()[row][col];
-    }
-
-    /**
      * Reveals the first selected {@link Card} of a turn.
      *
      * @param firstRow of the {@link Card}
@@ -163,7 +152,7 @@ public final class Game {
      * @return the current {@link CardStatus} of a {@link Card}
      */
     public CardStatus revealFirstCard(int firstRow, int firstCol) {
-        Card firstCard = getCard(firstRow, firstCol);
+        Card firstCard = playingField.getCard(firstRow, firstCol);
         if (hasSameCardStatus(getCardStatus(firstCard), CardStatus.CLOSED)) {
             setCardStatus(firstCard, CardStatus.OPEN);
             setTurnStatus(TurnStatus.ACTIVE);
@@ -186,7 +175,7 @@ public final class Game {
             return CardStatus.CLOSED;
         }
 
-        Card secondCard = getCard(secondRow, secondCol);
+        Card secondCard = playingField.getCard(secondRow, secondCol);
 
         if (hasSameCardStatus(getCardStatus(secondCard), CardStatus.OPEN)) {
             setCardStatus(secondCard, CardStatus.AlREADYOPEN);
@@ -195,7 +184,7 @@ public final class Game {
             setCardStatus(secondCard, CardStatus.OPEN);
             setTurnStatus(TurnStatus.IDLE);
         }
-        return getCardStatus(getCard(secondRow, secondCol));
+        return getCardStatus(playingField.getCard(secondRow, secondCol));
     }
 
     /**
@@ -229,8 +218,8 @@ public final class Game {
      * @return whether a pair was found (true) or not (false)
      */
     public boolean pairCheck(int rowFirstCard, int colFirstCard, int rowSecondCard, int colSecondCard) {
-        Card firstCard = getCard(rowFirstCard, colFirstCard);
-        Card secondCard = getCard(rowSecondCard, colSecondCard);
+        Card firstCard = playingField.getCard(rowFirstCard, colFirstCard);
+        Card secondCard = playingField.getCard(rowSecondCard, colSecondCard);
         if (getCardValue(firstCard).equals(getCardValue(secondCard))) {
             removeCards(rowFirstCard, colFirstCard, rowSecondCard, colSecondCard);
             return true;
@@ -250,7 +239,7 @@ public final class Game {
     public boolean areAllCardsFound() {
         for (int row = 0; row < playingField.getBoard().length; ++row) {
             for (int col = 0; col < playingField.getBoard()[row].length; ++col) {
-                if (!(getCardStatus(getCard(row, col)).equals(CardStatus.FOUND))) {
+                if (!(getCardStatus(playingField.getCard(row, col)).equals(CardStatus.FOUND))) {
                     return false;
                 }
             }

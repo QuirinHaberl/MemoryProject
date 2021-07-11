@@ -154,4 +154,15 @@ public class PlayingField {
     public int getSize() {
         return board.length;
     }
+
+    /**
+     * Gets a specified {@link Card}.
+     *
+     * @param row of the selected card
+     * @param col of the selected card
+     * @return the selected card
+     */
+    public Card getCard(int row, int col) {
+        return getBoard()[row][col];
+    }
 }

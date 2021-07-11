@@ -280,7 +280,7 @@ public class GameController {
         closeCards();
 
         b1 = button;
-        firstCard = game.getCard(row, col).getValue();
+        firstCard = game.playingField.getCard(row, col).getValue();
 
         b1.getStyleClass().removeAll("Card");
         b1.getStyleClass().add(((CardValues) firstCard).getPicture());
@@ -301,7 +301,7 @@ public class GameController {
 
         b2 = button;
 
-        secondCard = game.getCard(secondRow, secondCol).getValue();
+        secondCard = game.playingField.getCard(secondRow, secondCol).getValue();
 
         b2.getStyleClass().removeAll("Card");
         b2.getStyleClass().add(((CardValues) secondCard).getPicture());

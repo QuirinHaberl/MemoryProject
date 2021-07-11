@@ -72,19 +72,10 @@ public final class View {
     /**
      * Print all {@link Card}'s a {@link Player} has found.
      *
-     * @param players current {@link PlayerList}
+     * @param discardPile contains all found cards.
      */
-    public static void printDiscardPile(PlayerList players) {
-        StringBuilder str = new StringBuilder();
-        str.append("[");
-        for (int i = 0; i < players.size(); i++) {
-            str.append(players.getPlayer(i).getName()).append(": ");
-            for (int j = 0; j < players.getPlayer(i).getFoundCards().size(); j++) {
-                str.append(players.getPlayer(i).getFoundCards().get(j).visualizeCard()).append(" ");
-            }
-            str.append("\n");
-        }
-        System.out.println(str.append("]"));
+    public static void printDiscardPile(String discardPile) {
+        System.out.println(discardPile);
     }
 
     /**
