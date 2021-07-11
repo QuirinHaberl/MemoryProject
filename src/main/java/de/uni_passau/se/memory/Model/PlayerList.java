@@ -116,11 +116,8 @@ public class PlayerList {
     }
 
     /**
-<<<<<<< HEAD
      * Gets the next player in relation of a given player.
-=======
      * Gets the next player.
->>>>>>> 30ef6abde7eac05d373e715f4dcd4f69968ec06e
      *
      * @param player whose successor is requested
      * @return the successor of a given player
@@ -130,7 +127,6 @@ public class PlayerList {
     }
 
     /**
-<<<<<<< HEAD
      * Sets the next player in relation of a given player.
      *
      * @param player whose successor is set
@@ -151,8 +147,6 @@ public class PlayerList {
     }
 
     /**
-=======
->>>>>>> 30ef6abde7eac05d373e715f4dcd4f69968ec06e
      * Gets the front.
      *
      * @return the front
