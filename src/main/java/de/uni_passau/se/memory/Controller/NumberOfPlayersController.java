@@ -1,5 +1,6 @@
 package de.uni_passau.se.memory.Controller;
 
+import de.uni_passau.se.memory.Model.Game;
 import de.uni_passau.se.memory.gui.Window;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,9 +24,29 @@ public class NumberOfPlayersController {
      * @param number      of players for the currently configured game
      */
     private void selectPlayers(ActionEvent actionEvent, int number) {
-        Wrapper.getInstance().getGame().setPlayerAmount(number);
+        setGamePlayerAmount(getGame(Wrapper.getInstance()), number);
         ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
         new Window("NameSelection.fxml");
+    }
+
+    /**
+     * Sets the playerAmount of a game.
+     *
+     * @param game         whose playerAmount is set
+     * @param playerAmount to be set
+     */
+    public void setGamePlayerAmount(Game game, int playerAmount) {
+        game.setPlayerAmount(playerAmount);
+    }
+
+    /**
+     * Gets the current game.
+     *
+     * @param wrapper contains the current game
+     * @return the requested game
+     */
+    public Game getGame(Wrapper wrapper) {
+        return wrapper.getGame();
     }
 
     /**

@@ -5,6 +5,7 @@ import de.uni_passau.se.memory.Model.Enums.CardStatus;
 import de.uni_passau.se.memory.Model.Enums.GameStatus;
 import de.uni_passau.se.memory.Model.Game;
 import de.uni_passau.se.memory.Model.Player;
+import de.uni_passau.se.memory.Model.PlayingField;
 import de.uni_passau.se.memory.gui.View;
 
 import java.io.BufferedReader;
@@ -125,11 +126,33 @@ public class ConsoleController {
     public void selectBoardSize(BufferedReader bufferedReader) throws IOException {
         View.printSelectBoardSize();
         View.printMemory();
-        int size = game.getPlayingField().selectBoardSize(bufferedReader.readLine().trim());
+        int size = validatePlayingFieldBoardSize(game.getPlayingField(), bufferedReader.readLine().trim());
         if (size != 0) {
-            game.getPlayingField().setBoard(size);
+            setPlayingFieldBordSize(game.getPlayingField(), size);
             menuStatus = MenuStatus.CARDSET;
         }
+    }
+
+    /**
+     * Sets the size of a given playingField.
+     *
+     * @param playingField whose size is set
+     * @param size         to be set
+     */
+    public void setPlayingFieldBordSize(PlayingField playingField, int size) {
+        playingField.setBoard(size);
+    }
+
+    /**
+     * Validates a given size for playingField.
+     *
+     * @param playingField is given to validate the size
+     * @param size         to validated
+     * @return validated size
+     */
+    public int validatePlayingFieldBoardSize(PlayingField playingField,
+                                             String size) {
+        return playingField.selectBoardSize(size);
     }
 
     /**
@@ -141,19 +164,51 @@ public class ConsoleController {
     public void selectCardSet(BufferedReader bufferedReader) throws IOException {
         View.printSelectCardSet();
         View.printMemory();
-        if (game.getPlayingField().
-                selectCardSet(bufferedReader.readLine().trim())) {
-            game.getPlayingField().fillWithCards();
+        if (validatePlayingFieldCardSet(game.getPlayingField(),
+                bufferedReader.readLine().trim())) {
+            fillPlayingFieldWithCards(game.getPlayingField());
             menuStatus = MenuStatus.PLAYERMODE;
             game.setGameStatus(GameStatus.RUNNING);
             View.printBoard(game.getPlayingField());
 
             //This is only for the single player mode with the setting "play on time"
-            if (game.getPlayerList().size() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
+            if (getPlayingFieldSize(game.getPlayingField()) == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
                 game.startTimer();
             }
         }
         updateCurrentDataBase(game.getDatabase());
+    }
+
+
+    /**
+     * Gets the size of a given playingField.
+     *
+     * @param playingField whose size is requested
+     * @return the size of a playingField
+     */
+    public int getPlayingFieldSize(PlayingField playingField) {
+        return playingField.getSize();
+    }
+
+    /**
+     * Fill a playingFiled with cards.
+     *
+     * @param playingField to be filled
+     */
+    public void fillPlayingFieldWithCards(PlayingField playingField) {
+        playingField.fillWithCards();
+    }
+
+    /**
+     * Validate a given cardSet.
+     *
+     * @param playingField whose cardSet is validated
+     * @param cardSet      to be validated
+     * @return validated cardSet
+     */
+    public boolean validatePlayingFieldCardSet(PlayingField playingField,
+                                               String cardSet) {
+        return playingField.selectCardSet(cardSet);
     }
 
     /**
@@ -416,7 +471,7 @@ public class ConsoleController {
     public void checkForSinglePlayer() {
         //This is only for the single player mode with the setting "play with lives"
         if (game.getPlayerList().size() == 1 && singlePlayerMode.equals(SinglePlayerMode.LIFEPOINTS)) {
-            View.printlifes(game.getPlayerList().getPlayer(0).getLives());
+            View.printLives(game.getPlayerList().getPlayer(0).getLives());
         }
 
         //This is only for the single player mode with the setting "play on time"

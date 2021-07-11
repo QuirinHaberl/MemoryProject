@@ -1,5 +1,7 @@
 package de.uni_passau.se.memory.Controller;
 
+import de.uni_passau.se.memory.Model.Game;
+import de.uni_passau.se.memory.Model.PlayingField;
 import de.uni_passau.se.memory.gui.Window;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -85,10 +87,39 @@ public class LevelsController {
      * @param size        of the current board
      */
     private void selectLevel(ActionEvent actionEvent, int size) {
-        Wrapper.getInstance().getGame().getPlayingField().setBoard(size);
+        setPlayingFieldBoardSize(getGamePlayingField(getGame(Wrapper.getInstance())), size);
         ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
         new Window("Game.fxml");
     }
 
+    /**
+     * Set the size of a given playingField.
+     *
+     * @param playingField whose size is set
+     * @param size         to be set
+     */
+    public void setPlayingFieldBoardSize(PlayingField playingField, int size) {
+        playingField.setBoard(size);
+    }
+
+    /**
+     * Get the playingField of a game.
+     *
+     * @param game contains the playingField
+     * @return the requested playingField
+     */
+    public PlayingField getGamePlayingField(Game game) {
+        return game.getPlayingField();
+    }
+
+    /**
+     * Gets the current game.
+     *
+     * @param wrapper contains the current game
+     * @return the requested game
+     */
+    public Game getGame(Wrapper wrapper) {
+        return wrapper.getGame();
+    }
 
 }

@@ -1,5 +1,6 @@
 package de.uni_passau.se.memory.Controller;
 
+import de.uni_passau.se.memory.Model.Game;
 import de.uni_passau.se.memory.gui.Window;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,12 +22,44 @@ public class SinglePlayerModeController {
      * @param actionEvent when button clicked
      */
     public void lives(ActionEvent actionEvent) {
-        Wrapper.getInstance().getGame().setPlayerAmount(1);
-        Wrapper.getInstance().getGame().setSinglePlayerMode(SinglePlayerMode.LIFEPOINTS);
+        setGamePlayerAmount(getGame(Wrapper.getInstance()), 1);
+        setGameSinglePlayerMode(getGame(Wrapper.getInstance()),
+                SinglePlayerMode.LIFEPOINTS);
         ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
         AudioClip click = new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Click.wav").toUri().toString());
         click.play();
         new Window("NameSelection.fxml");
+    }
+
+    /**
+     * Sets the singlePlayerMode of a given game.
+     *
+     * @param game             whose singlePlayerMode is set
+     * @param singlePlayerMode to be set
+     */
+    public void setGameSinglePlayerMode(Game game,
+                                        SinglePlayerMode singlePlayerMode) {
+        game.setSinglePlayerMode(singlePlayerMode);
+    }
+
+    /**
+     * Sets the playerAmount of a game.
+     *
+     * @param game         whose playerAmount is set
+     * @param playerAmount to be set
+     */
+    public void setGamePlayerAmount(Game game, int playerAmount) {
+        game.setPlayerAmount(playerAmount);
+    }
+
+    /**
+     * Gets the current game.
+     *
+     * @param wrapper contains the current game
+     * @return the requested game
+     */
+    public Game getGame(Wrapper wrapper) {
+        return wrapper.getGame();
     }
 
     /**
@@ -35,8 +68,9 @@ public class SinglePlayerModeController {
      * @param actionEvent when button clicked
      */
     public void time(ActionEvent actionEvent) {
-        Wrapper.getInstance().getGame().setPlayerAmount(1);
-        Wrapper.getInstance().getGame().setSinglePlayerMode(SinglePlayerMode.TIME);
+        setGamePlayerAmount(getGame(Wrapper.getInstance()), 1);
+        setGameSinglePlayerMode(getGame(Wrapper.getInstance()),
+                SinglePlayerMode.TIME);
         ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
         AudioClip click = new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Click.wav").toUri().toString());
         click.play();

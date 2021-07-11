@@ -104,8 +104,8 @@ public class HighScoreController {
     @FXML
     public void initialize() {
         Database highScoreHistory = Database.getInstance();
-        highScoreHistory.loadHighScoreHistory();
-        List<String[]> highScoreList = highScoreHistory.getHighScoreHistory();
+        loadHighScoreHistory(Database.getInstance());
+        List<String[]> highScoreList = getHighScoreHistory(highScoreHistory);
 
         Label[] names = {name1, name2, name3, name4, name5, name6, name7, name8, name9, name10};
         Label[] scores = {score1, score2, score3, score4, score5, score6, score7, score8, score9, score10};
@@ -114,6 +114,25 @@ public class HighScoreController {
             names[i].setText(highScoreList.get(i)[0]);
             scores[i].setText(highScoreList.get(i)[1]);
         }
+    }
+
+    /**
+     * Gets the highScoreHistory of a given database.
+     *
+     * @param database contains the highScoreHistory
+     * @return highScoreHistory of the given database
+     */
+    public List<String[]> getHighScoreHistory(Database database) {
+        return database.getHighScoreHistory();
+    }
+
+    /**
+     * Load the highScoreHistory of a given database.
+     *
+     * @param database which highScoreHistory is loaded.
+     */
+    public void loadHighScoreHistory(Database database) {
+        database.loadHighScoreHistory();
     }
 
     /**
