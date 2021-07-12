@@ -1,198 +1,177 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8.0.171"
-      fx:controller="de.uni_passau.se.memory.Controller.GameController">
+
+<VBox stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uni_passau.se.memory.Controller.GameController">
     <children>
         <AnchorPane prefHeight="29.0" prefWidth="600.0" style="-fx-background-color: black;">
             <children>
-                <Label layoutX="29.0" layoutY="3.0" prefHeight="23.0" prefWidth="96.0" styleClass="text15"
-                       text="TEAM-19 MEMORY" textFill="WHITE" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="29.0"
-                       AnchorPane.rightAnchor="475.0" AnchorPane.topAnchor="3.0">
+                <Label layoutX="29.0" layoutY="3.0" prefHeight="23.0" prefWidth="96.0" styleClass="text15" text="TEAM-19 MEMORY" textFill="WHITE" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="475.0" AnchorPane.topAnchor="3.0">
                     <padding>
-                        <Insets left="10.0"/>
+                        <Insets left="10.0" />
                     </padding>
                 </Label>
-                <Button layoutX="976.0" layoutY="2.0" mnemonicParsing="false" onMouseClicked="#CloseStage"
-                        prefHeight="6.0" prefWidth="24.0" styleClass="closebtn" text="X" textFill="WHITE">
+                <Button layoutX="976.0" layoutY="2.0" mnemonicParsing="false" onMouseClicked="#CloseStage" prefHeight="6.0" prefWidth="24.0" styleClass="closebtn" text="X" textFill="WHITE">
                     <cursor>
-                        <Cursor fx:constant="HAND"/>
+                        <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-                <Button layoutX="952.0" layoutY="2.0" mnemonicParsing="false" onMouseClicked="#MinimizeStage"
-                        prefHeight="23.0" prefWidth="24.0" styleClass="minimizebtn" text="_" textFill="WHITE">
+                <Button layoutX="952.0" layoutY="2.0" mnemonicParsing="false" onMouseClicked="#MinimizeStage" prefHeight="23.0" prefWidth="24.0" styleClass="minimizebtn" text="_" textFill="WHITE">
                     <cursor>
-                        <Cursor fx:constant="HAND"/>
+                        <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-                <Button fx:id="EasterEgg" layoutY="-3.0" mnemonicParsing="false" onAction="#eeClicked" prefHeight="29.0"
-                        prefWidth="32.0" styleClass="Card">
+                <Button fx:id="EasterEgg" layoutY="-3.0" mnemonicParsing="false" onAction="#eeClicked" prefHeight="29.0" prefWidth="32.0" styleClass="Card">
                     <cursor>
-                        <Cursor fx:constant="HAND"/>
+                        <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
             </children>
         </AnchorPane>
         <BorderPane stylesheets="@Style.css">
             <center>
-                <VBox alignment="CENTER" prefHeight="650.0" prefWidth="1000.0" styleClass="GameBack"
-                      BorderPane.alignment="CENTER">
+                <VBox alignment="CENTER" prefHeight="650.0" prefWidth="1000.0" styleClass="GameBack" BorderPane.alignment="CENTER">
                     <children>
-                        <GridPane id="Board" fx:id="Board" alignment="CENTER" hgap="20.0" prefHeight="589.0"
-                                  prefWidth="943.0" vgap="20.0" VBox.vgrow="ALWAYS">
+                        <GridPane id="Board" fx:id="Board" alignment="CENTER" hgap="20.0" prefHeight="589.0" prefWidth="943.0" vgap="20.0" VBox.vgrow="ALWAYS">
 
                             <padding>
-                                <Insets bottom="30.0" left="30.0" right="30.0" top="30.0"/>
+                                <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
                             </padding>
                         </GridPane>
                     </children>
                 </VBox>
             </center>
             <top>
-                <AnchorPane prefHeight="54.0" prefWidth="700.0" style="-fx-background-color: black;"
-                            BorderPane.alignment="CENTER">
+                <AnchorPane prefHeight="54.0" prefWidth="700.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
                     <children>
                         <AnchorPane prefHeight="57.0" prefWidth="261.0">
                             <children>
-                                <Button fx:id="MainMenuButton" mnemonicParsing="false" text="Menu" visible="false"/>
-                                <Button fx:id="TryAgainButton" mnemonicParsing="false" onAction="#tryAgainButtonClicked"
-                                        text="TryAgain" visible="false"/>
+                                <Button fx:id="MainMenuButton" mnemonicParsing="false" text="Menu" visible="false" />
+                                <Button fx:id="TryAgainButton" mnemonicParsing="false" onAction="#tryAgainButtonClicked" text="TryAgain" visible="false" />
                             </children>
                         </AnchorPane>
-                        <HBox prefHeight="66.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0"
-                              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <HBox prefHeight="66.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
                                 <MenuBar prefHeight="44.0" prefWidth="233.0" styleClass="text20">
                                     <menus>
                                         <Menu mnemonicParsing="false" text="Menu">
                                             <items>
-                                                <MenuItem fx:id="MainMenu" mnemonicParsing="false" onAction="#menu"
-                                                          text="Main Menu"/>
-                                                <MenuItem fx:id="Exit" mnemonicParsing="false" onAction="#ExitClicked"
-                                                          text="Exit Game"/>
+                                                <MenuItem fx:id="MainMenu" mnemonicParsing="false" onAction="#menu" text="Main Menu" />
+                                                <MenuItem fx:id="Exit" mnemonicParsing="false" onAction="#ExitClicked" text="Exit Game" />
                                             </items>
                                         </Menu>
                                         <Menu mnemonicParsing="false" text="Game">
                                             <items>
-                                                <MenuItem fx:id="TryAgain" mnemonicParsing="false"
-                                                          onAction="#TryAgainClicked" text="Try again"/>
+                                                <MenuItem fx:id="TryAgain" mnemonicParsing="false" onAction="#TryAgainClicked" text="Try again" />
                                             </items>
                                         </Menu>
                                         <Menu mnemonicParsing="false" text="Help">
                                             <items>
-                                                <MenuItem fx:id="help" mnemonicParsing="false" onAction="#help"
-                                                          text="Rules"/>
+                                                <MenuItem fx:id="help" mnemonicParsing="false" onAction="#help" text="Rules" />
                                             </items>
                                         </Menu>
                                     </menus>
                                     <HBox.margin>
-                                        <Insets top="5.0"/>
+                                        <Insets top="5.0" />
                                     </HBox.margin>
                                 </MenuBar>
                                 <AnchorPane prefHeight="200.0" prefWidth="500.0">
                                     <children>
-                                        <HBox fx:id="livesAndTime" prefHeight="58.0" prefWidth="500.0"
-                                              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                        <HBox fx:id="livesAndTime" prefHeight="48.0" prefWidth="607.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-116.0" AnchorPane.topAnchor="0.0">
                                             <padding>
-                                                <Insets left="20.0"/>
+                                                <Insets left="20.0" />
                                             </padding>
                                         </HBox>
-                                        <Label fx:id="timer" alignment="CENTER" contentDisplay="CENTER"
-                                               prefHeight="48.0" prefWidth="491.0" textAlignment="CENTER"
-                                               textFill="WHITE" AnchorPane.bottomAnchor="0.0"
-                                               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                                               AnchorPane.topAnchor="0.0"/>
+                                        <Label fx:id="timer" alignment="CENTER" contentDisplay="CENTER" prefHeight="48.0" prefWidth="607.0" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                     </children>
                                 </AnchorPane>
                                 <AnchorPane prefHeight="43.0" prefWidth="254.0">
                                     <children>
-                                        <Label fx:id="achievementLabel" alignment="TOP_LEFT" contentDisplay="TOP"
-                                               layoutX="35.0" layoutY="-2.0" prefHeight="43.0" prefWidth="116.0"
-                                               styleClass="textAchievements" textFill="WHITE"
-                                               AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                        <Label fx:id="achievementLabel" alignment="CENTER_RIGHT" contentDisplay="TOP" layoutX="35.0" layoutY="-2.0" prefHeight="43.0" prefWidth="116.0" styleClass="textAchievements" textAlignment="RIGHT" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <font>
-                                                <Font size="17.0"/>
+                                                <Font size="17.0" />
                                             </font>
                                         </Label>
                                     </children>
                                 </AnchorPane>
                             </children>
                             <padding>
-                                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0"/>
+                                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                             </padding>
                         </HBox>
                     </children>
                 </AnchorPane>
             </top>
             <bottom>
-                <HBox alignment="CENTER" prefHeight="67.0" prefWidth="1000.0" style="-fx-background-color: black;"
-                      styleClass="text" BorderPane.alignment="CENTER">
+                <HBox alignment="CENTER" prefHeight="67.0" prefWidth="1000.0" style="-fx-background-color: black;" styleClass="text" BorderPane.alignment="CENTER">
                     <children>
                         <HBox>
                             <children>
-                                <AnchorPane fx:id="key1" prefHeight="200.0" prefWidth="500.0" styleClass="PointerPlayer"
-                                            visible="false"/>
+                                <AnchorPane fx:id="key1" prefHeight="200.0" prefWidth="500.0" styleClass="PointerPlayer" visible="false" />
                                 <VBox alignment="CENTER_LEFT" prefWidth="500.0" styleClass="text25">
                                     <children>
-                                        <Label fx:id="labelPlayer1" textFill="WHITE"/>
-                                        <Label fx:id="labelScore1" text="Score" textFill="WHITE" visible="false"/>
+                                        <Label fx:id="labelPlayer1" textFill="WHITE" />
+                                        <Label fx:id="labelScore1" text="Score" textFill="WHITE" visible="false" />
                                     </children>
                                 </VBox>
                             </children>
                         </HBox>
                         <HBox>
                             <children>
-                                <AnchorPane fx:id="key2" prefHeight="200.0" prefWidth="500.0" styleClass="PointerPlayer"
-                                            visible="false"/>
+                                <AnchorPane fx:id="key2" prefHeight="200.0" prefWidth="500.0" styleClass="PointerPlayer" visible="false" />
                                 <VBox alignment="CENTER_LEFT" prefWidth="500.0" styleClass="text25">
                                     <children>
-                                        <Label fx:id="labelPlayer2" textFill="WHITE"/>
-                                        <Label fx:id="labelScore2" text="Score" textFill="WHITE" visible="false"/>
+                                        <Label fx:id="labelPlayer2" textFill="WHITE" />
+                                        <Label fx:id="labelScore2" text="Score" textFill="WHITE" visible="false" />
                                     </children>
                                 </VBox>
                             </children>
                         </HBox>
                         <HBox>
                             <children>
-                                <AnchorPane fx:id="key3" prefHeight="200.0" prefWidth="500.0" styleClass="PointerPlayer"
-                                            visible="false"/>
+                                <AnchorPane fx:id="key3" prefHeight="200.0" prefWidth="500.0" styleClass="PointerPlayer" visible="false" />
                                 <VBox alignment="CENTER_LEFT" prefWidth="500.0" styleClass="text25">
                                     <children>
-                                        <Label fx:id="labelPlayer3" textFill="WHITE"/>
-                                        <Label fx:id="labelScore3" text="Score" textFill="WHITE" visible="false"/>
+                                        <Label fx:id="labelPlayer3" textFill="WHITE" />
+                                        <Label fx:id="labelScore3" text="Score" textFill="WHITE" visible="false" />
                                     </children>
                                 </VBox>
                             </children>
                         </HBox>
                         <HBox>
                             <children>
-                                <AnchorPane fx:id="key4" prefHeight="200.0" prefWidth="500.0" styleClass="PointerPlayer"
-                                            visible="false"/>
+                                <AnchorPane fx:id="key4" prefHeight="200.0" prefWidth="500.0" styleClass="PointerPlayer" visible="false" />
                                 <VBox alignment="CENTER_LEFT" prefWidth="500.0" styleClass="text25">
                                     <children>
-                                        <Label fx:id="labelPlayer4" textFill="WHITE"/>
-                                        <Label fx:id="labelScore4" text="Score" textFill="WHITE" visible="false"/>
+                                        <Label fx:id="labelPlayer4" textFill="WHITE" />
+                                        <Label fx:id="labelScore4" text="Score" textFill="WHITE" visible="false" />
                                     </children>
                                 </VBox>
                             </children>
                         </HBox>
                         <HBox>
                             <children>
-                                <VBox alignment="CENTER_LEFT" prefHeight="72.0" prefWidth="130.0"/>
+                                <VBox alignment="CENTER_LEFT" prefHeight="72.0" prefWidth="130.0" />
                             </children>
                         </HBox>
                     </children>
                     <BorderPane.margin>
-                        <Insets/>
+                        <Insets />
                     </BorderPane.margin>
                     <padding>
-                        <Insets left="10.0" right="10.0"/>
+                        <Insets left="10.0" right="10.0" />
                     </padding>
                 </HBox>
             </bottom>
