@@ -172,7 +172,8 @@ public class ConsoleController {
             View.printBoard(game.getPlayingField());
 
             //This is only for the single player mode with the setting "play on time"
-            if (getPlayingFieldSize(game.getPlayingField()) == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
+            if (getPlayingFieldSize(game.getPlayingField()) == 1
+                    && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
                 game.startTimer();
             }
         }

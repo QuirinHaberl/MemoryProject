@@ -25,6 +25,11 @@ public class PlayingField {
     private CardSet globalCardSet;
 
     /**
+     * Maximum of the board size
+     */
+    public static final int MAX_BOARD_SIZE = 8;
+
+    /**
      * Default-constructor of {@link PlayingField}.
      */
     public PlayingField() {
@@ -120,7 +125,7 @@ public class PlayingField {
     public int selectBoardSize(String input) {
         if (input.length() == 1 && input.matches("\\d")) {
             int size = Integer.parseInt(input);
-            if (size <= 8 && size % 2 == 0 && size != 0) {
+            if (size <= MAX_BOARD_SIZE && size % 2 == 0 && size != 0) {
                 return size;
             }
         }

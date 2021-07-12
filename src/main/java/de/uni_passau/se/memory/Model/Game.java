@@ -53,6 +53,16 @@ public final class Game {
     private CountDownConsole time;
 
     /**
+     * Start time of the count down
+     */
+    public static final int START_TIME = 120;
+
+    /**
+     * Definition of one second
+     */
+    public static final int ONE_SECOND = 1000;
+
+    /**
      * The constructor initiates the {@link Game}, the turn and creates a new {@link PlayingField}
      */
     public Game() {
@@ -632,7 +642,7 @@ public final class Game {
      * The default time is 120 seconds (2 minutes)
      */
     public class CountDownConsole {
-        int count = 120;
+        int count = START_TIME;
         int remainingTime = count;
 
         /**
@@ -655,7 +665,7 @@ public final class Game {
                     }
                 }
             };
-            timer.schedule(task, 0, 1000);
+            timer.schedule(task, 0, ONE_SECOND);
         }
 
         /**

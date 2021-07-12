@@ -36,6 +36,26 @@ public class Achievements {
     private String currentAchievements = "";
 
     /**
+     * Different numbers of pairs
+     */
+    public static final int TWO_PAIRS = 2;
+    public static final int FOUR_PAIRS = 4;
+    public static final int SIX_PAIRS = 6;
+    public static final int EIGHT_PAIRS = 8;
+    public static final int TEN_PAIRS = 10;
+    public static final int TWELVE_PAIRS = 12;
+    public static final int SIXTEEN_PAIRS = 16;
+
+    /**
+     * Different numbers of games won
+     */
+    public static final int ONE_GAME_WON = 1;
+    public static final int TWO_GAMES_WON = 2;
+    public static final int THREE_GAMES_WON = 3;
+    public static final int FOUR_GAMES_WON = 4;
+    public static final int FIVE_GAMES_WON = 5;
+
+    /**
      * Constructs a new object of {@link Achievements}.
      */
     public Achievements() {
@@ -148,15 +168,15 @@ public class Achievements {
      * Checks weather a new milestone was hit regarding found pairs in total.
      */
     public void checkFoundPairsTotal() {
-        if (pairCounterTotal == 2) {
+        if (pairCounterTotal == TWO_PAIRS) {
             currentAchievements = currentAchievements + "Found 2 pairs in total!\n";
-        } else if (pairCounterTotal == 4) {
+        } else if (pairCounterTotal == FOUR_PAIRS) {
             currentAchievements = currentAchievements + "Found 4 pairs in total!\n";
-        } else if (pairCounterTotal == 6) {
+        } else if (pairCounterTotal == SIX_PAIRS) {
             currentAchievements = currentAchievements + "Found 6 pairs in total!\n";
-        } else if (pairCounterTotal == 8) {
+        } else if (pairCounterTotal == EIGHT_PAIRS) {
             currentAchievements = currentAchievements + "Found 8 pairs in total!\n";
-        } else if (pairCounterTotal == 10) {
+        } else if (pairCounterTotal == TEN_PAIRS) {
             currentAchievements = currentAchievements + "Found 10 pairs in total!\n";
         }
     }
@@ -165,15 +185,15 @@ public class Achievements {
      * Checks weather a new milestone was hit regarding found pairs in a row.
      */
     public void checkFoundPairsStreak() {
-        if (pairCounterStreak == 2) {
+        if (pairCounterStreak == TWO_PAIRS) {
             currentAchievements = currentAchievements + "Found 2 pairs in a row!\n";
-        } else if (pairCounterStreak == 4) {
+        } else if (pairCounterStreak == FOUR_PAIRS) {
             currentAchievements = currentAchievements + "Found 4 pairs in a row!\n";
-        } else if (pairCounterStreak == 6) {
+        } else if (pairCounterStreak == SIX_PAIRS) {
             currentAchievements = currentAchievements + "Found 6 pairs in a row!\n";
-        } else if (pairCounterStreak == 8) {
+        } else if (pairCounterStreak == EIGHT_PAIRS) {
             currentAchievements = currentAchievements + "Found 8 pairs in a row!\n";
-        } else if (pairCounterStreak == 10) {
+        } else if (pairCounterStreak == TEN_PAIRS) {
             currentAchievements = currentAchievements + "Found 10 pairs in a row!\n";
         }
     }
@@ -182,15 +202,15 @@ public class Achievements {
      * Checks whether a new milestone was hit regarding won games.
      */
     public void checkGamesWon() {
-        if (gamesWon == 1) {
+        if (gamesWon == ONE_GAME_WON) {
             currentAchievements = currentAchievements + "1. game won!\n";
-        } else if (gamesWon == 2) {
+        } else if (gamesWon == TWO_GAMES_WON) {
             currentAchievements = currentAchievements + "2. game won!\n";
-        } else if (gamesWon == 3) {
+        } else if (gamesWon == THREE_GAMES_WON) {
             currentAchievements = currentAchievements + "3. game won!\n";
-        } else if (gamesWon == 4) {
+        } else if (gamesWon == FOUR_GAMES_WON) {
             currentAchievements = currentAchievements + "4. game won!\n";
-        } else if (gamesWon == 5) {
+        } else if (gamesWon == FIVE_GAMES_WON) {
             currentAchievements = currentAchievements + "5. game won!\n";
         }
     }
@@ -201,13 +221,13 @@ public class Achievements {
     public void checkHighScore() {
         if (pairCounterTotal > getHighScore()) {
             setHighScore(pairCounterTotal);
-            if (pairCounterTotal == 4) {
+            if (pairCounterTotal == FOUR_PAIRS) {
                 currentAchievements = currentAchievements + "New PB of 4!\n";
-            } else if (pairCounterTotal == 8) {
+            } else if (pairCounterTotal == EIGHT_PAIRS) {
                 currentAchievements = currentAchievements + "New PB of 8!\n";
-            } else if (pairCounterTotal == 12) {
+            } else if (pairCounterTotal == TWELVE_PAIRS) {
                 currentAchievements = currentAchievements + "New PB of 12!\n";
-            } else if (pairCounterTotal == 16) {
+            } else if (pairCounterTotal == SIXTEEN_PAIRS) {
                 currentAchievements = currentAchievements + "New PB of 16!\n";
             }
         }

@@ -41,6 +41,11 @@ public class Database {
     private List<Boolean> usesProfiles;
 
     /**
+     * Length of the high score list
+     */
+    public static final int HIGH_SCORE_LIST_LENGTH = 10;
+
+    /**
      * Constructs a new database.
      */
     public Database() {
@@ -380,8 +385,8 @@ public class Database {
                 if (Integer.parseInt(highScoreList.get(i)[1]) <= highScore) {
                     String[] newPlayer = {player, String.valueOf(highScore)};
                     highScoreList.add(i, newPlayer);
-                    if (highScoreList.size() > 10) {
-                        highScoreList.remove(10);
+                    if (highScoreList.size() > HIGH_SCORE_LIST_LENGTH) {
+                        highScoreList.remove(HIGH_SCORE_LIST_LENGTH);
                     }
                     break;
                 }
