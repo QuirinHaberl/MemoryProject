@@ -128,5 +128,4 @@ public class LevelsController {
     public Game getGame(Wrapper wrapper) {
         return wrapper.getGame();
     }
-
 }

@@ -12,6 +12,7 @@ import java.util.List;
  * This class represents the view of the MVC-architecture.
  */
 public final class View {
+
     /**
      * Utility class needs private constructor.
      */

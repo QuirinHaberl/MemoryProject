@@ -39,47 +39,57 @@ public class GameController {
      */
     public static final double DEFAULT_FONT_SIZE = 18;
     public static final Font DEFAULT_FONT = Font.font("VT323", DEFAULT_FONT_SIZE);
+
     /**
      * Stores the current game.
      */
     Game game = Wrapper.getInstance().getGame();
+
     /**
      * Stores the size of the current board.
      */
     int size = game.getPlayingField().getSize();
+
     /**
      * Board sizes of the different levels
      */
     public static final int SIZE_LEVEL_1 = 4;
     public static final int SIZE_LEVEL_2 = 6;
+
     /**
      * Stores the active player.
      */
     Player activePlayer = game.getPlayerList().getFront();
+
     /**
      * To store the revealed cards
      */
     Object firstCard;
     Object secondCard;
+
     /**
      * Indicator of the first card
      */
     int firstRow;
     int firstCol;
+
     /**
      * Indicator of the second card
      */
     int secondRow;
     int secondCol;
+
     /**
      * The countDown for the play with time
      */
     CountDownGUI countDown;
+
     /**
      * Board to store all buttons of the cards
      */
     @FXML
     private GridPane Board;
+
     /**
      * Button of the currently revealed cards
      */

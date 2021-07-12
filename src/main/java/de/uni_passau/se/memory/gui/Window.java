@@ -18,7 +18,11 @@ import java.util.Objects;
  */
 public class Window extends Stage {
 
+    /**
+     * Current new stage
+     */
     Stage stage;
+
     private double xOffSet = 0;
     private double yOffSet = 0;
 
