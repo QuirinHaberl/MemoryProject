@@ -214,5 +214,4 @@ public class GameResultController {
         Wrapper.getInstance().getGame().getPlayerList().resetAllScores();
         new Window("Game.fxml");
     }
-
 }

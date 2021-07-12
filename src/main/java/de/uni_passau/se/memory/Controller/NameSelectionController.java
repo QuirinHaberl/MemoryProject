@@ -246,5 +246,4 @@ public class NameSelectionController implements Initializable {
         click.play();
         new Window("Levels.fxml");
     }
-
 }

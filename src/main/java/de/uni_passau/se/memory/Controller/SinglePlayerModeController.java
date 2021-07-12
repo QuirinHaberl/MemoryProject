@@ -102,6 +102,4 @@ public class SinglePlayerModeController {
     void eeClicked() {
         new Window("EasterEgg.fxml");
     }
-
-
 }

@@ -19,38 +19,56 @@ public final class Game {
      * Stores the current {@link PlayingField}.
      */
     public final PlayingField playingField;
+
     /**
      * Stores playerProfiles
      */
     private final Database database;
+
     /**
      * Stores a {@link Player} in the {@link PlayerList}.
      */
     private PlayerList playerList;
+
     /**
      * Stores the current {@link TurnStatus}.
      */
     private TurnStatus turnStatus;
+
     /**
      * Stores the current {@link GameStatus}.
      */
     private GameStatus gameStatus;
+
     /**
      * Stores the amount of players.
      */
     private int playerAmount;
+
     /**
      * Stores the selected singlePlayerMode.
      */
     private SinglePlayerMode singlePlayerMode;
+
     /**
      * Stores the gameResult.
      */
     private boolean gameWon = false;
+
     /**
      * This is the associated attribute of type CountDown for the game.
      */
     private CountDownConsole time;
+
+    /**
+     * Start time of the count down
+     */
+    public static final int START_TIME = 120;
+
+    /**
+     * Definition of one second
+     */
+    public static final int ONE_SECOND = 1000;
 
     /**
      * The constructor initiates the {@link Game}, the turn and creates a new {@link PlayingField}
@@ -632,7 +650,7 @@ public final class Game {
      * The default time is 120 seconds (2 minutes)
      */
     public class CountDownConsole {
-        int count = 120;
+        int count = START_TIME;
         int remainingTime = count;
 
         /**
@@ -655,7 +673,7 @@ public final class Game {
                     }
                 }
             };
-            timer.schedule(task, 0, 1000);
+            timer.schedule(task, 0, ONE_SECOND);
         }
 
         /**

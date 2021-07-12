@@ -10,6 +10,7 @@ import javafx.stage.Stage;
  * Controller for the Rules-window.
  */
 public class RulesController {
+
     /**
      * Closes the Window
      *

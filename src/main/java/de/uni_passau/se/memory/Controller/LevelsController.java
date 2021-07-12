@@ -18,6 +18,13 @@ import java.nio.file.Paths;
 public class LevelsController {
 
     /**
+     * Board sizes of the different levels
+     */
+    public static final int SIZE_LEVEL_1 = 4;
+    public static final int SIZE_LEVEL_2 = 6;
+    public static final int SIZE_LEVEL_3 = 8;
+
+    /**
      * Closes the stage
      */
     @FXML
@@ -52,7 +59,7 @@ public class LevelsController {
         AudioClip click = new AudioClip(Paths.get(
                 "src/main/resources/de/uni_passau/se/memory/gui/Sound/Click.wav").toUri().toString());
         click.play();
-        selectLevel(actionEvent, 4);
+        selectLevel(actionEvent, SIZE_LEVEL_1);
     }
 
     /**
@@ -64,7 +71,7 @@ public class LevelsController {
         AudioClip click = new AudioClip(Paths.get(
                 "src/main/resources/de/uni_passau/se/memory/gui/Sound/Click.wav").toUri().toString());
         click.play();
-        selectLevel(actionEvent, 6);
+        selectLevel(actionEvent, SIZE_LEVEL_2);
     }
 
     /**
@@ -76,7 +83,7 @@ public class LevelsController {
         AudioClip click = new AudioClip(Paths.get(
                 "src/main/resources/de/uni_passau/se/memory/gui/Sound/Click.wav").toUri().toString());
         click.play();
-        selectLevel(actionEvent, 8);
+        selectLevel(actionEvent, SIZE_LEVEL_3);
     }
 
     /**
@@ -121,5 +128,4 @@ public class LevelsController {
     public Game getGame(Wrapper wrapper) {
         return wrapper.getGame();
     }
-
 }

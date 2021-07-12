@@ -107,5 +107,4 @@ public class NumberOfPlayersController {
     void eeClicked() {
         new Window("EasterEgg.fxml");
     }
-
 }

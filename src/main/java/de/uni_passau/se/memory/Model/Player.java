@@ -12,26 +12,32 @@ public class Player {
      * Stores the achievements of a {@link Player}
      */
     private final Achievements achievements = new Achievements();
+
     /**
      * Stores the next {@link Player}.
      */
     private Player next;
+
     /**
      * Stores the last {@link Player}.
      */
     private Player rear;
+
     /**
      * Stores all {@link Card}'s a {@link Player} has found.
      */
     private final List<Card> foundCards;
+
     /**
      * Stores the name of a {@link Player}.
      */
     private String name;
+
     /**
      * Stores the score of a {@link Player}.
      */
     private int score;
+
     /**
      * Stores the lives of a {@link Player}.
      * The default number of lives is 5.

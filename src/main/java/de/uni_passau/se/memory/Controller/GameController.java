@@ -37,54 +37,81 @@ public class GameController {
     /**
      * //TODO
      */
-    private final double defaultFontSize = 18;
-    private final Font defaultFont = Font.font("VT323", defaultFontSize);
+    public static final double DEFAULT_FONT_SIZE = 18;
+    public static final Font DEFAULT_FONT = Font.font("VT323", DEFAULT_FONT_SIZE);
+
     /**
      * Stores the current game.
      */
     Game game = Wrapper.getInstance().getGame();
+
     /**
      * Stores the size of the current board.
      */
     int size = game.getPlayingField().getSize();
+
+    /**
+     * Board sizes of the different levels
+     */
+    public static final int SIZE_LEVEL_1 = 4;
+    public static final int SIZE_LEVEL_2 = 6;
+
     /**
      * Stores the active player.
      */
     Player activePlayer = game.getPlayerList().getFront();
+
     /**
      * To store the revealed cards
      */
     Object firstCard;
     Object secondCard;
+
     /**
      * Indicator of the first card
      */
     int firstRow;
     int firstCol;
+
     /**
      * Indicator of the second card
      */
     int secondRow;
     int secondCol;
+
     /**
      * The countDown for the play with time
      */
     CountDownGUI countDown;
+
     /**
      * Board to store all buttons of the cards
      */
     @FXML
     private GridPane Board;
+
     /**
      * Button of the currently revealed cards
      */
     private Button b1;
     private Button b2;
+
+    /**
+     * Preferred dimensions for new Buttons
+     */
+    public static final int PREF_WIDTH_BUTTON = 100;
+    public static final int PREF_HEIGHT_BUTTON = 70;
+
     /**
      * Label for achievements
      */
     @FXML
     private Label achievementLabel;
+
+    /**
+     * Max height of achievementLabel
+     */
+    public static final double MAX_TEXT_HEIGHT = 55;
 
     /**
      * Indicates of the first player
@@ -133,6 +160,37 @@ public class GameController {
     private HBox livesAndTime;
 
     /**
+     * Time settings for different levels
+     */
+    public static final int TIME_LEVEL_1 = 120;
+    public static final int TIME_LEVEL_2 = 240;
+    public static final int TIME_LEVEL_3 = 360;
+
+    /**
+     * Preferred dimensions for timer
+     */
+    public static final int PREF_WIDTH_TIMER = 120;
+    public static final int PREF_HEIGHT_TIMER = 40;
+
+    /**
+     * Definition of one second
+     */
+    public static final int ONE_SECOND = 1000;
+
+    /**
+     * Life amount for different levels
+     */
+    public static final int AMOUNT_OF_LIVES_FOR_LEVEL_1 = 4;
+    public static final int AMOUNT_OF_LIVES_FOR_LEVEL_2 = 9;
+    public static final int AMOUNT_OF_LIVES_FOR_LEVEL_3 = 15;
+
+    /**
+     * Preferred dimensions for Hearts
+     */
+    public static final int PREF_WIDTH_HEART = 40;
+    public static final int PREF_HEIGHT_HEART = 40;
+
+    /**
      * Button to got back to the main menu
      */
     @FXML
@@ -154,7 +212,7 @@ public class GameController {
      */
     public Node newButton(String id, int row, int col) {
         Button button = new Button();
-        button.setPrefSize(100, 70);
+        button.setPrefSize(PREF_WIDTH_BUTTON, PREF_HEIGHT_BUTTON);
         String css = Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Style.css").toUri().toString();
         button.getStylesheets().add(css);
         button.getStyleClass().add("Card");
@@ -195,11 +253,11 @@ public class GameController {
             if (game.getSinglePlayerMode().equals(SinglePlayerMode.LIFEPOINTS)) {
                 setLives();
             } else {
-                if (size == 4) {
-                    countDown = new CountDownGUI(120);
-                } else if (size == 6) {
-                    countDown = new CountDownGUI(240);
-                } else countDown = new CountDownGUI(360);
+                if (size == SIZE_LEVEL_1) {
+                    countDown = new CountDownGUI(TIME_LEVEL_1);
+                } else if (size == SIZE_LEVEL_2) {
+                    countDown = new CountDownGUI(TIME_LEVEL_2);
+                } else countDown = new CountDownGUI(TIME_LEVEL_3);
             }
         }
     }
@@ -208,11 +266,30 @@ public class GameController {
      * Visualizes the lives.
      */
     private void setLives() {
-        for (int i = 0; i < game.getBoard().length; i++) {
+        int amountOfLives = getAmountOfHearts();
+
+        for (int i = 0; i < amountOfLives; i++) {
             livesAndTime.getChildren().add(newHeart(String.valueOf(i)));
             livesAndTime.getChildren().get(i).setVisible(true);
         }
-        game.getPlayerList().getPlayer(1).setLives(game.getBoard().length * 2);
+        game.getPlayerList().getPlayer(1).setLives(amountOfLives * 2);
+    }
+
+    /**
+     * Getter for the amount of hearts dependent on the specific board size.
+     *
+     * @return amount of hearts
+     */
+    private int getAmountOfHearts() {
+        int amountOfLives;
+
+        amountOfLives = switch (size) {
+            case SIZE_LEVEL_1 -> AMOUNT_OF_LIVES_FOR_LEVEL_1;
+            case SIZE_LEVEL_2 -> AMOUNT_OF_LIVES_FOR_LEVEL_2;
+            default -> AMOUNT_OF_LIVES_FOR_LEVEL_3;
+        };
+
+        return amountOfLives;
     }
 
     /**
@@ -223,7 +300,7 @@ public class GameController {
      */
     public Node newHeart(String id) {
         AnchorPane heart = new AnchorPane();
-        heart.setPrefSize(40, 40);
+        heart.setPrefSize(PREF_WIDTH_HEART, PREF_HEIGHT_HEART);
         String css = Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Style.css").toUri().toString();
         heart.getStylesheets().add(css);
         heart.getStyleClass().add("LifeFull");
@@ -296,7 +373,7 @@ public class GameController {
      * Performs a turn for a second revealed card.
      *
      * @param button which is on action
-     * @param event
+     * @param event when button is clicked
      */
     public void executeActive(Button button,
                               ActionEvent event) {
@@ -376,15 +453,15 @@ public class GameController {
     }
 
     /**
+     * Getter of the player list size
      *
-     *
-     //TODO
-     * @param playerList
-     * @return
+     * @param playerList the current game
+     * @return size of the playerList
      */
     public int getPlayerListSize(PlayerList playerList){
         return playerList.size();
     }
+
     /**
      * Opens a card and performs a turn.
      *
@@ -394,9 +471,9 @@ public class GameController {
      * @param col    column of the current button
      */
     public void buttonClicked(ActionEvent event, Button button, int row, int col) {
-
         // This is only for the single player mode play with time
-        if (getPlayerListSize(game.getPlayerList()) == 1 && game.getSinglePlayerMode().equals(SinglePlayerMode.TIME)) {
+        if (getPlayerListSize(game.getPlayerList()) == 1
+                && game.getSinglePlayerMode().equals(SinglePlayerMode.TIME)) {
             if (countDown.getGUITime() == 0) {
                 game.setGameResult(false);
 
@@ -456,23 +533,19 @@ public class GameController {
     public void checkAchievementsDuringGame() {
         String achievement = game.checkForAchievementsInGame(activePlayer);
         if (!achievement.isEmpty()) {
-            achievementLabel.setFont(defaultFont);
+            achievementLabel.setFont(DEFAULT_FONT);
             achievementLabel.setText(activePlayer.getName() + " has earned:\n" + achievement);
             //automatic text size adjustment
             Text tmpText = new Text(achievementLabel.getText());
-            tmpText.setFont(defaultFont);
+            tmpText.setFont(DEFAULT_FONT);
             double textHeight = tmpText.getLayoutBounds().getHeight();
-
-            // Max height of achievementLabel
-            double MAX_TEXT_HEIGHT = 55;
-
             //check if text height is smaller than maximum height allowed
             if (textHeight <= MAX_TEXT_HEIGHT) {
-                achievementLabel.setFont(defaultFont);
+                achievementLabel.setFont(DEFAULT_FONT);
             } else {
                 //calculate new font size if too big
-                double newFontSize = defaultFontSize * MAX_TEXT_HEIGHT / textHeight;
-                achievementLabel.setFont(Font.font(defaultFont.getFamily(), newFontSize));
+                double newFontSize = DEFAULT_FONT_SIZE * MAX_TEXT_HEIGHT / textHeight;
+                achievementLabel.setFont(Font.font(DEFAULT_FONT.getFamily(), newFontSize));
             }
             AudioClip unlock = new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Achievement.wav").toUri().toString());
             unlock.play();
@@ -591,7 +664,8 @@ public class GameController {
         public CountDownGUI(int time) {
             this.time = time;
             setTimer(timer);
-            animation = new Timeline(new KeyFrame(Duration.millis(1000), e -> setTimeLabel()));
+            animation = new Timeline(new KeyFrame(Duration.millis(ONE_SECOND),
+                    e -> setTimeLabel()));
             animation.setCycleCount(Timeline.INDEFINITE);
             animation.play();
         }
@@ -614,10 +688,9 @@ public class GameController {
          * Visualizes the timer.
          */
         private void setTimer(Label timer) {
-
             timer.setTextFill(Color.WHITE);
             timer.setStyle("-fx-font-size: 20pt;");
-            timer.setPrefSize(120, 40);
+            timer.setPrefSize(PREF_WIDTH_TIMER, PREF_HEIGHT_TIMER);
             String css = Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Style.css").toUri().toString();
             timer.getStylesheets().add(css);
             timer.getStyleClass().add("text15");
