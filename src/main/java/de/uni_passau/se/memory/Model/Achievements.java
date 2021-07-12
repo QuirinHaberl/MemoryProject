@@ -107,6 +107,22 @@ public class Achievements {
     }
 
     /**
+     * Gets {@code pairCounterTotal}
+     * @return pairCounterTotal
+     */
+    public int getPairCounterTotal(){
+        return this.pairCounterTotal;
+    }
+
+    /**
+     * Gets {@code pairCounterStreak}
+     * @return pairCounterStreak
+     */
+    public int getPairCounterStreak(){
+        return this.pairCounterStreak;
+    }
+
+    /**
      * Sets a new gameSum
      *
      * @param gamesPlayed to be set
