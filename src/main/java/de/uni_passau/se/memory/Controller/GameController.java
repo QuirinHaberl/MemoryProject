@@ -208,11 +208,47 @@ public class GameController {
      * Visualizes the lives.
      */
     private void setLives() {
-        for (int i = 0; i < game.getBoard().length; i++) {
+        int amountOfLives = getAmountOfHearts();
+
+        for (int i = 0; i < amountOfLives; i++) {
             livesAndTime.getChildren().add(newHeart(String.valueOf(i)));
             livesAndTime.getChildren().get(i).setVisible(true);
         }
-        game.getPlayerList().getPlayer(1).setLives(game.getBoard().length * 2);
+        game.getPlayerList().getPlayer(1).setLives(amountOfLives * 2);
+    }
+
+    /**
+     * Getter for the amount of hearts dependent on the specific board size.
+     *
+     * @return amount of hearts
+     */
+    private int getAmountOfHearts() {
+        int amountOfLives;
+
+        final int sizeLevel1 = 4;
+        final int sizeLevel2 = 6;
+        final int sizeLevel3 = 8;
+
+        final int amountOfLivesForLevel1 = 4;
+        final int amountOfLivesForLevel2 = 9;
+        final int amountOfLivesForLevel3 = 15;
+
+        switch (game.getBoard().length) {
+            case sizeLevel1:
+                amountOfLives = amountOfLivesForLevel1;
+                break;
+            case sizeLevel2:
+                amountOfLives = amountOfLivesForLevel2;
+                break;
+            case sizeLevel3:
+                amountOfLives = amountOfLivesForLevel3;
+                break;
+            default:
+                //For undefined board size
+                amountOfLives = 0;
+        }
+
+        return amountOfLives;
     }
 
     /**
