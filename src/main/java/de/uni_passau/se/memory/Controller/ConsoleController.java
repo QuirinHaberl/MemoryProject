@@ -22,12 +22,6 @@ public class ConsoleController {
     public static int REQUIRED_INPUT_AMOUNT = 2;
 
     /**
-     * Stores the wrapper of the current game.
-     * The wrapper is used to handle inputs between windows.
-     */
-    private final Wrapper wrapper;
-
-    /**
      * Stores the current game.
      */
     private final Game game;
@@ -88,8 +82,7 @@ public class ConsoleController {
      * Constructs a new {@link ConsoleController}.
      */
     public ConsoleController() {
-        this.wrapper = Wrapper.getInstance();
-        this.game = wrapper.getGame();
+        this.game = Wrapper.getGame();
         this.playerList = game.getPlayerList();
         this.playingField = game.getPlayingField();
         this.menuStatus = MenuStatus.PLAYERMODE;

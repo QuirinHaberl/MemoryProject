@@ -269,6 +269,7 @@ public class GameController {
     public void initialize() {
         setPlayerLabel();
         start();
+        resetAllAchievements();
         if (game.getPlayerAmount() == 1) {
             if (game.getSinglePlayerMode().equals(SinglePlayerMode.LIFEPOINTS)) {
                 setLives();
@@ -413,8 +414,8 @@ public class GameController {
             b1.setVisible(false);
             b2.setVisible(false);
         } else {
-            activePlayerAchievements.setPairCounterStreak(0);
             activePlayer = activePlayer.getNext();
+            activePlayerAchievements.setPairCounterStreak(0);
             updatePointer();
             if (playerList.size() == 1
                     && game.getSinglePlayerMode().equals(SinglePlayerMode.LIFEPOINTS)) {
@@ -457,8 +458,6 @@ public class GameController {
                         toUri().toString());
                 found.play();
                 game.setGameResult(true);
-
-                checkAchievementsAfterGame();
 
                 ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
                 new Window("GameResult.fxml");
@@ -579,20 +578,6 @@ public class GameController {
     }
 
     /**
-     * Checks achievements for all players after game.
-     */
-    public void checkAchievementsAfterGame() {
-        String achievement = game.checkForAchievementsAfterGame(playerList);
-        if (!achievement.isEmpty()) {
-            achievementLabel.setStyle("-fx-font-size: 15pt;");
-            achievementLabel.setText(achievement);
-            AudioClip unlock = new AudioClip(Paths.get("src/main/resources/de" +
-                    "/uni_passau/se/memory/gui/Sound/Achievement.wav").toUri().toString());
-            unlock.play();
-        }
-    }
-
-    /**
      * Updates the player pointers.
      */
     private void updatePointer() {
@@ -676,6 +661,15 @@ public class GameController {
             countDown.pauseTimer();
         }
         new Window("Rules.fxml");
+    }
+
+    /**
+     * Resets the inGame achievements of all players.
+     */
+    public void resetAllAchievements(){
+        for (int i = 0; i < playerList.size(); i++) {
+            playerList.resetPlayerAchievements(playerList.getPlayer(i));
+        }
     }
 
     /**

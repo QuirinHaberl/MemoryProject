@@ -184,7 +184,8 @@ public class GameResultController {
         if (winningPlayers.size() > 1) {
             return "The game ended in a tie";
         } else {
-            return winningPlayers.get(0) + " won the game with a score of " + highScore;
+            return winningPlayers.get(0) + " won the game with a score" +
+                    " of " + highScore + "\n" + getAchievementsAfterGame();
         }
     }
 
@@ -236,5 +237,20 @@ public class GameResultController {
         ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
         playerList.resetAllScores();
         new Window("Game.fxml");
+    }
+
+    /**
+     * Checks achievements for all players after game.
+     * @return the current achievement
+     */
+    public String getAchievementsAfterGame() {
+        String achievement = game.checkForAchievementsAfterGame(playerList);
+        if (!achievement.isEmpty()) {
+            AudioClip unlock = new AudioClip(Paths.get("src/main/resources/de" +
+                    "/uni_passau/se/memory/gui/Sound/Achievement.wav").toUri().toString());
+            unlock.play();
+            return achievement;
+        }
+        return null;
     }
 }
