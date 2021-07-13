@@ -235,7 +235,6 @@ public class GameController {
         String css = Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Style.css").toUri().toString();
         button.getStyleClass().clear();
         button.getStylesheets().add(css);
-        button.getStyleClass().add("Button");
         button.getStyleClass().add("Card");
         Image image = new Image(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Images/Cursor.png").toUri().toString());
         button.setCursor(new ImageCursor(image));

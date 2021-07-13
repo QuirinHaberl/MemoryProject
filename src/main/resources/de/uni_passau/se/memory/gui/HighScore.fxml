@@ -27,7 +27,7 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-                <Button fx:id="EasterEgg" layoutY="-3.0" mnemonicParsing="false" onAction="#eeClicked" prefHeight="29.0" prefWidth="32.0" styleClass="Card">
+                <Button fx:id="EasterEgg" layoutY="-3.0" mnemonicParsing="false" onAction="#eeClicked" prefHeight="29.0" prefWidth="32.0" styleClass="EasterEgg">
                     <cursor>
                         <Cursor fx:constant="HAND" />
                     </cursor>

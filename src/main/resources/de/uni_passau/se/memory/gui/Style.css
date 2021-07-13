@@ -71,6 +71,11 @@
     -fx-pref-width: 100;
 }
 
+.EasterEgg {
+    -fx-background-image: url("Images/Card.png");
+    -fx-background-size: 100% 100%;
+}
+
 .CardOpen {
     -fx-background-image: url("Images/CardOpen.png");
     -fx-background-size: 100% 100%;
@@ -406,11 +411,6 @@
     -fx-font-size: 25pt;
     -fx-pref-height: 40;
     -fx-pref-width: 120;
-}
-
-.Button {
-    -fx-pref-height: 70;
-    -fx-pref-width: 100;
 }
 
 .Heart {
