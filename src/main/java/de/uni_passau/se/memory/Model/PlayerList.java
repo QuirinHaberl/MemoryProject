@@ -23,6 +23,11 @@ public class PlayerList {
     private int size;
 
     /**
+     * The maximum amount of players in a game.
+     */
+    public static final int MAX_PLAYER_AMOUNT = 4;
+
+    /**
      * Constructs a new {@link PlayerList}.
      */
     public PlayerList() {
@@ -366,5 +371,64 @@ public class PlayerList {
      */
     public List<Card> getPlayerFoundCards(Player player) {
         return player.getFoundCards();
+    }
+
+    /**
+     * Sets the amount of lives a player has.
+     *
+     * @param player whose lives are set
+     * @param lives to be set
+     */
+    public void setPlayerLives(Player player, int lives){
+        player.setLives(lives);
+    }
+
+    /**
+     * Gets the amount of lives a player has.
+     *
+     * @param player whose lives are requested
+     * @return the lives of a player
+     */
+    public int getPlayerLives(Player player){
+        return player.getLives();
+    }
+
+    /**
+     * Reduces the amount of lives a player has.
+     *
+     * @param player whose lives are reduced by 1
+     */
+    public void reducePlayerLives(Player player){
+        player.reduceLives();
+    }
+
+    /**
+     * Sets the rear of a given player.
+     *
+     * @param player whose rear is set
+     * @param rear to be set
+     */
+    public void setPlayerRear(Player player, Player rear){
+        player.setRear(rear);
+    }
+
+    /**
+     * Gets the rear of a given player.
+     *
+     * @param player whose rear is requested
+     * @return the rear of a player
+     */
+    public Player getPlayerRear(Player player){
+        return player.getRear();
+    }
+
+    /**
+     * Returns the profile of a given player as a string.
+     *
+     * @param player whose profile is requested
+     * @return profile as a string
+     */
+    public String getPlayerProfileToString(Player player){
+        return player.profileToString();
     }
 }

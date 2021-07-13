@@ -51,6 +51,7 @@
 
 .textAchievments {
     -fx-font-family: "VT323";
+    -fx-font-size: 15pt;
 }
 
 .GameBack {
@@ -64,6 +65,13 @@
 }
 
 .Card {
+    -fx-background-image: url("Images/Card.png");
+    -fx-background-size: 100% 100%;
+    -fx-pref-height: 70;
+    -fx-pref-width: 100;
+}
+
+.EasterEgg {
     -fx-background-image: url("Images/Card.png");
     -fx-background-size: 100% 100%;
 }
@@ -396,4 +404,16 @@
 .Clock {
     -fx-background-image: url("Images/Clock.png");
     -fx-background-size: 100% 100%;
+}
+
+.Timer {
+    -fx-font-family: "VT323";
+    -fx-font-size: 25pt;
+    -fx-pref-height: 40;
+    -fx-pref-width: 120;
+}
+
+.Heart {
+    -fx-pref-height: 40;
+    -fx-pref-width: 40;
 }

@@ -36,23 +36,53 @@ public class Achievements {
     private String currentAchievements = "";
 
     /**
-     * Different numbers of pairs
+     * Used to check if a player found two pairs.
      */
     public static final int TWO_PAIRS = 2;
+    /**
+     * Used to check if a player found four pairs.
+     */
     public static final int FOUR_PAIRS = 4;
+    /**
+     * Used to check if a player found six pairs.
+     */
     public static final int SIX_PAIRS = 6;
+    /**
+     * Used to check if a player found eight pairs.
+     */
     public static final int EIGHT_PAIRS = 8;
+    /**
+     * Used to check if a player found ten pairs.
+     */
     public static final int TEN_PAIRS = 10;
+    /**
+     * Used to check if a player found twelve pairs.
+     */
     public static final int TWELVE_PAIRS = 12;
+    /**
+     * Used to check if a player found sixteen pairs.
+     */
     public static final int SIXTEEN_PAIRS = 16;
 
     /**
-     * Different numbers of games won
+     * Used to check if a player won his first game.
      */
     public static final int ONE_GAME_WON = 1;
+    /**
+     * Used to check if a player won his second game.
+     */
     public static final int TWO_GAMES_WON = 2;
+    /**
+     * Used to check if a player won his third game.
+     */
     public static final int THREE_GAMES_WON = 3;
+    /**
+     * Used to check if a player won his forth game.
+     */
     public static final int FOUR_GAMES_WON = 4;
+    /**
+     * Used to check if a player won his fifth game.
+     */
     public static final int FIVE_GAMES_WON = 5;
 
     /**

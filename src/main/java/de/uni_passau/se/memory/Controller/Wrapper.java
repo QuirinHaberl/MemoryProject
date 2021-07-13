@@ -14,13 +14,13 @@ public class Wrapper {
      * The instance of the Wrapper
      */
     private static final Wrapper INSTANCE = new Wrapper();
-    private Game game;
+    private static Game game;
 
     /**
      * Constructs the game
      */
     private Wrapper() {
-        this.game = new Game();
+        game = new Game();
         setPlayingFieldCardSet(game.getPlayingField(), CardSet.PICTURES);
     }
 
@@ -38,7 +38,7 @@ public class Wrapper {
      *
      * @return the game
      */
-    public Game getGame() {
+    public static Game getGame() {
         return game;
     }
 
@@ -48,7 +48,7 @@ public class Wrapper {
      * @param game the game
      */
     public void setGame(Game game) {
-        this.game = game;
+        Wrapper.game = game;
     }
 
     /**

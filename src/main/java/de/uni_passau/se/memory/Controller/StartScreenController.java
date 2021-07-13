@@ -97,7 +97,7 @@ public class StartScreenController {
      * @param actionEvent when button clicked
      */
     @FXML
-    public void highscore(ActionEvent actionEvent) {
+    public void highScore(ActionEvent actionEvent) {
         ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
         AudioClip click = new AudioClip(Paths.get(
                 "src/main/resources/de/uni_passau/se/memory/gui/Sound/Click.wav").toUri().toString());

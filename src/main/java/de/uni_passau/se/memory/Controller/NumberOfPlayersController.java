@@ -16,6 +16,11 @@ import java.nio.file.Paths;
  */
 public class NumberOfPlayersController {
 
+    private static final int TWO_PLAYERS = 2;
+
+    private static final int THREE_PLAYERS = 3;
+
+    private static final int FOUR_PLAYERS = 4;
     /**
      * Sets the player amount to the passed number and forwards to the next
      * window.
@@ -57,7 +62,7 @@ public class NumberOfPlayersController {
     public void twoPlayers(ActionEvent actionEvent) {
         AudioClip click = new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Click.wav").toUri().toString());
         click.play();
-        selectPlayers(actionEvent, 2);
+        selectPlayers(actionEvent, TWO_PLAYERS);
     }
 
     /**
@@ -68,7 +73,7 @@ public class NumberOfPlayersController {
     public void threePlayers(ActionEvent actionEvent) {
         AudioClip click = new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Click.wav").toUri().toString());
         click.play();
-        selectPlayers(actionEvent, 3);
+        selectPlayers(actionEvent, THREE_PLAYERS);
     }
 
     /**
@@ -79,7 +84,7 @@ public class NumberOfPlayersController {
     public void fourPlayers(ActionEvent actionEvent) {
         AudioClip click = new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Click.wav").toUri().toString());
         click.play();
-        selectPlayers(actionEvent, 4);
+        selectPlayers(actionEvent, FOUR_PLAYERS);
     }
 
     /**
