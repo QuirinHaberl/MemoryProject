@@ -1,11 +1,8 @@
 package de.uni_passau.se.memory.Controller;
 
-import de.uni_passau.se.memory.Model.Database;
+import de.uni_passau.se.memory.Model.*;
 import de.uni_passau.se.memory.Model.Enums.CardStatus;
 import de.uni_passau.se.memory.Model.Enums.GameStatus;
-import de.uni_passau.se.memory.Model.Game;
-import de.uni_passau.se.memory.Model.Player;
-import de.uni_passau.se.memory.Model.PlayingField;
 import de.uni_passau.se.memory.gui.View;
 
 import java.io.BufferedReader;
@@ -407,7 +404,7 @@ public class ConsoleController {
                         View.printMemory();
                         String choice = bufferedReader.readLine().trim();
                         exit = handleInputsAfterGame(choice);
-                        game.getPlayerList().getPlayer(0).setLives(5);
+                        game.getPlayerList().getPlayer(0).setLives(Game.FIVE_LIVES);
                     }
                 }
             }
@@ -485,6 +482,7 @@ public class ConsoleController {
         }
     }
 
+    public static int REQUIRED_INPUT_AMOUNT = 2;
     /**
      * Checks whether the transferred input was correct.
      *
@@ -492,18 +490,18 @@ public class ConsoleController {
      * @return Returns true if the passed input(two coordinates) was correct.
      */
     public boolean correctInput(String[] tokens) {
-        int numberOfInputs = 2;
+
         //Checks whether the input contained two parameters
-        if (tokens.length < numberOfInputs) {
+        if (tokens.length < REQUIRED_INPUT_AMOUNT) {
             View.error("Have not received enough parameters");
             return false;
-        } else if (tokens.length > numberOfInputs) {
+        } else if (tokens.length > REQUIRED_INPUT_AMOUNT) {
             View.error("Received too many parameters");
             return false;
         }
 
-        boolean[] cache = new boolean[numberOfInputs];
-        for (int i = 0; i < 2; i++) {
+        boolean[] cache = new boolean[REQUIRED_INPUT_AMOUNT];
+        for (int i = 0; i < REQUIRED_INPUT_AMOUNT; i++) {
             if (tokens[i].length() == 1 && tokens[i].matches("\\d")) {
                 if (Integer.parseInt(tokens[i]) < game.getPlayingField().getBoard().length) {
                     cache[i] = true;
@@ -535,7 +533,7 @@ public class ConsoleController {
         if (input.length() == 1) {
             if (input.matches("\\d")) {
                 int num = Integer.parseInt(input);
-                if (num > 4) {
+                if (num > PlayerList.MAX_PLAYER_AMOUNT) {
                     View.error("Only a maximum of 4 players can take part");
                     return 0;
                 } else if (num < 1) {

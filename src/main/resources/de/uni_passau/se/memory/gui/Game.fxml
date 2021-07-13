@@ -89,7 +89,7 @@
                                 </MenuBar>
                                 <AnchorPane prefHeight="200.0" prefWidth="500.0">
                                     <children>
-                                        <HBox fx:id="livesAndTime" prefHeight="48.0" prefWidth="607.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-116.0" AnchorPane.topAnchor="0.0">
+                                        <HBox fx:id="lives" prefHeight="48.0" prefWidth="607.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-116.0" AnchorPane.topAnchor="0.0">
                                             <padding>
                                                 <Insets left="20.0" />
                                             </padding>

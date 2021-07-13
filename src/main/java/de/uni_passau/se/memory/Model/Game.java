@@ -61,14 +61,19 @@ public final class Game {
     private CountDownConsole time;
 
     /**
-     * Start time of the count down
+     * Start time of the count down.
      */
     public static final int START_TIME = 120;
 
     /**
-     * Definition of one second
+     * Definition of one second.
      */
     public static final int ONE_SECOND = 1000;
+
+    /**
+     * Amount of lives used for the singlePlayer.
+     */
+    public static final int FIVE_LIVES = 5;
 
     /**
      * The constructor initiates the {@link Game}, the turn and creates a new {@link PlayingField}

@@ -23,6 +23,11 @@ public class PlayerList {
     private int size;
 
     /**
+     * The maximum amount of players in a game.
+     */
+    public static final int MAX_PLAYER_AMOUNT = 4;
+
+    /**
      * Constructs a new {@link PlayerList}.
      */
     public PlayerList() {
@@ -366,5 +371,33 @@ public class PlayerList {
      */
     public List<Card> getPlayerFoundCards(Player player) {
         return player.getFoundCards();
+    }
+
+    /**
+     * Sets the amount of lives a player has.
+     *
+     * @param player whose lives are set
+     * @param lives to be set
+     */
+    public void setPlayerLives(Player player, int lives){
+        player.setLives(lives);
+    }
+
+    /**
+     * Gets the amount of lives a player has.
+     *
+     * @param player whose lives are requested
+     */
+    public int getPlayerLives(Player player){
+        return player.getLives();
+    }
+
+    /**
+     * Reduces the amount of lives a player has.
+     *
+     * @param player whose lives are reduced by 1
+     */
+    public void reducePlayerLives(Player player){
+        player.reduceLives();
     }
 }

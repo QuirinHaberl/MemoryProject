@@ -170,4 +170,13 @@ public class PlayingField {
     public Card getCard(int row, int col) {
         return getBoard()[row][col];
     }
+
+    /**
+     * Gets a specified {@link Card}'s value.
+     * @param card whose value is requested
+     * @return the value of a card
+     */
+    public CardValues getCardValue(Card card) {
+        return card.getValue();
+    }
 }
