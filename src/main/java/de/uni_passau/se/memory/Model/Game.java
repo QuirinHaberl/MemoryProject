@@ -368,7 +368,6 @@ public final class Game {
         closeAllCards();
         playingField.shuffleBoard();
         players.resetAllScores();
-        View.printBoard(playingField);
     }
 
     /**
@@ -648,6 +647,15 @@ public final class Game {
      */
     private static class InstanceHolder {
         private static final Game INSTANCE = new Game();
+    }
+
+    /**
+     * Gets the timerCount.
+     *
+     * @return the timerCount
+     */
+    public int getTimeCount(){
+        return time.getCount();
     }
 
     /**

@@ -97,4 +97,14 @@ public class Card {
     public void setCardSet(CardSet cardSet) {
         this.cardSet = cardSet;
     }
+
+    /**
+     * Gets the picture of a cardValue.
+     *
+     * @param cardValues whose picture is requested
+     * @return the picture of a card
+     */
+    public String getCardPicture(CardValues cardValues) {
+        return cardValues.getPicture();
+    }
 }

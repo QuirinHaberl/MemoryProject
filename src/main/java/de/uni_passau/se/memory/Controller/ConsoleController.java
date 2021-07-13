@@ -16,9 +16,36 @@ import java.util.Scanner;
 public class ConsoleController {
 
     /**
-     * Stores the current {@link Game}.
+     * Required user input length.
+     * A user cant input more than 2 values at once.
+     */
+    public static int REQUIRED_INPUT_AMOUNT = 2;
+
+    /**
+     * Stores the wrapper of the current game.
+     * The wrapper is used to handle inputs between windows.
+     */
+    private final Wrapper wrapper;
+
+    /**
+     * Stores the current game.
      */
     private final Game game;
+
+    /**
+     * Stores the current playerList.
+     */
+    private final PlayerList playerList;
+
+    /**
+     * Stores the database of a game.
+     */
+    private final Database database;
+
+    /**
+     * Stores the current playingFiled.
+     */
+    private final PlayingField playingField;
 
     /**
      * Stores the row of the first selected card.
@@ -56,12 +83,17 @@ public class ConsoleController {
      */
     private SinglePlayerMode singlePlayerMode;
 
+
     /**
      * Constructs a new {@link ConsoleController}.
      */
     public ConsoleController() {
-        this.game = Game.getInstance();
+        this.wrapper = Wrapper.getInstance();
+        this.game = wrapper.getGame();
+        this.playerList = game.getPlayerList();
+        this.playingField = game.getPlayingField();
         this.menuStatus = MenuStatus.PLAYERMODE;
+        this.database = game.getDatabase();
     }
 
     /**
@@ -81,7 +113,7 @@ public class ConsoleController {
             switch (game.getGameStatus()) {
                 case MENU -> executeMenu(bufferedReader);
                 case RUNNING -> executeRunning(bufferedReader);
-                default -> throw new UnknownError();
+                default -> throw new IllegalStateException();
             }
         }
     }
@@ -108,8 +140,11 @@ public class ConsoleController {
 
                 //Used to select the board size.
                 case BOARDSIZE -> selectBoardSize(bufferedReader);
+
                 //Used to select the card set.
                 case CARDSET -> selectCardSet(bufferedReader);
+
+                default -> throw new IllegalStateException();
             }
         }
     }
@@ -123,9 +158,9 @@ public class ConsoleController {
     public void selectBoardSize(BufferedReader bufferedReader) throws IOException {
         View.printSelectBoardSize();
         View.printMemory();
-        int size = validatePlayingFieldBoardSize(game.getPlayingField(), bufferedReader.readLine().trim());
+        int size = validatePlayingFieldBoardSize(playingField, bufferedReader.readLine().trim());
         if (size != 0) {
-            setPlayingFieldBordSize(game.getPlayingField(), size);
+            setPlayingFieldBordSize(playingField, size);
             menuStatus = MenuStatus.CARDSET;
         }
     }
@@ -161,22 +196,21 @@ public class ConsoleController {
     public void selectCardSet(BufferedReader bufferedReader) throws IOException {
         View.printSelectCardSet();
         View.printMemory();
-        if (validatePlayingFieldCardSet(game.getPlayingField(),
+        if (validatePlayingFieldCardSet(playingField,
                 bufferedReader.readLine().trim())) {
-            fillPlayingFieldWithCards(game.getPlayingField());
+            fillPlayingFieldWithCards(playingField);
             menuStatus = MenuStatus.PLAYERMODE;
             game.setGameStatus(GameStatus.RUNNING);
-            View.printBoard(game.getPlayingField());
+            View.printBoard(playingField);
 
             //This is only for the single player mode with the setting "play on time"
-            if (getPlayingFieldSize(game.getPlayingField()) == 1
+            if (getPlayingFieldSize(playingField) == 1
                     && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
                 game.startTimer();
             }
         }
-        updateCurrentDataBase(game.getDatabase());
+        updateCurrentDataBase(database);
     }
-
 
     /**
      * Gets the size of a given playingField.
@@ -215,7 +249,7 @@ public class ConsoleController {
      * @param database to be used.
      */
     public void updateCurrentDataBase(Database database) {
-        database.updateDataBase(game.getPlayerAmount(), game.getPlayerList());
+        database.updateDataBase(game.getPlayerAmount(), playerList);
     }
 
     /**
@@ -283,13 +317,14 @@ public class ConsoleController {
      */
     public void executeRunning(BufferedReader bufferedReader) throws IOException {
         while (game.getGameStatus().equals(GameStatus.RUNNING)) {
-            for (Player player = game.getPlayerList().getFront(); player != null; player = player.getNext()) {
+            for (Player player = playerList.getFront(); player != null; player =
+                    playerList.getNextPlayer(player)) {
                 if (!game.getGameStatus().equals(GameStatus.RUNNING)) {
                     break;
                 }
                 isStillPlaying = true;
 
-                View.printPlayer(player.getName());
+                View.printPlayer(playerList.getPlayerName(player));
                 checkForSinglePlayer();
                 View.printMemory();
                 String input = bufferedReader.readLine().trim();
@@ -299,7 +334,8 @@ public class ConsoleController {
                 }
 
                 if (isStillPlaying) {
-                    player = player.getRear();
+                    playerList.setPlayerRear(player,
+                            playerList.getPlayerRear(player));
                 }
             }
         }
@@ -322,18 +358,12 @@ public class ConsoleController {
         switch (game.getTurnStatus()) {
 
             //Is used if the turn hasn't been stated yet.
-            case IDLE:
-                executeIdle(tokens);
-                break;
+            case IDLE -> executeIdle(tokens);
+
 
             //Is used if the turn has been stated.
-            case ACTIVE:
-
-                executeActive(tokens, player, bufferedReader);
-                break;
-
-            default:
-                break;
+            case ACTIVE -> executeActive(tokens, player, bufferedReader);
+            default -> throw new IllegalStateException();
         }
     }
 
@@ -353,7 +383,7 @@ public class ConsoleController {
             secondCol = Integer.parseInt(tokens[1]);
 
             CardStatus secondCardStatus = game.revealSecondCard(secondRow, secondCol);
-            View.printBoard(game.getPlayingField());
+            View.printBoard(playingField);
             if (secondCardStatus.equals(CardStatus.FOUND)) {
                 View.printAlreadyFound();
             } else if (secondCardStatus.equals(CardStatus.AlREADYOPEN)) {
@@ -375,9 +405,10 @@ public class ConsoleController {
     public void checkIfPairIsFound(Player player,
                                    BufferedReader bufferedReader) throws IOException {
         if (game.pairCheck(firstRow, firstCol, secondRow, secondCol)) {
-            //View.printBoard(game.getPlayingField());
+
+            //View.printBoard(playingField);
             player.updateScore();
-            player.getFoundCards().add(game.getPlayingField().getBoard()[secondRow][secondCol]);
+            player.getFoundCards().add(playingField.getBoard()[secondRow][secondCol]);
 
             //Check if a player has a new achievement
             game.checkForAchievementsInGame(player);
@@ -390,21 +421,21 @@ public class ConsoleController {
             View.printUnequalCards();
 
             //Reset streak for achievements
-            player.getAchievements().setPairCounterStreak(0);
+            player.setPlayerPairCounterStreak(player.getAchievements(), 0);
 
             //This is only for the single player mode with the setting "play with lives"
-            if (game.getPlayerList().size() == 1
+            if (playerList.size() == 1
                     && singlePlayerMode.equals(SinglePlayerMode.LIFEPOINTS)) {
-                game.getPlayerList().getPlayer(0).reduceLives();
+                playerList.reducePlayerLives(playerList.getPlayer(0));
 
-                if (game.getPlayerList().getPlayer(0).getLives() == 0) {
+                if (playerList.getPlayerLives(playerList.getPlayer(0)) == 0) {
                     View.printLoserMessage();
                     boolean exit = true;
                     while (exit) {
                         View.printMemory();
                         String choice = bufferedReader.readLine().trim();
                         exit = handleInputsAfterGame(choice);
-                        game.getPlayerList().getPlayer(0).setLives(Game.FIVE_LIVES);
+                        playerList.setPlayerLives(playerList.getPlayer(0), Game.FIVE_LIVES);
                     }
                 }
             }
@@ -420,15 +451,15 @@ public class ConsoleController {
     public void checkGameWon(BufferedReader bufferedReader) throws IOException {
         if (game.areAllCardsFound()) {
             View.printAllPairsFound();
-            View.printBoard(game.getPlayingField());
-            List<String> winningPlayers = game.getPlayerList().winningPlayersToString();
-            int highScore = game.getPlayerList().getHighestScore();
+            View.printBoard(playingField);
+            List<String> winningPlayers = playerList.winningPlayersToString();
+            int highScore = playerList.getHighestScore();
 
             //Check if a player has a new achievement
-            game.checkForAchievementsAfterGame(game.getPlayerList());
+            game.checkForAchievementsAfterGame(playerList);
             View.printGameSummary(winningPlayers, highScore);
 
-            game.getDatabase().updateHighScoreHistory(winningPlayers, highScore);
+            database.updateHighScoreHistory(winningPlayers, highScore);
 
             boolean exit = true;
             while (exit) {
@@ -440,7 +471,7 @@ public class ConsoleController {
 
         } else {
             View.printFoundPair();
-            View.printBoard(game.getPlayingField());
+            View.printBoard(playingField);
         }
     }
 
@@ -455,10 +486,10 @@ public class ConsoleController {
             firstCol = Integer.parseInt(tokens[1]);
             CardStatus firstCardStatus = game.revealFirstCard(firstRow, firstCol);
             if (firstCardStatus.equals(CardStatus.FOUND)) {
-                View.printBoard(game.getPlayingField());
+                View.printBoard(playingField);
                 View.printAlreadyFound();
             } else {
-                View.printBoard(game.getPlayingField());
+                View.printBoard(playingField);
             }
         }
     }
@@ -468,21 +499,20 @@ public class ConsoleController {
      */
     public void checkForSinglePlayer() {
         //This is only for the single player mode with the setting "play with lives"
-        if (game.getPlayerList().size() == 1 && singlePlayerMode.equals(SinglePlayerMode.LIFEPOINTS)) {
-            View.printLives(game.getPlayerList().getPlayer(0).getLives());
+        if (playerList.size() == 1 && singlePlayerMode.equals(SinglePlayerMode.LIFEPOINTS)) {
+            View.printLives(playerList.getPlayerLives(playerList.getPlayer(0)));
         }
 
         //This is only for the single player mode with the setting "play on time"
-        if (game.getPlayerList().size() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
+        if (playerList.size() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
             if (game.getTime() == null) {
                 View.printLoserMessage();
             } else {
-                View.printTime(game.getTime().getCount());
+                View.printTime(game.getTimeCount());
             }
         }
     }
 
-    public static int REQUIRED_INPUT_AMOUNT = 2;
     /**
      * Checks whether the transferred input was correct.
      *
@@ -503,7 +533,7 @@ public class ConsoleController {
         boolean[] cache = new boolean[REQUIRED_INPUT_AMOUNT];
         for (int i = 0; i < REQUIRED_INPUT_AMOUNT; i++) {
             if (tokens[i].length() == 1 && tokens[i].matches("\\d")) {
-                if (Integer.parseInt(tokens[i]) < game.getPlayingField().getBoard().length) {
+                if (Integer.parseInt(tokens[i]) < playingField.getBoard().length) {
                     cache[i] = true;
                 } else {
                     if (i == 0) {
@@ -614,7 +644,7 @@ public class ConsoleController {
         switch (input.toLowerCase()) {
             case "help", "h" -> View.printHelp();
             case "rules", "ru" -> {
-                if (game.getPlayerList().size() > 1) {
+                if (playerList.size() > 1) {
                     View.printDescriptionMultiplayer();
                 } else {
                     View.printDescriptionSinglePlayer();
@@ -622,35 +652,36 @@ public class ConsoleController {
             }
             case "allRules", "ar" -> View.printDescriptionComplete();
             case "found", "f" -> {
-                View.printDiscardPile(game.getPlayerList().foundCardsToString());
+                View.printDiscardPile(playerList.foundCardsToString());
                 return false;
             }
             case "cheat" -> {
-                View.cheat(game.getPlayingField());
+                View.cheat(playingField);
                 return false;
             }
-            case "score", "s" -> View.printScore(game.getPlayerList());
+            case "score", "s" -> View.printScore(playerList);
             case "menu", "m" -> {
-                game.getDatabase().storeProgress(game.getPlayerList());
-                game.returnToMenu(game.getPlayerList());
+                database.storeProgress(playerList);
+                game.returnToMenu(playerList);
             }
             case "reset", "r" -> {
-                game.getDatabase().storeProgress(game.getPlayerList());
-                game.resetGame(game.getPlayerList());
-                if (game.getPlayerList().size() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
+                database.storeProgress(playerList);
+                game.resetGame(playerList);
+                if (playerList.size() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
                     game.startTimer();
                 }
             }
             case "restart", "rs" -> {
-                game.getDatabase().storeProgress(game.getPlayerList());
-                game.restartGame(game.getPlayerList());
-                if (game.getPlayerList().size() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
+                database.storeProgress(playerList);
+                game.restartGame(playerList);
+                View.printBoard(playingField);
+                if (playerList.size() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
                     game.startTimer();
                 }
             }
             case "quit", "q" -> {
                 game.updateGamesPlayed();
-                game.getDatabase().storeProgress(game.getPlayerList());
+                database.storeProgress(playerList);
                 game.quitGame();
             }
             case "show", "sp" -> showPlayer();
@@ -665,10 +696,10 @@ public class ConsoleController {
         Scanner sc = new Scanner(System.in);
         System.out.println("Input a the name of the player to be shown:");
         String name = sc.next();
-        for (int i = 0; i < game.getPlayerList().size(); i++) {
-            if (name.equals(game.getPlayerList().getPlayer(i).getName())) {
+        for (int i = 0; i < playerList.size(); i++) {
+            if (name.equals(playerList.getPlayerName(playerList.getPlayer(i)))) {
                 System.out.println("the achievement of " + name + "is: ");
-                System.out.println(game.getPlayerList().getPlayer(i).playerProfileToString());
+                System.out.println(playerList.getPlayerProfileToString(playerList.getPlayer(i)));
             }
         }
     }
@@ -682,29 +713,30 @@ public class ConsoleController {
     public boolean handleInputsAfterGame(String input) {
         switch (input.toLowerCase()) {
             case "menu", "m" -> {
-                game.getDatabase().storeProgress(game.getPlayerList());
-                game.returnToMenu(game.getPlayerList());
+                database.storeProgress(playerList);
+                game.returnToMenu(playerList);
                 return false;
             }
             case "reset", "r" -> {
-                game.getDatabase().storeProgress(game.getPlayerList());
-                game.resetGame(game.getPlayerList());
-                if (game.getPlayerList().size() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
+                database.storeProgress(playerList);
+                game.resetGame(playerList);
+                if (playerList.size() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
                     game.startTimer();
                 }
                 return false;
             }
             case "restart", "rs" -> {
-                game.getDatabase().storeProgress(game.getPlayerList());
-                game.restartGame(game.getPlayerList());
-                if (game.getPlayerList().size() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
+                database.storeProgress(playerList);
+                game.restartGame(playerList);
+                View.printBoard(playingField);
+                if (playerList.size() == 1 && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
                     game.startTimer();
                 }
                 return false;
             }
             case "quit", "q" -> {
                 game.updateGamesPlayed();
-                game.getDatabase().storeProgress(game.getPlayerList());
+                database.storeProgress(playerList);
                 game.quitGame();
                 return false;
             }

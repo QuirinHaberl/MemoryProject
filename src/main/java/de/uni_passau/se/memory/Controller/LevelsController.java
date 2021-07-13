@@ -18,10 +18,16 @@ import java.nio.file.Paths;
 public class LevelsController {
 
     /**
-     * Board sizes of the different levels
+     * Used to determine the boardSize for level1.
      */
     public static final int SIZE_LEVEL_1 = 4;
+    /**
+     * Used to determine the boardSize for level2.
+     */
     public static final int SIZE_LEVEL_2 = 6;
+    /**
+     * Used to determine the boardSize for level3.
+     */
     public static final int SIZE_LEVEL_3 = 8;
 
     /**

@@ -169,7 +169,7 @@ public class Player {
      *
      * @return the playerProfile as a String
      */
-    public String playerProfileToString() {
+    public String profileToString() {
         return (this.name + ", highest score: " +
                 this.achievements.getHighScore() + ", " + " has played " +
                 this.achievements.getGamesPlayed() + " times.");
@@ -315,5 +315,16 @@ public class Player {
      */
     public void setRear(Player rear) {
         this.rear = rear;
+    }
+
+    /**
+     * Sets pairCounterStreak for a given player.
+     *
+     * @param achievements of the given player
+     * @param streak to be set
+     */
+    public void setPlayerPairCounterStreak(Achievements achievements,
+                                          int streak){
+        achievements.setPairCounterStreak(streak);
     }
 }

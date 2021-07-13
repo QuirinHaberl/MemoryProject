@@ -1,6 +1,6 @@
 package de.uni_passau.se.memory.Controller;
 
-import de.uni_passau.se.memory.Model.Game;
+import de.uni_passau.se.memory.Model.*;
 import de.uni_passau.se.memory.gui.Window;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,6 +19,21 @@ import java.util.List;
  * Controller of the GUI - game result
  */
 public class GameResultController {
+
+    /**
+     * Stores the current game.
+     */
+    private final Game game;
+
+    /**
+     * Stores the current playerList of a game.
+     */
+    private final PlayerList playerList;
+
+    /**
+     * Stores the database of a game.
+     */
+    private final Database database;
 
     /**
      * AnchorPane for the second place icon
@@ -99,21 +114,29 @@ public class GameResultController {
     private Label PlayerNameHeader;
 
     /**
+     * Constructs a ne GameResultController.
+     */
+    public GameResultController() {
+        this.game = Wrapper.getGame();
+        this.playerList = game.getPlayerList();
+        this.database = game.getDatabase();
+    }
+
+    /**
      * Shows the game results in a sorted list, that starts with the winning
      * player/s.
      */
     @FXML
     public void initialize() {
         setLabels();
-        Game game = Wrapper.getInstance().getGame();
 
-        List<String> winningPlayers = game.getPlayerList().winningPlayersToString();
+        List<String> winningPlayers = playerList.winningPlayersToString();
         int highScore =
-                game.getPlayerList().getHighestScore();
+                playerList.getHighestScore();
 
-        game.getDatabase().updateHighScoreHistory(winningPlayers, highScore);
+        database.updateHighScoreHistory(winningPlayers, highScore);
         game.updateGamesPlayed();
-        game.getDatabase().storeProgress(game.getPlayerList());
+        database.storeProgress(game.getPlayerList());
 
         if (game.isGameWon()) {
             message.setText(printGameSummary(winningPlayers, highScore));
@@ -134,8 +157,8 @@ public class GameResultController {
      * Sets the labels.
      */
     private void setLabels() {
-        Game game = Wrapper.getInstance().getGame();
-        String[] input = Wrapper.getInstance().getGame().getPlayerList().getSortedPlayerList();
+
+        String[] input = playerList.getSortedPlayerList();
 
         Label[] playerLabels = {player1, player2, player3, player4};
         Label[] scoreLabels = {score1, score2, score3, score4};
@@ -145,7 +168,7 @@ public class GameResultController {
             playerLabels[i].setVisible(true);
             playerLabels[i].setText(input[i]);
             scoreLabels[i].setVisible(true);
-            scoreLabels[i].setText(input[game.getPlayerList().size() + i]);
+            scoreLabels[i].setText(input[playerList.size() + i]);
             icons[i].setVisible(true);
         }
     }
@@ -211,7 +234,7 @@ public class GameResultController {
     @FXML
     public void playAgain(ActionEvent actionEvent) {
         ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
-        Wrapper.getInstance().getGame().getPlayerList().resetAllScores();
+        playerList.resetAllScores();
         new Window("Game.fxml");
     }
 }

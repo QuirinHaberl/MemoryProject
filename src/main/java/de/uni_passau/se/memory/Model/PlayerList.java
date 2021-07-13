@@ -387,6 +387,7 @@ public class PlayerList {
      * Gets the amount of lives a player has.
      *
      * @param player whose lives are requested
+     * @return the lives of a player
      */
     public int getPlayerLives(Player player){
         return player.getLives();
@@ -399,5 +400,35 @@ public class PlayerList {
      */
     public void reducePlayerLives(Player player){
         player.reduceLives();
+    }
+
+    /**
+     * Sets the rear of a given player.
+     *
+     * @param player whose rear is set
+     * @param rear to be set
+     */
+    public void setPlayerRear(Player player, Player rear){
+        player.setRear(rear);
+    }
+
+    /**
+     * Gets the rear of a given player.
+     *
+     * @param player whose rear is requested
+     * @return the rear of a player
+     */
+    public Player getPlayerRear(Player player){
+        return player.getRear();
+    }
+
+    /**
+     * Returns the profile of a given player as a string.
+     *
+     * @param player whose profile is requested
+     * @return profile as a string
+     */
+    public String getPlayerProfileToString(Player player){
+        return player.profileToString();
     }
 }

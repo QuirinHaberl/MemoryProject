@@ -60,7 +60,7 @@
                         <DropShadow />
                     </effect>
                 </Button>
-                <Button layoutX="26.0" layoutY="343.0" mnemonicParsing="false" onAction="#highscore" prefHeight="43.0" prefWidth="215.0" style="-fx-background-color: transparent;" styleClass="BannerHighscore" text="Highscore">
+                <Button layoutX="26.0" layoutY="343.0" mnemonicParsing="false" onAction="#highScore" prefHeight="43.0" prefWidth="215.0" style="-fx-background-color: transparent;" styleClass="BannerHighscore" text="Highscore">
                     <font>
                         <Font size="8.0" />
                     </font>

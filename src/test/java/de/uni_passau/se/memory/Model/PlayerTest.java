@@ -37,7 +37,7 @@ class PlayerTest {
                 player.getAchievements().getHighScore() + "," + " has played " +
                 player.getAchievements().getGamesPlayed() + " times.";
         String profile = "player1, highest score: 10,  has played 5 times.";
-        assertEquals(profile,player.playerProfileToString(),"hh");
+        assertEquals(profile,player.profileToString(),"hh");
     }
 
     @Test
