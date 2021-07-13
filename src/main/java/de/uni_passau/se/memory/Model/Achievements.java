@@ -103,6 +103,15 @@ public class Achievements {
     }
 
     /**
+     * Sets {@code pairCounterTotal}.
+     *
+     * @param pairCounterTotal to be set
+     */
+    public void setPairCounterTotal(int pairCounterTotal) {
+        this.pairCounterTotal = pairCounterTotal;
+    }
+
+    /**
      * Gets the number of won games.
      *
      * @return the number of won games.

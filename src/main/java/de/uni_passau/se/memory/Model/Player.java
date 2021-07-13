@@ -327,4 +327,12 @@ public class Player {
                                           int streak){
         achievements.setPairCounterStreak(streak);
     }
+
+    /**
+     * Resets both pairCounters to 0.
+     */
+    public void resetAchievements(){
+        achievements.setPairCounterStreak(0);
+        achievements.setPairCounterTotal(0);
+    }
 }

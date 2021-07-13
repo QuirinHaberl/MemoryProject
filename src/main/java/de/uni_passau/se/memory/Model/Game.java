@@ -603,7 +603,7 @@ public final class Game {
                 if (!(getPlayerAchievement(player).isEmpty())) {
                     View.printAchievement(getPlayerAchievement(player), players.getPlayer(i));
                     currentAchievement = currentAchievement +
-                            getPlayerName(player) + " has earned:\n" +
+                            getPlayerName(player) + " has earned: " +
                             getPlayerAchievement(player) + "\n";
                     clearPlayerAchievement(player);
                     break;

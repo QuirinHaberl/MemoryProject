@@ -431,4 +431,13 @@ public class PlayerList {
     public String getPlayerProfileToString(Player player){
         return player.profileToString();
     }
+
+    /**
+     * Resets the inGame achievements of a given player.
+     *
+     * @param player whose achievments are reset.
+     */
+    public void resetPlayerAchievements(Player player){
+        player.resetAchievements();
+    }
 }
