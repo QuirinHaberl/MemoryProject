@@ -62,9 +62,9 @@ public class ConsoleController {
     private int secondCol = 0;
 
     /**
-     * Stores whether a player found a pair.
+     * Stores the active player.
      */
-    private boolean isStillPlaying;
+    private Player activePlayer;
 
     /**
      * Stores the current {@link MenuStatus}.
@@ -310,25 +310,18 @@ public class ConsoleController {
      */
     public void executeRunning(BufferedReader bufferedReader) throws IOException {
         while (game.getGameStatus().equals(GameStatus.RUNNING)) {
-            for (Player player = playerList.getFront(); player != null; player =
-                    playerList.getNextPlayer(player)) {
+            for (activePlayer = playerList.getFront(); activePlayer != null; activePlayer =
+                    playerList.getNextPlayer(activePlayer)) {
                 if (!game.getGameStatus().equals(GameStatus.RUNNING)) {
                     break;
                 }
-                isStillPlaying = true;
-
-                View.printPlayer(playerList.getPlayerName(player));
+                View.printPlayer(playerList.getPlayerName(activePlayer));
                 checkForSinglePlayer();
                 View.printMemory();
                 String input = bufferedReader.readLine().trim();
 
                 if (handleInputsDuringGame(input)) {
-                    executePlayerTurn(player, input, bufferedReader);
-                }
-
-                if (isStillPlaying) {
-                    playerList.setPlayerRear(player,
-                            playerList.getPlayerRear(player));
+                    executePlayerTurn(input, bufferedReader);
                 }
             }
         }
@@ -337,12 +330,11 @@ public class ConsoleController {
     /**
      * Executes the turn of a player
      *
-     * @param player         who is currently playing
      * @param input          command the player used
      * @param bufferedReader provides a connection to the console
      * @throws IOException on input error
      */
-    public void executePlayerTurn(Player player, String input, BufferedReader bufferedReader) throws IOException {
+    public void executePlayerTurn(String input, BufferedReader bufferedReader) throws IOException {
 
         //The input is split by using spaces.
         String[] tokens = input.trim().split("\\s+");
@@ -355,7 +347,7 @@ public class ConsoleController {
 
 
             //Is used if the turn has been stated.
-            case ACTIVE -> executeActive(tokens, player, bufferedReader);
+            case ACTIVE -> executeActive(tokens, bufferedReader);
             default -> throw new IllegalStateException();
         }
     }
@@ -364,12 +356,10 @@ public class ConsoleController {
      * Executes the second choice of a player.
      *
      * @param tokens         used to validate the input
-     * @param player         who is currently playing
      * @param bufferedReader provides a connection to the console
      * @throws IOException on input error
      */
-    public void executeActive(String[] tokens, Player player,
-                              BufferedReader bufferedReader) throws IOException {
+    public void executeActive(String[] tokens, BufferedReader bufferedReader) throws IOException {
 
         if (correctInput(tokens)) {
             secondRow = Integer.parseInt(tokens[0]);
@@ -383,7 +373,7 @@ public class ConsoleController {
                 View.printSelectedTwice();
                 game.setCardStatus(game.playingField.getCard(secondRow, secondCol), CardStatus.OPEN);
             } else {
-                checkIfPairIsFound(player, bufferedReader);
+                checkIfPairIsFound(bufferedReader);
             }
         }
     }
@@ -391,30 +381,27 @@ public class ConsoleController {
     /**
      * Checks if a Pair is found.
      *
-     * @param player         who is currently playing
      * @param bufferedReader provides a connection to the console
      * @throws IOException on input error
      */
-    public void checkIfPairIsFound(Player player,
-                                   BufferedReader bufferedReader) throws IOException {
+    public void checkIfPairIsFound(BufferedReader bufferedReader) throws IOException {
         if (game.pairCheck(firstRow, firstCol, secondRow, secondCol)) {
 
             //View.printBoard(playingField);
-            player.updateScore();
-            player.getFoundCards().add(playingField.getBoard()[secondRow][secondCol]);
+            activePlayer.updateScore();
+            activePlayer.getFoundCards().add(playingField.getBoard()[secondRow][secondCol]);
 
             //Check if a player has a new achievement
-            game.checkForAchievementsInGame(player);
+            game.checkForAchievementsInGame(activePlayer);
             checkGameWon(bufferedReader);
-            firstCol = firstRow = secondRow =
-                    secondCol = Integer.MIN_VALUE;
+            firstCol = firstRow = secondRow = secondCol = Integer.MIN_VALUE;
+            activePlayer = playerList.getPlayerRear(activePlayer);
 
         } else {
-            isStillPlaying = false;
             View.printUnequalCards();
 
             //Reset streak for achievements
-            player.setPlayerPairCounterStreak(player.getAchievements(), 0);
+            activePlayer.setPlayerPairCounterStreak(activePlayer.getAchievements(), 0);
 
             //This is only for the single player mode with the setting "play with lives"
             if (playerList.size() == 1
@@ -485,6 +472,7 @@ public class ConsoleController {
                 View.printBoard(playingField);
             }
         }
+        activePlayer = playerList.getPlayerRear(activePlayer);
     }
 
     /**
@@ -534,6 +522,8 @@ public class ConsoleController {
                     } else {
                         View.error("Second entry was out of range");
                     }
+                    activePlayer = playerList.getPlayerRear(activePlayer);
+
                 }
             } else {
                 if (i == 0) {
@@ -541,6 +531,7 @@ public class ConsoleController {
                 } else {
                     View.error("Second entry was not a valid number");
                 }
+                activePlayer = playerList.getPlayerRear(activePlayer);
             }
         }
         return cache[0] && cache[1];
@@ -646,10 +637,12 @@ public class ConsoleController {
             case "allRules", "ar" -> View.printDescriptionComplete();
             case "found", "f" -> {
                 View.printDiscardPile(playerList.foundCardsToString());
+                activePlayer = playerList.getPlayerRear(activePlayer);
                 return false;
             }
             case "cheat" -> {
                 View.cheat(playingField);
+                activePlayer = playerList.getPlayerRear(activePlayer);
                 return false;
             }
             case "score", "s" -> View.printScore(playerList);
@@ -677,7 +670,11 @@ public class ConsoleController {
                 database.storeProgress(playerList);
                 game.quitGame();
             }
-            case "show", "sp" -> showPlayer();
+            case "show", "sp" -> {
+                showPlayer();
+                activePlayer = playerList.getPlayerRear(activePlayer);
+                return false;
+            }
         }
         return true;
     }
