@@ -134,10 +134,6 @@ public class GameResultController {
         int highScore =
                 playerList.getHighestScore();
 
-        database.updateHighScoreHistory(winningPlayers, highScore);
-        game.updateGamesPlayed();
-        database.storeProgress(game.getPlayerList());
-
         if (game.isGameWon()) {
             message.setText(printGameSummary(winningPlayers, highScore));
         } else {
@@ -151,6 +147,9 @@ public class GameResultController {
             AudioClip gameOver = new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/GameOver.wav").toUri().toString());
             gameOver.play();
         }
+        game.updateGamesPlayed();
+        database.updateHighScoreHistory(winningPlayers, highScore);
+        database.storeProgress(game.getPlayerList());
     }
 
     /**
