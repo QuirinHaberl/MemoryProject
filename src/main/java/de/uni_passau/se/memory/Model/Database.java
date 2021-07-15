@@ -48,7 +48,7 @@ public class Database {
      * Stores the {@code HighScoreHistory} in a list. A entry is structured as:
      * playerName;highScore;
      */
-    private final List<String[]> highScoreList;
+    private List<String[]> highScoreList;
     /**
      * Stores all playerProfiles.
      * A profile has the following structure:
@@ -201,14 +201,14 @@ public class Database {
      * Loads all {@code playerProfiles} from pathToProfiles.
      */
     public void loadPlayerProfiles() {
-        loadFromFile(pathToProfiles, playerProfiles);
+        playerProfiles = loadFromFile(pathToProfiles, playerProfiles);
     }
 
     /**
      * Loads the highScoreHistory from pathToHighScores.
      */
     public void loadHighScoreHistory() {
-        loadFromFile(pathToHighScores, highScoreList);
+        highScoreList = loadFromFile(pathToHighScores, highScoreList);
     }
 
     /**
@@ -218,7 +218,7 @@ public class Database {
      * @param path to the file to be loaded
      * @param list specifies playerProfiles or highScoreHistory
      */
-    public void loadFromFile(String path, List<String[]> list) {
+    public List<String[]> loadFromFile(String path, List<String[]> list) {
         try {
             FileReader fr = new FileReader(path);
             BufferedReader br = new BufferedReader(fr);
@@ -240,6 +240,7 @@ public class Database {
         } catch (IOException e) {
             View.error("Couldn't read from " + path);
         }
+        return list;
     }
 
     /**
@@ -414,6 +415,49 @@ public class Database {
                 }
             }
         }
+    }
+
+    /**
+     * Gets the {@code highScoreList}.
+     *
+     * @return the highScoreList
+     */
+    public List<String[]> getHighScoreList() {
+        return highScoreList;
+    }
+
+    /**
+     * Gets the {@code playerProfiles}-list.
+     *
+     * @return the playerProfiles-list
+     */
+    public List<String[]> getPlayerProfiles() {
+        return playerProfiles;
+    }
+
+    /**
+     * Gets the {@code usesProfiles}-list.
+     *
+     * @return the usesProfiles-list
+     */
+    public List<Boolean> getUsesProfiles() {
+        return usesProfiles;
+    }
+
+    /**
+     * Gets {@code pathToProfiles}
+     * @return pathToProfiles
+     */
+    public static String getPathToProfiles() {
+        return pathToProfiles;
+    }
+
+    /**
+     * Gets {@code pathToProfiles}
+     * @return pathToProfiles
+     */
+    public static String getPathToHighScores() {
+        return pathToHighScores;
     }
 
     /**
