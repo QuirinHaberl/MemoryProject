@@ -82,9 +82,10 @@ class PlayerTest {
     }
 
     @Test
-    void updatePairCounters() {
-        updatePairCounters();
-        updatePairCounters();
+    void updatePairCountersTest() {
+        Achievements achievements = player.getAchievements();
+        achievements.updatePairCounters();
+        achievements.updatePairCounters();
 
         assertEquals(2, player.getAchievements().getPairCounterTotal());
         assertEquals(2, player.getAchievements().getPairCounterStreak());

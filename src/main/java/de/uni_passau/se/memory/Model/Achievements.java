@@ -133,6 +133,14 @@ public class Achievements {
     }
 
     /**
+     * Sets the current achievement text.
+     * @param currentAchievements to be set
+     */
+    public void setCurrentAchievements(String currentAchievements) {
+        this.currentAchievements = currentAchievements;
+    }
+
+    /**
      * Gets the number of games played.
      *
      * @return the number of games played
