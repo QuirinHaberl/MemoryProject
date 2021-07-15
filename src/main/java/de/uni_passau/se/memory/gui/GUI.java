@@ -17,6 +17,15 @@ import java.util.Objects;
  */
 public class GUI extends Application {
     /**
+     * Stores the x-Position of the Screen
+     */
+    private double xOffSet = 0;
+    /**
+     * Stores the y-Position of the Screen
+     */
+    private double yOffSet = 0;
+
+    /**
      * The Main-methode of the GUI.
      *
      * @param args not in use
@@ -25,15 +34,6 @@ public class GUI extends Application {
 
         launch();
     }
-
-    /**
-     * Stores the x-Position of the Screen
-     */
-    private double xOffSet = 0;
-    /**
-     * Stores the y-Position of the Screen
-     */
-    private double yOffSet = 0;
 
     /**
      * Starts the gui.
@@ -56,8 +56,8 @@ public class GUI extends Application {
             yOffSet = event.getSceneY();
         });
         root.setOnMouseDragged(event -> {
-            stage.setX(event.getScreenX()-xOffSet);
-            stage.setY(event.getScreenY()-yOffSet);
+            stage.setX(event.getScreenX() - xOffSet);
+            stage.setY(event.getScreenY() - yOffSet);
         });
         stage.setScene(scene);
         stage.show();

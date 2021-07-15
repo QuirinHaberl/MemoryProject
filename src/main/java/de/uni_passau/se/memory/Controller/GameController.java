@@ -32,96 +32,76 @@ import java.nio.file.Paths;
 public class GameController {
 
     /**
-     * Definition of one second
+     * Used to calculate the length of a second.
      */
     public static final int ONE_SECOND = 1000;
-
     /**
      * Used to set the lives for level1.
      */
     public static final int AMOUNT_OF_LIVES_FOR_LEVEL_1 = 4;
-
     /**
      * Used to set the lives for level2.
      */
     public static final int AMOUNT_OF_LIVES_FOR_LEVEL_2 = 9;
-
     /**
      * Used to set the lives for level3.
      */
     public static final int AMOUNT_OF_LIVES_FOR_LEVEL_3 = 15;
-
     /**
      * Used to determine the boardSize for level1.
      */
     public static final int SIZE_LEVEL_1 = 4;
-
     /**
      * Used to determine the boardSize for level2.
      */
     public static final int SIZE_LEVEL_2 = 6;
-
     /**
      * Used to determine the boardSize for level3.
      */
     public static final int SIZE_LEVEL_3 = 8;
-
     /**
      * Max height of achievementLabel.
      */
     private static final double MAX_TEXT_HEIGHT = 55;
-
     /**
      * Stores the default fontSize for the achievement label, since
      * the fontSize of this label is calculated dynamically.
      */
     private static final double DEFAULT_FONT_SIZE = 18;
+    /**
+     * The default-font used.
+     */
     private static final Font DEFAULT_FONT = Font.font("VT323", DEFAULT_FONT_SIZE);
-
     /**
      * Time settings for different levels
      */
     private static final int TIME_LEVEL_1 = 120;
     private static final int TIME_LEVEL_2 = 240;
     private static final int TIME_LEVEL_3 = 360;
-
-    /**
-     * Stores the wrapper of the current game.
-     * The wrapper is used to handle inputs between windows.
-     */
-    private final Wrapper wrapper;
-
     /**
      * Stores the current game.
      */
     private final Game game;
-
     /**
      * Stores the current playingField of a game.
      */
     private final PlayingField playingField;
-
     /**
      * Stores the size of the current board.
      */
     private final int size;
-
-
     /**
      * Stores the current playerList of a game.
      */
     private final PlayerList playerList;
-
     /**
      * Stores the active player.
      */
     private final Achievements activePlayerAchievements;
-
     /**
      * Stores the active player.
      */
     private Player activePlayer;
-
     /**
      * To store the revealed cards
      */
@@ -202,7 +182,6 @@ public class GameController {
      */
     @FXML
     private Button MainMenuButton;
-
     /**
      * Button to try the same Game again
      */
@@ -213,8 +192,7 @@ public class GameController {
      * Constructs a new GameController.
      */
     public GameController() {
-        this.wrapper = Wrapper.getInstance();
-        this.game = wrapper.getGame();
+        this.game = Wrapper.getGame();
         this.playerList = game.getPlayerList();
         this.playingField = game.getPlayingField();
         this.size = playingField.getSize();
@@ -223,14 +201,14 @@ public class GameController {
     }
 
     /**
-     * Filling the Stage with Objects
+     * Generates new buttons.
      *
      * @param id  of the new button
      * @param row of position of the new button
      * @param col of position of the new button
      * @return the new button
      */
-    public Node newButton(String id, int row, int col) {
+    public Node generateButton(String id, int row, int col) {
         Button button = new Button();
         String css = Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Style.css").toUri().toString();
         button.getStyleClass().clear();
@@ -245,30 +223,12 @@ public class GameController {
     }
 
     /**
-     * Starts the game.
-     * Fills the board with cards and does the settings in Model-Game
-     */
-    public void start() {
-        playingField.fillWithCards();
-
-        // Filling the Board with Buttons for every card
-        for (int row = 0; row < size; row++) {
-            Board.getColumnConstraints().add(new ColumnConstraints(100));
-            for (int col = 0; col < size; col++) {
-                Board.add(newButton("(" + row + " " + col + ")", row, col), col, row);
-            }
-        }
-        game.setGameStatus(GameStatus.RUNNING);
-        game.setTurnStatus(TurnStatus.IDLE);
-    }
-
-    /**
      * Initialises the Game and the labels
      */
     @FXML
     public void initialize() {
         setPlayerLabel();
-        start();
+        initiateGame();
         resetAllAchievements();
         if (game.getPlayerAmount() == 1) {
             if (game.getSinglePlayerMode().equals(SinglePlayerMode.LIFEPOINTS)) {
@@ -286,6 +246,23 @@ public class GameController {
     }
 
     /**
+     * Starts the game.
+     */
+    public void initiateGame() {
+        playingField.fillWithCards();
+
+        // Filling the Board with Buttons for every card
+        for (int row = 0; row < size; row++) {
+            Board.getColumnConstraints().add(new ColumnConstraints(100));
+            for (int col = 0; col < size; col++) {
+                Board.add(generateButton("(" + row + " " + col + ")", row, col), col, row);
+            }
+        }
+        game.setGameStatus(GameStatus.RUNNING);
+        game.setTurnStatus(TurnStatus.IDLE);
+    }
+
+    /**
      * Visualizes the lives.
      */
     private void setLives() {
@@ -300,7 +277,7 @@ public class GameController {
     }
 
     /**
-     * Getter for the amount of hearts dependent on the specific board size.
+     * Gets the amount of hearts.
      *
      * @return amount of hearts
      */
@@ -355,7 +332,7 @@ public class GameController {
     }
 
     /**
-     * Sets the player label in GUI
+     * Sets the player label in GUI.
      */
     public void setPlayerLabel() {
         Label[] playerLabels = {labelPlayer1, labelPlayer2,
@@ -373,7 +350,7 @@ public class GameController {
     }
 
     /**
-     * Performs a turn for a first revealed card.
+     * Performs a turn for the first revealed card.
      *
      * @param row row of the current button
      * @param col column of the current button
@@ -391,7 +368,7 @@ public class GameController {
     }
 
     /**
-     * Performs a turn for a second revealed card.
+     * Performs a turn for the second revealed card.
      *
      * @param event when button is clicked
      */
@@ -466,7 +443,7 @@ public class GameController {
     }
 
     /**
-     * Getter of the player list size
+     * Gets the size of the playerList.
      *
      * @param playerList the current game
      * @return size of the playerList
@@ -591,7 +568,7 @@ public class GameController {
     }
 
     /**
-     * Closes the stage
+     * Closes the stage.
      */
     @FXML
     void CloseStage() {
@@ -599,7 +576,7 @@ public class GameController {
     }
 
     /**
-     * Minimizes the Window
+     * Minimizes the Window.
      *
      * @param event when minimize button clicked
      */
@@ -609,7 +586,7 @@ public class GameController {
     }
 
     /**
-     * Opens a surprise
+     * Opens a surprise.
      */
     @FXML
     void eeClicked() {
@@ -617,14 +594,14 @@ public class GameController {
     }
 
     /**
-     * Calls mainMenu to enable the Window to be closed
+     * Calls mainMenu to enable the Window to be closed.
      */
     public void menu() {
         mainMenu();
     }
 
     /**
-     * Closes the current window and opens the Start Screen
+     * Closes the current window and opens the Start Screen.
      */
     public void mainMenu() {
         ((Stage) (MainMenuButton.getScene().getWindow())).close();
@@ -632,14 +609,14 @@ public class GameController {
     }
 
     /**
-     * TODO erneutes laden muss noch geschehen
+     * Executed it the tryAgain-button is clicked.
      */
-    public void TryAgainClicked() {
+    public void startNewTry() {
         tryAgainButtonClicked();
     }
 
     /**
-     * Executed if the tryAgainButton is pressed.
+     * Executed if the tryAgainButton is clicked.
      */
     public void tryAgainButtonClicked() {
         ((Stage) (TryAgainButton.getScene().getWindow())).close();
@@ -647,7 +624,7 @@ public class GameController {
     }
 
     /**
-     * Closes the whole Game
+     * Closes the whole Game.
      */
     public void ExitClicked() {
         System.exit(0);
@@ -666,7 +643,7 @@ public class GameController {
     /**
      * Resets the inGame achievements of all players.
      */
-    public void resetAllAchievements(){
+    public void resetAllAchievements() {
         for (int i = 0; i < playerList.size(); i++) {
             playerList.resetPlayerAchievements(playerList.getPlayer(i));
         }
@@ -697,7 +674,7 @@ public class GameController {
         }
 
         /**
-         * Actualizes the time label after every second
+         * Actualizes the time label after every second.
          */
         public void setTimeLabel() {
             if (time == 0) {
@@ -723,7 +700,7 @@ public class GameController {
         }
 
         /**
-         * Getter of the time of the GUI timer
+         * Gets the time of the GUI timer.
          *
          * @return time
          */
@@ -732,7 +709,7 @@ public class GameController {
         }
 
         /**
-         * Pauses the timer
+         * Pauses the timer.
          */
         public void pauseTimer() {
             if (playerList.size() == 1 &&

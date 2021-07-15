@@ -1,6 +1,8 @@
 package de.uni_passau.se.memory.Controller;
 
-import de.uni_passau.se.memory.Model.*;
+import de.uni_passau.se.memory.Model.Database;
+import de.uni_passau.se.memory.Model.Game;
+import de.uni_passau.se.memory.Model.PlayerList;
 import de.uni_passau.se.memory.gui.Window;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,7 +18,7 @@ import java.util.List;
 
 
 /**
- * Controller of the GUI - game result
+ * Controller of the GUI - game result.
  */
 public class GameResultController {
 
@@ -36,13 +38,13 @@ public class GameResultController {
     private final Database database;
 
     /**
-     * AnchorPane for the second place icon
+     * AnchorPane for the second place icon.
      */
     @FXML
     private AnchorPane first;
 
     /**
-     * Labels for the first player
+     * Labels for the first player.
      */
     @FXML
     private Label player1;
@@ -50,13 +52,13 @@ public class GameResultController {
     private Label score1;
 
     /**
-     * AnchorPane for the second place icon
+     * AnchorPane for the second place icon.
      */
     @FXML
     private AnchorPane second;
 
     /**
-     * Labels for the second player
+     * Labels for the second player.
      */
     @FXML
     private Label player2;
@@ -64,13 +66,13 @@ public class GameResultController {
     private Label score2;
 
     /**
-     * AnchorPane for the third place icon
+     * AnchorPane for the third place icon.
      */
     @FXML
     private AnchorPane third;
 
     /**
-     * Labels for the third player
+     * Labels for the third player.
      */
     @FXML
     private Label player3;
@@ -78,13 +80,13 @@ public class GameResultController {
     private Label score3;
 
     /**
-     * AnchorPane for the fourth place icon
+     * AnchorPane for the fourth place icon.
      */
     @FXML
     private AnchorPane fourth;
 
     /**
-     * Labels for the fourth player
+     * Labels for the fourth player.
      */
     @FXML
     private Label player4;
@@ -92,19 +94,19 @@ public class GameResultController {
     private Label score4;
 
     /**
-     * Label for winning message
+     * Label for winning message.
      */
     @FXML
     private Label message;
 
     /**
-     * Game Over Image when loosing a game
+     * Game Over Image when loosing a game.
      */
     @FXML
     private AnchorPane GameOver;
 
     /**
-     * Labels for the header
+     * Labels for the header.
      */
     @FXML
     private Label PlaceHeader;
@@ -123,8 +125,7 @@ public class GameResultController {
     }
 
     /**
-     * Shows the game results in a sorted list, that starts with the winning
-     * player/s.
+     * Shows the game results.
      */
     @FXML
     public void initialize() {
@@ -189,7 +190,7 @@ public class GameResultController {
     }
 
     /**
-     * Closes the stage
+     * Closes the stage.
      */
     @FXML
     void CloseStage() {
@@ -197,7 +198,7 @@ public class GameResultController {
     }
 
     /**
-     * Minimizes the Window
+     * Minimizes the Window.
      *
      * @param event when minimize button clicked
      */
@@ -207,7 +208,7 @@ public class GameResultController {
     }
 
     /**
-     * Opens a surprise
+     * Opens a surprise.
      */
     @FXML
     void eeClicked() {
@@ -240,6 +241,7 @@ public class GameResultController {
 
     /**
      * Checks achievements for all players after game.
+     *
      * @return the current achievement
      */
     public String getAchievementsAfterGame() {

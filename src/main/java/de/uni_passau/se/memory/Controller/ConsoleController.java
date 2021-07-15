@@ -16,12 +16,6 @@ import java.util.Scanner;
 public class ConsoleController {
 
     /**
-     * Required user input length.
-     * A user cant input more than 2 values at once.
-     */
-    public static int REQUIRED_INPUT_AMOUNT = 2;
-
-    /**
      * Stores the current game.
      */
     private final Game game;
@@ -77,6 +71,11 @@ public class ConsoleController {
      */
     private SinglePlayerMode singlePlayerMode;
 
+    /**
+     * Required user input length.
+     * A user cant input more than 2 values at once.
+     */
+    public static int REQUIRED_INPUT_AMOUNT = 2;
 
     /**
      * Constructs a new {@link ConsoleController}.
@@ -502,7 +501,7 @@ public class ConsoleController {
      */
     public boolean correctInput(String[] tokens) {
 
-        //Checks whether the input contained two parameters
+        //Checks whether the input contains two parameters
         if (tokens.length < REQUIRED_INPUT_AMOUNT) {
             View.error("Have not received enough parameters");
             return false;
@@ -538,7 +537,7 @@ public class ConsoleController {
     }
 
     /**
-     * Selects the player-mode.
+     * Selects the playerMode.
      *
      * @param input number of players selected
      * @return true if no error appeared
@@ -599,7 +598,7 @@ public class ConsoleController {
     }
 
     /**
-     * Handles the Settings of the single player mode.
+     * Handles the settings of the single player mode.
      *
      * @param mode read input
      * @return true if no problem occurred.
@@ -619,7 +618,7 @@ public class ConsoleController {
     }
 
     /**
-     * Handles the read inputs during a game and passes on the choices
+     * Handles the read inputs during a game and passes on the choices.
      *
      * @param input is the command which should be handled.
      * @return false if the game player used a command but the game continues

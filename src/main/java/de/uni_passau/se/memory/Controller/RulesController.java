@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 public class RulesController {
 
     /**
-     * Closes the Window
+     * Closes the Window.
      *
      * @param event when close button clicked
      */

@@ -1,39 +1,10 @@
 package de.uni_passau.se.memory.Model;
 
 /**
- * The class {@link Achievements} keeps track of every {@link Player}'s achievements
+ * The class {@link Achievements} keeps track of every {@link Player}'s
+ * achievements.
  */
 public class Achievements {
-
-    /**
-     * Stores the amount of total pairs found.
-     */
-    private int pairCounterTotal;
-
-    /**
-     * Stores the amount of pairs found in a streak.
-     */
-    private int pairCounterStreak;
-
-    /**
-     * Stores the highScore.
-     */
-    private int highScore;
-
-    /**
-     * Stores the amount of total games won.
-     */
-    private int gamesWon;
-
-    /**
-     * Stores the sum of the games that the player already joined in
-     */
-    private int gamesPlayed;
-
-    /**
-     * Stores the text for the current achievement.
-     */
-    private String currentAchievements = "";
 
     /**
      * Used to check if a player found two pairs.
@@ -63,7 +34,6 @@ public class Achievements {
      * Used to check if a player found sixteen pairs.
      */
     public static final int SIXTEEN_PAIRS = 16;
-
     /**
      * Used to check if a player won his first game.
      */
@@ -84,6 +54,30 @@ public class Achievements {
      * Used to check if a player won his fifth game.
      */
     public static final int FIVE_GAMES_WON = 5;
+    /**
+     * Stores the amount of total pairs found.
+     */
+    private int pairCounterTotal;
+    /**
+     * Stores the amount of pairs found in a streak.
+     */
+    private int pairCounterStreak;
+    /**
+     * Stores the highScore.
+     */
+    private int highScore;
+    /**
+     * Stores the amount of total games won.
+     */
+    private int gamesWon;
+    /**
+     * Stores the amount of games played.
+     */
+    private int gamesPlayed;
+    /**
+     * Stores the text for the current achievement.
+     */
+    private String currentAchievements = "";
 
     /**
      * Constructs a new object of {@link Achievements}.
@@ -91,24 +85,6 @@ public class Achievements {
     public Achievements() {
         this.pairCounterTotal = 0;
         this.pairCounterStreak = 0;
-    }
-
-    /**
-     * Sets {@code pairCounterStreak}.
-     *
-     * @param pairCounterStreak to be set
-     */
-    public void setPairCounterStreak(int pairCounterStreak) {
-        this.pairCounterStreak = pairCounterStreak;
-    }
-
-    /**
-     * Sets {@code pairCounterTotal}.
-     *
-     * @param pairCounterTotal to be set
-     */
-    public void setPairCounterTotal(int pairCounterTotal) {
-        this.pairCounterTotal = pairCounterTotal;
     }
 
     /**
@@ -130,16 +106,16 @@ public class Achievements {
     }
 
     /**
-     * Gets the personal highScore.
+     * Gets the personal {@code highScore}.
      *
-     * @return the the personal highScore
+     * @return the the personal {@code highScore}
      */
     public int getHighScore() {
         return highScore;
     }
 
     /**
-     * Sets a new highScore
+     * Sets a new {@code highScore}
      *
      * @param highScore to be set
      */
@@ -157,6 +133,14 @@ public class Achievements {
     }
 
     /**
+     * Sets the current achievement text.
+     * @param currentAchievements to be set
+     */
+    public void setCurrentAchievements(String currentAchievements) {
+        this.currentAchievements = currentAchievements;
+    }
+
+    /**
      * Gets the number of games played.
      *
      * @return the number of games played
@@ -166,23 +150,7 @@ public class Achievements {
     }
 
     /**
-     * Gets {@code pairCounterTotal}
-     * @return pairCounterTotal
-     */
-    public int getPairCounterTotal(){
-        return this.pairCounterTotal;
-    }
-
-    /**
-     * Gets {@code pairCounterStreak}
-     * @return pairCounterStreak
-     */
-    public int getPairCounterStreak(){
-        return this.pairCounterStreak;
-    }
-
-    /**
-     * Sets a new gameSum
+     * Sets a {@code gamesPlayed} to a given value.
      *
      * @param gamesPlayed to be set
      */
@@ -191,14 +159,50 @@ public class Achievements {
     }
 
     /**
-     * Updates the sum of games that player joined in total, gameSum +1
+     * Gets the {@code pairCounterTotal}.
+     *
+     * @return pairCounterTotal
+     */
+    public int getPairCounterTotal() {
+        return this.pairCounterTotal;
+    }
+
+    /**
+     * Sets {@code pairCounterTotal}.
+     *
+     * @param pairCounterTotal to be set
+     */
+    public void setPairCounterTotal(int pairCounterTotal) {
+        this.pairCounterTotal = pairCounterTotal;
+    }
+
+    /**
+     * Gets {@code pairCounterStreak}
+     *
+     * @return pairCounterStreak
+     */
+    public int getPairCounterStreak() {
+        return this.pairCounterStreak;
+    }
+
+    /**
+     * Sets {@code pairCounterStreak}.
+     *
+     * @param pairCounterStreak to be set
+     */
+    public void setPairCounterStreak(int pairCounterStreak) {
+        this.pairCounterStreak = pairCounterStreak;
+    }
+
+    /**
+     * Increments {@code gamesPlayed} by one.
      */
     public void updateGamesPlayed() {
         this.gamesPlayed++;
     }
 
     /**
-     * Increments {@code gamesWon}.
+     * Increments {@code gamesWon} by one..
      */
     public void updateGamesWon() {
         this.gamesWon++;
@@ -213,7 +217,7 @@ public class Achievements {
     }
 
     /**
-     * Removes the text of the last earned achievement.
+     * Removes the text of the latest earned achievement.
      */
     public void clearCurrentAchievement() {
         currentAchievements = "";
@@ -271,7 +275,7 @@ public class Achievements {
     }
 
     /**
-     * Checks whether a highScore was earned and generates a achievement.
+     * Checks whether a new milestone was hit regarding the personal best.
      */
     public void checkHighScore() {
         if (pairCounterTotal > getHighScore()) {

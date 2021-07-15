@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
 import java.io.IOException;
 import java.util.Objects;
 
@@ -55,8 +56,8 @@ public class Window extends Stage {
             yOffSet = event.getSceneY();
         });
         root.setOnMouseDragged(event -> {
-            stage.setX(event.getScreenX()-xOffSet);
-            stage.setY(event.getScreenY()-yOffSet);
+            stage.setX(event.getScreenX() - xOffSet);
+            stage.setY(event.getScreenY() - yOffSet);
         });
         stage.setScene(scene);
         stage.show();

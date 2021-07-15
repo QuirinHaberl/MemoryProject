@@ -4,13 +4,12 @@ import de.uni_passau.se.memory.Model.Card;
 
 /**
  * This is the {@link CardSet} with letters, digits and photos.
+ * A {@link Card} can have values from ONE to THIRTYTWO.
+ * the value of a {@link Card} is saved as well.
  */
-public enum CardValues {
+public enum CardValue {
 
     /**
-     * A {@link Card} can have values from ONE to THIRYTWO.
-     * the value of a {@link Card} is saved as well.
-     *
      * 1. value
      */
     ONE("1", "A", "Card_Apple"),
@@ -139,57 +138,59 @@ public enum CardValues {
      */
     THIRYTWO("32", "f", "Card_Wand");
 
-
+    /**
+     * The value of a card is stored in {@code digit} for the digit cardSet.
+     */
     private final String digit;
 
     /**
-     * The value of a card is stored in {@code digit}, which can't be changed.
+     * The value of a card is stored in {@code digit} for the digit cardSet.
      */
     private final String letter;
 
     /**
-     * The value of a card is stored in {@code digit}, which can't be changed.
+     * The value of a card is stored in {@code picture} for the digit cardSet.
      */
     private final String picture;
 
     /**
-     * Constructs a new digit.
+     * Constructs a new Value.
      *
      * @param digit   for a Console game with digits
      * @param letter  for a Console game with letters
      * @param picture for a GUI game
      */
-    CardValues(String digit, String letter, String picture) {
+    CardValue(String digit, String letter, String picture) {
         this.digit = digit;
         this.letter = letter;
         this.picture = picture;
     }
 
     /**
-     * Gets the {@code value} of a {@link CardValues}.
+     * Gets the {@code value} of a {@link CardValue}.
      * Gets a digit.
      *
-     * @return the {@code value} of a {@link CardValues}
+     * @return the {@code value} of a {@link CardValue}
      */
     public String getDigit() {
         return digit;
     }
 
     /**
-     * Gets the {@code value} of a {@link CardValues}.
+     * Gets the {@code value} of a {@link CardValue}.
      * Gets a letter.
      *
-     * @return the {@code value} of a {@link CardValues}
+     * @return the {@code value} of a {@link CardValue}
      */
     public String getLetter() {
         return letter;
     }
 
     /**
-     * Gets the {@code value} of a {@link CardValues}.
+     * Gets the {@code value} of a {@link CardValue}.
      * Gets a picture.
      *
-     * @return the {@code value} of a {@link CardValues}
+     * @return the {@code value} of a {@link CardValue}
      */
     public String getPicture() {
         return picture;

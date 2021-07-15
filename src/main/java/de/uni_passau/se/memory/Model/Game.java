@@ -2,7 +2,7 @@ package de.uni_passau.se.memory.Model;
 
 import de.uni_passau.se.memory.Controller.SinglePlayerMode;
 import de.uni_passau.se.memory.Model.Enums.CardStatus;
-import de.uni_passau.se.memory.Model.Enums.CardValues;
+import de.uni_passau.se.memory.Model.Enums.CardValue;
 import de.uni_passau.se.memory.Model.Enums.GameStatus;
 import de.uni_passau.se.memory.Model.Enums.TurnStatus;
 import de.uni_passau.se.memory.gui.View;
@@ -16,67 +16,56 @@ import java.util.TimerTask;
 public final class Game {
 
     /**
+     * Start time of the count down.
+     */
+    public static final int START_TIME = 120;
+    /**
+     * Used to calculate the length of a second.
+     */
+    public static final int ONE_SECOND = 1000;
+    /**
+     * Amount of lives used for the singlePlayer.
+     */
+    public static final int FIVE_LIVES = 5;
+    /**
      * Stores the current {@link PlayingField}.
      */
     public final PlayingField playingField;
-
     /**
-     * Stores playerProfiles
+     * Stores playerProfiles.
      */
     private final Database database;
-
     /**
      * Stores a {@link Player} in the {@link PlayerList}.
      */
     private PlayerList playerList;
-
     /**
      * Stores the current {@link TurnStatus}.
      */
     private TurnStatus turnStatus;
-
     /**
      * Stores the current {@link GameStatus}.
      */
     private GameStatus gameStatus;
-
     /**
      * Stores the amount of players.
      */
     private int playerAmount;
-
     /**
      * Stores the selected singlePlayerMode.
      */
     private SinglePlayerMode singlePlayerMode;
-
     /**
      * Stores the gameResult.
      */
     private boolean gameWon = false;
-
     /**
      * This is the associated attribute of type CountDown for the game.
      */
     private CountDownConsole time;
 
     /**
-     * Start time of the count down.
-     */
-    public static final int START_TIME = 120;
-
-    /**
-     * Definition of one second.
-     */
-    public static final int ONE_SECOND = 1000;
-
-    /**
-     * Amount of lives used for the singlePlayer.
-     */
-    public static final int FIVE_LIVES = 5;
-
-    /**
-     * The constructor initiates the {@link Game}, the turn and creates a new {@link PlayingField}
+     * The constructor initiates the {@link Game}.
      */
     public Game() {
         this.turnStatus = TurnStatus.IDLE;
@@ -99,7 +88,7 @@ public final class Game {
     /**
      * Checks whether multiple players have the same score.
      *
-     * @param players of whom the scores shall be reviewed
+     * @param players whose scores are reviewed
      * @return Checks whether a game was a draw (ture) or not (false)
      */
     public boolean checkForDraw(PlayerList players) {
@@ -276,7 +265,7 @@ public final class Game {
      * @param card whose value is returned
      * @return the cards value
      */
-    public CardValues getCardValue(Card card) {
+    public CardValue getCardValue(Card card) {
         return card.getValue();
     }
 
@@ -347,7 +336,7 @@ public final class Game {
     }
 
     /**
-     * Resets the {@link Game} and restarts it.
+     * Resets the {@link Game}.
      *
      * @param players list of all players
      */
@@ -383,14 +372,13 @@ public final class Game {
     }
 
     /**
-     * Adds a given player.
+     * Adds a given player to the game.
      *
      * @param playerName to be added
      */
     public void addPlayer(String playerName) {
         playerList.addPlayer(playerName);
     }
-
 
     /**
      * Gets the the board of a {@code playingField}.
@@ -581,7 +569,7 @@ public final class Game {
     }
 
     /**
-     * Checks weather multiple players have earned an achievement.
+     * Checks weather the winner has earned an achievement.
      *
      * @param players who are being checked
      * @return a players last achievement
@@ -614,7 +602,7 @@ public final class Game {
     }
 
     /**
-     * Gets a current achievement of a player.
+     * Gets the current achievement of a player.
      *
      * @param player whose achievement is returned
      * @return the achievement of a player
@@ -643,19 +631,19 @@ public final class Game {
     }
 
     /**
-     * Creates a new {@code INSTANCE} of the {@link Game}.
-     */
-    private static class InstanceHolder {
-        private static final Game INSTANCE = new Game();
-    }
-
-    /**
      * Gets the timerCount.
      *
      * @return the timerCount
      */
-    public int getTimeCount(){
+    public int getTimeCount() {
         return time.getCount();
+    }
+
+    /**
+     * Creates a new {@code INSTANCE} of the {@link Game}.
+     */
+    private static class InstanceHolder {
+        private static final Game INSTANCE = new Game();
     }
 
     /**

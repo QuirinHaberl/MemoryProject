@@ -1,16 +1,14 @@
 package de.uni_passau.se.memory.Model;
 
 import de.uni_passau.se.memory.Model.Enums.CardSet;
-import de.uni_passau.se.memory.Model.Enums.CardValues;
+import de.uni_passau.se.memory.Model.Enums.CardValue;
 import de.uni_passau.se.memory.gui.View;
 
 import java.util.Random;
 
 /**
- * The class PlayingField implements the {@link PlayingField} of the memory game
- * as a two-dimensional array.
- * In addition, a controlArray of the boolean type is created to store
- * whether a card is revealed or not.
+ * The class {@link PlayingField} implements the {@link PlayingField} of the
+ * memory game as a two-dimensional array.
  */
 public class PlayingField {
 
@@ -36,6 +34,8 @@ public class PlayingField {
     }
 
     /**
+     * Gets the {@code board}.
+     *
      * @return the {@code board}
      */
     public Card[][] getBoard() {
@@ -55,16 +55,16 @@ public class PlayingField {
      * Fills the {@code board} with {@link Card} elements.
      */
     public void fillWithCards() {
-        fillWithValues(CardValues.values());
+        fillWithValues(CardValue.values());
         shuffleBoard();
     }
 
     /**
-     * Fills the board with digits
+     * Fills the board with cardValues.
      *
      * @param cardValues which are filled into the playingField.
      */
-    public void fillWithValues(CardValues[] cardValues) {
+    public void fillWithValues(CardValue[] cardValues) {
         int size = cardValues.length;
 
         int counter = (int) Math.round(Math.random() * (size));
@@ -78,7 +78,8 @@ public class PlayingField {
     }
 
     /**
-     * Shuffles {@link Card} elements of {@code board}.
+     * Shuffles {@link Card} elements of {@code board} using the
+     * Fisher-Yates-Algorithm.
      */
     public void shuffleBoard() {
         Random r = new Random();

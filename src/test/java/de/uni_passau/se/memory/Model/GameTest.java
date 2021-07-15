@@ -28,22 +28,6 @@ class GameTest {
     }
 
     @Test
-    void saveProfile() {
-
-    }
-
-    @Test
-    void useProfile() {
-
-
-    }
-
-    @Test
-    void storeProgress() {
-
-    }
-
-    @Test
     void checkForAchievementsInGame() throws NoSuchFieldException, IllegalAccessException {
 
 
@@ -60,13 +44,7 @@ class GameTest {
         String ach = game.checkForAchievementsInGame(game.getPlayerList().getPlayer(0));
 
         assertEquals("test123", ach);
-
     }
-
-    @Test
-    void testCheckForAchievements() {
-    }
-
 
     @Test
     void revealFirstCard_LegalPos() {
@@ -103,13 +81,12 @@ class GameTest {
         game.revealSecondCard(1, 2);
         assertEquals(CardStatus.OPEN, game.playingField.getCard(0, 0).getCardStatus());
         assertEquals(CardStatus.OPEN, game.playingField.getCard(1, 2).getCardStatus());
-
     }
 
     @Test
     void pairCheck_AssumeTrue() throws NoSuchFieldException, IllegalAccessException {
 
-        CardValues value = game.playingField.getCard(0, 0).getValue();
+        CardValue value = game.playingField.getCard(0, 0).getValue();
 
         for (int row = 0; row < game.getBoard().length; row++) {
             for (int col = 0; col < game.getBoard().length; col++) {
@@ -124,7 +101,7 @@ class GameTest {
     @Test
     void pairCheck_AssumeFalse() throws NoSuchFieldException, IllegalAccessException {
 
-        CardValues value = game.playingField.getCard(0, 0).getValue();
+        CardValue value = game.playingField.getCard(0, 0).getValue();
 
         for (int row = 0; row < game.getBoard().length; row++) {
             for (int col = 0; col < game.getBoard().length; col++) {
@@ -158,12 +135,10 @@ class GameTest {
 
         game.playingField.getCard(1, 1).setCardStatus(CardStatus.OPEN);
 
-
         game.removeCards(1, 1, 1, 2);
 
         assertEquals(CardStatus.FOUND, game.playingField.getCard(1, 1).getCardStatus());
         assertEquals(CardStatus.FOUND, game.playingField.getCard(1, 2).getCardStatus());
-
     }
 
     @Test
@@ -176,7 +151,6 @@ class GameTest {
 
         assertEquals(CardStatus.CLOSED, game.playingField.getCard(1, 1).getCardStatus());
         assertEquals(CardStatus.CLOSED, game.playingField.getCard(1, 2).getCardStatus());
-
     }
 
     @Test
@@ -192,8 +166,6 @@ class GameTest {
                 assertEquals(CardStatus.CLOSED, game.playingField.getCard(row, col).getCardStatus());
             }
         }
-
-
     }
 
     @Test
@@ -209,8 +181,6 @@ class GameTest {
         assertEquals(0, game.getPlayerList().size());
         assertEquals(GameStatus.MENU, game.getGameStatus());
         assertEquals(TurnStatus.IDLE, game.getTurnStatus());
-
-
     }
 
     @Test
@@ -228,7 +198,6 @@ class GameTest {
         playersList.addPlayer(players[1]);
         playersList.addPlayer(players[2]);
 
-
         game.addPlayers(3, players);
 
         game.resetGame(playersList);
@@ -238,13 +207,6 @@ class GameTest {
         assertEquals(0, game.getPlayerList().getPlayer(0).getScore());
         assertEquals(0, game.getPlayerList().getPlayer(1).getScore());
         assertEquals(0, game.getPlayerList().getPlayer(2).getScore());
-
-
-    }
-
-    @Test
-    void restartGame() {
-
     }
 
     @Test
@@ -258,17 +220,13 @@ class GameTest {
         assertEquals("Frodo", game.getPlayerList().getPlayer(0).getName(), "Name of First Player is wrong");
         assertEquals("Sam", game.getPlayerList().getPlayer(1).getName(), "Name of Second Player is wrong");
         assertEquals("Gandalf", game.getPlayerList().getPlayer(2).getName(), "Name of Third Player is wrong");
-
-
     }
 
     @Test
     void addPlayer() {
         game.addPlayer("Frodo");
 
-
         assertEquals(1, game.getPlayerList().size());
         assertEquals("Frodo", game.getPlayerList().getPlayer(0).getName());
     }
-
 }

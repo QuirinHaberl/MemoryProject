@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- * The de.uni_passau.se.memory.Main-class of the memory-game.
+ * The Main-class of the memory-game.
  */
 public class Main {
 

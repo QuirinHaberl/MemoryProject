@@ -9,44 +9,59 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The class {@link Database} controls the storage of playerProfiles.
+ * The class {@link Database} controls the storage of playerProfiles and the
+ * highScoreHistory.
  */
 public class Database {
 
+    /**
+     * Length of the highScore list
+     */
+    private static final int HIGH_SCORE_LIST_LENGTH = 10;
     /**
      * Stores the path to highScoreHistory.csv.
      */
     private static final String pathToProfiles =
             "src/main/resources/de/uni_passau/se/memory/Database/profiles.csv";
-
     /**
      * Stores the path to highScoreHistory.csv.
      */
     private static final String pathToHighScores =
             "src/main/resources/de/uni_passau/se/memory/Database/highScoreHistory.csv";
-
     /**
-     * Stores the {@code HighScoreHistory} in a list. At first
-     * position it contains the player name and at second place his high score.
+     * Position of the name-entry in the profile-array.
      */
-    private final List<String[]> highScoreList;
-
+    private static final int NAME_POS = 0;
     /**
-     * Stores all playerProfiles
+     * Position of the highScore-entry in the profile-array.
+     */
+    private static final int HIGH_SCORE_POS = 1;
+    /**
+     * Position of the gamesWon-entry in the profile-array.
+     */
+    private static final int GAMES_WON_POS = 2;
+    /**
+     * Position of the gamesPlayed-entry in the profile-array.
+     */
+    private static final int GAME_PLAYED_POS = 3;
+    /**
+     * Stores the {@code HighScoreHistory} in a list. A entry is structured as:
+     * playerName;highScore;
+     */
+    private List<String[]> highScoreList;
+    /**
+     * Stores all playerProfiles.
      * A profile has the following structure:
      * playerName;highScore;gamePlayed;gamesWon
      */
     private List<String[]> playerProfiles;
-
+    /**
+     * Stores for every player if he wants to use a profile.
+     */
     private List<Boolean> usesProfiles;
 
     /**
-     * Length of the high score list
-     */
-    public static final int HIGH_SCORE_LIST_LENGTH = 10;
-
-    /**
-     * Constructs a new database.
+     * Constructs a new {@link Database}.
      */
     public Database() {
         this.playerProfiles = new ArrayList<>();
@@ -56,14 +71,14 @@ public class Database {
     /**
      * Returns a new {@code INSTANCE} of the {@link Database}.
      *
-     * @return the INSTANCE of a {@link Database}.
+     * @return the {@code INSTANCE} of a {@link Database}.
      */
     public static Database getInstance() {
         return Database.InstanceHolder.INSTANCE;
     }
 
     /**
-     * Stores the progress of all playerProfiles and the HighScoreHistory.
+     * Stores the progress of all playerProfiles and the highScoreHistory.
      *
      * @param playerList contains the progress to be stored.
      */
@@ -92,7 +107,7 @@ public class Database {
                 int j = 0;
 
                 while (j < playerProfiles.size()) {
-                    if (playerList.getPlayerName(player).equals(playerProfiles.get(j)[0])) {
+                    if (playerList.getPlayerName(player).equals(playerProfiles.get(j)[NAME_POS])) {
                         hasProfile = true;
                         break;
                     }
@@ -110,9 +125,12 @@ public class Database {
 
     /**
      * Sets which player wants to use a profile in usesProfiles.
+     * In the GUI the is determined by checking the box in the
+     * playerNameSelection-screen.
+     * *
      *
      * @param checkBoxes contains if a player wants to use a profile
-     * @param textFields contains if a player uses default profiles
+     * @param textFields contains the name of player
      */
     public void setUsesProfiles(CheckBox[] checkBoxes, TextField[] textFields) {
         usesProfiles = new ArrayList<>();
@@ -126,7 +144,7 @@ public class Database {
     }
 
     /**
-     * Updates the dataBase for a new game.
+     * Updates the {@link Database} for a new game.
      *
      * @param playerAmount number of players
      * @param playerList   of all existing players
@@ -140,6 +158,8 @@ public class Database {
 
     /**
      * Sets profiles for every player.
+     * This is used for the console. Here you can't click a checkbox and
+     * therefore every player uses his profile by default.
      *
      * @param playerAmount is the amount for players to use profiles
      */
@@ -157,9 +177,9 @@ public class Database {
      * @param playerProfile to be used
      */
     public void loadPlayerProfile(Player player, String[] playerProfile) {
-        player.setHighScore(Integer.parseInt(playerProfile[1]));
-        player.setGamesPlayed(Integer.parseInt(playerProfile[2]));
-        player.setGamesWon(Integer.parseInt(playerProfile[3]));
+        player.setHighScore(Integer.parseInt(playerProfile[HIGH_SCORE_POS]));
+        player.setGamesPlayed(Integer.parseInt(playerProfile[GAMES_WON_POS]));
+        player.setGamesWon(Integer.parseInt(playerProfile[GAME_PLAYED_POS]));
     }
 
     /**
@@ -178,27 +198,27 @@ public class Database {
     }
 
     /**
-     * Loads all playerProfiles from pathToPlayerProfiles.
+     * Loads all {@code playerProfiles} from pathToProfiles.
      */
     public void loadPlayerProfiles() {
-        loadFromFile(pathToProfiles, playerProfiles);
+        playerProfiles = loadFromFile(pathToProfiles, playerProfiles);
     }
 
     /**
-     * Loads the highScoreHistory from pathToHighScoreHistory.
+     * Loads the highScoreHistory from pathToHighScores.
      */
     public void loadHighScoreHistory() {
-        loadFromFile(pathToHighScores, highScoreList);
+        highScoreList = loadFromFile(pathToHighScores, highScoreList);
     }
 
     /**
-     * Loads the {@code HighScoreHistory} from the highScoreHistory.csv file
+     * Loads the {@code HighScoreHistory} from highScoreHistory.csv
      * and stores it in the {@code highScoreList}.
      *
      * @param path to the file to be loaded
      * @param list specifies playerProfiles or highScoreHistory
      */
-    public void loadFromFile(String path, List<String[]> list) {
+    public List<String[]> loadFromFile(String path, List<String[]> list) {
         try {
             FileReader fr = new FileReader(path);
             BufferedReader br = new BufferedReader(fr);
@@ -220,12 +240,11 @@ public class Database {
         } catch (IOException e) {
             View.error("Couldn't read from " + path);
         }
+        return list;
     }
 
     /**
      * Loads all existing profiles for the current players.
-     * A playerProfile has the following structure:
-     * playerName;highScore;gamesPlayed;gamesWon
      *
      * @param playerList to be used
      */
@@ -238,15 +257,19 @@ public class Database {
 
                 name = getPlayerName(player);
 
-                if (playerProfile[0].equals(playerList.getPlayerName(player))) {
+                if (playerProfile[NAME_POS].equals(playerList.getPlayerName(player))) {
                     switch (name) {
                         case "Player1", "Player2", "Player3", "Player4":
                             break;
                         default:
-                            playerProfile[0] = playerList.getPlayerName(player) + "";
-                            playerProfile[1] = playerList.getPlayerHighScore(player) + "";
-                            playerProfile[2] = playerList.getPlayerGamesPlayed(player) + "";
-                            playerProfile[3] = playerList.getPlayerGamesWon(player) + "";
+                            playerProfile[NAME_POS] =
+                                    playerList.getPlayerName(player) + "";
+                            playerProfile[HIGH_SCORE_POS] =
+                                    playerList.getPlayerHighScore(player) + "";
+                            playerProfile[GAME_PLAYED_POS] =
+                                    playerList.getPlayerGamesPlayed(player) + "";
+                            playerProfile[GAMES_WON_POS] =
+                                    playerList.getPlayerGamesWon(player) + "";
                             break;
                     }
                 }
@@ -274,10 +297,10 @@ public class Database {
             FileOutputStream fos = new FileOutputStream(pathToProfiles);
             PrintWriter pw = new PrintWriter(fos);
             for (String[] playerProfile : playerProfiles) {
-                pw.println(playerProfile[0] + ";" +
-                        playerProfile[1] + ";" +
-                        playerProfile[2] + ";" +
-                        playerProfile[3] + ";");
+                pw.println(playerProfile[NAME_POS] + ";" +
+                        playerProfile[HIGH_SCORE_POS] + ";" +
+                        playerProfile[GAME_PLAYED_POS] + ";" +
+                        playerProfile[GAMES_WON_POS] + ";");
             }
             pw.close();
             fos.close();
@@ -320,7 +343,7 @@ public class Database {
     }
 
     /**
-     * Gets all playerProfiles
+     * Gets all playerProfiles.
      *
      * @return all playerProfiles
      */
@@ -330,7 +353,7 @@ public class Database {
 
     /**
      * Updates the {@code HighScoreHistory} with the current winning players
-     * and their high score.
+     * and their highScore.
      *
      * @param winningPlayers of the current game.
      * @param highestScore   of the winning players.
@@ -355,7 +378,7 @@ public class Database {
      */
     private boolean updateHighScore(String player, int highScore) {
         for (int i = 0; i < highScoreList.size(); i++) {
-            if (player.equals(highScoreList.get(i)[0])) {
+            if (player.equals(highScoreList.get(i)[NAME_POS])) {
                 if (Integer.parseInt(highScoreList.get(i)[1]) < highScore) {
                     //Deletes old data and inserts it at the new correct
                     // position
@@ -369,9 +392,9 @@ public class Database {
     }
 
     /**
-     * Adds a player with his high score to the {@code highScoreList}.
+     * Adds a player with his {@code highScore} to the {@code highScoreList}.
      *
-     * @param player    that won the current game.
+     * @param player    who won the current game.
      * @param highScore of the winning player.
      */
     private void addNewHighScore(String player, int highScore) {
@@ -392,6 +415,49 @@ public class Database {
                 }
             }
         }
+    }
+
+    /**
+     * Gets the {@code highScoreList}.
+     *
+     * @return the highScoreList
+     */
+    public List<String[]> getHighScoreList() {
+        return highScoreList;
+    }
+
+    /**
+     * Gets the {@code playerProfiles}-list.
+     *
+     * @return the playerProfiles-list
+     */
+    public List<String[]> getPlayerProfiles() {
+        return playerProfiles;
+    }
+
+    /**
+     * Gets the {@code usesProfiles}-list.
+     *
+     * @return the usesProfiles-list
+     */
+    public List<Boolean> getUsesProfiles() {
+        return usesProfiles;
+    }
+
+    /**
+     * Gets {@code pathToProfiles}
+     * @return pathToProfiles
+     */
+    public static String getPathToProfiles() {
+        return pathToProfiles;
+    }
+
+    /**
+     * Gets {@code pathToProfiles}
+     * @return pathToProfiles
+     */
+    public static String getPathToHighScores() {
+        return pathToHighScores;
     }
 
     /**

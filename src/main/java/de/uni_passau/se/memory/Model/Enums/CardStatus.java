@@ -3,7 +3,7 @@ package de.uni_passau.se.memory.Model.Enums;
 import de.uni_passau.se.memory.Model.Card;
 
 /**
- * The enumeration of the card status.
+ * The enumeration of the {@link CardStatus}.
  */
 public enum CardStatus {
 
@@ -18,7 +18,7 @@ public enum CardStatus {
     OPEN,
 
     /**
-     * A {@link Card} is already open.
+     * A {@link Card} was already open.
      */
     AlREADYOPEN,
 

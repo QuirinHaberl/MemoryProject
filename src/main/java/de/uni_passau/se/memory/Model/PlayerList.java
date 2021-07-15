@@ -7,16 +7,15 @@ import java.util.List;
  * This class implements a {@link PlayerList}.
  */
 public class PlayerList {
+
     /**
      * Stores the first element of the {@link PlayerList}.
      */
     private Player front;
-
     /**
      * Stores the last element of the {@link PlayerList}.
      */
     private Player rear;
-
     /**
      * Stores the amount of players.
      */
@@ -122,7 +121,6 @@ public class PlayerList {
 
     /**
      * Gets the next player in relation of a given player.
-     * Gets the next player.
      *
      * @param player whose successor is requested
      * @return the successor of a given player
@@ -135,7 +133,7 @@ public class PlayerList {
      * Sets the next player in relation of a given player.
      *
      * @param player whose successor is set
-     * @param next successor to be set
+     * @param next   successor to be set
      */
     public void setNextPlayer(Player player, Player next) {
         player.setNext(next);
@@ -145,7 +143,7 @@ public class PlayerList {
      * Sets the previous player in relation of a given player.
      *
      * @param player whose predecessor is set
-     * @param rear predecessor to be set
+     * @param rear   predecessor to be set
      */
     public void setRearPlayer(Player player, Player rear) {
         player.setRear(rear);
@@ -377,9 +375,9 @@ public class PlayerList {
      * Sets the amount of lives a player has.
      *
      * @param player whose lives are set
-     * @param lives to be set
+     * @param lives  to be set
      */
-    public void setPlayerLives(Player player, int lives){
+    public void setPlayerLives(Player player, int lives) {
         player.setLives(lives);
     }
 
@@ -389,7 +387,7 @@ public class PlayerList {
      * @param player whose lives are requested
      * @return the lives of a player
      */
-    public int getPlayerLives(Player player){
+    public int getPlayerLives(Player player) {
         return player.getLives();
     }
 
@@ -398,18 +396,8 @@ public class PlayerList {
      *
      * @param player whose lives are reduced by 1
      */
-    public void reducePlayerLives(Player player){
+    public void reducePlayerLives(Player player) {
         player.reduceLives();
-    }
-
-    /**
-     * Sets the rear of a given player.
-     *
-     * @param player whose rear is set
-     * @param rear to be set
-     */
-    public void setPlayerRear(Player player, Player rear){
-        player.setRear(rear);
     }
 
     /**
@@ -418,7 +406,7 @@ public class PlayerList {
      * @param player whose rear is requested
      * @return the rear of a player
      */
-    public Player getPlayerRear(Player player){
+    public Player getPlayerRear(Player player) {
         return player.getRear();
     }
 
@@ -428,7 +416,7 @@ public class PlayerList {
      * @param player whose profile is requested
      * @return profile as a string
      */
-    public String getPlayerProfileToString(Player player){
+    public String getPlayerProfileToString(Player player) {
         return player.profileToString();
     }
 
@@ -437,7 +425,7 @@ public class PlayerList {
      *
      * @param player whose achievments are reset.
      */
-    public void resetPlayerAchievements(Player player){
+    public void resetPlayerAchievements(Player player) {
         player.resetAchievements();
     }
 }

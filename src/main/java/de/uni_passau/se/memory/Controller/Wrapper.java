@@ -6,18 +6,18 @@ import de.uni_passau.se.memory.Model.PlayingField;
 
 /**
  * Wrapper for the Model of the memory game.
- * To allow the communication with the Gui-controllers.
+ * To allow the communication with the GUI-controllers.
  * The used pattern is the Singleton-Pattern, to generate only one game
  */
 public class Wrapper {
     /**
-     * The instance of the Wrapper
+     * The instance of the Wrapper.
      */
     private static final Wrapper INSTANCE = new Wrapper();
     private static Game game;
 
     /**
-     * Constructs the game
+     * Constructs the game.
      */
     private Wrapper() {
         game = new Game();
@@ -25,7 +25,7 @@ public class Wrapper {
     }
 
     /**
-     * Gets the instance of the DataDisplay
+     * Gets the instance of the Wrapper.
      *
      * @return the Instance
      */
@@ -34,7 +34,7 @@ public class Wrapper {
     }
 
     /**
-     * Getter of the game
+     * Gets the current game.
      *
      * @return the game
      */
@@ -43,7 +43,7 @@ public class Wrapper {
     }
 
     /**
-     * Setter of the game
+     * Sets the current game.
      *
      * @param game the game
      */

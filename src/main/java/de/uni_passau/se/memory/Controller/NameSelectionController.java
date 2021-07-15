@@ -76,7 +76,7 @@ public class NameSelectionController implements Initializable {
         TextField[] textFields = {player1Input, player2Input, player3Input, player4Input};
         CheckBox[] checkBoxes = {checkPlayer1, checkPlayer2, checkPlayer3, checkPlayer4};
 
-        for (int i = 0; i < getGamePlayerAmount(getGame(Wrapper.getInstance())); i++) {
+        for (int i = 0; i < getGamePlayerAmount(getGame()); i++) {
             labels[i].setVisible(true);
             textFields[i].setVisible(true);
             checkBoxes[i].setVisible(true);
@@ -88,7 +88,7 @@ public class NameSelectionController implements Initializable {
      * Adds a Player to the playerList in the Model-Game.
      */
     public void addPlayers() {
-        Game game = getGame(Wrapper.getInstance());
+        Game game = getGame();
         resetGamePlayerList(game);
         TextField[] textFields = {player1Input, player2Input, player3Input, player4Input};
         CheckBox[] checkBoxes = {checkPlayer1, checkPlayer2, checkPlayer3, checkPlayer4};
@@ -198,15 +198,14 @@ public class NameSelectionController implements Initializable {
     /**
      * Gets a game of a given wrapper.
      *
-     * @param wrapper containing a game
      * @return the requested game
      */
-    public Game getGame(Wrapper wrapper) {
-        return wrapper.getGame();
+    public Game getGame() {
+        return Wrapper.getGame();
     }
 
     /**
-     * Closes the stage
+     * Closes the stage.
      */
     @FXML
     void CloseStage() {
@@ -214,7 +213,7 @@ public class NameSelectionController implements Initializable {
     }
 
     /**
-     * Minimizes the Window
+     * Minimizes the Window.
      *
      * @param event when minimize button clicked
      */
@@ -224,7 +223,7 @@ public class NameSelectionController implements Initializable {
     }
 
     /**
-     * Opens a surprise
+     * Opens a surprise.
      */
     @FXML
     void eeClicked() {
@@ -232,7 +231,7 @@ public class NameSelectionController implements Initializable {
     }
 
     /**
-     * Button ok is clicked
+     * ok-button is clicked.
      *
      * @param actionEvent when button clicked
      */

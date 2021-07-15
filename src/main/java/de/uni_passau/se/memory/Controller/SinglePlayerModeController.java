@@ -12,18 +12,18 @@ import javafx.stage.Stage;
 import java.nio.file.Paths;
 
 /**
- * Controller of the single player mode
+ * Controller of the single player mode.
  */
 public class SinglePlayerModeController {
 
     /**
-     * Sets SinglePlayerMode to lifePOINTS
+     * Sets SinglePlayerMode to LIFEPOINTS.
      *
      * @param actionEvent when button clicked
      */
     public void lives(ActionEvent actionEvent) {
-        setGamePlayerAmount(getGame(Wrapper.getInstance()), 1);
-        setGameSinglePlayerMode(getGame(Wrapper.getInstance()),
+        setGamePlayerAmount(getGame(), 1);
+        setGameSinglePlayerMode(getGame(),
                 SinglePlayerMode.LIFEPOINTS);
         ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
         AudioClip click = new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Click.wav").toUri().toString());
@@ -55,21 +55,20 @@ public class SinglePlayerModeController {
     /**
      * Gets the current game.
      *
-     * @param wrapper contains the current game
      * @return the requested game
      */
-    public Game getGame(Wrapper wrapper) {
-        return wrapper.getGame();
+    public Game getGame() {
+        return Wrapper.getGame();
     }
 
     /**
-     * Sets SinglePlayerMode to TIME
+     * Sets SinglePlayerMode to TIME.
      *
      * @param actionEvent when button clicked
      */
     public void time(ActionEvent actionEvent) {
-        setGamePlayerAmount(getGame(Wrapper.getInstance()), 1);
-        setGameSinglePlayerMode(getGame(Wrapper.getInstance()),
+        setGamePlayerAmount(getGame(), 1);
+        setGameSinglePlayerMode(getGame(),
                 SinglePlayerMode.TIME);
         ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
         AudioClip click = new AudioClip(Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Sound/Click.wav").toUri().toString());
@@ -78,7 +77,7 @@ public class SinglePlayerModeController {
     }
 
     /**
-     * Closes the stage
+     * Closes the stage.
      */
     @FXML
     void CloseStage() {
@@ -86,7 +85,7 @@ public class SinglePlayerModeController {
     }
 
     /**
-     * Minimizes the Window
+     * Minimizes the Window.
      *
      * @param event when minimize button clicked
      */
@@ -96,7 +95,7 @@ public class SinglePlayerModeController {
     }
 
     /**
-     * Opens a surprise
+     * Opens a surprise.
      */
     @FXML
     void eeClicked() {

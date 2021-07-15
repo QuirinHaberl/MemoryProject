@@ -23,7 +23,7 @@ public class StartScreenController {
      */
     @FXML
     public void singlePlayer(ActionEvent actionEvent) {
-        setGamePlayerAmount(getGame(Wrapper.getInstance()), 1);
+        setGamePlayerAmount(getGame(), 1);
         ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
         AudioClip click = new AudioClip(Paths.get(
                 "src/main/resources/de/uni_passau/se/memory/gui/Sound/Click.wav").toUri().toString());
@@ -44,11 +44,10 @@ public class StartScreenController {
     /**
      * Gets the current game.
      *
-     * @param wrapper contains the current game
      * @return the requested game
      */
-    public Game getGame(Wrapper wrapper) {
-        return wrapper.getGame();
+    public Game getGame() {
+        return Wrapper.getGame();
     }
 
     /**
@@ -66,7 +65,7 @@ public class StartScreenController {
     }
 
     /**
-     * Closes the stage
+     * Closes the stage.
      */
     @FXML
     void CloseStage() {
@@ -74,7 +73,7 @@ public class StartScreenController {
     }
 
     /**
-     * Minimizes the Window
+     * Minimizes the Window.
      *
      * @param event when minimize button clicked
      */
@@ -84,7 +83,7 @@ public class StartScreenController {
     }
 
     /**
-     * Opens a surprise
+     * Opens a surprise.
      */
     @FXML
     void eeClicked() {
@@ -106,7 +105,7 @@ public class StartScreenController {
     }
 
     /**
-     * Quits the whole game.
+     * Quits the game.
      */
     public void quit() {
         System.exit(0);

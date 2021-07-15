@@ -6,12 +6,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /**
- * Controller of the Easter Egg
+ * Controller of the Easter Egg.
  */
 public class EasterEggController {
 
     /**
-     * Closes the window
+     * Closes the window.
      *
      * @param event when close button clicked
      */

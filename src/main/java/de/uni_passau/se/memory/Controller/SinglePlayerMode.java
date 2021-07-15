@@ -1,17 +1,17 @@
 package de.uni_passau.se.memory.Controller;
 
 /**
- * The enumeration of the Singleplayer Mode
+ * The enumeration of the singlePlayerMode.
  */
 public enum SinglePlayerMode {
 
     /**
-     * This mode enables the player to play with life points
+     * Enables the player to play with life points.
      */
     LIFEPOINTS,
 
     /**
-     * This mode enables the player to play a game on time
+     * Enables the player to play a game on time.
      */
     TIME
 }

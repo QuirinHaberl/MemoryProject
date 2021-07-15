@@ -2,7 +2,7 @@ package de.uni_passau.se.memory.Model;
 
 import de.uni_passau.se.memory.Model.Enums.CardSet;
 import de.uni_passau.se.memory.Model.Enums.CardStatus;
-import de.uni_passau.se.memory.Model.Enums.CardValues;
+import de.uni_passau.se.memory.Model.Enums.CardValue;
 
 /**
  * The class {@link Card} implements a card of the game.
@@ -12,7 +12,7 @@ public class Card {
     /**
      * Stores the {@code value} of the {@link Card}.
      */
-    private final CardValues value;
+    private final CardValue value;
 
     /**
      * Stores the used {@link CardSet}.
@@ -20,17 +20,18 @@ public class Card {
     private CardSet cardSet;
 
     /**
-     * Stores whether a {@link Card} is closed, open or found.
+     * Stores whether a {@link Card} is closed, open, found or was already
+     * found.
      */
     private CardStatus cardStatus;
 
     /**
      * Constructs a new {@link Card}.
      *
-     * @param value   value uses the enumerations of {@link CardValues}
+     * @param value   uses the enumerations of {@link CardValue}
      * @param cardSet to be used
      */
-    public Card(CardValues value, CardSet cardSet) {
+    public Card(CardValue value, CardSet cardSet) {
         this.value = value;
         this.cardSet = cardSet;
         this.cardStatus = CardStatus.CLOSED;
@@ -41,12 +42,12 @@ public class Card {
      *
      * @return the value of a {@link Card}.
      */
-    public CardValues getValue() {
+    public CardValue getValue() {
         return value;
     }
 
     /**
-     * Visualizes {@link Card}
+     * Visualizes {@link Card}.
      *
      * @return visualization of the given card
      */
@@ -58,7 +59,7 @@ public class Card {
         } else if (cardSet.equals(CardSet.PICTURES)) {
             return value.getPicture();
         } else {
-            return null;
+            throw new IllegalStateException();
         }
     }
 
@@ -81,16 +82,16 @@ public class Card {
     }
 
     /**
-     * Gets the current cardSet.
+     * Gets the current {@code cardSet}.
      *
-     * @return the current cardSet
+     * @return the current {@code cardSet}
      */
     public CardSet getCardSet() {
         return cardSet;
     }
 
     /**
-     * Sets a cardSet.
+     * Sets a {@code cardSet}.
      *
      * @param cardSet to be set.
      */
@@ -99,12 +100,12 @@ public class Card {
     }
 
     /**
-     * Gets the picture of a cardValue.
+     * Gets the picture of a {@code cardValue}.
      *
-     * @param cardValues whose picture is requested
+     * @param cardValue whose picture is requested
      * @return the picture of a card
      */
-    public String getCardPicture(CardValues cardValues) {
-        return cardValues.getPicture();
+    public String getCardPicture(CardValue cardValue) {
+        return cardValue.getPicture();
     }
 }
