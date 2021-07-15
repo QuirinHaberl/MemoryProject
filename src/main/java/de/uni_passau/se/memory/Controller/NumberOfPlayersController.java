@@ -16,11 +16,19 @@ import java.nio.file.Paths;
  */
 public class NumberOfPlayersController {
 
+    /**
+     * Amount of two players.
+     */
     private static final int TWO_PLAYERS = 2;
-
+    /**
+     * Amount of three players.
+     */
     private static final int THREE_PLAYERS = 3;
-
+    /**
+     * Amount of four players.
+     */
     private static final int FOUR_PLAYERS = 4;
+
     /**
      * Sets the player amount to the passed number and forwards to the next
      * window.
@@ -51,7 +59,7 @@ public class NumberOfPlayersController {
      * @return the requested game
      */
     public Game getGame(Wrapper wrapper) {
-        return wrapper.getGame();
+        return Wrapper.getGame();
     }
 
     /**
@@ -88,7 +96,7 @@ public class NumberOfPlayersController {
     }
 
     /**
-     * Closes the stage
+     * Closes the stage.
      */
     @FXML
     void CloseStage() {
@@ -96,7 +104,7 @@ public class NumberOfPlayersController {
     }
 
     /**
-     * Minimizes the Window
+     * Minimizes the Window.
      *
      * @param event when minimize button clicked
      */
@@ -106,7 +114,7 @@ public class NumberOfPlayersController {
     }
 
     /**
-     * Opens a surprise
+     * Opens a surprise.
      */
     @FXML
     void eeClicked() {

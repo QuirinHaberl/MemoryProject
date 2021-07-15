@@ -1,7 +1,7 @@
 package de.uni_passau.se.memory.Model;
 
 import de.uni_passau.se.memory.Model.Enums.CardSet;
-import de.uni_passau.se.memory.Model.Enums.CardValues;
+import de.uni_passau.se.memory.Model.Enums.CardValue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -40,7 +40,7 @@ class PlayingFieldTest {
 
     @Test
     void fillWithValues() {
-        playingField.fillWithValues(CardValues.values());
+        playingField.fillWithValues(CardValue.values());
         boolean ifNull = false;
         loop:
         for (int i = 0; i < size; i++) {
@@ -56,7 +56,7 @@ class PlayingFieldTest {
 
     @Test
     void shuffleBoard() {
-        playingField.fillWithValues(CardValues.values());
+        playingField.fillWithValues(CardValue.values());
         playingField.shuffleBoard();
         boolean ifRandom = false;
         loop:

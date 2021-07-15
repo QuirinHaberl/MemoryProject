@@ -11,23 +11,19 @@ public class Player {
     /**
      * Stores the achievements of a {@link Player}
      */
-    private final Achievements achievements = new Achievements();
-
-    /**
-     * Stores the next {@link Player}.
-     */
-    private Player next;
-
-    /**
-     * Stores the last {@link Player}.
-     */
-    private Player rear;
-
+    private final Achievements achievements;
     /**
      * Stores all {@link Card}'s a {@link Player} has found.
      */
     private final List<Card> foundCards;
-
+    /**
+     * Stores the next {@link Player}.
+     */
+    private Player next;
+    /**
+     * Stores the last {@link Player}.
+     */
+    private Player rear;
     /**
      * Stores the name of a {@link Player}.
      */
@@ -58,6 +54,7 @@ public class Player {
         this.next = next;
         this.rear = rear;
         this.foundCards = new ArrayList<>();
+        this.achievements = new Achievements();
     }
 
     /**
@@ -106,12 +103,30 @@ public class Player {
     }
 
     /**
+     * Sets the next player.
+     *
+     * @param next to be set
+     */
+    public void setNext(Player next) {
+        this.next = next;
+    }
+
+    /**
      * Gets the last {@link Player}.
      *
      * @return the rear {@link Player}
      */
     public Player getRear() {
         return rear;
+    }
+
+    /**
+     * Sets the previous player.
+     *
+     * @param rear to be set
+     */
+    public void setRear(Player rear) {
+        this.rear = rear;
     }
 
     /**
@@ -252,7 +267,6 @@ public class Player {
         return achievements.getCurrentAchievements();
     }
 
-
     /**
      * Clears the current achievement.
      */
@@ -300,38 +314,20 @@ public class Player {
     }
 
     /**
-     * Sets the next player.
-     *
-     * @param next to be set
-     */
-    public void setNext(Player next) {
-        this.next = next;
-    }
-
-    /**
-     * Sets the previous player.
-     *
-     * @param rear to be set
-     */
-    public void setRear(Player rear) {
-        this.rear = rear;
-    }
-
-    /**
      * Sets pairCounterStreak for a given player.
      *
      * @param achievements of the given player
-     * @param streak to be set
+     * @param streak       to be set
      */
     public void setPlayerPairCounterStreak(Achievements achievements,
-                                          int streak){
+                                           int streak) {
         achievements.setPairCounterStreak(streak);
     }
 
     /**
      * Resets both pairCounters to 0.
      */
-    public void resetAchievements(){
+    public void resetAchievements() {
         achievements.setPairCounterStreak(0);
         achievements.setPairCounterTotal(0);
     }

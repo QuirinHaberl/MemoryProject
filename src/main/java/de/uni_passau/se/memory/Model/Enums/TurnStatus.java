@@ -1,7 +1,7 @@
 package de.uni_passau.se.memory.Model.Enums;
 
 /**
- * The enumeration of the turn status.
+ * The enumeration of the {@link TurnStatus}.
  */
 public enum TurnStatus {
 

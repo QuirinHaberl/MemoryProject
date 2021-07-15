@@ -109,7 +109,7 @@ class GameTest {
     @Test
     void pairCheck_AssumeTrue() throws NoSuchFieldException, IllegalAccessException {
 
-        CardValues value = game.playingField.getCard(0, 0).getValue();
+        CardValue value = game.playingField.getCard(0, 0).getValue();
 
         for (int row = 0; row < game.getBoard().length; row++) {
             for (int col = 0; col < game.getBoard().length; col++) {
@@ -124,7 +124,7 @@ class GameTest {
     @Test
     void pairCheck_AssumeFalse() throws NoSuchFieldException, IllegalAccessException {
 
-        CardValues value = game.playingField.getCard(0, 0).getValue();
+        CardValue value = game.playingField.getCard(0, 0).getValue();
 
         for (int row = 0; row < game.getBoard().length; row++) {
             for (int col = 0; col < game.getBoard().length; col++) {

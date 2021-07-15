@@ -39,7 +39,7 @@ public class LevelsController {
     }
 
     /**
-     * Minimizes the Window
+     * Minimizes the Window.
      *
      * @param event when minimize button clicked
      */
@@ -49,7 +49,7 @@ public class LevelsController {
     }
 
     /**
-     * Opens a surprise
+     * Opens a surprise.
      */
     @FXML
     void eeClicked() {
@@ -100,7 +100,7 @@ public class LevelsController {
      * @param size        of the current board
      */
     private void selectLevel(ActionEvent actionEvent, int size) {
-        setPlayingFieldBoardSize(getGamePlayingField(getGame(Wrapper.getInstance())), size);
+        setPlayingFieldBoardSize(getGamePlayingField(getGame()), size);
         ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
         new Window("Game.fxml");
     }
@@ -128,10 +128,9 @@ public class LevelsController {
     /**
      * Gets the current game.
      *
-     * @param wrapper contains the current game
      * @return the requested game
      */
-    public Game getGame(Wrapper wrapper) {
-        return wrapper.getGame();
+    public Game getGame() {
+        return Wrapper.getGame();
     }
 }

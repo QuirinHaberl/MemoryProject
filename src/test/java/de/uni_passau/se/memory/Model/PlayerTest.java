@@ -3,30 +3,31 @@ package de.uni_passau.se.memory.Model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class PlayerTest {
 
     private Player player;
-    private String player1 = "player1";
-    private int score = 10;
+    private final String player1 = "player1";
+    private final int score = 10;
+
     @BeforeEach
-    void setUp() throws Exception{
-        player  = new Player(player1,score,null,null);
+    void setUp() throws Exception {
+        player = new Player(player1, score, null, null);
     }
 
     @Test
     void updateScore() {
         player.updateScore();
 
-        assertEquals(11,player.getScore(),"the score is not updated!");
+        assertEquals(11, player.getScore(), "the score is not updated!");
     }
 
     @Test
     void reduceLives() {
         player.reduceLives();
 
-        assertEquals(4,player.getLives(),"the life was not reduced!");
+        assertEquals(4, player.getLives(), "the life was not reduced!");
     }
 
     @Test
@@ -37,7 +38,7 @@ class PlayerTest {
                 player.getAchievements().getHighScore() + "," + " has played " +
                 player.getAchievements().getGamesPlayed() + " times.";
         String profile = "player1, highest score: 10,  has played 5 times.";
-        assertEquals(profile,player.profileToString(),"hh");
+        assertEquals(profile, player.profileToString(), "hh");
     }
 
     @Test
@@ -45,7 +46,7 @@ class PlayerTest {
         player.getAchievements().setGamesPlayed(5);
         player.updateGamesPlayed();
 
-        assertEquals(6,player.getAchievements().getGamesPlayed(),"player1 has player 6 times!");
+        assertEquals(6, player.getAchievements().getGamesPlayed(), "player1 has player 6 times!");
     }
 
     @Test
@@ -53,7 +54,7 @@ class PlayerTest {
         player.getAchievements().setGamesWon(5);
         player.updateGamesWon();
 
-        assertEquals(6,player.getAchievements().getGamesWon()," player1 has won 6 times!");
+        assertEquals(6, player.getAchievements().getGamesWon(), " player1 has won 6 times!");
     }
 
     @Test
@@ -74,10 +75,10 @@ class PlayerTest {
 
         String achievement = "Found 4 pairs in total!\n" + "Found 4 pairs in a row!\n" + "5. game won!\n" + "New PB of 4!\n";
 
-        assertEquals(achievement, player.getCurrentAchievement(),"these are not the same!");
+        assertEquals(achievement, player.getCurrentAchievement(), "these are not the same!");
         player.clearCurrentAchievement();
 
-        assertEquals("",player.getCurrentAchievement());
+        assertEquals("", player.getCurrentAchievement());
     }
 
     @Test
@@ -85,8 +86,8 @@ class PlayerTest {
         updatePairCounters();
         updatePairCounters();
 
-        assertEquals(2,player.getAchievements().getPairCounterTotal());
-        assertEquals(2,player.getAchievements().getPairCounterStreak());
+        assertEquals(2, player.getAchievements().getPairCounterTotal());
+        assertEquals(2, player.getAchievements().getPairCounterStreak());
     }
 
     @Test
@@ -100,7 +101,7 @@ class PlayerTest {
 
         String str = "Found 4 pairs in total!\n";
 
-        assertEquals(str,player.getAchievements().getCurrentAchievements());
+        assertEquals(str, player.getAchievements().getCurrentAchievements());
     }
 
     @Test
@@ -130,7 +131,7 @@ class PlayerTest {
 
         String str = "New PB of 4!\n";
 
-        assertEquals(str,player.getAchievements().getCurrentAchievements());
+        assertEquals(str, player.getAchievements().getCurrentAchievements());
     }
 
     @Test

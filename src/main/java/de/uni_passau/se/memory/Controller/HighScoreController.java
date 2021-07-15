@@ -19,7 +19,7 @@ import java.util.List;
 public class HighScoreController {
 
     /**
-     * Labels for the first player
+     * Labels for the first player.
      */
     @FXML
     private Label name1;
@@ -27,7 +27,7 @@ public class HighScoreController {
     private Label score1;
 
     /**
-     * Labels for the second player
+     * Labels for the second player.
      */
     @FXML
     private Label name2;
@@ -35,7 +35,7 @@ public class HighScoreController {
     private Label score2;
 
     /**
-     * Labels for the third player
+     * Labels for the third player.
      */
     @FXML
     private Label name3;
@@ -43,7 +43,7 @@ public class HighScoreController {
     private Label score3;
 
     /**
-     * Labels for the fourth player
+     * Labels for the fourth player.
      */
     @FXML
     private Label name4;
@@ -51,7 +51,7 @@ public class HighScoreController {
     private Label score4;
 
     /**
-     * Labels for the fifth player
+     * Labels for the fifth player.
      */
     @FXML
     private Label name5;
@@ -59,7 +59,7 @@ public class HighScoreController {
     private Label score5;
 
     /**
-     * Labels for the sixth player
+     * Labels for the sixth player.
      */
     @FXML
     private Label name6;
@@ -67,7 +67,7 @@ public class HighScoreController {
     private Label score6;
 
     /**
-     * Labels for the seventh player
+     * Labels for the seventh player.
      */
     @FXML
     private Label name7;
@@ -75,7 +75,7 @@ public class HighScoreController {
     private Label score7;
 
     /**
-     * Labels for the eighth player
+     * Labels for the eighth player.
      */
     @FXML
     private Label name8;
@@ -83,7 +83,7 @@ public class HighScoreController {
     private Label score8;
 
     /**
-     * Labels for the ninth player
+     * Labels for the ninth player.
      */
     @FXML
     private Label name9;
@@ -91,7 +91,7 @@ public class HighScoreController {
     private Label score9;
 
     /**
-     * Labels for the tenth player
+     * Labels for the tenth player.
      */
     @FXML
     private Label name10;
@@ -117,7 +117,7 @@ public class HighScoreController {
     }
 
     /**
-     * Gets the highScoreHistory of a given database.
+     * Gets the highScoreHistory.
      *
      * @param database contains the highScoreHistory
      * @return highScoreHistory of the given database
@@ -136,7 +136,7 @@ public class HighScoreController {
     }
 
     /**
-     * Closes the stage
+     * Closes the stage.
      */
     @FXML
     void CloseStage() {
@@ -144,7 +144,7 @@ public class HighScoreController {
     }
 
     /**
-     * Minimizes the Window
+     * Minimizes the Window.
      *
      * @param event when minimize button clicked
      */
@@ -154,7 +154,7 @@ public class HighScoreController {
     }
 
     /**
-     * Opens a surprise
+     * Opens a surprise.
      */
     @FXML
     void eeClicked() {
