@@ -24,8 +24,8 @@ enclosing the number in brackets, i.e.: (1).
    [Multiplayer Game Result](#3.4.MultiPlayerGameResult) <br/>
 3. [Highscore History](#4.Highscore)
 4. [Console](#5.Console)
-
-
+<br><br/>
+<br><br/>
 ## <a name="1.StartingtheApplication"> 1. Starting the Application</a>
 
 Running the programme will open the Start Screen (Main Menu). Here the player
@@ -36,7 +36,6 @@ can choose between playing:
 Through the "EXIT" button (1), a player can close the Application. The player can
 also have a look at the [Highscore](#4.Highscore) (3).
 
-<br/><br/>  
 *[StartScreen.fxml](src/main/resources/de/uni_passau/se/memory/gui/StartScreen.fxml)*
 
 <img src="docs/ScreenShots/1_StartScreen.PNG" width="500"/>
@@ -55,6 +54,7 @@ scores that have been achieved by players.
 (4) A new window will open where the player can choose the
 [Number Of Players](#3.1.NumberOfPlayers) they want to play against in a
 [Multiplayer](#3.Multiplayer) game.
+<br><br/>
 
 ## <a name="2.Singleplayer"> 2. Singleplayer</a>
 
@@ -63,14 +63,14 @@ scores that have been achieved by players.
 *[SinglePlayerMode.fxml](src/main/resources/de/uni_passau/se/memory/gui/SinglePlayerMode.fxml)*
 
 <img src="docs/ScreenShots/3_SinglePlayerMode.PNG" width="500"/>
-<br/><br/>
+
 
 **Actions when clicking...:**
 
 (1) One will play [with lives](#2.4SinglePlayerLives) in the game.
 
 (2) One will play [against the time](#2.5SinglePlayerTime) in the game.
-
+<br><br/>
 ### <a name="2.2NameSelection"> 2.2 Name Selection</a>
 
 In this screen the player can choose the name they prefer. This name will then
@@ -85,7 +85,6 @@ a player used before as a profile. Otherwise, a new profile will be created.
 *[NameSelection.fxml](src/main/resources/de/uni_passau/se/memory/gui/NameSelection.fxml)*
 
 <img src="docs/ScreenShots/4_NameSelection.PNG" width="500"/>
-<br/><br/>
 
 **Functions when clicking/inputting...:**
 
@@ -99,8 +98,8 @@ will be used
 
 (3) The player's choices will be saved, and a new window will open to choose the
 [level](#2.3Levels) they want to play.
-
-### <a name="2.3Levels"> 2.4 Level Selection</a>
+<br><br/>
+### <a name="2.3Levels"> 2.3 Level Selection</a>
 
 Here the player can choose between three different levels with different
 difficulties. As described in the screenshot, the levels are:
@@ -113,7 +112,6 @@ difficulties. As described in the screenshot, the levels are:
 *[Levels.fxml](src/main/resources/de/uni_passau/se/memory/gui/Levels.fxml)*
 
 <img src="docs/ScreenShots/5_Levels.PNG" width="500"/>
-<br/><br/>
 
 **Actions when clicking...:**
 
@@ -121,7 +119,7 @@ difficulties. As described in the screenshot, the levels are:
 [against the time](#2.5SinglePlayerTime) ) will start with the selected
 difficulty level (described above)
 
-
+<br><br/>
 ### <a name="2.4SinglePlayerLives"> 2.4 Singleplayer Lives</a>
 
 Depending on the [Level](#2.3Levels) the player has chosen before, the game
@@ -130,7 +128,6 @@ the level:
 - Level 1 >> 8 lives
 - Level 2 >> 18 lives
 - Level 3 >> 30 lives
-- 
 
 If the player manages to find all matching pairs before they are out of
 lives, they win the game.
@@ -138,7 +135,6 @@ lives, they win the game.
 *[Game.fxml](src/main/resources/de/uni_passau/se/memory/gui/Game.fxml)*
 
 <img src="docs/ScreenShots/6.1_SinglePlayerLives.PNG" width="500"/>
-<br/><br/>
 
 **Display:**
 
@@ -178,11 +174,11 @@ they want to open. By clicking on a chest, the content is displayed and
 the player can choose a second chest. If the player tries to open the
 chest twice, nothing will happen until they choose a different one.An
 example is given in the image below.
-
+<br><br/>
+<br><br/>
 *[Game.fxml](src/main/resources/de/uni_passau/se/memory/gui/Game.fxml)*
 
 <img src="docs/ScreenShots/6.2_SinglePlayerLives.PNG" width="500"/>
-<br/><br/>
 
 **Display:**
 
@@ -197,11 +193,11 @@ remain).
 
 (3) As no matching pair was found, the score of the player does not
 increase.
-
+<br><br/>
+<br><br/>
 *[Game.fxml](src/main/resources/de/uni_passau/se/memory/gui/Game.fxml)*
 
 <img src="docs/ScreenShots/6.3_SinglePlayerLives.PNG" width="500"/>
-<br/><br/>
 
 **Display:**
 
@@ -218,7 +214,7 @@ pair found = one point.
 
 (4) In this area, all achievements are displayed. In this case, the
 player found two pairs in total and is being rewarded.
-
+<br><br/>
 ### <a name="2.5SinglePlayerTime"> 2.5 Singleplayer Time</a>
 
 Depending on the [Level](#2.3Levels) the player has chosen before, the game
@@ -235,7 +231,6 @@ the runs out, they win the game.
 *[Game.fxml](src/main/resources/de/uni_passau/se/memory/gui/Game.fxml)*
 
 <img src="docs/ScreenShots/7_SinglePlayerTime.PNG" width="500"/>
-<br/><br/>
 
 **Display:**
 
@@ -247,7 +242,7 @@ affected when a pair of chests did not match.
 
 (3) Here the player was able to find two matching pairs in a row and is
 rewarded accordingly.
-
+<br><br/>
 ### <a name="2.6SinglePlayerGameResult"> 2.6 Singleplayer Game Result</a>
 
 If the player manages to find all pairs before they run out of
@@ -259,7 +254,6 @@ added to the [Highscore History](#4.Highscore) .
 *[GameResult.fxml](src/main/resources/de/uni_passau/se/memory/gui/GameResult.fxml)*
 
 <img src="docs/ScreenShots/8.1_SinglePlayerGameResult.PNG" width="500"/>
-<br/><br/>
 
 **Display:**
 
@@ -277,7 +271,7 @@ as the players name is displayed.
 (4) The player is able to play again with the same settings. The chests
 are shuffled again. [Lives](#2.4SinglePlayerLives) /
 [time](#2.5SinglePlayerTime) are reset. <br/><br/> <br/><br/>
-
+<br><br/>
 If the player does not manage to find all pairs before they run out of
 [lives](#2.4SinglePlayerLives) or [time](#2.5SinglePlayerTime) , they
 lost the game and the window below will open.
@@ -285,7 +279,6 @@ lost the game and the window below will open.
 *[GameResult.fxml](src/main/resources/de/uni_passau/se/memory/gui/GameResult.fxml)*
 
 <img src="docs/ScreenShots/8.2_SinglePlayerGameResult.PNG" width="500"/>
-<br/><br/>
 
 **Display:**
 
@@ -299,7 +292,7 @@ lost the game and the window below will open.
 (3) The player is able to play again with the same settings. The chests
 are shuffled again. [Lives](#2.4SinglePlayerLives) /
 [time](#2.5SinglePlayerTime) are reset.
-
+<br><br/>
 ## <a name="3.Multiplayer"></a> 3. Multiplayer
 
 Here a player can play against friends and family. A player can play
@@ -313,7 +306,6 @@ they want to play against in the screen below.
 [NumberOfPlayers.fxml](src/main/resources/de/uni_passau/se/memory/gui/NumberOfPlayers.fxml)*
 
 <img src="docs/ScreenShots/9_NumberOfPlayers.PNG" width="500"/>
-<br/><br/>
 
 **Actions when clicking...:**
 
@@ -325,7 +317,7 @@ they want to play against in the screen below.
 
 (3) The player will play against three others. The
 [Name Selection window](#3.2.NameSelection) window will open when.
-
+<br><br/>
 ### <a name="3.2.NameSelection"></a> 3.2 Name Selection
 
 Same as in the [Name Selection in Singleplayer](#2.2NameSelection) , all
@@ -334,7 +326,7 @@ the players can input the name of their choosing.
 *[NameSelection.fxml](src/main/resources/de/uni_passau/se/memory/gui/NameSelection.fxml)*
 
 <img src="docs/ScreenShots/10_NameSelectionMulti.PNG" width="500"/>
-<br/><br/>
+
 
 **Functions when clicking/inputting...:**
 
@@ -346,7 +338,7 @@ in the [Highsore History](#4.Highscore)
 
 (3) Will open the [Levels](#2.3Levels) selection window same as in the
 [Singleplayer](#2.Singleplayer) mode.
-
+<br><br/>
 ### <a name="3.3.GameMultiPlayer"></a> 3.3 Game Multiplayer
 
 Through choosing the player names and the prefered Level, the game below
@@ -359,7 +351,6 @@ top left corner is also the same as described before.
 *[Game.fxml](src/main/resources/de/uni_passau/se/memory/gui/Game.fxml)*
 
 <img src="docs/ScreenShots/11.1_GameMultiPlayer.PNG" width="500"/>
-<br/><br/>
 
 **Display:**
 
@@ -372,24 +363,23 @@ assigned. According to the rules of memory, ones a player opened a pair
 of chests that did not match, it is the next players turn. This is
 indicated by the kex next to the players. Points are only given to the
 player that found a matching pair.
-
+<br><br/>
+<br><br/>
 *[Game.fxml](src/main/resources/de/uni_passau/se/memory/gui/Game.fxml)*
 
 <img src="docs/ScreenShots/11.2_GameMultiPlayer.PNG" width="500"/>
-<br/><br/>
 
 **Display:**
 
 (1) The key is next to "Frodo" and therefore still this players turn.
 
 (2) Achievements of each player are displayed in the top right corner.
-
+<br><br/>
 ### <a name="3.4.MultiPlayerGameResult"></a> 3.4 Multiplayer Game Result
 
 *[GameResult.fxml](src/main/resources/de/uni_passau/se/memory/gui/GameResult.fxml)*
 
 <img src="docs/ScreenShots/12_MultiPlayerGameResult.PNG" width="500"/>
-<br/><br/>
 
 **Display:**
 
@@ -405,15 +395,14 @@ as well as the players names are displayed.
 
 (4) The player is able to play again with the same settings. The chests
 are shuffled again.
-
+<br><br/>
 ## <a name="4.Highscore"></a> 4. Highscore History
 
 When players have chosen to play with a profile in the [Multiplayer Name
 Selection](#3.2.NameSelection) or
 [Singleplayer Name Selection](#2.2NameSelection) , there achieved score
 will be shown here, provided they have beaten an existing Highscore.
-
-<br/><br/>  
+ 
 *[HighScore.fxml](src/main/resources/de/uni_passau/se/memory/gui/HighScore.fxml)*
 
 <img src="docs/ScreenShots/2_HighScore.PNG" width="500"/>
@@ -429,8 +418,7 @@ Although the player also used their profile in the
 [Multiplayer game](#3.3.GameMultiPlayer), the Highscore remains at 8.
 This is because the player only achieved a
 [score of 7 in the Multiplayer game](#3.4.MultiPlayerGameResult).
-
-
+<br><br/>
 ## <a name="5.Console"></a> 5. Playing on the console
 
 When playing on the console, a player does not have the features:
