@@ -145,7 +145,7 @@ public class Database {
      * Sets which player wants to use a profile in usesProfiles.
      * In the GUI the is determined by checking the box in the
      * playerNameSelection-screen.
-     * *
+     *
      *
      * @param checkBoxes contains if a player wants to use a profile
      * @param textFields contains the name of player
@@ -356,6 +356,10 @@ public class Database {
         playerProfiles = new ArrayList<>();
     }
 
+    public void setPlayerProfiles(List<String[]> playerProfiles) {
+        this.playerProfiles = playerProfiles;
+    }
+
     /**
      * Gets all playerProfiles.
      *
@@ -463,7 +467,6 @@ public class Database {
     public List<String[]> getPlayerProfiles() {
         return playerProfiles;
     }
-
 
     /**
      * Creates a new {@code INSTANCE} of the {@link Database}.

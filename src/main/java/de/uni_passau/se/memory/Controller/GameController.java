@@ -208,7 +208,7 @@ public class GameController {
      * @param col of position of the new button
      * @return the new button
      */
-    public Node generateButton(String id, int row, int col) {
+    public Button generateButton(String id, int row, int col) {
         Button button = new Button();
         String css = Paths.get("src/main/resources/de/uni_passau/se/memory/gui/Style.css").toUri().toString();
         button.getStyleClass().clear();
@@ -647,6 +647,26 @@ public class GameController {
         for (int i = 0; i < playerList.size(); i++) {
             playerList.resetPlayerAchievements(playerList.getPlayer(i));
         }
+    }
+
+    /**
+     * Sets the size of a given playingField.
+     *
+     * @param playingField whose size is set
+     * @param size         to be set
+     */
+    public void setPlayingFieldBordSize(PlayingField playingField, int size) {
+        playingField.setBoard(size);
+    }
+
+    /**
+     * Used for testing.
+     */
+    public void generateNewPlayerList(){
+        PlayerList playerList = game.getPlayerList();
+        playerList = new PlayerList();
+        playerList.addPlayer("Player1");
+        activePlayer = playerList.getPlayer(0);
     }
 
     /**

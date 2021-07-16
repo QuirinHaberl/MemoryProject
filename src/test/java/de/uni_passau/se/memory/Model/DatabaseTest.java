@@ -68,16 +68,15 @@ class DatabaseTest {
         playerList.addPlayer("test4");
         database.useProfile(playerList);
         database.saveProfile(playerList);
-        boolean savedCorrect = true;
+        boolean savedCorrect = false;
         String[] profile;
         for (int i = 0; i < PLAYER_AMOUNT; i++) {
             profile = database.getPlayerProfiles().get(i);
-            if (!(profile[0].equals(playerList.getPlayer(i).getName())) &&
-                    profile[1].equals(playerList.getPlayer(i).getHighScore()) &&
-                    profile[2].equals(playerList.getPlayer(i).getGamesPlayed()) &&
-                    profile[3].equals(playerList.getPlayer(i).getGamesWon()))
-            {
-                savedCorrect = false;
+            if (profile[0].equals(playerList.getPlayer(i).getName() + "") &&
+                    profile[1].equals(playerList.getPlayer(i).getHighScore() + "") &&
+                    profile[2].equals(playerList.getPlayer(i).getGamesPlayed() + "") &&
+                    profile[3].equals(playerList.getPlayer(i).getGamesWon() + "")) {
+                savedCorrect = true;
             }
         }
         assertTrue(savedCorrect);
