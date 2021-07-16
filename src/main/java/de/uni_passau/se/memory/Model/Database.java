@@ -356,6 +356,10 @@ public class Database {
         playerProfiles = new ArrayList<>();
     }
 
+    public void setPlayerProfiles(List<String[]> playerProfiles) {
+        this.playerProfiles = playerProfiles;
+    }
+
     /**
      * Gets all playerProfiles.
      *
@@ -463,7 +467,6 @@ public class Database {
     public List<String[]> getPlayerProfiles() {
         return playerProfiles;
     }
-
 
     /**
      * Creates a new {@code INSTANCE} of the {@link Database}.

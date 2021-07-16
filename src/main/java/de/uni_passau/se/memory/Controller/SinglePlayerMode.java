@@ -13,5 +13,10 @@ public enum SinglePlayerMode {
     /**
      * Enables the player to play a game on time.
      */
-    TIME
+    TIME,
+
+    /**
+     * No singlePlayerMode is set.
+     */
+    MULTIPLAYER
 }
