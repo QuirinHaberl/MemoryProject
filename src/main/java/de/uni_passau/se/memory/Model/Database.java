@@ -436,8 +436,8 @@ public class Database {
     /**
      * Checks weather a {@link Player} is a default player.
      *
-     * @param player who won the current game.
-     * @return if player isa default player.
+     * @param player who won the current game
+     * @return if player is a default player
      */
     private boolean isDefaultPlayer(String player) {
         return switch (player) {
