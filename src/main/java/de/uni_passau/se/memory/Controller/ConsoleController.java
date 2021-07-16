@@ -75,7 +75,7 @@ public class ConsoleController {
         this.playingField = game.getPlayingField();
         this.menuStatus = MenuStatus.PLAYERMODE;
         this.database = game.getDatabase();
-        this.singlePlayerMode = SinglePlayerMode.MULTIPLAYER;
+        this.singlePlayerMode = SinglePlayerMode.DEFAULT;
     }
 
     /**

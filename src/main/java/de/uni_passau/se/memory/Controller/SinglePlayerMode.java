@@ -18,5 +18,5 @@ public enum SinglePlayerMode {
     /**
      * No singlePlayerMode is set.
      */
-    MULTIPLAYER
+    DEFAULT
 }
