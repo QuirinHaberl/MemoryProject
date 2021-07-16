@@ -3,6 +3,9 @@ package de.uni_passau.se.memory.Controller;
 import de.uni_passau.se.memory.Model.PlayingField;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ConsoleControllerTest {
@@ -47,6 +50,11 @@ class ConsoleControllerTest {
     @Test
     void handleInputsDuringGameTest() {
         ConsoleController consoleController = new ConsoleController();
+        List<String[]> playerProfiles = new ArrayList<>();
+        playerProfiles = Wrapper.getGame().getDatabase().loadFromFile(
+                "src/main/resources/de/uni_passau/se/memory/Database" +
+                        "/profiles.csv", playerProfiles);
+
         PlayingField playingField = new PlayingField();
         consoleController.setPlayingFieldBordSize(playingField, 4);
         consoleController.generateNewPlayerList();
@@ -56,11 +64,21 @@ class ConsoleControllerTest {
         assertTrue(consoleController.handleInputsDuringGame("score"));
         assertTrue(consoleController.handleInputsDuringGame("menu"));
         assertTrue(consoleController.handleInputsDuringGame("quit"));
+
+        Wrapper.getGame().getDatabase().setPlayerProfiles(playerProfiles);
+        Wrapper.getGame().getDatabase().useProfile(Wrapper.getGame().getPlayerList());
+        Wrapper.getGame().getDatabase().storePlayerProfiles();
     }
 
     @Test
     void handleInputsAfterGameTest() {
         ConsoleController consoleController = new ConsoleController();
+
+        List<String[]> playerProfiles = new ArrayList<>();
+        playerProfiles = Wrapper.getGame().getDatabase().loadFromFile(
+                "src/main/resources/de/uni_passau/se/memory/Database" +
+                        "/profiles.csv", playerProfiles);
+
         PlayingField playingField = new PlayingField();
         consoleController.setPlayingFieldBordSize(playingField, 4);
         consoleController.generateNewPlayerList();
@@ -68,5 +86,9 @@ class ConsoleControllerTest {
         assertFalse(consoleController.handleInputsAfterGame("menu"));
         assertFalse(consoleController.handleInputsAfterGame("quit"));
         assertTrue(consoleController.handleInputsAfterGame(""));
+
+        Wrapper.getGame().getDatabase().setPlayerProfiles(playerProfiles);
+        Wrapper.getGame().getDatabase().useProfile(Wrapper.getGame().getPlayerList());
+        Wrapper.getGame().getDatabase().storePlayerProfiles();
     }
 }
