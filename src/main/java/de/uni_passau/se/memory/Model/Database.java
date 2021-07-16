@@ -361,8 +361,10 @@ public class Database {
     public void updateHighScoreHistory(List<String> winningPlayers,
                                        int highestScore) {
         for (int i = winningPlayers.size() - 1; i >= 0; i--) {
-            if (!updateHighScore(winningPlayers.get(i), highestScore)) {
-                addNewHighScore(winningPlayers.get(i), highestScore);
+            if (!defaultPlayer(winningPlayers.get(i))) {
+                if (!updateHighScore(winningPlayers.get(i), highestScore)) {
+                    addNewHighScore(winningPlayers.get(i), highestScore);
+                }
             }
         }
     }
@@ -415,6 +417,19 @@ public class Database {
                 }
             }
         }
+    }
+
+    /**
+     * Checks weather a {@link Player} is a default player.
+     *
+     * @param player who won the current game.
+     * @return if player isa default player.
+     */
+    private boolean defaultPlayer(String player) {
+        return switch (player) {
+            case "Player1", "Player2", "Player3", "Player4" -> true;
+            default -> false;
+        };
     }
 
     /**
