@@ -16,66 +16,55 @@ import java.util.Scanner;
 public class ConsoleController {
 
     /**
+     * Required user input length.
+     * A user cant input more than 2 values at once.
+     */
+    public static int REQUIRED_INPUT_AMOUNT = 2;
+    /**
      * Stores the current game.
      */
     private final Game game;
-
     /**
      * Stores the current playerList.
      */
-    private final PlayerList playerList;
-
+    private PlayerList playerList;
     /**
      * Stores the database of a game.
      */
     private final Database database;
-
     /**
      * Stores the current playingFiled.
      */
     private final PlayingField playingField;
-
     /**
      * Stores the row of the first selected card.
      */
     private int firstRow = 0;
-
     /**
      * Stores the column of the first selected card.
      */
     private int firstCol = 0;
-
     /**
      * Stores the row of the second selected card.
      */
     private int secondRow = 0;
-
     /**
      * Stores the column of the second selected card.
      */
     private int secondCol = 0;
-
     /**
      * Stores the active player.
      */
     private Player activePlayer;
-
     /**
      * Stores the current {@link MenuStatus}.
      */
 
     private MenuStatus menuStatus;
-
     /**
      * Stores the current {@link SinglePlayerMode}.
      */
     private SinglePlayerMode singlePlayerMode;
-
-    /**
-     * Required user input length.
-     * A user cant input more than 2 values at once.
-     */
-    public static int REQUIRED_INPUT_AMOUNT = 2;
 
     /**
      * Constructs a new {@link ConsoleController}.
@@ -86,6 +75,7 @@ public class ConsoleController {
         this.playingField = game.getPlayingField();
         this.menuStatus = MenuStatus.PLAYERMODE;
         this.database = game.getDatabase();
+        this.singlePlayerMode = SinglePlayerMode.MULTIPLAYER;
     }
 
     /**
@@ -150,7 +140,7 @@ public class ConsoleController {
     public void selectBoardSize(BufferedReader bufferedReader) throws IOException {
         View.printSelectBoardSize();
         View.printMemory();
-        int size = validatePlayingFieldBoardSize(playingField, bufferedReader.readLine().trim());
+        int size = validatePlayingFieldBoardSize(bufferedReader.readLine().trim());
         if (size != 0) {
             setPlayingFieldBordSize(playingField, size);
             menuStatus = MenuStatus.CARDSET;
@@ -170,12 +160,10 @@ public class ConsoleController {
     /**
      * Validates a given size for playingField.
      *
-     * @param playingField is given to validate the size
-     * @param size         to validated
+     * @param size to validated
      * @return validated size
      */
-    public int validatePlayingFieldBoardSize(PlayingField playingField,
-                                             String size) {
+    public int validatePlayingFieldBoardSize(String size) {
         return playingField.selectBoardSize(size);
     }
 
@@ -196,7 +184,7 @@ public class ConsoleController {
             View.printBoard(playingField);
 
             //This is only for the single player mode with the setting "play on time"
-            if (getPlayingFieldSize(playingField) == 1
+            if (playerList.size() == 1
                     && singlePlayerMode.equals(SinglePlayerMode.TIME)) {
                 game.startTimer();
             }
@@ -267,6 +255,9 @@ public class ConsoleController {
             }
         }
         game.addPlayers(game.getPlayerAmount(), playerNames);
+        if (playerList.size() == 1 && singlePlayerMode.equals(SinglePlayerMode.LIFEPOINTS)) {
+            playerList.setPlayerLives(playerList.getPlayer(0), Game.FIVE_LIVES);
+        }
         menuStatus = MenuStatus.BOARDSIZE;
     }
 
@@ -510,7 +501,8 @@ public class ConsoleController {
             return false;
         }
 
-        boolean[] cache = new boolean[REQUIRED_INPUT_AMOUNT];
+        boolean[] cache = new boolean[]{false, false};
+
         for (int i = 0; i < REQUIRED_INPUT_AMOUNT; i++) {
             if (tokens[i].length() == 1 && tokens[i].matches("\\d")) {
                 if (Integer.parseInt(tokens[i]) < playingField.getBoard().length) {
@@ -522,7 +514,6 @@ public class ConsoleController {
                         View.error("Second entry was out of range");
                     }
                     activePlayer = playerList.getPlayerRear(activePlayer);
-
                 }
             } else {
                 if (i == 0) {
@@ -606,7 +597,7 @@ public class ConsoleController {
     public boolean handleSinglePlayerModeSettings(String mode) {
         mode = mode.toLowerCase();
         if (!(mode.equals("life") || mode.equals("time"))) {
-            View.error("You have to choose between 'time' ore 'life'");
+            View.error("You have to choose between 'time' or 'life'");
             return false;
         }
         if (mode.equals("life")) {
@@ -735,5 +726,14 @@ public class ConsoleController {
                 return true;
             }
         }
+    }
+
+    /**
+     * Used for testing.
+     */
+    public void generateNewPlayerList(){
+        this.playerList = new PlayerList();
+        playerList.addPlayer("Player1");
+        activePlayer = playerList.getPlayer(0);
     }
 }
