@@ -145,7 +145,7 @@ public class Database {
      * Sets which player wants to use a profile in usesProfiles.
      * In the GUI the is determined by checking the box in the
      * playerNameSelection-screen.
-     * *
+     *
      *
      * @param checkBoxes contains if a player wants to use a profile
      * @param textFields contains the name of player
