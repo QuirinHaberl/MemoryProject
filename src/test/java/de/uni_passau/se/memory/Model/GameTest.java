@@ -35,7 +35,7 @@ class GameTest {
 
         game.getPlayerList().getPlayer(0).getAchievements().setGamesWon(8);
 
-        //set Achievements with Reflections
+        //Set Achievements with Reflections
         Field currAch = Achievements.class.getDeclaredField("currentAchievements");
         currAch.setAccessible(true);
         currAch.set(game.getPlayerList().getPlayer(0).getAchievements(), "test123");
