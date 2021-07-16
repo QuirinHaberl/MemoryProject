@@ -37,13 +37,13 @@ public class Database {
      */
     private static final int HIGH_SCORE_POS = 1;
     /**
-     * Position of the gamesWon-entry in the profile-array.
-     */
-    private static final int GAMES_WON_POS = 2;
-    /**
      * Position of the gamesPlayed-entry in the profile-array.
      */
-    private static final int GAME_PLAYED_POS = 3;
+    private static final int GAME_PLAYED_POS = 2;
+    /**
+     * Position of the gamesWon-entry in the profile-array.
+     */
+    private static final int GAMES_WON_POS = 3;
     /**
      * Stores the {@code HighScoreHistory} in a list. A entry is structured as:
      * playerName;highScore;
@@ -75,6 +75,24 @@ public class Database {
      */
     public static Database getInstance() {
         return Database.InstanceHolder.INSTANCE;
+    }
+
+    /**
+     * Gets {@code pathToProfiles}
+     *
+     * @return pathToProfiles
+     */
+    public static String getPathToProfiles() {
+        return pathToProfiles;
+    }
+
+    /**
+     * Gets {@code pathToProfiles}
+     *
+     * @return pathToProfiles
+     */
+    public static String getPathToHighScores() {
+        return pathToHighScores;
     }
 
     /**
@@ -178,8 +196,8 @@ public class Database {
      */
     public void loadPlayerProfile(Player player, String[] playerProfile) {
         player.setHighScore(Integer.parseInt(playerProfile[HIGH_SCORE_POS]));
-        player.setGamesPlayed(Integer.parseInt(playerProfile[GAMES_WON_POS]));
-        player.setGamesWon(Integer.parseInt(playerProfile[GAME_PLAYED_POS]));
+        player.setGamesPlayed(Integer.parseInt(playerProfile[GAME_PLAYED_POS]));
+        player.setGamesWon(Integer.parseInt(playerProfile[GAMES_WON_POS]));
     }
 
     /**
@@ -257,21 +275,17 @@ public class Database {
 
                 name = getPlayerName(player);
 
-                if (playerProfile[NAME_POS].equals(playerList.getPlayerName(player))) {
-                    switch (name) {
-                        case "Player1", "Player2", "Player3", "Player4":
-                            break;
-                        default:
-                            playerProfile[NAME_POS] =
-                                    playerList.getPlayerName(player) + "";
-                            playerProfile[HIGH_SCORE_POS] =
-                                    playerList.getPlayerHighScore(player) + "";
-                            playerProfile[GAME_PLAYED_POS] =
-                                    playerList.getPlayerGamesPlayed(player) + "";
-                            playerProfile[GAMES_WON_POS] =
-                                    playerList.getPlayerGamesWon(player) + "";
-                            break;
-                    }
+                if (playerProfile[NAME_POS].equals(playerList.getPlayerName(player)) &&
+                        !(isDefaultPlayer(name))) {
+                    playerProfile[NAME_POS] =
+                            playerList.getPlayerName(player) + "";
+                    playerProfile[HIGH_SCORE_POS] =
+                            playerList.getPlayerHighScore(player) + "";
+                    playerProfile[GAME_PLAYED_POS] =
+                            playerList.getPlayerGamesPlayed(player) + "";
+                    playerProfile[GAMES_WON_POS] =
+                            playerList.getPlayerGamesWon(player) + "";
+
                 }
             }
         }
@@ -361,7 +375,7 @@ public class Database {
     public void updateHighScoreHistory(List<String> winningPlayers,
                                        int highestScore) {
         for (int i = winningPlayers.size() - 1; i >= 0; i--) {
-            if (!defaultPlayer(winningPlayers.get(i))) {
+            if (!isDefaultPlayer(winningPlayers.get(i))) {
                 if (!updateHighScore(winningPlayers.get(i), highestScore)) {
                     addNewHighScore(winningPlayers.get(i), highestScore);
                 }
@@ -422,10 +436,10 @@ public class Database {
     /**
      * Checks weather a {@link Player} is a default player.
      *
-     * @param player who won the current game.
-     * @return if player isa default player.
+     * @param player who won the current game
+     * @return if player is a default player
      */
-    private boolean defaultPlayer(String player) {
+    private boolean isDefaultPlayer(String player) {
         return switch (player) {
             case "Player1", "Player2", "Player3", "Player4" -> true;
             default -> false;
@@ -450,30 +464,6 @@ public class Database {
         return playerProfiles;
     }
 
-    /**
-     * Gets the {@code usesProfiles}-list.
-     *
-     * @return the usesProfiles-list
-     */
-    public List<Boolean> getUsesProfiles() {
-        return usesProfiles;
-    }
-
-    /**
-     * Gets {@code pathToProfiles}
-     * @return pathToProfiles
-     */
-    public static String getPathToProfiles() {
-        return pathToProfiles;
-    }
-
-    /**
-     * Gets {@code pathToProfiles}
-     * @return pathToProfiles
-     */
-    public static String getPathToHighScores() {
-        return pathToHighScores;
-    }
 
     /**
      * Creates a new {@code INSTANCE} of the {@link Database}.
