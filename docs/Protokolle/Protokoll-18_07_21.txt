@@ -1,0 +1,23 @@
+Protokoll des Zoommeetings am 18.07.21
+Teilnehmer: vollständig
+Autor: Isabella Habereder
+
+1. Abnahme README.md 
+
+Kleine grammatikalische Fehler wurden noch gemeinsam behoben
+
+2. Abnahme Iteration5.md 
+
+3. Kanbanboard aktualisieren
+
+Alle User-Stories und Tasks werden geschlossen
+
+4. Klassendiagramm
+
+Quirin und Isabella nahmen die letzten Veränderungen vor. Anschließendes Pushen. 
+
+5. Endabnahme des Projekts
+
+- Code wird nochmal durchgeschaut
+- Kleine Schönheitsfehler ausgebessert 
+- Controller-Tests werden von Jan nochmal überarbeitet. 

@@ -1,0 +1,29 @@
+Protokoll des Zoommeetings am 11.07.21
+Teilnehmer: vollständig
+Autor: Isabella Habereder
+
+1. Vorbereitung Präsentation des Projekts
+
+Jan und Isabella haben sich als Präsentierende freiwillig gemeldet. Es wurde sich darauf geeinigt, dass sowohl der Einzelspieler- als auch der Mehrspielermodus gezeigt werden sollen. In einem gesonderten Treffen haben sich Jan und Isabella dann noch genauer abgestimmt.
+
+
+2. Easter-Egg
+
+Bild für das Easter-Egg wurde im Meeting gemacht.
+
+
+3. Erstellung der README.md 
+
+Florian übernimmt das Designen der geforderten README Datei. 
+Gestaltungsvorschläge wurden vom Team abgesegnet und der grobe Gliederungsentwurf wurde gemeinsam überarbeitet.
+
+
+4. Manuelles Testen des Spiels
+
+Das Memory Spiel wurde im Meeting mit geteiltem Bildschirm einige Male zum manuellen Testen gespielt. 
+
+5. Klassendiagramm
+
+Quirin übernimmt das Erstellen des Klassendiagramms.
+Besprechen des Diagramms im nächsten Meeting.
+ 
