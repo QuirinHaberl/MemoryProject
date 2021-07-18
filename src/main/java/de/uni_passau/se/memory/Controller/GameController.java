@@ -106,7 +106,6 @@ public class GameController {
      * To store the revealed cards
      */
     private Card firstCard;
-    private Card secondCard;
     /**
      * Indicator of the first card
      */
@@ -373,7 +372,7 @@ public class GameController {
      */
     public void executeActive(ActionEvent event) {
 
-        secondCard = playingField.getCard(secondRow, secondCol);
+        Card secondCard = playingField.getCard(secondRow, secondCol);
 
         b2.getStyleClass().add(secondCard.getCardPicture(secondCard.getValue()));
 
@@ -512,10 +511,12 @@ public class GameController {
      * Closes the two opened cards.
      */
     public void closeCards() {
+        if (b1 != null && b2 != null) {
             b1.getStyleClass().clear();
             b1.getStyleClass().add("Card");
             b2.getStyleClass().clear();
             b2.getStyleClass().add("Card");
+        }
     }
 
     /**

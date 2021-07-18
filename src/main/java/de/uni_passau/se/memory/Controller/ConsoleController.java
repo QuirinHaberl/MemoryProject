@@ -193,16 +193,6 @@ public class ConsoleController {
     }
 
     /**
-     * Gets the size of a given playingField.
-     *
-     * @param playingField whose size is requested
-     * @return the size of a playingField
-     */
-    public int getPlayingFieldSize(PlayingField playingField) {
-        return playingField.getSize();
-    }
-
-    /**
      * Fill a playingFiled with cards.
      *
      * @param playingField to be filled
