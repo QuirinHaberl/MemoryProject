@@ -37,7 +37,7 @@ public class NumberOfPlayersController {
      * @param number      of players for the currently configured game
      */
     private void selectPlayers(ActionEvent actionEvent, int number) {
-        setGamePlayerAmount(getGame(Wrapper.getInstance()), number);
+        setGamePlayerAmount(Wrapper.getGame(), number);
         ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
         new Window("NameSelection.fxml");
     }
@@ -55,10 +55,9 @@ public class NumberOfPlayersController {
     /**
      * Gets the current game.
      *
-     * @param wrapper contains the current game
      * @return the requested game
      */
-    public Game getGame(Wrapper wrapper) {
+    public Game getGame() {
         return Wrapper.getGame();
     }
 

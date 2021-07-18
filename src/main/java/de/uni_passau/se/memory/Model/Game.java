@@ -77,15 +77,6 @@ public final class Game {
     }
 
     /**
-     * Returns a new {@code INSTANCE} of the {@link Game}.
-     *
-     * @return the INSTANCE of a {@link Game}.
-     */
-    public static Game getInstance() {
-        return Game.InstanceHolder.INSTANCE;
-    }
-
-    /**
      * Checks whether multiple players have the same score.
      *
      * @param players whose scores are reviewed
@@ -637,13 +628,6 @@ public final class Game {
      */
     public int getTimeCount() {
         return time.getCount();
-    }
-
-    /**
-     * Creates a new {@code INSTANCE} of the {@link Game}.
-     */
-    private static class InstanceHolder {
-        private static final Game INSTANCE = new Game();
     }
 
     /**

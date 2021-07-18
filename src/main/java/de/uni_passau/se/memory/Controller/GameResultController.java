@@ -180,7 +180,7 @@ public class GameResultController {
      * @param highScore      the highest score a player reached
      * @return the game summary
      */
-    private String printGameSummary(List<String> winningPlayers, int highScore) {
+    public String printGameSummary(List<String> winningPlayers, int highScore) {
         if (winningPlayers.size() > 1) {
             return "The game ended in a tie";
         } else {

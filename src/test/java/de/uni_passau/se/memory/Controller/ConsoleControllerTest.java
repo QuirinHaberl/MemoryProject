@@ -13,16 +13,13 @@ class ConsoleControllerTest {
     @Test
     void validatePlayingFieldBoardSizeTest() {
         ConsoleController consoleController = new ConsoleController();
-        assertEquals(consoleController.validatePlayingFieldBoardSize("0"), 0);
-        assertEquals(consoleController.validatePlayingFieldBoardSize("1"), 0);
-        assertEquals(consoleController.validatePlayingFieldBoardSize("2"), 2);
-        assertEquals(consoleController.validatePlayingFieldBoardSize("3"), 0);
-        assertEquals(consoleController.validatePlayingFieldBoardSize("4"), 4);
-        assertEquals(consoleController.validatePlayingFieldBoardSize("5"), 0);
-        assertEquals(consoleController.validatePlayingFieldBoardSize("6"), 6);
-        assertEquals(consoleController.validatePlayingFieldBoardSize("7"), 0);
-        assertEquals(consoleController.validatePlayingFieldBoardSize("8"), 8);
-        assertEquals(consoleController.validatePlayingFieldBoardSize("9"), 0);
+        for (int i = 0; i < 9; i++) {
+            if (i % 2 == 0 && i > 0) {
+                assertEquals(consoleController.validatePlayingFieldBoardSize(i + ""), i);
+            } else {
+                assertEquals(consoleController.validatePlayingFieldBoardSize(i + ""), 0);
+            }
+        }
     }
 
     @Test

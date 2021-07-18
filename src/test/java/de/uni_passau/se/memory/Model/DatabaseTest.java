@@ -17,11 +17,13 @@ class DatabaseTest {
     void useProfileTest() {
         database.setUsesProfileOnEveryPlayer(PLAYER_AMOUNT);
         PlayerList playerList = new PlayerList();
-        playerList.addPlayer("test1");
-        playerList.addPlayer("test2");
-        playerList.addPlayer("test3");
-        playerList.addPlayer("test4");
+
+        for (int i = 1; i <= 4 ; i++) {
+            playerList.addPlayer("test"+i);
+        }
+
         database.useProfile(playerList);
+
         assertFalse(database.getPlayerProfiles().isEmpty());
         for (int i = 0; i < PLAYER_AMOUNT; i++) {
             assertFalse(playerList.getPlayerProfileToString(playerList.getPlayer(i)).isEmpty());
@@ -32,11 +34,13 @@ class DatabaseTest {
     public void resetPlayerProfiles() {
         database.setUsesProfileOnEveryPlayer(PLAYER_AMOUNT);
         PlayerList playerList = new PlayerList();
-        playerList.addPlayer("test1");
-        playerList.addPlayer("test2");
-        playerList.addPlayer("test3");
-        playerList.addPlayer("test4");
+
+        for (int i = 1; i <= 4 ; i++) {
+            playerList.addPlayer("test"+i);
+        }
+
         database.useProfile(playerList);
+
         assertFalse(database.getPlayerProfiles().isEmpty());
         for (int i = 0; i < PLAYER_AMOUNT; i++) {
             assertFalse(playerList.getPlayerProfileToString(playerList.getPlayer(i)).isEmpty());
@@ -48,6 +52,7 @@ class DatabaseTest {
     @Test
     void loadFromFileTest() {
         List<String[]> list1 = new ArrayList<>();
+
         assertTrue(database.getPlayerProfiles().isEmpty());
         assertFalse(database.loadFromFile(Database.
                 getPathToProfiles(), list1).isEmpty());
@@ -62,10 +67,10 @@ class DatabaseTest {
     void saveProfileTest() {
         database.setUsesProfileOnEveryPlayer(PLAYER_AMOUNT);
         PlayerList playerList = new PlayerList();
-        playerList.addPlayer("test1");
-        playerList.addPlayer("test2");
-        playerList.addPlayer("test3");
-        playerList.addPlayer("test4");
+
+        for (int i = 1; i <= 4 ; i++) {
+            playerList.addPlayer("test"+i);
+        }
         database.useProfile(playerList);
         database.saveProfile(playerList);
         boolean savedCorrect = false;
