@@ -8,44 +8,52 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class AchievementsTest {
 
     private final Achievements achievements = new Achievements();
+    private static final int TEST_AMOUNT = 5;
 
     @Test
     void updateGamesPlayedTest() {
-        int amountPlayedGames = 5;
+        int amountPlayedGames = TEST_AMOUNT;
         achievements.setGamesPlayed(amountPlayedGames);
         achievements.updateGamesPlayed();
-        assertEquals(achievements.getGamesPlayed(), amountPlayedGames + 1);
+        assertEquals(achievements.getGamesPlayed(), amountPlayedGames + 1,
+                "Amount amount should be 6!");
     }
 
     @Test
     void updateGamesWonTest() {
-        int amountPlayedWon = 5;
+        int amountPlayedWon = TEST_AMOUNT;
         achievements.setGamesWon(amountPlayedWon);
         achievements.updateGamesWon();
-        assertEquals(achievements.getGamesWon(), amountPlayedWon + 1);
+        assertEquals(achievements.getGamesWon(), amountPlayedWon + 1,
+                "Amount should be 6!");
     }
 
     @Test
     void updatePairCountersTest() {
-        int pairCounterTotal = 5;
+        int pairCounterTotal = TEST_AMOUNT;
         achievements.setPairCounterTotal(pairCounterTotal);
-        int pairCounterStreak = 3;
+        int pairCounterStreak = TEST_AMOUNT;
         achievements.setPairCounterStreak(pairCounterStreak);
 
         achievements.updatePairCounters();
 
-        assertEquals(achievements.getPairCounterTotal(), pairCounterTotal + 1);
-        assertEquals(achievements.getPairCounterStreak(), pairCounterStreak + 1);
+        assertEquals(achievements.getPairCounterTotal(), pairCounterTotal + 1
+                , "Total should be 6!");
+        assertEquals(achievements.getPairCounterStreak(),
+                pairCounterStreak + 1, "Streak should be 6!");
     }
 
     @Test
     void clearCurrentAchievementTest() {
         String achievementText = "Test";
-        assertTrue(achievements.getCurrentAchievements().isEmpty());
+        assertTrue(achievements.getCurrentAchievements().isEmpty(),
+                "Achievement should not be empty!");
         achievements.setCurrentAchievements(achievementText);
-        assertEquals(achievements.getCurrentAchievements(), achievementText);
+        assertEquals(achievements.getCurrentAchievements(), achievementText,
+                "Achievements should be equal!");
         achievements.clearCurrentAchievement();
-        assertTrue(achievements.getCurrentAchievements().isEmpty());
+        assertTrue(achievements.getCurrentAchievements().isEmpty(),
+                "Achievement should be empty!");
     }
 
     @Test
@@ -57,7 +65,8 @@ class AchievementsTest {
             achievementText = "Found " + i + " pairs in total!\n";
             achievements.setPairCounterTotal(i);
             achievements.checkFoundPairsTotal();
-            assertEquals(achievements.getCurrentAchievements(), achievementText);
+            assertEquals(achievements.getCurrentAchievements(),
+                    achievementText, "Achievements should be equal!");
         }
     }
 
@@ -70,7 +79,8 @@ class AchievementsTest {
             achievementText = "Found " + i + " pairs in a row!\n";
             achievements.setPairCounterStreak(i);
             achievements.checkFoundPairsStreak();
-            assertEquals(achievements.getCurrentAchievements(), achievementText);
+            assertEquals(achievements.getCurrentAchievements(),
+                    achievementText, "Achievements should be equal!");
         }
     }
 
@@ -83,7 +93,8 @@ class AchievementsTest {
             achievementText = i + ". game won!\n";
             achievements.setGamesWon(i);
             achievements.checkGamesWon();
-            assertEquals(achievements.getCurrentAchievements(), achievementText);
+            assertEquals(achievements.getCurrentAchievements(),
+                    achievementText, "Achievements should be equal!");
         }
     }
 
@@ -95,7 +106,8 @@ class AchievementsTest {
             achievementText = "New PB of " + i + "!\n";
             achievements.setPairCounterTotal(i);
             achievements.checkHighScore();
-            assertEquals(achievements.getCurrentAchievements(), achievementText);
+            assertEquals(achievements.getCurrentAchievements(),
+                    achievementText, "Achievements should be equal!");
         }
     }
 }
