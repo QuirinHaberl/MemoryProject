@@ -1,10 +1,10 @@
 package de.uni_passau.se.memory.gui;
 
-import de.uni_passau.se.memory.Model.Card;
-import de.uni_passau.se.memory.Model.Enums.CardStatus;
-import de.uni_passau.se.memory.Model.Player;
-import de.uni_passau.se.memory.Model.PlayerList;
-import de.uni_passau.se.memory.Model.PlayingField;
+import de.uni_passau.se.memory.model.Card;
+import de.uni_passau.se.memory.model.Enums.CardStatus;
+import de.uni_passau.se.memory.model.Player;
+import de.uni_passau.se.memory.model.PlayerList;
+import de.uni_passau.se.memory.model.PlayingField;
 
 import java.util.List;
 
@@ -312,7 +312,7 @@ public final class View {
     }
 
     /**
-     * Informs the user to input the {@link de.uni_passau.se.memory.Model.Enums.CardSet}.
+     * Informs the user to input the {@link de.uni_passau.se.memory.model.Enums.CardSet}.
      */
     public static void printSelectCardSet() {
         System.out.println("Type 'L' for letters or 'D' for digits:");

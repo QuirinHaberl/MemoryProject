@@ -5,7 +5,7 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.layout.*?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/11.0.1"
-      fx:controller="de.uni_passau.se.memory.Controller.NumberOfPlayersController">
+      fx:controller="de.uni_passau.se.memory.controller.NumberOfPlayersController">
     <children>
         <AnchorPane prefHeight="29.0" prefWidth="600.0" style="-fx-background-color: black;">
             <children>

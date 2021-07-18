@@ -6,7 +6,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.layout.*?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" prefHeight="487.0" prefWidth="690.0" stylesheets="@Style.css"
-      xmlns="http://javafx.com/javafx/8.0.171" fx:controller="de.uni_passau.se.memory.Controller.EasterEggController">
+      xmlns="http://javafx.com/javafx/8.0.171" fx:controller="de.uni_passau.se.memory.controller.EasterEggController">
     <children>
         <AnchorPane prefHeight="29.0" prefWidth="600.0" style="-fx-background-color: black;">
             <children>
