@@ -31,6 +31,9 @@ public class PlayingField {
      * Default-constructor of {@link PlayingField}.
      */
     public PlayingField() {
+        //Default playingField
+        setBoard(4);
+        this.globalCardSet = CardSet.DIGITS;
     }
 
     /**

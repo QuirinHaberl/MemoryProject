@@ -245,4 +245,12 @@ public class NameSelectionController implements Initializable {
         click.play();
         new Window("Levels.fxml");
     }
+
+    public Label getNameLabel1(){
+        return nameLabel1;
+    }
+
+    public Label getNameLabel2(){
+        return nameLabel2;
+    }
 }

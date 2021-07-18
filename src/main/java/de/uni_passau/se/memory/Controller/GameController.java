@@ -325,7 +325,6 @@ public class GameController {
         } else {
             lives.getChildren().get((id - 1) / 2).getStyleClass().removeAll(
                     "LifeFull");
-            //TODO add LifeHalfFull
             lives.getChildren().get((id - 1) / 2).getStyleClass().add(
                     "LifeEmptyHalf");
         }
@@ -513,16 +512,10 @@ public class GameController {
      * Closes the two opened cards.
      */
     public void closeCards() {
-        try {
             b1.getStyleClass().clear();
             b1.getStyleClass().add("Card");
             b2.getStyleClass().clear();
             b2.getStyleClass().add("Card");
-        } catch (NullPointerException e) {
-
-            //Exception is caught to prevent the case where a closed card
-            // would be closed.
-        }
     }
 
     /**
@@ -534,7 +527,7 @@ public class GameController {
             achievementLabel.setFont(DEFAULT_FONT);
             achievementLabel.setText(activePlayer.getName() + " has earned:\n" + achievement);
 
-            //automatic text size adjustment
+            //Automatic text size adjustment
             Text tmpText = new Text(achievementLabel.getText());
             tmpText.setFont(DEFAULT_FONT);
             double textHeight = tmpText.getLayoutBounds().getHeight();
@@ -650,30 +643,10 @@ public class GameController {
     }
 
     /**
-     * Sets the size of a given playingField.
-     *
-     * @param playingField whose size is set
-     * @param size         to be set
-     */
-    public void setPlayingFieldBordSize(PlayingField playingField, int size) {
-        playingField.setBoard(size);
-    }
-
-    /**
-     * Used for testing.
-     */
-    public void generateNewPlayerList(){
-        PlayerList playerList = game.getPlayerList();
-        playerList = new PlayerList();
-        playerList.addPlayer("Player1");
-        activePlayer = playerList.getPlayer(0);
-    }
-
-    /**
      * This is a inner class for the timer of a {@link Game} in the GUI.
      * The default time is 120 seconds.
      */
-    public class CountDownGUI extends Pane {
+    private class CountDownGUI extends Pane {
 
         Label timer = new Label();
         private Timeline animation;
