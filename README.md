@@ -24,6 +24,7 @@ enclosing the number in brackets, i.e.: (1).
    [Multiplayer Game Result](#3.4.MultiPlayerGameResult) <br/>
 3. [Highscore History](#4.Highscore)
 4. [Console](#5.Console)
+5. [Conclusion](#6.Conclusion)
 <br><br/>
 <br><br/>
 ## <a name="1.StartingtheApplication"> 1. Starting the Application</a>
@@ -427,7 +428,16 @@ When playing on the console, most features are the same:
 Features only available on the console:
 - Playing the exact same game again
 - Playing a 2x2 playing field
+<br><br/>
+## <a name="6.Conclusion"></a> 6. Conclusion
 
+- The implemented features described above work without recognizable errors.
+- User stories which have not been implemented are documented in the issues.
+- The coding structure can be viewed in the ["Class-Diagram"]((src/docs/Class-Diagram-Iteration5.pdf))
 
+Problems occured in the past with:
+- Implementing a player ID
+- Implementaion of Observer-Pattern in the "Wrapper"
 
+Overall the program runs without error-messages or issues which could fall back onto the user.
 
