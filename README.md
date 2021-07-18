@@ -433,7 +433,7 @@ Features only available on the console:
 
 - The implemented features described above work without recognizable errors.
 - User stories which have not been implemented are documented in the issues.
-- The coding structure can be viewed in the ["Class-Diagram"]((src/docs/Class-Diagram-Iteration5.pdf))
+- The coding structure can be viewed in the ["Class-Diagram"](src/docs/Class-Diagram-Iteration5.pdf)
 
 Problems occured in the past with:
 - Implementing a player ID
