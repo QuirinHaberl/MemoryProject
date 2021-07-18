@@ -15,7 +15,7 @@ class CardTest {
     private Card card;
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
         card = new Card(cardValue, cardSet);
     }
 

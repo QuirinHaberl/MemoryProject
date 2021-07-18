@@ -6,19 +6,15 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class PlayerListTest {
 
-
-    private Database database;
     private PlayerList playerList;
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
         playerList = new PlayerList();
-        database = new Database();
     }
 
     @Test
@@ -45,8 +41,8 @@ class PlayerListTest {
 
         playerList.deleteAllPlayers();
 
-        assertEquals(null, playerList.getFront(), "this PlayerList is not null!");
-        assertEquals(null, playerList.getRear(), "this PlayerList is not null!");
+        assertNull(playerList.getFront(), "this PlayerList is not null!");
+        assertNull(playerList.getRear(), "this PlayerList is not null!");
         assertEquals(0, playerList.size(), "this PlayerList is not null!");
     }
 

@@ -5,8 +5,7 @@ import de.uni_passau.se.memory.model.Enums.CardValue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class PlayingFieldTest {
 
@@ -16,7 +15,7 @@ class PlayingFieldTest {
     private PlayingField playingField;
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
         playingField = new PlayingField();
         playingField.setBoard(size);
         playingField.setCardSet(globalCardSet);
@@ -35,7 +34,7 @@ class PlayingFieldTest {
                 }
             }
         }
-        assertEquals(false, ifNull, "At least one element is null!");
+        assertFalse(ifNull, "At least one element is null!");
     }
 
     @Test
@@ -51,7 +50,7 @@ class PlayingFieldTest {
                 }
             }
         }
-        assertEquals(false, ifNull, "At least one element has no value or CardSet!");
+        assertFalse(ifNull, "At least one element has no value or CardSet!");
     }
 
     @Test
@@ -68,7 +67,7 @@ class PlayingFieldTest {
                 }
             }
         }
-        assertEquals(true, ifRandom, "The Card[][] are not random!");
+        assertTrue(ifRandom, "The Card[][] are not random!");
     }
 
     @Test

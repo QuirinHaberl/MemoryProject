@@ -56,9 +56,7 @@ class GameTest {
     @Test
     void revealFirstCard_IllegalPos() {
 
-        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
-            game.revealFirstCard(-1, 0);
-        });
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> game.revealFirstCard(-1, 0));
     }
 
 
@@ -84,7 +82,7 @@ class GameTest {
     }
 
     @Test
-    void pairCheck_AssumeTrue() throws NoSuchFieldException, IllegalAccessException {
+    void pairCheck_AssumeTrue() {
 
         CardValue value = game.playingField.getCard(0, 0).getValue();
 
@@ -99,7 +97,7 @@ class GameTest {
     }
 
     @Test
-    void pairCheck_AssumeFalse() throws NoSuchFieldException, IllegalAccessException {
+    void pairCheck_AssumeFalse() {
 
         CardValue value = game.playingField.getCard(0, 0).getValue();
 

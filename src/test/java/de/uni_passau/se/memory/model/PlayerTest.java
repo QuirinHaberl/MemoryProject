@@ -7,12 +7,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class PlayerTest {
 
-    private final String player1 = "player1";
-    private final int score = 10;
     private Player player;
 
     @BeforeEach
-    void setUp() throws Exception {
+    void setUp() {
+        int score = 10;
+        String player1 = "player1";
         player = new Player(player1, score, null, null);
     }
 
@@ -34,9 +34,6 @@ class PlayerTest {
     void playerProfileToString() {
         player.getAchievements().setHighScore(10);
         player.getAchievements().setGamesPlayed(5);
-        String profile1 = player.getName() + ", highest score: " +
-                player.getAchievements().getHighScore() + "," + " has played " +
-                player.getAchievements().getGamesPlayed() + " times.";
         String profile = "player1, highest score: 10,  has played 5 times.";
         assertEquals(profile, player.profileToString(), "hh");
     }
@@ -73,7 +70,12 @@ class PlayerTest {
         player.getAchievements().checkGamesWon();
         player.getAchievements().checkHighScore();
 
-        String achievement = "Found 4 pairs in total!\n" + "Found 4 pairs in a row!\n" + "5. game won!\n" + "New PB of 4!\n";
+        String achievement = """
+                Found 4 pairs in total!
+                Found 4 pairs in a row!
+                5. game won!
+                New PB of 4!
+                """;
 
         assertEquals(achievement, player.getCurrentAchievement(), "these are not the same!");
         player.clearCurrentAchievement();
@@ -140,6 +142,5 @@ class PlayerTest {
         player.getAchievements().setGamesWon(2);
         player.getAchievements().checkGamesWon();
 
-        String str = "2. game won!\n";
     }
 }
