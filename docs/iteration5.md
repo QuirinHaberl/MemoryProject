@@ -118,3 +118,4 @@ Das Klassendiagramm wurde im Team aktualisiert und von Quirin generiert.
 | #259 |||P,R|||
 | #260 |||P,R|||
 | #263 |||R||P,R|
+| #270 ||||P,R||
