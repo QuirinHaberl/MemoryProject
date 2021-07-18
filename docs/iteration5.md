@@ -25,15 +25,15 @@
 
 **Agenda für Iteration 5:**
 - Umsetzung des GUI:
-    - Das Spiel wurde spielbar gemacht. Sprich, Kisten werden nach dem Öffnen ausgeblendet und Punkte der Spieler werden aktualisiert. Hier hat das ganze Team geholfen.
+    - Das Spiel wurde über die GUI ausführbar. Sprich, Kisten werden nach dem Öffnen ausgeblendet und Punkte der Spieler werden aktualisiert. Hier hat das ganze Team geholfen.
     - Die verschiedenen Spielmodi sind nun spielbar. Die Implementierung Modus auf Leben übernahm Quirin - den Modus gegen die Zeit Isabella
     - Das Spielergebnis erscheint in einem separaten Fenster, nachdem ein Spiel beendet wurde. Hier wird zwischen Sieg, Niederlage und Unentschieden unterschieden. Dies wurde         hauptsächlich von Florian und Quirin umgesetzt.
-    - Eine zum jeweilig auftretenden Event abgestimmte Geräuschkullisse ist implementiert worden. Hier übernahm Florian die Beschaffung der Sounddateinen.
+    - Eine zum jeweilig auftretenden Event abgestimmte Geräuschkullisse ist implementiert worden. Hier übernahm Florian die Umsetzung.
     - Die Achievements der Spieler werden im laufenden Spiel angezeigt werden. Jan war dafür zuständig.
     - Dynamische Text Anpassung der Achievements wurde durch Florian realisiert.
-    - Die Funktionen rund ums Spielmenü sind nun im laufenden Spiel verwendbar. Isabella und Quirin haben diese Fuktionen implementiert.
+    - Die Funktionen rund ums Spielmenü sind nun im laufenden Spiel verwendbar. Isabella, Florian und Quirin haben diese Fuktionen implementiert.
     - Die Spielerfprofile im GUI wurden von Jan implementiert.
-    - Die HighScoreHistory im GUI wurde von Quriin implementiert.
+    - Die HighScoreHistory im GUI wurden von Quriin und Florian implementiert.
     
 - Refactoring:
     - Der bestehende Code aller Klassen des Projekts wurden vom gesamten Team gerefactored.
@@ -47,7 +47,7 @@
     - Die Tests von DataBase, Achievement und den Controllern wurden von Jan geschrieben.
    
 - Dokumentation mit JavaCode:
-    - Das ganze Team hat fehle Dokumentation ergänzt und bestehende verbessert.
+    - Das ganze Team hat fehlende Dokumentation ergänzt und bestehende verbessert.
 
 **Anhang:**  
 Protokolle der Zoom-Meetings:
@@ -56,7 +56,7 @@ Protokolle der Zoom-Meetings:
 - Protokoll_18_07_21.txt
 
 **Klassendiagramm:**  
-Das Klassendiagramm wurde im Team aktualisiert und von Quirin generiert. 
+Das Klassendiagramm wurde im Team aktualisiert und von Quirin erstellt und von Isablla um fehlende Verbindungen erweitert. 
 
 **Iteration 5**
 
