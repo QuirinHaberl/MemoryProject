@@ -403,7 +403,7 @@ will be shown here, provided they have beaten an existing Highscore.
  
 *[HighScore.fxml](src/main/resources/de/uni_passau/se/memory/gui/HighScore.fxml)*
 
-<img src="docs/ScreenShots/2_HighScore.PNG" width="500"/>
+<img src="docs/ScreenShots/2_HighScore.png" width="500"/>
 
 **Display:**
 
