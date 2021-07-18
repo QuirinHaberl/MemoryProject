@@ -19,7 +19,6 @@ class ConsoleControllerTest {
             } else {
                 assertEquals(consoleController.validatePlayingFieldBoardSize(i + ""), 0);
             }
-
         }
     }
 
