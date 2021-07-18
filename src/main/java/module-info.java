@@ -8,5 +8,5 @@ module de.uni_passau.se.memory.gui {
 
     // FXML uses reflection to inject references to the GUI into the controller
     opens de.uni_passau.se.memory.gui to javafx.fxml, javafx.graphics, javafx.media;
-    opens de.uni_passau.se.memory.Controller to javafx.fxml, javafx.graphics, javafx.media;
+    opens de.uni_passau.se.memory.controller to javafx.fxml, javafx.graphics, javafx.media;
 }

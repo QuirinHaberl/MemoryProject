@@ -1,13 +1,13 @@
 package de.uni_passau.se.memory;
 
-import de.uni_passau.se.memory.Controller.ConsoleController;
+import de.uni_passau.se.memory.controller.ConsoleController;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- * The de.uni_passau.se.memory.Main-class of the memory-game.
+ * The Main-class of the memory-game.
  */
 public class Main {
 

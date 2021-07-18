@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.layout.*?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8.0.171"
-      fx:controller="de.uni_passau.se.memory.Controller.HighScoreController">
+      fx:controller="de.uni_passau.se.memory.controller.HighScoreController">
     <children>
         <AnchorPane prefHeight="29.0" prefWidth="600.0" style="-fx-background-color: black;">
             <children>
@@ -30,17 +29,18 @@
                     </cursor>
                 </Button>
                 <Button fx:id="EasterEgg" layoutY="-3.0" mnemonicParsing="false" onAction="#eeClicked" prefHeight="29.0"
-                        prefWidth="32.0" styleClass="Card">
+                        prefWidth="32.0" styleClass="EasterEgg">
                     <cursor>
                         <Cursor fx:constant="HAND"/>
                     </cursor>
                 </Button>
             </children>
         </AnchorPane>
-        <AnchorPane prefHeight="522.0" prefWidth="600.0" style="-fx-background-color: Black;" stylesheets="@Style.css">
+        <AnchorPane prefHeight="522.0" prefWidth="600.0" style="-fx-background-color: Black;" styleClass="Background2"
+                    stylesheets="@Style.css">
             <children>
-                <Button layoutX="530.0" layoutY="474.0" mnemonicParsing="false" onAction="#back" styleClass="text20"
-                        text="Back"/>
+                <Button layoutX="530.0" layoutY="474.0" mnemonicParsing="false" onAction="#back"
+                        style="-fx-background-color: black;" styleClass="text20" text="Back" textFill="WHITE"/>
                 <AnchorPane prefHeight="84.0" prefWidth="600.0" styleClass="BannerHighscore">
                     <children>
                         <Label alignment="CENTER" prefHeight="84.0" prefWidth="600.0" styleClass="text40"

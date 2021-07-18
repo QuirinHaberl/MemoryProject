@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.layout.*?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8.0.171"
-      fx:controller="de.uni_passau.se.memory.Controller.NumberOfPlayersController">
+<VBox xmlns:fx="http://javafx.com/fxml/1" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/11.0.1"
+      fx:controller="de.uni_passau.se.memory.controller.NumberOfPlayersController">
     <children>
         <AnchorPane prefHeight="29.0" prefWidth="600.0" style="-fx-background-color: black;">
             <children>
@@ -30,7 +29,7 @@
                     </cursor>
                 </Button>
                 <Button fx:id="EasterEgg" layoutY="-3.0" mnemonicParsing="false" onAction="#eeClicked" prefHeight="29.0"
-                        prefWidth="32.0" styleClass="Card">
+                        prefWidth="32.0" styleClass="EasterEgg">
                     <cursor>
                         <Cursor fx:constant="HAND"/>
                     </cursor>
@@ -40,8 +39,7 @@
         <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="Background2" stylesheets="@Style.css">
             <children>
                 <Button layoutX="150.0" layoutY="145.0" mnemonicParsing="false" onAction="#twoPlayers" prefHeight="40.0"
-                        prefWidth="300.0" style="-fx-background-color: transparent;" styleClass="Banner"
-                        text="One Friend">
+                        prefWidth="300.0" style="-fx-background-color: transparent;" styleClass="Banner" text="1 vs 1">
                     <cursor>
                         <Cursor fx:constant="HAND"/>
                     </cursor>
@@ -50,8 +48,7 @@
                     </padding>
                 </Button>
                 <Button layoutY="229.0" mnemonicParsing="false" onAction="#threePlayers" prefHeight="40.0"
-                        prefWidth="300.0" style="-fx-background-color: transparent;" styleClass="Banner"
-                        text="Two Friends">
+                        prefWidth="300.0" style="-fx-background-color: transparent;" styleClass="Banner" text="1 vs 2">
                     <cursor>
                         <Cursor fx:constant="HAND"/>
                     </cursor>
@@ -61,7 +58,7 @@
                 </Button>
                 <Button layoutX="307.0" layoutY="229.0" mnemonicParsing="false" onAction="#fourPlayers"
                         prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: transparent;"
-                        styleClass="Banner" text="Three Friends">
+                        styleClass="Banner" text="1 vs 3">
                     <cursor>
                         <Cursor fx:constant="HAND"/>
                     </cursor>

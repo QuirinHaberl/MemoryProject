@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8.0.171"
-      fx:controller="de.uni_passau.se.memory.Controller.StartScreenController">
+<VBox xmlns:fx="http://javafx.com/fxml/1" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/11.0.1"
+      fx:controller="de.uni_passau.se.memory.controller.StartScreenController">
     <children>
         <AnchorPane prefHeight="29.0" prefWidth="600.0" style="-fx-background-color: black;">
             <children>
@@ -32,7 +31,7 @@
                     </cursor>
                 </Button>
                 <Button fx:id="EasterEgg" layoutY="-3.0" mnemonicParsing="false" onAction="#eeClicked" prefHeight="29.0"
-                        prefWidth="32.0" styleClass="Card">
+                        prefWidth="32.0" styleClass="EasterEgg">
                     <cursor>
                         <Cursor fx:constant="HAND"/>
                     </cursor>
@@ -71,7 +70,7 @@
                         <DropShadow/>
                     </effect>
                 </Button>
-                <Button layoutX="26.0" layoutY="343.0" mnemonicParsing="false" onAction="#highscore" prefHeight="43.0"
+                <Button layoutX="26.0" layoutY="343.0" mnemonicParsing="false" onAction="#highScore" prefHeight="43.0"
                         prefWidth="215.0" style="-fx-background-color: transparent;" styleClass="BannerHighscore"
                         text="Highscore">
                     <font>
